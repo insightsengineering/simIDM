@@ -1,0 +1,24 @@
+---
+title: "Design of function bla_bla"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Objective
+
+This function does ...
+
+## Prototype
+
+You can also embed plots, for example:
+
+```{r prototype}
+bla_bla <- function(bli) {
+  print(bli)
+}
+```
+
+Note that ...
