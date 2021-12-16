@@ -1,0 +1,136 @@
+---
+title: "Testing"
+author: "Alexandra Niessl"
+date: "12/16/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Objective
+This function simulates data from an illness-death model with one row per transition and subject
+Input parameters:
+N: Number of patients
+alpha01:  initial to progression transition hazard
+alpha02:  initial to death transition hazard
+alpha12:  progression to death transtion hazard
+...
+
+
+
+```{r prototype}
+
+getSimulatedData<-function(N,alpha01,alpha02,alpha12, p01=1,p02=1,p12=1, pwT01=0,pwT02=0,pwT12=0,dropoutRate=0, dropTime=0,accrualIntensity=0,accrualTime=0){
+  
+  #get rate parameter for exponential distributed censoring times
+  if(dropoutRate != 0){
+    censRate<-  -log(1-dropoutRate)/dropTime
+    #get censoring times
+    censTime<-rexp(N, censRate)
+  }
+  
+  ###all individuals start in the initial state
+  entry<-rep(0,N)
+  from<-rep(0,N)
+  
+  ###Waiting time in the initial state 0 
+  U<-runif(N)
+  
+  ##for exponential or Weibull
+  if(length(alpha02)==1&length(alpha01)==1){
+    wait_time<- getWaitTimeSum(N,U,alpha01,alpha02,p01,p02,max.int=10000,entry)  
+    ###binomial experiment decides on death or progression
+    numerator<-p01*alpha01^p01*wait_time^(p01-1)
+    denumerator<-numerator+p02*alpha02^p02*wait_time^(p02-1)
+ 
+  ##for piecewise constant
+   }else{
+    wait_time<- pcw(N,U, getSumPCW(alpha01, alpha02,pwT01, pwT02), 
+                    unique(sort(c(pwT01,pwT02))),entry)
+    ###binomial experiment decides on death or progression
+    numerator<-getPCWHazard(alpha01,pwT01,wait_time)
+    denumerator<-getPCWHazard(alpha01,pwT01,wait_time)+getPCWHazard(alpha02,pwT02,wait_time)
+  }
+  
+  to_prob <- rbinom(N,1, numerator/denumerator)
+  to<- ifelse(to_prob==0,2,1)
+  exit<-wait_time
+  
+  ##add censoring
+  if(dropoutRate != 0){
+    to<-ifelse(censTime< wait_time, "cens", to)  
+    exit<-pmin(censTime,wait_time)
+  }
+  simData<-data.frame(id=1:N, from=from, to=to, entry=entry, exit=exit,stringsAsFactors = FALSE)
+  
+  ###1->2 transition
+  id1<-simData$id[simData$to==1]
+  if(length(id1)!=0){
+    N1<-length(id1)
+    U1<-runif(N1)
+    to1<-rep(2,N1)
+    from1<-rep(1,N1)
+    entry1<-simData$exit[simData$id %in% id1]
+    
+    ##Wait time in state 1
+    ##exponential 
+    if(length(alpha12)==1 & p12==1){
+      wait_time1<- (-log(1-U1))/(alpha12)
+     
+    ##Weibull
+    }else if(length(alpha12)==1){
+      wait_time1<- getWaitTimeSum(N1,U1,alpha12,alpha02=0,p12,p02=1,max.int=1000,entry=entry1)
+    
+    #piecewise
+    }else{
+      wait_time1<- pcw(N1,U1,haz=alpha12, cuts=pwT12,t_0=entry1)
+    }
+
+    exit1<-entry1+wait_time1
+  
+    ##add censoring
+    if(dropoutRate != 0){ 
+      censTime1<-censTime[id1]
+      to1<-ifelse(censTime1< exit1, "cens", to1)  
+      exit1<-pmin(censTime1,exit1)
+    }
+    newRows<-data.frame(id=id1, from=from1, to=to1, entry=entry1, exit=exit1,stringsAsFactors = FALSE)
+    simData<-rbind(simData,newRows)
+  }  
+  
+  simData<- simData[order(simData$id),]
+  
+  ###add staggered study entry
+  ##get accrual times
+  if(accrualTime != 0){
+    entry_act<-runif(N,0,accrualTime)
+  }
+  if(accrualIntensity !=0 & accrualTime==0){
+    accrualTime<-N/accrualIntensity 
+    entry_act<-runif(N,0,accrualTime)
+  } 
+  else{
+    entry_act=rep(0,N)
+  }
+  
+  entryAct<-cbind(id=1:N,entry_act)
+  
+  simData<-merge(simData, entryAct)
+  exitAct<-simData$exit+simData$entry_act
+  entryAct<-simData$entry+simData$entry_act
+  if(dropoutRate != 0){
+    censAct<-censTime+entry_act
+    simData<-merge(simData, cbind(id=1:N, censAct))
+  } 
+  simData<-cbind(simData,  entryAct, exitAct)
+  simData[,c("entry_act")]<-list(NULL)
+  return(simData)
+} 
+
+```
+
+
+
+
