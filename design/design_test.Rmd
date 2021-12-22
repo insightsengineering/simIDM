@@ -9,6 +9,10 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## Context
+
+(where this will be used later)
+
 ## Objective
 This function simulates data from an illness-death model with one row per transition and subject
 Input parameters:
@@ -18,11 +22,79 @@ alpha02:  initial to death transition hazard
 alpha12:  progression to death transtion hazard
 ...
 
-
+## Prototype
 
 ```{r prototype}
 
-getSimulatedData<-function(N,alpha01,alpha02,alpha12, p01=1,p02=1,p12=1, pwT01=0,pwT02=0,pwT12=0,dropoutRate=0, dropTime=0,accrualIntensity=0,accrualTime=0){
+# getSimulatedData<-function(N,
+#                            alpha01,alpha02,alpha12, 
+#                            p01=1,p02=1,p12=1, 
+#                            pwT01=0,pwT02=0,pwT12=0,
+#                            dropoutRate=0, dropTime=0,accrualIntensity=0,accrualTime=0){
+
+library(checkmate)
+
+assert_positive_number <- function(x) {
+  assert_number(x)
+  assert_true(x > 0)
+}
+
+exponential_transition <- function(h01, h02, h12) {
+  assert_positive_number(h01)
+  assert_positive_number(h02)
+  assert_positive_number(h12)
+  structure(
+    list(
+      hazards = list(h01 = h01, h02 = h02, h12 = h12),
+      intervals = list(p01 = 0, p02 = 0, p12 = 0),
+      weibull_rates = list(p01 = 1, p02 = 1, p12 = 1)
+    ),
+    class = "TransitionParameters"
+  )
+}
+
+test <- exponential_transition(1, 1, 1)
+class(test)
+
+print.TransitionParameters <- function(object) {
+  cat("Transition Parameters for Simulations\n")
+  cat("hazards:", unlist(object$hazards))
+}
+
+test
+
+piecewise_constant <- function() {
+  
+}
+
+weibull_transition <- function(hazards, weibull_rates) {
+  list(
+    transition_hazards = list(h01 = 1, h02 = 1, h12 = 1),
+    weibull_rates = list(p01 = 1,p02 =1,p12=1),
+    hazard_intervals = list(p01 = 0,p02 = 0,p12 = 0),
+  )
+}
+
+ 
+#' Title
+#'
+#' @param N (`int`)\cr number of patients.
+#' @param transition (`TransitionParameters`)\cr transition parameters comprising 
+#'   `hazards`, corresponding `intervals` and `weibull_rates`, see ...
+#' @param dropout 
+#' @param accrual 
+#' 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+getSimulatedData<-function(N,
+                           transition = exponential_transition(h01 = 1, h02 = 1, h12 = 1),
+                           dropout = list(rate = 0, time = 0),
+                           accrual = list(intensity = 0, time = 0)) {
+  assert_int(N, lower = 1L)
+  assert_class(transition_parameters, "TransitionParameters")
   
   #get rate parameter for exponential distributed censoring times
   if(dropoutRate != 0){
@@ -131,6 +203,16 @@ getSimulatedData<-function(N,alpha01,alpha02,alpha12, p01=1,p02=1,p12=1, pwT01=0
 
 ```
 
+## Helper functions
+
+```{r}
+# put here
+```
 
 
+## Try it out
+
+```{r}
+# 1-2 examples
+```
 
