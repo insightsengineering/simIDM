@@ -14,66 +14,74 @@ The function 'getSimulatedData' creates a single simulated data set for a single
 The function is used as basis for simulating a large number of oncology clinical trials. The large number of simulation iterations is generated using the function 'replicate'. The input parameters of 'getSimulatedData' can vary for each treatment arm. 
 That is, the simulation of a trial with nRep simulation iterations will be constructed as follows:
 
+```{r, eval = FALSE}
 replicate(nRep, function(
-  simulateTrt<-getSimulatedData(...)
-  simulatePlac<-getSimulatedData(...)
-  combine+coding treatment
+  simulateTrt <- getSimulatedData(...)
+  simulatePlac <- getSimulatedData(...)
+  # combine+coding treatment
   )
 )
+```
 
-For most applications, the data sets are converted to a wide format (one row per individual).
-The simulations are used to answer different planning questions for clinical trials with endpoints overall survival and progression-free survival.
+The output from `getSimulatedData` is in long format, so one row per transition per individual.
+For most applications, the data sets are converted to a wide format (one row per individual, only with endpoints
+as columns).
+The simulations are used to answer different planning questions for clinical trials with endpoints overall survival (OS) and progression-free survival (PFS).
 
 
 ## Objective
-The function 'getSimulatedData' simulates data from an illness-death model with one row per transition and subject. It allows for random dropouts, staggered study entry, different distributions of event times (exponential, piece-wise exponential, Weibull)
-Input parameters:
-N:    Number of patients
-transition: specifies the three transition hazards of the illness-death model
-            see class 'transition'
-            default: exponential distributed event times with h01=h02=h12=1
-dropout:   specifies dropout probability (dropout\$rate) 
-           within a time range dropout\$time
-           default: no random  dropout/censoring
-accrual:   specifies the recruiting/staggered study entry
-           Either accrual intensity (number of patients recruited per time unit) 
-           or accrual time  could be specified, see function 'addStaggeredEntry'
-           default: no staggered study entry
 
-Output:
+The function 'getSimulatedData' simulates data from an illness-death model with one row per transition and subject. It allows for random dropouts, staggered study entry, different distributions of event times (exponential, piece-wise exponential, Weibull).
+
+### Input parameters:
+
+- N: Number of patients
+- transition: specifies the three transition hazards of the illness-death model see class 'transition'
+  - default: exponential distributed event times with $h01=h02=h12=1$
+- dropout:  specifies dropout probability (`dropout$rate`) within a time range `dropout$time`
+  - default: no random dropout/censoring
+- accrual: specifies the recruiting/staggered study entry. Either accrual intensity (number of patients recruited per time unit) or accrual time  could be specified, see function `addStaggeredEntry`
+  - default: no staggered study entry
+
+### Output:
+
 simulated data set with the following columns:
-id: patient id
-from: starting state of transition
-to: final state of transition
-entry: entry time of 'from' on individual time  scale
-exit: exit time of 'from' and entry time of 'to' on individual time scale
-entryAct: entry time on study time scale
-exitAct:  exit time on study time scale
-censAct:  censoring time on study time scale  (required?)
 
+- id: patient id
+- from: starting state of transition
+- to: final state of transition
+- entry: entry time of 'from' on individual time  scale
+- exit: exit time of 'from' and entry time of 'to' on individual time scale
+- entryAct: entry time on study time scale
+- exitAct:  exit time on study time scale
+- censAct:  censoring time on study time scale (maybe not required?)
 
-Illness-death multistate data are simulated using the following algorithm:
-1. simulate waiting times in the initial state with all-cause hazard h01(t)+h02(t)
+### Illness-death multistate modeling
+
+The data are simulated using the following algorithm:
+
+1. Simulate waiting times in the initial state with all-cause hazard $h01(t)+h02(t)$.
 2. Run a binomial experiment for a simulated waiting-time, say $t_0$, which decides with probability
-h01 ($t_0$) /(h01($t_0$)+h02($t_0$)) on progression 
+$h01(t_0) /(h01(t_0)+h02(t_0))$ on progression 
 3. If the binomial experiment decides on death, step 4 follows. If the binomial experiment decides on
-intermediate state progression, the waiting time in the progression state is simulated with hazard h12(t), t $\geq t_0$.
+intermediate state progression, the waiting time in the progression state is simulated with hazard $h12(t), t \geq t_0$.
 4. If censoring is present: Additionally, generate random exponential distributed censoring times (according to dropout parameters). Transition times of an individual occurring after the censoring time will be censored.
-5.Staggered study entry times are added at the end - see helper function 'addStaggeredEntry'.
+5. Staggered study entry times are added at the end - see helper function `addStaggeredEntry`.
 
 
-##Assertions
+## Assertions
+
 ```{r}
-
 library(checkmate)
-##additional functions are needed to check input parameters of our function
+## Additional functions are needed to check input parameters of our function
 assert_positive_number <- function(x) {
   assert_number(x)
   assert_true(x > 0)
 }
-
 ```
-##New class Transition
+
+## New class Transition
+
 ```{r}
 exponential_transition <- function(h01, h02, h12) {
   assert_positive_number(h01)
@@ -81,10 +89,10 @@ exponential_transition <- function(h01, h02, h12) {
   assert_positive_number(h12)
   structure(
     list(
-      hazards =   list(h01 = h01, h02 = h02, h12 = h12),
+      hazards = list(h01 = h01, h02 = h02, h12 = h12),
       intervals = list(pw01 = 0, pw02 = 0, pw12 = 0),
       weibull_rates = list(p01 = 1, p02 = 1, p12 = 1),
-      family='exponential'
+      family = "exponential"
     ),
     class = "TransitionParameters"
   )
@@ -93,31 +101,43 @@ exponential_transition <- function(h01, h02, h12) {
 test <- exponential_transition(1, 1, 1)
 class(test)
 
-
 print.TransitionParameters <- function(object) {
   cat("Transition parameters for simulations with", unlist(object$family),             "distributed survival times \n")
-  cat("Transition Hazards: ", "h01=", as.character(unlist(object$hazards[1])), ", h02=", unlist(object$hazards[2]), ", h12=", unlist(object$hazards[3]), sep=" ")
-  ##add intervals and weibull rates (only for family = weibull, piecewise exponential..)
+  cat(
+    "Transition Hazards: ", 
+    "h01 =", as.character(unlist(object$hazards[1])), 
+    ", h02 =", unlist(object$hazards[2]), 
+    ", h12 =", unlist(object$hazards[3]), 
+    sep = " "
+  )
+  ## add intervals and weibull rates (only for family = weibull, piecewise exponential..)
 }
 
 test
 
-piecewise_exponential <- function(h01,h02,h12,pw01,pw02,pw12) {
-  ##add check h01, h02, h12 vectors of number >0, p01, p02,p12 ..
-  ##check intervals starting with 0
-  ##add check length interval= length hazard
+piecewise_exponential <- function(h01, h02, h12, pw01, pw02, pw12) {
+  ## add check h01, h02, h12 vectors of number >0, p01, p02,p12 ..
+  ## check intervals starting with 0
+  ## add check length interval= length hazard
   structure(
     list(
-      hazards =   list(h01 = h01, h02 = h02, h12 = h12),
+      hazards = list(h01 = h01, h02 = h02, h12 = h12),
       intervals = list(pw01 = pw01, pw02 = pw02, pw12 = pw12),
       weibull_rates = list(p01 = 1, p02 = 1, p12 = 1),
-      family='piecewise exponential'
+      family = "piecewise exponential"
     ),
     class = "TransitionParameters"
   )
 }
 
-test_piec<-piecewise_exponential(c(1,1,1),c(1.5,0.5,1), c(1,1,1), c(0,3,5),c(0,6,7),c(0,8,9))
+test_piec <- piecewise_exponential(
+  h01 = c(1, 1, 1), 
+  h02 = c(1.5, 0.5, 1), 
+  h12 = c(1, 1, 1), 
+  pw01 = c(0, 3, 5), 
+  pw02 = c(0, 6, 7), 
+  pw12 = c(0, 8, 9)
+)
 test_piec
 
 
@@ -160,9 +180,6 @@ test_weibull
 #' @export
 #'
 #' @examples
-
-
-
 getSimulatedData<-function(N,
                            transition = exponential_transition(h01 = 1, h02 = 1, h12 = 1),
                            dropout = list(rate = 0, time = 12),
@@ -179,6 +196,10 @@ getSimulatedData<-function(N,
          combine="and",.var.name="accrual")
   
   #initialize transition hazards, Weibull rates and intervals
+  hvals <- transition$hazard
+  h01 <- hvals$h01
+  # todo: do similar below, or consider using h$h01 below
+  
   h01<-unlist(transition$hazard['h01'])
   h02<-unlist(transition$hazard['h02'])
   h12<-unlist(transition$hazard['h12'])
@@ -193,10 +214,18 @@ getSimulatedData<-function(N,
   
   #get rate parameter for exponential distributed censoring times 
   #if rate=0, no censoring is applied
-  censRate<- ifelse(dropout$rate!=0,-log(1-dropout$rate)/dropout$time,0)
-  #censoring times for all individuals, infinity if no censoring is applied
-  censTime<-ifelse(rep(dropout$rate,N)!=0,rexp(N, censRate),rep(Inf,N))
- 
+  censRate <- if (dropout$rate > 0) {
+    -log(1-dropout$rate)/dropout$time
+  } else {
+    0
+  }
+  # censoring times for all individuals, infinity if no censoring is applied
+  censTime <- if (dropout$rate > 0) {
+    rexp(N, censRate)
+  } else {
+    rep(Inf, N)
+  }
+  
   ###all individuals start in the initial state
   entry<-rep(0,N)
   from<-rep(0,N)
