@@ -3,6 +3,8 @@ title: "Testing"
 author: "Alexandra Niessl"
 date: "12/16/2021"
 output: html_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
@@ -258,41 +260,18 @@ getSimulatedData<-function(N,
   
   simData<-data.frame(id=1:N, from=from, to=to, entry=entry, exit=exit,
                       censTime=censTime,  stringsAsFactors = FALSE)
-  ###1->2 transition
-  id1<-simData$id[simData$to==1]
-  if(length(id1)!=0){
-    N1<-length(id1)
-    U1<-runif(N1)
-    to1<-rep(2,N1)
-    from1<-rep(1,N1)
-    entry1<-simData$exit[simData$id %in% id1]
-    
-    ##Wait time in state 1
-    ##exponential 
-    if(transition$family=="exponential"){
-      wait_time1<- (-log(1-U1))/(h12)
-    ##Weibull
-    }else if(transition$family=="Weibull"){
-      wait_time1<- getWaitTimeSum(N1,U1,h12,h02=0,p12,p02=1,max.int=1000,entry=entry1)
-    #piecewise
-    }else if(transition$family=="piecewise exponential"){
-      wait_time1<- getPCWDistr(N1,U1,haz=h12, pw=pw12,t_0=entry1)
-    }
-    exit1<-entry1+wait_time1
-    ##add censoring
-      censTime1<-censTime[id1]
-      to1<-ifelse(censTime1< exit1, "cens", to1)  
-      exit1<-pmin(censTime1,exit1)
-    
-    newRows<-data.frame(id=id1, from=from1, to=to1, entry=entry1,exit=exit1,
-                        censTime=censTime1,stringsAsFactors = FALSE)
-    simData<-rbind(simData,newRows)
-  }  
-  
-  simData<- simData[order(simData$id),]
+  ### 1->2 transition
+  simDataOne <- simData[simData$to == 1, ]
+  newRows <- getOneTwoTransitionRows(simDataOne, transition)
+  simData <- rbind(simData, newRows)
+  simData <- simData[order(simData$id), ]
   ##add staggered study entry, i.e. study entry at calendar time
-  simData<-addStaggeredEntry(simData=simData, N=N,
-                             accrualParam=accrual$param, accrualValue=accrual$value)
+  simData<-addStaggeredEntry(
+    simData=simData, 
+    N=N,
+    accrualParam=accrual$param, 
+    accrualValue=accrual$value
+  )
   
   return(simData)
 } 
@@ -302,6 +281,7 @@ getSimulatedData<-function(N,
 ## Helper functions
 getsimulateData uses the following helper functions:
 
+getOneTwoTransitionRows: todo
 getPCWHazard: for piecewise-constant hazards: function to get hazard value at time x
 getSumPCW: calculates the sum of two piece-wise constant hazards
 getPCWDistr: generates event times with a distribution resulting 
@@ -313,34 +293,66 @@ addStaggeredEntry: add staggered study entries to study. This
                    study scale differ
 
 ```{r}
+getOneTwoTransitionRows <- function(simDataOne, transition) {
+  id1 <- simDataOne$id
+  N1 <- nrow(simDataOne)
+  U1 <- runif(N1)
+  to1 <- rep(2, N1)
+  from1 <- rep(1, N1)
+  entry1 <- simDataOne$exit
+  h12 <- transition$hazard$h12
+  p12 <- transition$weibull_rates$p12
+  pw12 <- transition$intervals$pw12
 
-addStaggeredEntry<-function(simData,N, accrualParam, accrualValue){
-  ##get accrual times in calendar time per individual.
-  ##if no staggered study entry, all individuals have the same entry time 0
-   if(accrualValue!=0){
-     if(accrualParam == "time"){
-        entry_act<-runif(N,0,accrualValue)
-   }
-     if(accrualParam == "intensity"){
-        accrualTime<-N/accrualValue 
-        entry_act<-runif(N,0,accrualTime)
-     } 
-   }else if(accrualValue==0){
-     entry_act=rep(0,N)
-   }
-   entryAct<-cbind(id=1:N,entry_act)
+  ## Wait time in state 1
+  wait_time1 <- if (transition$family == "exponential") {
+    (-log(1 - U1)) / (h12)
+  } else if (transition$family == "Weibull") {
+    getWaitTimeSum(N1, U1, h12, h02 = 0, p12, p02 = 1, max.int = 1000, entry = entry1)
+  } else if (transition$family == "piecewise exponential") {
+    getPCWDistr(N1, U1, haz = h12, pw = pw12, t_0 = entry1)
+  }
+  exit1 <- entry1 + wait_time1
+  ## add censoring
+  censTime1 <- simDataOne$censTime
+  to1 <- ifelse(censTime1 < exit1, "cens", to1)
+  exit1 <- pmin(censTime1, exit1)
+
+  data.frame(
+    id = id1, from = from1, to = to1, entry = entry1, exit = exit1,
+    censTime = censTime1, stringsAsFactors = FALSE
+  )
+}
+```
+
+
+```{r}
+
+addStaggeredEntry <- function(simData, N, accrualParam, accrualValue) {
+  ## get accrual times in calendar time per individual.
+  ## if no staggered study entry, all individuals have the same entry time 0
+  entry_act <- if (accrualValue != 0) {
+    if (accrualParam == "time") {
+      runif(N, 0, accrualValue)
+    } else if (accrualParam == "intensity") {
+      accrualTime <- N / accrualValue
+      runif(N, 0, accrualTime)
+    }
+  } else if (accrualValue == 0) {
+    rep(0, N)
+  }
+  entryAct <- cbind(id = 1:N, entry_act)
   # combine simulated data with actual entry time
   # and generate other actual time (actual entry time+ individual time)
-    simData<-merge(simData, entryAct)    
-    simData$entryAct<-simData$entry+simData$entry_act
-    simData$exitAct<-simData$exit+simData$entry_act
-    simData$censAct<-simData$censTime+simData$entry_act
-   #delete temporary helper columns
-    simData[,c("entry_act")]<-list(NULL)
-    simData[,c("censTime")]<-list(NULL)
-   return(simData)
+  simData <- merge(simData, entryAct)
+  simData$entryAct <- simData$entry + simData$entry_act
+  simData$exitAct <- simData$exit + simData$entry_act
+  simData$censAct <- simData$censTime + simData$entry_act
+  # delete temporary helper columns
+  simData[, c("entry_act")] <- list(NULL)
+  simData[, c("censTime")] <- list(NULL)
+  return(simData)
 }
- 
 
 ### Helper functions for the simulation of MSM data with piecewise constant hazard
 ### or Weibull distributed event times
