@@ -1,5 +1,5 @@
 ---
-title: "Testing"
+title: "getSimulatedData"
 author: "Alexandra Niessl"
 date: "12/16/2021"
 output: html_document
@@ -12,9 +12,9 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Context
-The function 'getSimulatedData' creates a single simulated data set for a single treatment arm.
-The function is used as basis for simulating a large number of oncology clinical trials. The large number of simulation iterations is generated using the function 'replicate'. The input parameters of 'getSimulatedData' can vary for each treatment arm. 
-That is, the simulation of a trial with nRep simulation iterations will be constructed as follows:
+The function `getSimulatedData` creates a single simulated data set for a single treatment arm.
+The function is used as basis for simulating a large number of oncology clinical trials. The large number of simulation iterations is generated using the function `replicate`. The input parameters of `getSimulatedData` can vary for each treatment arm. 
+That is, the simulation of a trial with `nRep` simulation iterations will be constructed as follows:
 
 ```{r, eval = FALSE}
 replicate(nRep, function(
@@ -33,13 +33,13 @@ The simulations are used to answer different planning questions for clinical tri
 
 ## Objective
 
-The function 'getSimulatedData' simulates data from an illness-death model with one row per transition and subject. It allows for random dropouts, staggered study entry, different distributions of event times (exponential, piece-wise exponential, Weibull).
+The function `getSimulatedData` simulates data from an illness-death model with one row per transition and subject. It allows for random dropouts, staggered study entry, different distributions of event times (exponential, piece-wise exponential, Weibull).
 
 ### Input parameters:
 
 - N: Number of patients
-- transition: specifies the three transition hazards of the illness-death model see class 'transition'
-  - default: exponential distributed event times with $h01=h02=h12=1$
+- transition: specifies the three transition hazards of the illness-death model see class `transition`
+  - default: exponential distributed event times with $h_{01}=h_{02}=h_{12}=1$
 - dropout:  specifies dropout probability (`dropout$rate`) within a time range `dropout$time`
   - default: no random dropout/censoring
 - accrual: specifies the recruiting/staggered study entry. Either accrual intensity (number of patients recruited per time unit) or accrual time  could be specified, see function `addStaggeredEntry`
@@ -62,11 +62,11 @@ simulated data set with the following columns:
 
 The data are simulated using the following algorithm:
 
-1. Simulate waiting times in the initial state with all-cause hazard $h01(t)+h02(t)$.
+1. Simulate waiting times in the initial state with all-cause hazard $h_{01}(t)+h_{02}(t)$.
 2. Run a binomial experiment for a simulated waiting-time, say $t_0$, which decides with probability
-$h01(t_0) /(h01(t_0)+h02(t_0))$ on progression 
+$\frac{h_{01}(t_0)}{h_{01}(t_0)+h_{02}(t_0)}$ on progression 
 3. If the binomial experiment decides on death, step 4 follows. If the binomial experiment decides on
-intermediate state progression, the waiting time in the progression state is simulated with hazard $h12(t), t \geq t_0$.
+intermediate state progression, the waiting time in the progression state is simulated with hazard $h_{12}(t), t \geq t_0$.
 4. If censoring is present: Additionally, generate random exponential distributed censoring times (according to dropout parameters). Transition times of an individual occurring after the censoring time will be censored.
 5. Staggered study entry times are added at the end - see helper function `addStaggeredEntry`.
 
@@ -80,15 +80,33 @@ assert_positive_number <- function(x) {
   assert_number(x)
   assert_true(x > 0)
 }
+assert_positive_number0 <- function(x) {
+  assert_number(x)
+  assert_true(x >= 0)
+}
+
+assert_intervals <- function(x, y) {
+  assert_numeric(
+    x,
+    lower = 0,
+    any.missing = FALSE,
+    all.missing = FALSE,
+    len = y,
+    unique = TRUE,
+    sorted = TRUE
+  )
+  assert_true(x[1] == 0)
+}
+
 ```
 
 ## New class Transition
 
 ```{r}
 exponential_transition <- function(h01, h02, h12) {
-  assert_positive_number(h01)
-  assert_positive_number(h02)
-  assert_positive_number(h12)
+  assert_positive_number0(h01)
+  assert_positive_number0(h02)
+  assert_positive_number0(h12)
   structure(
     list(
       hazards = list(h01 = h01, h02 = h02, h12 = h12),
@@ -104,12 +122,12 @@ test <- exponential_transition(1, 1, 1)
 class(test)
 
 print.TransitionParameters <- function(object) {
-  cat("Transition parameters for simulations with", unlist(object$family),             "distributed survival times \n")
+  cat("Transition parameters for simulations with", unlist(object$family), "distributed survival times \n")
   cat(
-    "Transition Hazards: ", 
-    "h01 =", as.character(unlist(object$hazards[1])), 
-    ", h02 =", unlist(object$hazards[2]), 
-    ", h12 =", unlist(object$hazards[3]), 
+    "Transition Hazards: ",
+    "h01 =", as.character(unlist(object$hazards[1])),
+    ", h02 =", unlist(object$hazards[2]),
+    ", h12 =", unlist(object$hazards[3]),
     sep = " "
   )
   ## add intervals and weibull rates (only for family = weibull, piecewise exponential..)
@@ -118,9 +136,14 @@ print.TransitionParameters <- function(object) {
 test
 
 piecewise_exponential <- function(h01, h02, h12, pw01, pw02, pw12) {
-  ## add check h01, h02, h12 vectors of number >0, p01, p02,p12 ..
-  ## check intervals starting with 0
-  ## add check length interval= length hazard
+  assert_numeric(h01, lower = 0, any.missing = FALSE, all.missing = FALSE)
+  assert_numeric(h02, lower = 0, any.missing = FALSE, all.missing = FALSE)
+  assert_numeric(h12, lower = 0, any.missing = FALSE, all.missing = FALSE)
+
+  assert_intervals(pw01, length(h01))
+  assert_intervals(pw02, length(h02))
+  assert_intervals(pw12, length(h12))
+
   structure(
     list(
       hazards = list(h01 = h01, h02 = h02, h12 = h12),
@@ -133,36 +156,36 @@ piecewise_exponential <- function(h01, h02, h12, pw01, pw02, pw12) {
 }
 
 test_piec <- piecewise_exponential(
-  h01 = c(1, 1, 1), 
-  h02 = c(1.5, 0.5, 1), 
-  h12 = c(1, 1, 1), 
-  pw01 = c(0, 3, 5), 
-  pw02 = c(0, 6, 7), 
+  h01 = c(1, 1, 1),
+  h02 = c(1.5, 0.5, 1),
+  h12 = c(1, 1, 1),
+  pw01 = c(0, 3, 8),
+  pw02 = c(0, 6, 7),
   pw12 = c(0, 8, 9)
 )
 test_piec
 
 
-weibull_transition <- function(h01,h02,h12,p01,p02,p12){
-  assert_positive_number(h01)
-  assert_positive_number(h02)
-  assert_positive_number(h12)
+weibull_transition <- function(h01, h02, h12, p01, p02, p12) {
+  assert_positive_number0(h01)
+  assert_positive_number0(h02)
+  assert_positive_number0(h12)
   assert_positive_number(p01)
   assert_positive_number(p02)
   assert_positive_number(p12)
   structure(
-  list(
-    hazards = list(h01 = h01, h02 = h02, h12 = h12),
-    weibull_rates = list(p01 = p01, p02 = p02, p12=p12),
-    intervals = list(pw01 = 0,pw02 = 0,pw12 = 0),
-    family="Weibull"
-  ),
+    list(
+      hazards = list(h01 = h01, h02 = h02, h12 = h12),
+      weibull_rates = list(p01 = p01, p02 = p02, p12 = p12),
+      intervals = list(pw01 = 0, pw02 = 0, pw12 = 0),
+      family = "Weibull"
+    ),
     class = "TransitionParameters"
   )
 }
-test_weibull <- weibull_transition(1, 1, 1,1.2,1.3,0.5)
+test_weibull <- weibull_transition(1, 1, 1, 1.2, 1.3, 0.5)
 class(test_weibull)
-test_weibull 
+test_weibull
 ```
 
 ## Prototype getSimulatedData
@@ -182,42 +205,32 @@ test_weibull
 #' @export
 #'
 #' @examples
-getSimulatedData<-function(N,
-                           transition = exponential_transition(h01 = 1, h02 = 1, h12 = 1),
-                           dropout = list(rate = 0, time = 12),
-                           accrual = list(param="time", value=0)) {
-  ##check input parameters
+getSimulatedData <- function(N,
+                             transition = exponential_transition(h01 = 1, h02 = 1, h12 = 1),
+                             dropout = list(rate = 0, time = 12),
+                             accrual = list(param = "time", value = 0)) {
+  ## check input parameters
   assert_int(N, lower = 1L)
   assert_class(transition, "TransitionParameters")
-  assert(check_number(dropout$rate,lower=0,upper=1),
-         check_number(dropout$time), 
-         check_true(dropout$time > 0,),
-         combine="and",.var.name="dropout")
-  assert(check_choice(accrual$param, c("time","intensity")),
-         check_number(accrual$value, lower=0), 
-         combine="and",.var.name="accrual")
-  
-  #initialize transition hazards, Weibull rates and intervals
-  hvals <- transition$hazard
-  h01 <- hvals$h01
-  # todo: do similar below, or consider using h$h01 below
-  
-  h01<-unlist(transition$hazard['h01'])
-  h02<-unlist(transition$hazard['h02'])
-  h12<-unlist(transition$hazard['h12'])
-  
-  p01<-unlist(transition$weibull_rates['p01'])
-  p02<-unlist(transition$weibull_rates['p02'])
-  p12<-unlist(transition$weibull_rates['p12'])
-  
-  pw01<-unlist(transition$intervals['pw01'])
-  pw02<-unlist(transition$intervals['pw02'])
-  pw12<-unlist(transition$intervals['pw12'])
-  
-  #get rate parameter for exponential distributed censoring times 
-  #if rate=0, no censoring is applied
+  assert(check_number(dropout$rate, lower = 0, upper = 1),
+    check_number(dropout$time),
+    check_true(dropout$time > 0, ),
+    combine = "and", .var.name = "dropout"
+  )
+  assert(check_choice(accrual$param, c("time", "intensity")),
+    check_number(accrual$value, lower = 0),
+    combine = "and", .var.name = "accrual"
+  )
+
+  # initialize transition hazards, Weibull rates and intervals
+  h <- transition$hazard
+  p <- transition$weibull_rates
+  pw <- transition$intervals
+
+  # get rate parameter for exponential distributed censoring times
+  # if rate=0, no censoring is applied
   censRate <- if (dropout$rate > 0) {
-    -log(1-dropout$rate)/dropout$time
+    -log(1 - dropout$rate) / dropout$time
   } else {
     0
   }
@@ -227,68 +240,73 @@ getSimulatedData<-function(N,
   } else {
     rep(Inf, N)
   }
-  
-  ###all individuals start in the initial state
-  entry<-rep(0,N)
-  from<-rep(0,N)
-  ###Waiting time in the initial state 0 
-  U<-runif(N)
-  ##for exponential or Weibull distributed survival times
-  if(transition$family %in% c("exponential", "Weibull")){
+
+  ### all individuals start in the initial state
+  entry <- rep(0, N)
+  from <- rep(0, N)
+  ### Waiting time in the initial state 0
+  U <- runif(N)
+  ## for exponential or Weibull distributed survival times
+  if (transition$family %in% c("exponential", "Weibull")) {
     ## for distribution of waiting time in the initial state all-cause hazard (h01+h02) is  needed
-    wait_time<- getWaitTimeSum(N,U,h01,h02,p01,p02,max.int=10000,entry)  
-    ###binomial experiment decides on death or progression
-    numerator<-p01*h01^p01*wait_time^(p01-1)
-    denumerator<-numerator+p02*h02^p02*wait_time^(p02-1)
- 
-   ###for piecewise exponential distributed survival times
-   }else if(transition$family =="piecewise exponential"){
-    wait_time<- getPCWDistr(N,U, getSumPCW(h01, h02,pw01, pw02), 
-                    unique(sort(c(pw01,pw02))),entry)
-    ###binomial experiment decides on death or progression
-    numerator<-getPCWHazard(h01,pw01,wait_time)
-    denumerator<-getPCWHazard(h01,pw01,wait_time)+getPCWHazard(h02,pw02,wait_time)
-   }
-  
-  to_prob <- rbinom(N,1, numerator/denumerator)
-  to<- ifelse(to_prob==0,2,1)
-  exit<-wait_time
-  
-  ##add censoring
-  to<-ifelse(censTime< wait_time, "cens", to)  
-  exit<-pmin(censTime,wait_time)
-  
-  simData<-data.frame(id=1:N, from=from, to=to, entry=entry, exit=exit,
-                      censTime=censTime,  stringsAsFactors = FALSE)
+    wait_time <- getWaitTimeSum(N, U, h$h01, h$h02, p$p01, p$p02, max.int = 10000, entry)
+    ### binomial experiment decides on death or progression
+    numerator <- p$p01 * h$h01^p$p01 * wait_time^(p$p01 - 1)
+    denumerator <- numerator + p$p02 * h$h02^p$p02 * wait_time^(p$p02 - 1)
+
+    ### for piecewise exponential distributed survival times
+  } else if (transition$family == "piecewise exponential") {
+    wait_time <- getPCWDistr(
+      N, U, getSumPCW(h$h01, h$h02, pw$pw01, pw$pw02),
+      unique(sort(c(pw$pw01, pw$pw02))), entry
+    )
+    ### binomial experiment decides on death or progression
+    numerator <- getPCWHazard(h$h01, pw$pw01, wait_time)
+    denumerator <- getPCWHazard(h$h01, pw$pw01, wait_time) + 
+                   getPCWHazard(h$h02, pw$pw02, wait_time)
+  }
+
+  to_prob <- rbinom(N, 1, numerator / denumerator)
+  to <- ifelse(to_prob == 0, 2, 1)
+  exit <- wait_time
+
+  ## add censoring
+  to <- ifelse(censTime < wait_time, "cens", to)
+  exit <- pmin(censTime, wait_time)
+
+  simData <- data.frame(
+    id = 1:N, from = from, to = to, entry = entry, exit = exit,
+    censTime = censTime, stringsAsFactors = FALSE
+  )
   ### 1->2 transition
   simDataOne <- simData[simData$to == 1, ]
   newRows <- getOneTwoTransitionRows(simDataOne, transition)
   simData <- rbind(simData, newRows)
   simData <- simData[order(simData$id), ]
-  ##add staggered study entry, i.e. study entry at calendar time
-  simData<-addStaggeredEntry(
-    simData=simData, 
-    N=N,
-    accrualParam=accrual$param, 
-    accrualValue=accrual$value
+  ## add staggered study entry, i.e. study entry at calendar time
+  simData <- addStaggeredEntry(
+    simData = simData,
+    N = N,
+    accrualParam = accrual$param,
+    accrualValue = accrual$value
   )
-  
+
   return(simData)
-} 
+}
 
 ```
 
-## Helper functions
-getsimulateData uses the following helper functions:
+### Helper functions
+`getsimulateData` uses the following helper functions:
 
-getOneTwoTransitionRows: todo
-getPCWHazard: for piecewise-constant hazards: function to get hazard value at time x
-getSumPCW: calculates the sum of two piece-wise constant hazards
-getPCWDistr: generates event times with a distribution resulting 
+- `getOneTwoTransitionRows`: generates rows with transition times for patients in the transient state progression, i.e. entry and exit times for 1-> 2 or 1-> cens transitions
+- `getPCWHazard`: for piecewise-constant hazards: function to get hazard value at time x
+- `getSumPCW`: calculates the sum of two piece-wise constant hazards
+- `getPCWDistr`: generates event times with a distribution resulting 
             from specified piece-wise constant hazards 
-getWaitTimeSum: get event times following the distribution of a sum of
+- `getWaitTimeSum`: get event times following the distribution of a sum of
                 Weibull distributed event-times 
-addStaggeredEntry: add staggered study entries to study. This
+- `addStaggeredEntry`: add staggered study entries to study. This
                    implies that times on individual scale and 
                    study scale differ
 
@@ -327,7 +345,6 @@ getOneTwoTransitionRows <- function(simDataOne, transition) {
 
 
 ```{r}
-
 addStaggeredEntry <- function(simData, N, accrualParam, accrualValue) {
   ## get accrual times in calendar time per individual.
   ## if no staggered study entry, all individuals have the same entry time 0
@@ -353,106 +370,122 @@ addStaggeredEntry <- function(simData, N, accrualParam, accrualValue) {
   simData[, c("censTime")] <- list(NULL)
   return(simData)
 }
+```
 
+
+```{r}
 ### Helper functions for the simulation of MSM data with piecewise constant hazard
 ### or Weibull distributed event times
 
-##for piecewise-constant hazards: function to get hazard value at time x
-getPCWHazard<-function(haz,pw,x){
-  hazVal<-sapply(x,function(jj){
-    y<-NULL 
-    #find interval and correponding hazard value for time x[jj]
-    for(ii in 1:length(haz)){
-      if(jj>=pw[ii])
-        y<-haz[ii]
+## for piecewise-constant hazards: function to get hazard value at time x
+getPCWHazard <- function(haz, pw, x) {
+  hazVal <- sapply(x, function(jj) {
+    y <- NULL
+    # find interval and correponding hazard value for time x[jj]
+    for (ii in 1:length(haz)) {
+      if (jj >= pw[ii]) {
+        y <- haz[ii]
+      }
     }
-    hazVal<-y
+    hazVal <- y
     return(hazVal)
-  }) 
+  })
   return(hazVal)
 }
-
-#function to calculate sum of two piece-wise constant hazards
-getSumPCW<-function(haz1,haz2, pw1,pw2){ 
-  #get all cutpoints for the intervals
-  cuts_sum<- unique(sort(c(pw1,pw2)))
-  haz_sum<-NULL
-  ##get sum of hazards for all intervals
-  for(i in 1:(length(cuts_sum))){
-    haz_sum[i]<-getPCWHazard(haz1,pw1,cuts_sum[i])+getPCWHazard(haz2,pw2,cuts_sum[i])
+```
+```{r}
+# function to calculate sum of two piece-wise constant hazards
+getSumPCW <- function(haz1, haz2, pw1, pw2) {
+  # get all cutpoints for the intervals
+  cuts_sum <- unique(sort(c(pw1, pw2)))
+  haz_sum <- NULL
+  ## get sum of hazards for all intervals
+  for (i in 1:(length(cuts_sum))) {
+    haz_sum[i] <- getPCWHazard(haz1, pw1, cuts_sum[i]) +
+                  getPCWHazard(haz2, pw2, cuts_sum[i])
   }
   return(haz_sum)
 }
+```
 
+```{r}
 ###function to get event times with a distribution resulting from piece-wise constant hazards
-getPCWDistr<-function(N,U,haz,pw,t_0){ 
-  t1 <- rep(NA,N) #event times
-  n2<-length(haz) 
-   for(kk in 1:N){
-    ##shift if t_0 !=0
-    cuts_temp<-c(t_0[kk],pw[pw>t_0[kk]])
-    cuts_temp<-cuts_temp-t_0[kk]
-    #number of cutpoints of intervals
-    n<-length(cuts_temp)
-    ##number of hazards to remove for shift (t_0> as respective hazard intervals)
-    remov<-n2-n
-    haz_temp<-haz[(remov+1):n2] 
-    LogU<-log(1-U[kk])
-   
-    if(n!=1){
-      ##determine sum of alpha*time-interval for all i
-      dt<-cuts_temp[2:n]-cuts_temp[1:(n-1)]
-      
-      #helping matrix
-      tempMatrix<-matrix(0, nrow=n,ncol=n-1)
-      tempMatrix[lower.tri(tempMatrix)]<-1
-      
-      sumA<--as.vector(tempMatrix%*%(haz_temp[1:(n-1)]*dt))
-      
+getPCWDistr <- function(N, U, haz, pw, t_0) {
+  t1 <- rep(NA, N) # event times
+  n2 <- length(haz)
+  for (kk in 1:N) {
+    ## shift if t_0 !=0
+    cuts_temp <- c(t_0[kk], pw[pw > t_0[kk]])
+    cuts_temp <- cuts_temp - t_0[kk]
+    # number of cutpoints of intervals
+    n <- length(cuts_temp)
+    ## number of hazards to remove for shift (t_0> as respective hazard intervals)
+    remov <- n2 - n
+    haz_temp <- haz[(remov + 1):n2]
+    LogU <- log(1 - U[kk])
+
+    if (n != 1) {
+      ## determine sum of alpha*time-interval for all i
+      dt <- cuts_temp[2:n] - cuts_temp[1:(n - 1)]
+
+      # helping matrix
+      tempMatrix <- matrix(0, nrow = n, ncol = n - 1)
+      tempMatrix[lower.tri(tempMatrix)] <- 1
+
+      sumA <- -as.vector(tempMatrix %*% (haz_temp[1:(n - 1)] * dt))
+
       # find the appropriate time interval
       for (i in 1:n) {
-        if(i !=n){
-          t1[kk] <- ifelse(sumA[i]>= LogU&  LogU>sumA[i+1],
-                           cuts_temp[i] + (sumA[i] -LogU)/haz_temp[i],
-                           t1[kk])
-        }else{
-           t1[kk] <- ifelse(LogU <= sumA[i], 
-                           cuts_temp[i] + (sumA[i] -LogU)/haz_temp[i], 
-                           t1[kk])
+        if (i != n) {
+          t1[kk] <- ifelse(sumA[i] >= LogU & LogU > sumA[i + 1],
+            cuts_temp[i] + (sumA[i] - LogU) / haz_temp[i],
+            t1[kk]
+          )
+        } else {
+          t1[kk] <- ifelse(LogU <= sumA[i],
+            cuts_temp[i] + (sumA[i] - LogU) / haz_temp[i],
+            t1[kk]
+          )
         }
       }
-    }else if(n==1){
-      ##only one interval ->exponential distribution
-      t1[kk]<- -LogU/haz_temp
-    } 
+    } else if (n == 1) {
+      ## only one interval ->exponential distribution
+      t1[kk] <- -LogU / haz_temp
+    }
   }
   return(t1)
 }
+```
 
+```{r}
 ###Function to get event times following the distribution of a sum of Weibull distributed event-times
 
-getWaitTimeSum<-function(N,U,h01,h02,p01,p02,max.int,entry){
-  ##exponential distributed survival times
-  if(p01 == 1 & p02 ==1){
-    return(-log(1-U)/(h01+h02))
-  }else{
-  #Weibull distributed survival times
-  temp<-function(x,y,t0){
-        return((h01*(x+t0))^p01-(h01*t0)^p01-(h02*t0)^p02+(h02*(x+t0))^p02+y)}
-  stime<-NULL
-  i<-1
-    while (length(stime) < N){
-      u<-U[i]
-      t0<-entry[i]  
-      if(temp(0,log(1-u),t0)*temp(max.int, log(1-u),t0)<0){
-        res<-uniroot(temp,c(0,max.int), tol=10^-16,y=log(1-u),t0=t0)
-        stime[i]<-res$root
-        i<-i+1
-        if(res$root==0) {cat("Check tol argument of uniroot")}
-      }
-      else cat("Waiting time in the inital state -uniroot: Values at endpoints not of opposite signs. \n")
+getWaitTimeSum <- function(N, U, h01, h02, p01, p02, max.int, entry) {
+  ## exponential distributed survival times
+  if (p01 == 1 & p02 == 1) {
+    return(-log(1 - U) / (h01 + h02))
+  } else {
+    # Weibull distributed survival times
+    temp <- function(x, y, t0) {
+      return((h01 * (x + t0))^p01 - (h01 * t0)^p01 - (h02 * t0)^p02 + (h02 * (x + t0))^p02 + y)
     }
-  return(stime)
+    stime <- NULL
+    i <- 1
+    while (length(stime) < N) {
+      u <- U[i]
+      t0 <- entry[i]
+      if (temp(0, log(1 - u), t0) * temp(max.int, log(1 - u), t0) < 0) {
+        res <- uniroot(temp, c(0, max.int), tol = 10^-16, y = log(1 - u), t0 = t0)
+        stime[i] <- res$root
+        i <- i + 1
+        if (res$root == 0) {
+          cat("Check tol argument of uniroot")
+        }
+      } else {
+        cat("Waiting time in the inital state -uniroot: Values at endpoints not of opposite signs. \n")
+      }
+    }
+    return(stime)
   }
 }
 ```
@@ -463,19 +496,22 @@ getWaitTimeSum<-function(N,U,h01,h02,p01,p02,max.int,entry){
 ```{r}
 set.seed(12345)
 # 1-2 examples
-testExp<-getSimulatedData(20,
-                 transition = exponential_transition(h01 = 1, h02 = 1.5, h12 = 1),
-                 dropout = list(rate = 0.5, time = 1),
-                 accrual = list(param="time",value=5)) 
+testExp <- getSimulatedData(20,
+  transition = exponential_transition(h01 = 1, h02 = 1.5, h12 = 1),
+  dropout = list(rate = 0.5, time = 1),
+  accrual = list(param = "time", value = 5)
+)
 
-testWeibull<-getSimulatedData(20,
-                 transition = weibull_transition(h01 = 1, h02 = 1.5, h12 = 1, p01=1.3, p02=1.2, p12=0.5),
-                 dropout = list(rate = 0.5, time = 1),
-                 accrual = list(param="time", value = 0)) 
+testWeibull <- getSimulatedData(20,
+  transition = weibull_transition(h01 = 1, h02 = 1.5, h12 = 1, p01 = 1.3, p02 = 1.2, p12 = 0.5),
+  dropout = list(rate = 0.5, time = 1),
+  accrual = list(param = "time", value = 0)
+)
 
-testPiecExp<-getSimulatedData(20,
-                 transition = piecewise_exponential(h01 = c(1,1.2,1.3), h02 = c(1.5,1.4,1.2), h12 = c(1,0.6), pw01=c(0,4,5), pw02=c(0,1,2), pw12=c(0,3)),
-                 dropout = list(rate = 0, time = 12),
-                 accrual = list(param="intensity", value = 7)) 
+testPiecExp <- getSimulatedData(20,
+  transition = piecewise_exponential(h01 = c(1, 1.2, 1.3), h02 = c(1.5, 1.4, 1.2), h12 = c(1, 0.6), pw01 = c(0, 4, 5), pw02 = c(0, 1, 2), pw12 = c(0, 3)),
+  dropout = list(rate = 0, time = 12),
+  accrual = list(param = "intensity", value = 7)
+)
 ```
 
