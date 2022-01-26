@@ -1,0 +1,118 @@
+---
+title: "GetSimulatedTrials"
+author: "Alexandra Niessl"
+date: "1/26/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Objective
+
+Simulate a large number of oncology clinical trials.
+1,2 or 3 arm studies are possible.
+
+
+### Prototype getClinicalTrial
+
+```{r prototype}
+
+getSimulatedTrials <- function(nRep, nArm, nPat,
+                               transition1, transition2, transition3,
+                               dropout, accrual,
+                               seed = 1234, datType = "1rowTransition") {
+  ## set seed
+  set.seed(seed)
+  SimulatedTrials <- replicate(
+    nRep,
+    getOneClinicalTrial(
+      nArm, nPat,
+      transition1, transition2, transition3,
+      dropout, accrual
+    )
+  )
+
+  if (datType == "1rowPatient") {
+    SimulatedTrials <- lapply(SimulatedTrials, getDatasetWideFormat)
+  }
+}
+
+```
+###Helper function: get one clinical trial
+```{r prototype}  
+getOneClinicalTrial <- function(nPat, nArm, transition1, transition2, transition3,
+                                dropout = list(rate = 0, time = 12),
+                                accrual = list(param = "time", value = 0)) {
+  group1 <- getSimulatedData(nPat[1], transition1, dropout, accrual)
+  group1$trt <- 0
+  simdata <- group1
+
+  if (nArm > 1) {
+    group2 <- getSimulatedData(nPat[2], transition2, dropout, accrual)
+    group2$trt <- 1
+    group2$id <- treatment$id + nPat[1]
+    simdata <- rbind(simdata, group2)
+  }
+
+  if (nArm == 3) {
+    group3 <- getSimulatedData(nPat[3], transition3, dropout, accrual)
+    group3$trt <- 1
+    group3$id <- treatment$id + nPat[2]
+    simData <- rbind(simdata, group3)
+  }
+  return(simData)
+}
+
+
+
+```
+###helper function: get wide data format
+
+```{r}
+####get dataset one row per patient
+
+getDatasetWideFormat <- function(data) {
+  ## recruitment time -> entryAct if from==0
+  recruitTime <- subset(data[, c("id", "entryAct")], data$from == 0)
+  names(recruitTime)[names(recruitTime) == "entryAct"] <- "recruitTime"
+
+  ## time of to==2 or censoring time
+  OStime <- subset(data[, c("id", "exit")], data$to == 2 | data$to == "cens")
+  names(OStime)[names(OStime) == "exit"] <- "OStime"
+  ## time of to==2 or to==1 or censored;
+  PFStime <- subset(data[, c("id", "exit")], (data$to == 2 & data$from == 0) | (data$to == 1) | (data$to == "cens" & data$from == 0))
+  names(PFStime)[names(PFStime) == "exit"] <- "PFStime"
+
+  ## censored 1=yes, 0=no
+  censoredIdsPFS <- data$id[data$to == "cens" & data$from == 0]
+  censoredIdsOS <- data$id[data$to == "cens"]
+  id <- unique(data$id)
+  CensoredOS <- cbind(id = id, CensoredOS = as.integer(id %in% censoredIdsOS))
+  CensoredPFS <- cbind(id = id, CensoredPFS = as.integer(id %in% censoredIdsPFS))
+
+
+  ### merge
+  newdata <- unique(data[, c("id", "trt")])
+  newdata <- merge(x = newdata, y = PFStime, by = "id")
+  newdata <- merge(x = newdata, y = CensoredPFS, by = "id")
+  # PFSevent observed
+  newdata$PFSevent <- abs(1 - newdata$CensoredPFS)
+  newdata <- merge(x = newdata, y = OStime, by = "id")
+  newdata <- merge(x = newdata, y = CensoredOS, by = "id")
+  ## OS event observed
+  newdata$OSevent <- abs(1 - newdata$CensoredOS)
+  newdata <- merge(x = newdata, y = recruitTime, by = "id")
+
+  ### calendar times
+  newdata$OStimeCal <- newdata$OStime + newdata$recruitTime
+  newdata$PFStimeCal <- newdata$PFStime + newdata$recruitTime
+
+
+  return(newdata)
+}
+```
+
+
+###Try it out
