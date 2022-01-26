@@ -9,3 +9,11 @@ navbar:
   right:
     - icon: fa-github
       href: https://github.com/insightsengineering/SimulationEngineMSM
+
+reference:
+  - title: Package
+    contents:
+      - SimulationEngineMSM-package
+  - title: Assertions
+    contents:
+      - assert_positive_number
