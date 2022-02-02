@@ -19,3 +19,34 @@ assert_positive_number <- function(x,
     assert_true(x > 0)
   }
 }
+
+
+
+
+#' Assertion for vector describing intervals
+#'
+#' @param x what to check
+#' @param y required length of y
+#'
+#' @return Raises an error if
+#'         `x` is not a vector of length y or
+#'          not all elements of `x` are non-negative numbers
+#'          not all elements of `x` are unique and sorted or
+#'          its first element is not 0  or
+#'
+#' @export
+#'
+#' @examples
+#' assert_intervals(c(0,5,7),3)
+assert_intervals <- function(x, y) {
+  assert_numeric(
+    x,
+    lower = 0,
+    any.missing = FALSE,
+    all.missing = FALSE,
+    len = y,
+    unique = TRUE,
+    sorted = TRUE
+  )
+  assert_true(x[1] == 0)
+}

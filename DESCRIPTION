@@ -1,6 +1,7 @@
 Type: Package
 Package: SimulationEngineMSM
-Title: Put Subtitle here
+Title: Simulating clinical trials with endpoints overall survival and progression-free survival
+       using an illness-death model
 Version: 0.0.0.9002
 Authors@R:
     person("Alexandra Niessl", , , "niessl.alexandra@gene.com", role = c("aut", "cre"))
