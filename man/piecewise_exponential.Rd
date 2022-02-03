@@ -2,7 +2,7 @@
 % Please edit documentation in R/transitionParameters.R
 \name{piecewise_exponential}
 \alias{piecewise_exponential}
-\title{Class of transition hazards for piecewise exponentially distributed survival times}
+\title{todo: similar as above}
 \usage{
 piecewise_exponential(h01, h02, h12, pw01, pw02, pw12)
 }
@@ -20,12 +20,17 @@ piecewise_exponential(h01, h02, h12, pw01, pw02, pw12)
 \item{pw12}{vector of time intervals for the piecewise constant hazards \code{h12}}
 }
 \value{
-list of class of TransitionParameters for piecewise exponentially distributed survival times
+list of transition parameters for piecewise exponentially distributed
+survival times in an Illness-Death model
 }
 \description{
-Class of transition hazards for piecewise exponentially distributed survival times
+Class of transition parameters describing
+transition hazards for piecewise exponentially distributed survival times
+in an Illness-Death model
 }
 \examples{
-piecewise_exponential(h01 = c(1, 1, 1),h02 = c(1.5, 0.5, 1),h12 = c(1, 1, 1),
-pw01 = c(0, 3, 8),pw02 = c(0, 6, 7),pw12 = c(0, 8, 9))
+piecewise_exponential(
+  h01 = c(1, 1, 1), h02 = c(1.5, 0.5, 1), h12 = c(1, 1, 1),
+  pw01 = c(0, 3, 8), pw02 = c(0, 6, 7), pw12 = c(0, 8, 9)
+)
 }

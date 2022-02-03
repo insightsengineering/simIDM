@@ -2,23 +2,26 @@
 % Please edit documentation in R/transitionParameters.R
 \name{exponential_transition}
 \alias{exponential_transition}
-\title{Class of transition hazards for exponentially distributed survival times}
+\title{Exponential Transition Hazards}
 \usage{
 exponential_transition(h01, h02, h12)
 }
 \arguments{
-\item{h01}{transition hazard for 0 to 1 transition}
+\item{h01}{(positive \code{number})\cr transition hazard for 0 to 1 transition.}
 
-\item{h02}{transition hazard for 0 to 2 transition}
+\item{h02}{(positive \code{number})\cr transition hazard for 0 to 2 transition.}
 
-\item{h12}{transition hazard for 1 to 2 transition}
+\item{h12}{(positive \code{number})\cr transition hazard for 1 to 2 transition.}
 }
 \value{
-list of class of TransitionParameters for exponentially distributed survival times
+List with elements \code{hazards}, \code{intervals}, \code{weibull_rates} and \code{family}
+(exponential).
 }
 \description{
-Class of transition hazards for exponentially distributed survival times
+This creates a list with class \code{TransitionParameters} containing
+hazards, intervals and Weibull rates for exponential survival times
+in an illness-death model.
 }
 \examples{
- exponential_transition(1, 1.6, 0.3)
+exponential_transition(1, 1.6, 0.3)
 }

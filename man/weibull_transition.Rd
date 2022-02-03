@@ -2,7 +2,9 @@
 % Please edit documentation in R/transitionParameters.R
 \name{weibull_transition}
 \alias{weibull_transition}
-\title{Class of transition hazards for Weibull distributed survival times}
+\title{todo: similar as above
+Class of transition parameters describing Weibull distributed survival times
+in an illness-death model}
 \usage{
 weibull_transition(h01, h02, h12, p01, p02, p12)
 }
@@ -20,11 +22,14 @@ weibull_transition(h01, h02, h12, p01, p02, p12)
 \item{p12}{rate parameter of Weibull distribution for \code{h12}}
 }
 \value{
-list of class of TransitionParameters for Weibull distributed survival time
+list of transition parameters for Weibull distributed survival times in
+an illness-death model
 }
 \description{
-Class of transition hazards for Weibull distributed survival times
+todo: similar as above
+Class of transition parameters describing Weibull distributed survival times
+in an illness-death model
 }
 \examples{
-weibull_transition(h01=1, h02=1.3, h12=0.5,p01= 1.2, p02=1.3, p12=0.5)
+weibull_transition(h01 = 1, h02 = 1.3, h12 = 0.5, p01 = 1.2, p02 = 1.3, p12 = 0.5)
 }

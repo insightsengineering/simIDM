@@ -15,17 +15,46 @@ Simulate a large number of oncology clinical trials.
 1,2 or 3 arm studies are possible.
 
 
-### Prototype getClinicalTrial
+### Prototype getClinicalTrials
+
+todo: Consider using list instead of separate transition arguments
+```{r}
+getClinicalTrials <- function(nRep, nPat, transitionByArm) {
+  nArm <- length(transitionByArm)
+}
+```
+
+todo: Consider using `...` to pass arguments to clinical function
+```{r}
+#' ... parameters for [getOneClinicalTrial()].
+getClinicalTrials <- function(nRep, ..., seed = 1234, datType = "1rowTransition") {
+  set.seed(seed)
+  simulatedTrials <- replicate(
+    nRep,
+    getOneClinicalTrial(...),
+    simplify=FALSE
+  )
+}
+```
+
+toy example:
+
+```{r}
+foo <- function(a, ...) {
+  paste(a, ...)
+}
+foo(12, 14235, 3463, 36, 36, 346)
+```
+
+
 
 ```{r prototype}
-
-getSimulatedTrials <- function(nRep, nArm, nPat,
+getClinicalTrials <- function(nRep, nArm, nPat, 
                                transition1, transition2, transition3,
                                dropout, accrual,
                                seed = 1234, datType = "1rowTransition") {
-  ## set seed
   set.seed(seed)
-  SimulatedTrials <- replicate(
+  simulatedTrials <- replicate(
     nRep,
     getOneClinicalTrial(
       nArm, nPat,
@@ -35,9 +64,9 @@ getSimulatedTrials <- function(nRep, nArm, nPat,
   )
 
   if (datType == "1rowPatient") {
-    SimulatedTrials <- lapply(SimulatedTrials, getDatasetWideFormat)
+    simulatedTrials <- lapply(simulatedTrials, getDatasetWideFormat)
   }
-  return(SimulatedTrials)
+  return(simulatedTrials)
 }
 
 ```
@@ -76,9 +105,41 @@ getOneClinicalTrial <- function(nArm, nPat, transition1, transition2, transition
   return(simdata)
 }
 
+```
 
+todo: consider something with lists like this
+
+```{r prototype}  
+getOneClinicalTrial <- function(nPat, transitionByArm,
+                                dropout = list(rate = 0, time = 12),
+                                accrual = list(param = "time", value = 0)) {
+  assert_list(transitionByArm)
+  nPat<-as.integer(nPat)
+  nArm <- length(transitionByArm)
+ 
+  assert_integer(nPat,lower = 1,
+    any.missing = FALSE,
+    all.missing = FALSE,
+    len = nArm,
+  )
+  
+  # todo: try for loop here
+  # starting values:
+  simdata <- NULL
+  previousPts <- 0
+  for (i in 1:nArm) {
+    group <- getSimulatedData(nPat[i], transitionByArm[[i]], dropout, accrual)
+    group$trt <- i
+    group$id <- group$id + previousPts
+    simdata <- rbind(simdata, group)
+    previousPts <- previousPts + nPat[i]
+  }
+  return(simdata)
+}
 
 ```
+
+
 ###helper function: get wide data format
 
 ```{r}

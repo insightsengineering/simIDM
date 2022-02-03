@@ -1,12 +1,15 @@
-#' Class of transition parameters describing transition hazards
-#'  for exponentially distributed survival times in an illness-death model
+#' Exponential Transition Hazards
 #'
-#' @param h01 transition hazard for 0 to 1 transition
-#' @param h02 transition hazard for 0 to 2 transition
-#' @param h12 transition hazard for 1 to 2 transition
+#' This creates a list with class `TransitionParameters` containing
+#' hazards, intervals and Weibull rates for exponential survival times
+#' in an illness-death model.
 #'
-#' @return list of transition parameters for exponentially distributed
-#' survival times in an illness-death model
+#' @param h01 (positive `number`)\cr transition hazard for 0 to 1 transition.
+#' @param h02 (positive `number`)\cr transition hazard for 0 to 2 transition.
+#' @param h12 (positive `number`)\cr transition hazard for 1 to 2 transition.
+#'
+#' @return List with elements `hazards`, `intervals`, `weibull_rates` and `family`
+#'   (exponential).
 #' @export
 #'
 #' @examples
@@ -27,6 +30,8 @@ exponential_transition <- function(h01, h02, h12) {
 }
 
 
+#' todo: similar as above
+#'
 #' Class of transition parameters describing
 #' transition hazards for piecewise exponentially distributed survival times
 #' in an Illness-Death model
@@ -70,6 +75,7 @@ piecewise_exponential <- function(h01, h02, h12, pw01, pw02, pw12) {
 
 
 
+#' todo: similar as above
 #' Class of transition parameters describing Weibull distributed survival times
 #' in an illness-death model
 #'

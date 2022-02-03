@@ -7,19 +7,16 @@
 assert_intervals(x, y)
 }
 \arguments{
-\item{x}{what to check}
+\item{x}{what to check.}
 
-\item{y}{required length of y}
+\item{y}{(\code{count})\cr required length of \code{y}.}
 }
 \value{
-Raises an error if
-\code{x} is not a vector of length y or
-not all elements of \code{x} are non-negative numbers
-not all elements of \code{x} are unique and sorted or
-its first element is not 0  or
+Raises an error if \code{x} is not an intervals vector starting with 0.
 }
 \description{
-Assertion for vector describing intervals
+We define an intervals vector to always start with 0, and contain
+unique ordered time points.
 }
 \examples{
 assert_intervals(c(0,5,7),3)

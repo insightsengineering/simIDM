@@ -25,15 +25,13 @@ assert_positive_number <- function(x,
 
 #' Assertion for vector describing intervals
 #'
-#' @param x what to check
-#' @param y required length of y
+#' We define an intervals vector to always start with 0, and contain
+#' unique ordered time points.
 #'
-#' @return Raises an error if
-#'         `x` is not a vector of length y or
-#'          not all elements of `x` are non-negative numbers
-#'          not all elements of `x` are unique and sorted or
-#'          its first element is not 0  or
+#' @param x what to check.
+#' @param y (`count`)\cr required length of `y`.
 #'
+#' @return Raises an error if `x` is not an intervals vector starting with 0.
 #' @export
 #'
 #' @examples
