@@ -2,31 +2,31 @@
 % Please edit documentation in R/transitionParameters.R
 \name{piecewise_exponential}
 \alias{piecewise_exponential}
-\title{todo: similar as above}
+\title{Transition hazards for piecewise exponential event times}
 \usage{
 piecewise_exponential(h01, h02, h12, pw01, pw02, pw12)
 }
 \arguments{
-\item{h01}{vector of constant transition hazards for 0 to 1 transition}
+\item{h01}{(\verb{numeric vector})\cr constant transition hazards for 0 to 1 transition}
 
-\item{h02}{vector of constant transition hazards for 0 to 2 transition}
+\item{h02}{(\verb{numeric vector})\cr  constant transition hazards for 0 to 2 transition}
 
-\item{h12}{vector of constant transition hazards for 1 to 2 transition}
+\item{h12}{(\verb{numeric vector})\cr  constant transition hazards for 1 to 2 transition}
 
-\item{pw01}{vector of time intervals for the piecewise constant hazards \code{h01}}
+\item{pw01}{(\verb{numeric vector})\cr time intervals for the piecewise constant hazards \code{h01}}
 
-\item{pw02}{vector of time intervals for the piecewise constant hazards \code{h02}}
+\item{pw02}{(\verb{numeric vector})\cr time intervals for the piecewise constant hazards \code{h02}}
 
-\item{pw12}{vector of time intervals for the piecewise constant hazards \code{h12}}
+\item{pw12}{(\verb{numeric vector})\cr  time intervals for the piecewise constant hazards \code{h12}}
 }
 \value{
-list of transition parameters for piecewise exponentially distributed
-survival times in an Illness-Death model
+List with elements \code{hazards}, \code{intervals}, \code{weibull_rates} and \code{family}
+(piecewise exponential).
 }
 \description{
-Class of transition parameters describing
-transition hazards for piecewise exponentially distributed survival times
-in an Illness-Death model
+This creates a list with class \code{TransitionParameters} containing
+hazards, time intervals and Weibull rates for piecewise exponential event times
+in an illness-death model.
 }
 \examples{
 piecewise_exponential(

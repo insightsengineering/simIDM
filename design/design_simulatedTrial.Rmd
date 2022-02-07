@@ -1,5 +1,5 @@
 ---
-title: "GetSimulatedTrials"
+title: "getClinicalTrials"
 author: "Alexandra Niessl"
 date: "1/26/2022"
 output: html_document
@@ -12,119 +12,67 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Objective
 
 Simulate a large number of oncology clinical trials.
-1,2 or 3 arm studies are possible.
+Studies with an arbitrary number of arms  are possible.
 
 
 ### Prototype getClinicalTrials
 
-todo: Consider using list instead of separate transition arguments
-```{r}
-getClinicalTrials <- function(nRep, nPat, transitionByArm) {
-  nArm <- length(transitionByArm)
-}
-```
-
-todo: Consider using `...` to pass arguments to clinical function
-```{r}
-#' ... parameters for [getOneClinicalTrial()].
+```{r,eval = FALSE}
+#' ... parameters for [getOneClinicalTrial()] - does not work!!!
 getClinicalTrials <- function(nRep, ..., seed = 1234, datType = "1rowTransition") {
   set.seed(seed)
+  # getOneClinicalTrial generates one single clinical trial with multiple arms. Generate nRep simulated trials:
   simulatedTrials <- replicate(
     nRep,
     getOneClinicalTrial(...),
-    simplify=FALSE
+    simplify = FALSE
   )
-}
-```
-
-toy example:
-
-```{r}
-foo <- function(a, ...) {
-  paste(a, ...)
-}
-foo(12, 14235, 3463, 36, 36, 346)
-```
-
-
-
-```{r prototype}
-getClinicalTrials <- function(nRep, nArm, nPat, 
-                               transition1, transition2, transition3,
-                               dropout, accrual,
-                               seed = 1234, datType = "1rowTransition") {
-  set.seed(seed)
-  simulatedTrials <- replicate(
-    nRep,
-    getOneClinicalTrial(
-      nArm, nPat,
-      transition1, transition2, transition3,
-      dropout, accrual
-    ),simplify=FALSE
-  )
-
+  # final data set format: one row per patient or one row per transition
   if (datType == "1rowPatient") {
     simulatedTrials <- lapply(simulatedTrials, getDatasetWideFormat)
   }
   return(simulatedTrials)
 }
-
 ```
-###Helper function: get one clinical trial
-```{r prototype}  
-getOneClinicalTrial <- function(nArm, nPat, transition1, transition2, transition3,
-                                dropout = list(rate = 0, time = 12),
-                                accrual = list(param = "time", value = 0)) {
-  ##check input nArm and nPat 
-  assert_int(nArm, lower = 1L, upper=3L)
-  nPat<-as.integer(nPat)
- 
-   assert_integer(nPat,lower = 1,
-    any.missing = FALSE,
-    all.missing = FALSE,
-    len = nArm,
+
+
+```{r}
+#' ... parameters for [getOneClinicalTrial()] 
+getClinicalTrials <- function(nRep,seed = 1234, nPat,transitionByArm, dropout,accrual,datType = "1rowTransition") {
+  set.seed(seed)
+  # getOneClinicalTrial generates one single clinical trial with multiple arms. Generate nRep simulated trials:
+  simulatedTrials <- replicate(
+    nRep,
+    getOneClinicalTrial(nPat,transitionByArm, dropout,accrual),
+    simplify = FALSE
   )
-  
-  group1 <- getSimulatedData(nPat[1], transition1, dropout, accrual)
-  group1$trt <- 0
-  simdata <- group1
-
-  if (nArm > 1) {
-    group2 <- getSimulatedData(nPat[2], transition2, dropout, accrual)
-    group2$trt <- 1
-    group2$id <- group2$id + nPat[1]
-    simdata <- rbind(simdata, group2)
+  # final data set format: one row per patient or one row per transition
+  if (datType == "1rowPatient") {
+    simulatedTrials <- lapply(simulatedTrials, getDatasetWideFormat)
   }
-
-  if (nArm == 3) {
-    group3 <- getSimulatedData(nPat[3], transition3, dropout, accrual)
-    group3$trt <- 2
-    group3$id <- group3$id + (nPat[1]+nPat[2])
-    simdata <- rbind(simdata, group3)
-  }
-  return(simdata)
+  return(simulatedTrials)
 }
-
 ```
 
-todo: consider something with lists like this
+###Helper function: get one clinical trial
 
 ```{r prototype}  
 getOneClinicalTrial <- function(nPat, transitionByArm,
                                 dropout = list(rate = 0, time = 12),
                                 accrual = list(param = "time", value = 0)) {
+  
   assert_list(transitionByArm)
-  nPat<-as.integer(nPat)
+  nPat <- as.integer(nPat)
   nArm <- length(transitionByArm)
- 
-  assert_integer(nPat,lower = 1,
+
+  assert_integer(nPat,
+    lower = 1,
     any.missing = FALSE,
     all.missing = FALSE,
     len = nArm,
   )
-  
-  # todo: try for loop here
-  # starting values:
+  # each loop simulates one trial arm
+  # starting values for loop 
   simdata <- NULL
   previousPts <- 0
   for (i in 1:nArm) {
@@ -164,7 +112,6 @@ getDatasetWideFormat <- function(data) {
   CensoredOS <- cbind(id = id, CensoredOS = as.integer(id %in% censoredIdsOS))
   CensoredPFS <- cbind(id = id, CensoredPFS = as.integer(id %in% censoredIdsPFS))
 
-
   ### merge
   newdata <- unique(data[, c("id", "trt")])
   newdata <- merge(x = newdata, y = PFStime, by = "id")
@@ -181,7 +128,6 @@ getDatasetWideFormat <- function(data) {
   newdata$OStimeCal <- newdata$OStime + newdata$recruitTime
   newdata$PFStimeCal <- newdata$PFStime + newdata$recruitTime
 
-
   return(newdata)
 }
 ```
@@ -194,22 +140,26 @@ transition2 <- weibull_transition(h01 = 1, h02 = 1.3, h12 = 1, p01 = 1.2, p02 = 
 
 transition3 <- weibull_transition(h01 = 1, h02 = 1.8, h12 = 0.8, p01 = 1.2, p02 = 1.3, p12 = 1)
 
-testData <- getSimulatedTrials(
-  nRep = 10, nArm = 2, nPat = c(20, 20),
-  transition1 = transition1, transition2 = transition2,
-  dropout = list(rate = 0.5, time = 12), accrual = list(param = "intensity", value = 7),
-  seed = 1234, datType = "1rowTransition"
+transitionList <- list(transition1, transition2)
+transitionList2 <- list(transition1, transition2, transition3)
+
+testData <- getClinicalTrials(
+  nRep = 10, nPat = c(20, 20),seed = 1234, datType = "1rowTransition",
+   transitionByArm=transitionList,
+  dropout = list(rate = 0.5, time = 12), accrual = list(param = "intensity", value = 7)
+  
 )
 
-testData2 <- getSimulatedTrials(
-  nRep = 10, nArm = 3, nPat = c(20, 20, 20),
-  transition1 = transition1, transition2 = transition2, transition3 = transition3,
+testData2 <- getClinicalTrials(
+  nRep = 10, nPat = c(20, 20, 20),
+  transitionByArm=transitionList2,
   dropout = list(rate = 0.5, time = 12), accrual = list(param = "intensity", value = 7),
   seed = 1234, datType = "1rowPatient"
 )
 
-test1<-getOneClinicalTrial(2, c(20,20), transition1=transition1, transition2=transition2, 
-                                dropout = list(rate = 0.5, time = 12),
-                                accrual = list(param = "time", value = 0))
+test1 <- getOneClinicalTrial(c(20, 20), transitionList,
+  dropout = list(rate = 0.5, time = 12),
+  accrual = list(param = "time", value = 0)
+)
 ```
 

@@ -2,33 +2,31 @@
 % Please edit documentation in R/transitionParameters.R
 \name{weibull_transition}
 \alias{weibull_transition}
-\title{todo: similar as above
-Class of transition parameters describing Weibull distributed survival times
-in an illness-death model}
+\title{Transition hazards for Weibull distributed event times}
 \usage{
 weibull_transition(h01, h02, h12, p01, p02, p12)
 }
 \arguments{
-\item{h01}{transition hazard for 0 to 1 transition}
+\item{h01}{(positive \code{number})\cr transition hazard for 0 to 1 transition}
 
-\item{h02}{transition hazard for 0 to 2 transition}
+\item{h02}{(positive \code{number})\cr transition hazard for 0 to 2 transition}
 
-\item{h12}{transition hazard for 1 to 2 transition}
+\item{h12}{(positive \code{number})\cr transition hazard for 1 to 2 transition}
 
-\item{p01}{rate parameter of Weibull distribution for \code{h01}}
+\item{p01}{(positive \code{number})\cr rate parameter of Weibull distribution for \code{h01}}
 
-\item{p02}{rate parameter of Weibull distribution for \code{h02}}
+\item{p02}{(positive \code{number})\cr rate parameter of Weibull distribution for \code{h02}}
 
-\item{p12}{rate parameter of Weibull distribution for \code{h12}}
+\item{p12}{(positive \code{number})\cr rate parameter of Weibull distribution for \code{h12}}
 }
 \value{
-list of transition parameters for Weibull distributed survival times in
-an illness-death model
+List with elements \code{hazards}, \code{intervals}, \code{weibull_rates} and \code{family}
+(Weibull).
 }
 \description{
-todo: similar as above
-Class of transition parameters describing Weibull distributed survival times
-in an illness-death model
+This creates a list with class \code{TransitionParameters} containing
+hazards, time intervals and Weibull rates for Weibull distrubed event times
+in an illness-death model.
 }
 \examples{
 weibull_transition(h01 = 1, h02 = 1.3, h12 = 0.5, p01 = 1.2, p02 = 1.3, p12 = 0.5)

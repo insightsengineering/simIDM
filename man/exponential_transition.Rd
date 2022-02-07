@@ -2,7 +2,7 @@
 % Please edit documentation in R/transitionParameters.R
 \name{exponential_transition}
 \alias{exponential_transition}
-\title{Exponential Transition Hazards}
+\title{Transition hazards for exponential event times}
 \usage{
 exponential_transition(h01, h02, h12)
 }
@@ -19,7 +19,7 @@ List with elements \code{hazards}, \code{intervals}, \code{weibull_rates} and \c
 }
 \description{
 This creates a list with class \code{TransitionParameters} containing
-hazards, intervals and Weibull rates for exponential survival times
+hazards, time intervals and Weibull rates for exponential event times
 in an illness-death model.
 }
 \examples{

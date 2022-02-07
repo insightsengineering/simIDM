@@ -1,7 +1,7 @@
-#' Exponential Transition Hazards
+#' Transition hazards for exponential event times
 #'
 #' This creates a list with class `TransitionParameters` containing
-#' hazards, intervals and Weibull rates for exponential survival times
+#' hazards, time intervals and Weibull rates for exponential event times
 #' in an illness-death model.
 #'
 #' @param h01 (positive `number`)\cr transition hazard for 0 to 1 transition.
@@ -30,22 +30,22 @@ exponential_transition <- function(h01, h02, h12) {
 }
 
 
-#' todo: similar as above
+#' Transition hazards for piecewise exponential event times
 #'
-#' Class of transition parameters describing
-#' transition hazards for piecewise exponentially distributed survival times
-#' in an Illness-Death model
+#' This creates a list with class `TransitionParameters` containing
+#' hazards, time intervals and Weibull rates for piecewise exponential event times
+#' in an illness-death model.
 #'
-#' @param h01 vector of constant transition hazards for 0 to 1 transition
-#' @param h02 vector of constant transition hazards for 0 to 2 transition
-#' @param h12 vector of constant transition hazards for 1 to 2 transition
-#' @param pw01 vector of time intervals for the piecewise constant hazards `h01`
-#' @param pw02 vector of time intervals for the piecewise constant hazards `h02`
-#' @param pw12 vector of time intervals for the piecewise constant hazards `h12`
 #'
-#' @return
-#' list of transition parameters for piecewise exponentially distributed
-#' survival times in an Illness-Death model
+#' @param h01 (`numeric vector`)\cr constant transition hazards for 0 to 1 transition
+#' @param h02 (`numeric vector`)\cr  constant transition hazards for 0 to 2 transition
+#' @param h12 (`numeric vector`)\cr  constant transition hazards for 1 to 2 transition
+#' @param pw01 (`numeric vector`)\cr time intervals for the piecewise constant hazards `h01`
+#' @param pw02 (`numeric vector`)\cr time intervals for the piecewise constant hazards `h02`
+#' @param pw12 (`numeric vector`)\cr  time intervals for the piecewise constant hazards `h12`
+#'
+#' @return List with elements `hazards`, `intervals`, `weibull_rates` and `family`
+#'   (piecewise exponential).
 #' @export
 #'
 #' @examples
@@ -75,20 +75,21 @@ piecewise_exponential <- function(h01, h02, h12, pw01, pw02, pw12) {
 
 
 
-#' todo: similar as above
-#' Class of transition parameters describing Weibull distributed survival times
-#' in an illness-death model
+#' Transition hazards for Weibull distributed event times
 #'
-#' @param h01 transition hazard for 0 to 1 transition
-#' @param h02 transition hazard for 0 to 2 transition
-#' @param h12 transition hazard for 1 to 2 transition
-#' @param p01 rate parameter of Weibull distribution for `h01`
-#' @param p02 rate parameter of Weibull distribution for `h02`
-#' @param p12 rate parameter of Weibull distribution for `h12`
+#' This creates a list with class `TransitionParameters` containing
+#' hazards, time intervals and Weibull rates for Weibull distrubed event times
+#' in an illness-death model.
 #'
-#' @return
-#' list of transition parameters for Weibull distributed survival times in
-#'  an illness-death model
+#' @param h01 (positive `number`)\cr transition hazard for 0 to 1 transition
+#' @param h02  (positive `number`)\cr transition hazard for 0 to 2 transition
+#' @param h12  (positive `number`)\cr transition hazard for 1 to 2 transition
+#' @param p01 (positive `number`)\cr rate parameter of Weibull distribution for `h01`
+#' @param p02 (positive `number`)\cr rate parameter of Weibull distribution for `h02`
+#' @param p12  (positive `number`)\cr rate parameter of Weibull distribution for `h12`
+#'
+#' @return List with elements `hazards`, `intervals`, `weibull_rates` and `family`
+#'   (Weibull).
 #' @export
 #'
 #' @examples
