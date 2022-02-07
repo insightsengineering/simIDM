@@ -10,3 +10,5 @@ README.*
 coverage.*
 ^\.pre-commit-config\.yaml$
 ^codemeta\.json$
+_pkgdown.yaml
+^design$

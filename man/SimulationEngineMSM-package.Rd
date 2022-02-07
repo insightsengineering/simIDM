@@ -6,7 +6,7 @@
 \alias{SimulationEngineMSM-package}
 \title{\code{SimulationEngineMSM} Package}
 \description{
-\code{SimulationEngineMSM} does xyz ...
+\code{SimulationEngineMSM} does ...
 }
 \seealso{
 Useful links:

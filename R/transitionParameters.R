@@ -78,7 +78,7 @@ piecewise_exponential <- function(h01, h02, h12, pw01, pw02, pw12) {
 #' Transition hazards for Weibull distributed event times
 #'
 #' This creates a list with class `TransitionParameters` containing
-#' hazards, time intervals and Weibull rates for Weibull distrubed event times
+#' hazards, time intervals and Weibull rates for Weibull disturbed event times
 #' in an illness-death model.
 #'
 #' @param h01 (positive `number`)\cr transition hazard for 0 to 1 transition

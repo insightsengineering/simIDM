@@ -25,7 +25,7 @@ List with elements \code{hazards}, \code{intervals}, \code{weibull_rates} and \c
 }
 \description{
 This creates a list with class \code{TransitionParameters} containing
-hazards, time intervals and Weibull rates for Weibull distrubed event times
+hazards, time intervals and Weibull rates for Weibull disturbed event times
 in an illness-death model.
 }
 \examples{
