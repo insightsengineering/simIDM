@@ -22,10 +22,10 @@ Studies with an arbitrary number of arms  are possible.
 getClinicalTrials <- function(nRep, ..., seed = 1234, datType = "1rowTransition") {
   set.seed(seed)
   # getOneClinicalTrial generates one single clinical trial with multiple arms. Generate nRep simulated trials:
-  simulatedTrials <- replicate(
-    nRep,
-    getOneClinicalTrial(...),
-    simplify = FALSE
+  simulatedTrials <- lapply(
+    seq_len(nRep),
+    FUN = function(x, ...) getOneClinicalTrial(...),
+    ...
   )
   # final data set format: one row per patient or one row per transition
   if (datType == "1rowPatient") {
@@ -137,7 +137,6 @@ getDatasetWideFormat <- function(data) {
 ```{r}
 transition1 <- weibull_transition(h01 = 1, h02 = 1.3, h12 = 0.5, p01 = 1.2, p02 = 1.3, p12 = 0.5)
 transition2 <- weibull_transition(h01 = 1, h02 = 1.3, h12 = 1, p01 = 1.2, p02 = 1.3, p12 = 0.5)
-
 transition3 <- weibull_transition(h01 = 1, h02 = 1.8, h12 = 0.8, p01 = 1.2, p02 = 1.3, p12 = 1)
 
 transitionList <- list(transition1, transition2)
