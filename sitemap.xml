@@ -1,18 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://insightsengineering.github.io/SimulationEngineMSM/404.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/SimulationEngineMSM/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/SimulationEngineMSM/authors.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/SimulationEngineMSM/index.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/SimulationEngineMSM/reference/hello.html</loc>
+    <loc>https://insightsengineering.github.io/SimulationEngineMSM/news/index.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/SimulationEngineMSM/reference/plumber_api.html</loc>
+    <loc>https://insightsengineering.github.io/SimulationEngineMSM/pull_request_template.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/SimulationEngineMSM/reference/shiny_app.html</loc>
+    <loc>https://insightsengineering.github.io/SimulationEngineMSM/reference/SimulationEngineMSM-package.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/SimulationEngineMSM/articles/hello.html</loc>
+    <loc>https://insightsengineering.github.io/SimulationEngineMSM/reference/assert_intervals.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/SimulationEngineMSM/reference/assert_positive_number.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/SimulationEngineMSM/reference/exponential_transition.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/SimulationEngineMSM/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/SimulationEngineMSM/reference/piecewise_exponential.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/SimulationEngineMSM/reference/weibull_transition.html</loc>
   </url>
 </urlset>
