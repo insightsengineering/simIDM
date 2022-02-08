@@ -1,29 +1,24 @@
 Type: Package
 Package: SimulationEngineMSM
-Title: R Package Template
+Title: Simulating clinical trials with endpoints overall survival and progression-free survival
+       using an illness-death model
 Version: 0.0.0.9003
 Authors@R:
     person("Alexandra Niessl", , , "niessl.alexandra@gene.com", role = c("aut", "cre"))
-Description: R package template with Github Actions workflows included.
+Description: Put one paragraph with few sentences here.
 License: Apache License 2.0 | file LICENSE
 URL: https://github.com/insightsengineering/SimulationEngineMSM/
 BugReports: 
     https://github.com/insightsengineering/SimulationEngineMSM/issues
 Depends:
-    R (>= 3.6)
+    R (>= 4.0)
 Imports:
-    plumber,
-    shiny,
-    stringr
+    checkmate
 Suggests:
-    future,
-    httr,
     knitr,
-    shinytest,
     testthat (>= 2.0)
 VignetteBuilder:
     knitr
-biocViews:
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
