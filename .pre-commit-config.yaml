@@ -11,6 +11,7 @@ repos:
           - checkmate
           - knitr
           - testthat
+          - utils
       - id: use-tidy-description
       - id: spell-check
         exclude: >
