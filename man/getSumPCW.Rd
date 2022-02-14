@@ -7,21 +7,20 @@
 getSumPCW(haz1, haz2, pw1, pw2)
 }
 \arguments{
-\item{haz1}{(\code{numeric})\cr first summand (piecewise constant hazard)}
+\item{haz1}{(\code{numeric})\cr first summand (piecewise constant hazard).}
 
-\item{haz2}{(\code{numeric})\cr second summand (piecewise constant hazard)}
+\item{haz2}{(\code{numeric})\cr second summand (piecewise constant hazard).}
 
-\item{pw1}{(\code{numeric})\cr time intervals of first summand}
+\item{pw1}{(\code{numeric})\cr time intervals of first summand.}
 
-\item{pw2}{(\code{numeric})\cr time intervals of second summand}
+\item{pw2}{(\code{numeric})\cr time intervals of second summand.}
 }
 \value{
-constant hazards and corresponding time-intervals of piecewise constant hazard
+constant hazards of the sum of two piecewise constant hazards.
 }
 \description{
-Sum of two piecewise constant hazards
+Sum of two piecewise constant hazards.
 }
 \examples{
-getSumPCW(c(1.2,0.3,0.6),c(1.2,0.7,1) , c(0,8,9),c(0,1,4))
-
+getSumPCW(c(1.2, 0.3, 0.6), c(1.2, 0.7, 1), c(0, 8, 9), c(0, 1, 4))
 }

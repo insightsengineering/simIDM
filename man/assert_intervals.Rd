@@ -9,7 +9,7 @@ assert_intervals(x, y)
 \arguments{
 \item{x}{what to check.}
 
-\item{y}{(\code{count})\cr required length of \code{y}.}
+\item{y}{(\code{count})\cr required length of \code{y}}
 }
 \value{
 Raises an error if \code{x} is not an intervals vector starting with 0.
@@ -19,5 +19,5 @@ We define an intervals vector to always start with 0, and contain
 unique ordered time points.
 }
 \examples{
-assert_intervals(c(0,5,7),3)
+assert_intervals(c(0, 5, 7), 3)
 }
