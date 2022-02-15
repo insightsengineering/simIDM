@@ -41,6 +41,11 @@ repos:
           .*\.RData
           )$
       - id: lintr
+        additional_dependencies:
+          - checkmate
+          - knitr
+          - testthat
+          - utils
       - id: readme-rmd-rendered
       - id: parsable-R
       - id: no-browser-statement
