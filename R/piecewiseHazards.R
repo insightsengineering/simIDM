@@ -26,4 +26,3 @@ getPCWHazard <- function(haz, pw, x) {
   })
   return(hazVal)
 }
-
