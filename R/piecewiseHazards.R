@@ -16,7 +16,7 @@ getPCWHazard <- function(haz, pw, x) { # nolint
   haz_val <- sapply(x, function(jj) {
     y <- NULL
     # find interval and corresponding hazard value for time x[jj]
-    for (ii in seq_len(haz)) {
+    for (ii in seq_along(haz)) {
       if (jj >= pw[ii]) {
         y <- haz[ii]
       }
