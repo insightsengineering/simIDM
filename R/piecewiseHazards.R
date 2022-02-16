@@ -12,8 +12,8 @@
 #'
 #' @examples
 #' getPCWHazard(c(1, 1.2, 1.4), c(0, 2, 3), c(1, 4, 6))
-getPCWHazard <- function(haz, pw, x) {
-  hazVal <- sapply(x, function(jj) {
+getPCWHazard <- function(haz, pw, x) { # nolint
+  haz_val <- sapply(x, function(jj) {
     y <- NULL
     # find interval and corresponding hazard value for time x[jj]
     for (ii in seq_len(haz)) {
@@ -21,8 +21,8 @@ getPCWHazard <- function(haz, pw, x) {
         y <- haz[ii]
       }
     }
-    hazVal <- y
-    return(hazVal)
+    haz_val <- y
+    return(haz_val)
   })
-  return(hazVal)
+  return(haz_val)
 }
