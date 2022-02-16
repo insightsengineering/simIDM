@@ -23,3 +23,7 @@ reference:
       - exponential_transition
       - piecewise_exponential
       - weibull_transition
+  - title: Piecewise Hazards
+    contents:
+      - getPCWHazard
+
