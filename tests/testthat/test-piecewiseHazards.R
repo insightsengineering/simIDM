@@ -9,5 +9,5 @@ test_that("getPCWHazard works as expected", {
 # getSumPCW ----
 test_that("getSumPCW works as expected", {
   actual <- getSumPCW(c(0.8, 1.1, 1), c(0.8, 1.1, 1, 0.4), c(0, 5, 8), c(0, 3, 7, 9))
-  expect_equal(actual, c(1.6, 1.9, 2.2, 2.1, 2, 1.4))
+  expect_equal(actual, list(haz = c(1.6, 1.9, 2.2, 2.1, 2, 1.4), pw = c(0, 3, 5, 7, 8, 9)))
 })
