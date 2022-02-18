@@ -14,7 +14,7 @@ getPCWHazard(haz, pw, x)
 \item{x}{(\code{numeric})\cr time-points.}
 }
 \value{
-hazard values at input time-points.
+Hazard values at input time-points.
 }
 \description{
 This returns piecewise constant hazard values at specified time points.
