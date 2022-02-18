@@ -16,7 +16,7 @@ getSumPCW(haz1, haz2, pw1, pw2)
 \item{pw2}{(\code{numeric})\cr time intervals of second summand.}
 }
 \value{
-constant hazards of the sum of two piecewise constant hazards.
+List with elements \code{hazards} and  \code{intervals} for the sum of two piecewise constant hazards.
 }
 \description{
 This returns the sum of two piecewise constant hazards per interval.
