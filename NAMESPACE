@@ -3,6 +3,7 @@
 export(assert_intervals)
 export(assert_positive_number)
 export(exponential_transition)
+export(getPCWDistr)
 export(getPCWHazard)
 export(getSumPCW)
 export(piecewise_exponential)
