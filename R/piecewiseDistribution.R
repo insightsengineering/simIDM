@@ -3,10 +3,11 @@
 #'
 #' This returns event times with a distribution resulting from piece-wise constant hazards
 #' using the inversion method.
-#' @param U (`numeric vector`)\cr uniformly distributed random variables.
-#' @param haz (`numeric vector`)\cr piecewise constant hazard.
-#' @param pw (`numeric vector`)\cr time intervals for the piecewise constant hazard.
-#' @param t_0 (`numeric vector`)\cr the starting times.
+#'
+#' @param U (`numeric`)\cr uniformly distributed random variables.
+#' @param haz (`numeric`)\cr piecewise constant hazard.
+#' @param pw (`numeric`)\cr time intervals for the piecewise constant hazard.
+#' @param t_0 (`numeric`)\cr the starting times.
 #'
 #' @return This returns a vector with event times.
 #' @export
