@@ -29,8 +29,8 @@ getPCWDistr <- function(U, haz, pw, t_0) {
     haz_temp <- haz[(remov + 1):n2]
     LogU <- log(1 - U[kk])
 
-    if (n != 1) {
-      t1[kk] <- PCWInversionMethod(haz = haz_temp, pw = cuts_temp, LogU = LogU)
+    t1[kk] <- if (n != 1) {
+      PCWInversionMethod(haz = haz_temp, pw = cuts_temp, LogU = LogU)
     } else if (n == 1) { # I.e. exponential distribution.
       t1[kk] <- -LogU / haz_temp
     }
@@ -57,7 +57,7 @@ getPCWDistr <- function(U, haz, pw, t_0) {
 PCWInversionMethod <- function(haz, pw, LogU) {
   n <- length(pw)
   t1 <- NA
-  ## Determine sum of alpha*time-interval for all i.
+  # Determine sum of alpha*time-interval for all i.
   dt <- pw[2:n] - pw[1:(n - 1)]
 
   # Helping matrix.
@@ -68,13 +68,13 @@ PCWInversionMethod <- function(haz, pw, LogU) {
 
   # Find the appropriate time interval.
   for (i in 1:n) {
-    if (i != n) {
-      t1 <- ifelse(sumA[i] >= LogU & LogU > sumA[i + 1],
+    t1 <- if (i != n) {
+      ifelse(sumA[i] >= LogU & LogU > sumA[i + 1],
         pw[i] + (sumA[i] - LogU) / haz[i],
         t1
       )
     } else {
-      t1 <- ifelse(LogU <= sumA[i],
+      ifelse(LogU <= sumA[i],
         pw[i] + (sumA[i] - LogU) / haz[i],
         t1
       )
