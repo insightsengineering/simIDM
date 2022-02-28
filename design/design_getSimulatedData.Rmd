@@ -3,7 +3,7 @@ title: "getSimulatedData"
 author: "Alexandra Niessl"
 date: "12/16/2021"
 output: html_document
-editor_options: 
+editor_options:
   chunk_output_type: console
 ---
 
@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Context
 The function `getSimulatedData` creates a single simulated data set for a single treatment arm.
-The function is used as basis for simulating a large number of oncology clinical trials. The large number of simulation iterations is generated using the function `replicate`. The input parameters of `getSimulatedData` can vary for each treatment arm. 
+The function is used as basis for simulating a large number of oncology clinical trials. The large number of simulation iterations is generated using the function `replicate`. The input parameters of `getSimulatedData` can vary for each treatment arm.
 That is, the simulation of a trial with `nRep` simulation iterations will be constructed as follows:
 
 ```{r, eval = FALSE}
@@ -64,7 +64,7 @@ The data are simulated using the following algorithm:
 
 1. Simulate waiting times in the initial state with all-cause hazard $h_{01}(t)+h_{02}(t)$.
 2. Run a binomial experiment for a simulated waiting-time, say $t_0$, which decides with probability
-$\frac{h_{01}(t_0)}{h_{01}(t_0)+h_{02}(t_0)}$ on progression 
+$\frac{h_{01}(t_0)}{h_{01}(t_0)+h_{02}(t_0)}$ on progression
 3. If the binomial experiment decides on death, step 4 follows. If the binomial experiment decides on
 intermediate state progression, the waiting time in the progression state is simulated with hazard $h_{12}(t), t \geq t_0$.
 4. If censoring is present: Additionally, generate random exponential distributed censoring times (according to dropout parameters). Transition times of an individual occurring after the censoring time will be censored.
@@ -195,11 +195,11 @@ test_weibull
 #' Title
 #'
 #' @param N (`int`)\cr number of patients.
-#' @param transition (`TransitionParameters`)\cr transition parameters comprising 
+#' @param transition (`TransitionParameters`)\cr transition parameters comprising
 #'   `hazards`, corresponding `intervals` and `weibull_rates`, see ...
-#' @param dropout 
-#' @param accrual 
-#' 
+#' @param dropout
+#' @param accrual
+#'
 #'
 #' @return
 #' @export
@@ -262,7 +262,7 @@ getSimulatedData <- function(N,
     )
     ### binomial experiment decides on death or progression
     numerator <- getPCWHazard(h$h01, pw$pw01, wait_time)
-    denumerator <- getPCWHazard(h$h01, pw$pw01, wait_time) + 
+    denumerator <- getPCWHazard(h$h01, pw$pw01, wait_time) +
                    getPCWHazard(h$h02, pw$pw02, wait_time)
   }
 
@@ -302,12 +302,12 @@ getSimulatedData <- function(N,
 - `getOneTwoTransitionRows`: generates rows with transition times for patients in the transient state progression, i.e. entry and exit times for 1-> 2 or 1-> cens transitions
 - `getPCWHazard`: for piecewise-constant hazards: function to get hazard value at time x
 - `getSumPCW`: calculates the sum of two piece-wise constant hazards
-- `getPCWDistr`: generates event times with a distribution resulting 
-            from specified piece-wise constant hazards 
+- `getPCWDistr`: generates event times with a distribution resulting
+            from specified piece-wise constant hazards
 - `getWaitTimeSum`: get event times following the distribution of a sum of
-                Weibull distributed event-times 
+                Weibull distributed event-times
 - `addStaggeredEntry`: add staggered study entries to study. This
-                   implies that times on individual scale and 
+                   implies that times on individual scale and
                    study scale differ
 
 ```{r}
@@ -514,4 +514,3 @@ testPiecExp <- getSimulatedData(20,
   accrual = list(param = "intensity", value = 7)
 )
 ```
-
