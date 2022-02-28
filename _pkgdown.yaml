@@ -30,3 +30,4 @@ reference:
   - title: Piecewise Hazards Distribution
     contents:
       - getPCWDistr
+      - PCWInversionMethod

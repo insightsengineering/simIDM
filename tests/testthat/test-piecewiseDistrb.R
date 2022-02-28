@@ -1,19 +1,39 @@
 # getPCWdistr ----
-test_that("getPCWDistr works as expected", {
+test_that("getPCWDistr works as expected for constant hazards after time shift", {
   U <- runif(1)
   actual <- getPCWDistr(U, c(1.1, 0.8), c(0, 5), 6)
   expected <- -log(1 - U) / 0.8
   expect_equal(actual, expected)
+})
 
+test_that("getPCWDistr works as expected for pwc hazards without time shift", {
   set.seed(1225)
-  U2 <- runif(2)
-  actual2 <- getPCWDistr(U2, c(1.1, 0.5, 0.4), c(0, 0.6, 5), c(0, 4.2))
-
+  U <- runif(1)
+  actual <- getPCWDistr(U = U, haz = c(1.1, 0.5, 0.4), pw = c(0, 0.6, 5), t_0 = 0)
   # 1-survival function of the actual time-points.
-  expected2 <- 1 - exp(-(1.1 * 0.6) - (actual2[1] - 0.6) * 0.5)
+  expected <- 1 - exp(-(1.1 * 0.6) - (actual - 0.6) * 0.5)
+  expect_equal(U, expected)
+})
 
-  expected3 <- 1 - exp(-((actual2[2] + 4.2) - 4.2) * 0.5)
 
-  expect_equal(U2[1], expected2)
-  expect_equal(U2[2], expected3)
+test_that("getPCWDistr works as expected for piecewise constant hazards with time shift", {
+  set.seed(1226)
+  U <- runif(2)
+  actual <- getPCWDistr(U = U, haz = c(1.1, 0.5, 0.4), pw = c(0, 0.6, 5), t_0 = c(4.2, 4.2))
+  # 1-survival function of the actual time-points.
+  expected <- 1 - exp(-(0.8 * 0.5) - (actual + 4.2 - 5) * 0.4)
+  expect_equal(U, expected)
+})
+
+
+# PCWInversionMethod ----
+
+test_that("PCWInversionMethod works as expected", {
+  set.seed(1227)
+  U <- runif(1)
+  logU <- log(1 - U)
+  actual <- PCWInversionMethod(haz = c(1.1, 0.5, 0.4), pw = c(0, 0.6, 5), LogU = logU)
+  # 1-survival function of the actual time-point.
+  expected <- 1 - exp(-(actual * 1.1))
+  expect_equal(U, expected)
 })

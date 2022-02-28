@@ -7,13 +7,13 @@
 getPCWDistr(U, haz, pw, t_0)
 }
 \arguments{
-\item{U}{(\verb{numeric vector})\cr uniformly distributed random variables.}
+\item{U}{(\code{numeric})\cr uniformly distributed random variables.}
 
-\item{haz}{(\verb{numeric vector})\cr piecewise constant hazard.}
+\item{haz}{(\code{numeric})\cr piecewise constant hazard.}
 
-\item{pw}{(\verb{numeric vector})\cr time intervals for the piecewise constant hazard.}
+\item{pw}{(\code{numeric})\cr time intervals for the piecewise constant hazard.}
 
-\item{t_0}{(\verb{numeric vector})\cr the starting times.}
+\item{t_0}{(\code{numeric})\cr the starting times.}
 }
 \value{
 This returns a vector with event times.
@@ -23,5 +23,5 @@ This returns event times with a distribution resulting from piece-wise constant 
 using the inversion method.
 }
 \examples{
-getPCWDistr(runif(3), c(1.1, 0.5, 0.4), c(0, 7, 10), c(0, 1, 4.2))
+getPCWDistr(U = runif(3), haz = c(1.1, 0.5, 0.4), pw = c(0, 7, 10), t_0 = c(0, 1, 4.2))
 }
