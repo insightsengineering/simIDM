@@ -37,7 +37,7 @@ getPCWDistr <- function(U, haz, pw, t_0) {
     t1[kk] <- if (n != 1) {
       PCWInversionMethod(haz = haz_temp, pw = cuts_temp, LogU = LogU)
     } else if (n == 1) { # I.e. exponential distribution.
-      t1[kk] <- -LogU / haz_temp
+      -LogU / haz_temp
     }
   }
   return(t1)
@@ -65,7 +65,7 @@ PCWInversionMethod <- function(haz, pw, LogU) {
   assert_number(LogU)
 
   n <- length(pw)
-  t1 <- NA
+  t1 <- 0
   # Determine sum of alpha*time-interval for all i.
   dt <- pw[2:n] - pw[1:(n - 1)]
 
@@ -74,19 +74,24 @@ PCWInversionMethod <- function(haz, pw, LogU) {
   tempMatrix[lower.tri(tempMatrix)] <- 1
 
   sumA <- -as.vector(tempMatrix %*% (haz[1:(n - 1)] * dt))
-
   # Find the appropriate time interval.
   for (i in 1:n) {
     t1 <- if (i != n) {
+      t1_prev <- t1
       ifelse(sumA[i] >= LogU & LogU > sumA[i + 1],
         pw[i] + (sumA[i] - LogU) / haz[i],
         t1
       )
     } else {
+      t1_prev <- t1
       ifelse(LogU <= sumA[i],
         pw[i] + (sumA[i] - LogU) / haz[i],
         t1
       )
+    }
+
+    if (t1_prev != t1) {
+      break
     }
   }
   return(t1)
