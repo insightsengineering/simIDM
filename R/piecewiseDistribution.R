@@ -75,24 +75,11 @@ PCWInversionMethod <- function(haz, pw, LogU) {
 
   sumA <- -as.vector(tempMatrix %*% (haz[1:(n - 1)] * dt))
   # Find the appropriate time interval.
-  for (i in 1:n) {
-    t1 <- if (i != n) {
-      t1_prev <- t1
-      ifelse(sumA[i] >= LogU & LogU > sumA[i + 1],
-        pw[i] + (sumA[i] - LogU) / haz[i],
-        t1
-      )
-    } else {
-      t1_prev <- t1
-      ifelse(LogU <= sumA[i],
-        pw[i] + (sumA[i] - LogU) / haz[i],
-        t1
-      )
-    }
+  rev_index <- findInterval(LogU, rev(sumA), rightmost.closed = FALSE, left.open = TRUE, all.inside = FALSE)
+  # Use reverse index.
+  index <- n - rev_index
+  # Calculate event time.
+  t1 <- pw[index] + (sumA[index] - LogU) / haz[index]
 
-    if (t1_prev != t1) {
-      break
-    }
-  }
   return(t1)
 }
