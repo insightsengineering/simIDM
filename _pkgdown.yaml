@@ -27,3 +27,7 @@ reference:
     contents:
       - getPCWHazard
       - getSumPCW
+  - title: Piecewise Hazards Distribution
+    contents:
+      - getPCWDistr
+      - PCWInversionMethod
