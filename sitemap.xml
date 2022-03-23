@@ -19,6 +19,9 @@
     <loc>https://insightsengineering.github.io/SimulationEngineMSM/pull_request_template.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/SimulationEngineMSM/reference/PCWInversionMethod.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/SimulationEngineMSM/reference/SimulationEngineMSM-package.html</loc>
   </url>
   <url>
@@ -29,6 +32,9 @@
   </url>
   <url>
     <loc>https://insightsengineering.github.io/SimulationEngineMSM/reference/exponential_transition.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/SimulationEngineMSM/reference/getPCWDistr.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/SimulationEngineMSM/reference/getPCWHazard.html</loc>
