@@ -31,3 +31,5 @@ reference:
     contents:
       - getPCWDistr
       - PCWInversionMethod
+  - title: Wait Time Sum for Weibull Distribution
+      - getWaitTimeSum
