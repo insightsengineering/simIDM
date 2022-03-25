@@ -23,13 +23,10 @@ reference:
       - exponential_transition
       - piecewise_exponential
       - weibull_transition
-  - title: Piecewise Hazards
+  - title: Helper Functions for Piecewise or Weibull Hazards
     contents:
       - getPCWHazard
       - getSumPCW
-  - title: Piecewise Hazards Distribution
-    contents:
       - getPCWDistr
       - PCWInversionMethod
-  - title: Wait Time Sum for Weibull Distribution
       - getWaitTimeSum

@@ -2,7 +2,7 @@
 % Please edit documentation in R/getWaitTimeSum.R
 \name{getWaitTimeSum}
 \alias{getWaitTimeSum}
-\title{Event times following the distribution of the sum of Weibull distributed random variables.}
+\title{Event Times Distributed as Sum of Weibull}
 \usage{
 getWaitTimeSum(U, haz1, haz2, p1, p2, entry)
 }
