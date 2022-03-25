@@ -1,13 +1,12 @@
-### Function to get event times following the distribution of a sum of Weibull distributed event-times
 
 
 
-#' Event times following the distribution of the sum of Weibull distributed random variables.
+#' Event Times Distributed as Sum of Weibull
 #'
 #' This returns event times with a distribution resulting from the sum of two Weibull distributed random variables
 #' using the inversion method.
 #'
-#' @param U  (`numeric`)\cr uniformly distributed random variables.
+#' @param U (`numeric`)\cr uniformly distributed random variables.
 #' @param haz1  (positive `number`)\cr  first summand (constant hazard).
 #' @param haz2  (positive `number`)\cr  second summand (constant hazard).
 #' @param p1  (positive `number`)\cr rate parameter of Weibull distribution for `haz1`.
@@ -31,7 +30,7 @@ getWaitTimeSum <- function(U, haz1, haz2, p1, p2, entry) {
   # Exponential distributed survival times.
   if (p1 == 1 & p2 == 1) {
     return(-log(1 - U) / (haz1 + haz2))
-  } else {
+  }
     # Weibull distributed survival times.
     temp <- function(x, y, t0) {
       return((haz1 * (x + t0))^p1 - (haz1 * t0)^p1 - (haz2 * t0)^p2 + (haz2 * (x + t0))^p2 + y)
@@ -53,5 +52,5 @@ getWaitTimeSum <- function(U, haz1, haz2, p1, p2, entry) {
       }
     }
     return(stime)
-  }
+  
 }
