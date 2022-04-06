@@ -15,10 +15,10 @@
 #' @examples
 #' getPCWDistr(U = runif(3), haz = c(1.1, 0.5, 0.4), pw = c(0, 7, 10), t_0 = c(0, 1, 4.2))
 getPCWDistr <- function(U, haz, pw, t_0) {
+  assert_numeric(U, lower = 0, upper = 1, any.missing = FALSE, all.missing = FALSE)
   assert_numeric(haz, lower = 0, any.missing = FALSE, all.missing = FALSE)
   assert_intervals(pw, length(haz))
   assert_numeric(t_0, lower = 0, len = length(U), any.missing = FALSE, all.missing = FALSE)
-  assert_numeric(U, lower = 0, upper = 1, any.missing = FALSE, all.missing = FALSE)
 
   N <- length(U)
   t1 <- rep(NA, N) # Initialize event times.
