@@ -27,5 +27,5 @@ This returns event times with a distribution resulting from the sum of two Weibu
 using the inversion method.
 }
 \examples{
-getWaitTimeSum(U = c(0, 4, 0.5), haz1 = 0.8, haz2 = 1, p1 = 1.1, p2 = 1.5, entry = 0)
+getWaitTimeSum(U = c(0.4, 0.5), haz1 = 0.8, haz2 = 1, p1 = 1.1, p2 = 1.5, entry = c(0, 0))
 }

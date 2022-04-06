@@ -17,7 +17,7 @@
 #' @export
 #'
 #' @examples
-#' getWaitTimeSum(U = c(0, 4, 0.5), haz1 = 0.8, haz2 = 1, p1 = 1.1, p2 = 1.5, entry = 0)
+#' getWaitTimeSum(U = c(0.4, 0.5), haz1 = 0.8, haz2 = 1, p1 = 1.1, p2 = 1.5, entry = c(0, 0))
 getWaitTimeSum <- function(U, haz1, haz2, p1, p2, entry) {
   assert_numeric(U, lower = 0, upper = 1, any.missing = FALSE, all.missing = FALSE)
   assert_positive_number(haz1, zero_ok = TRUE)
@@ -42,7 +42,7 @@ getWaitTimeSum <- function(U, haz1, haz2, p1, p2, entry) {
     u <- U[i]
     t0 <- entry[i]
     if (temp(0, log(1 - u), t0) * temp(10000, log(1 - u), t0) < 0) {
-      res <- uniroot(temp, c(0, 10000), tol = 10^-16, y = log(1 - u), t0 = t0)
+      res <- stats::uniroot(temp, c(0, 10000), tol = 10^-16, y = log(1 - u), t0 = t0)
       stime[i] <- res$root
       i <- i + 1
       if (res$root == 0) {

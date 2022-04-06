@@ -13,7 +13,8 @@ BugReports:
 Depends:
     R (>= 3.6)
 Imports:
-    checkmate
+    checkmate,
+    stats
 Suggests:
     knitr,
     testthat (>= 2.0)
