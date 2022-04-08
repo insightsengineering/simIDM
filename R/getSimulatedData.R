@@ -85,8 +85,8 @@ getOneToTwoRows <- function(simDataOne, transition) {
 #' )
 #' addStaggeredEntry(simData, 3, accrualParam = "time", accrualValue = 5)
 addStaggeredEntry <- function(simData, N, accrualParam, accrualValue) {
-  assert(check_choice(accrual$param, c("time", "intensity")),
-    check_number(accrual$value, lower = 0),
+  assert(check_choice(accrualParam, c("time", "intensity")),
+    check_number(accrualValue, lower = 0),
     combine = "and", .var.name = "accrual"
   )
   # Get accrual times in calendar time per individual.
