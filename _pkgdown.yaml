@@ -30,3 +30,8 @@ reference:
       - getPCWDistr
       - PCWInversionMethod
       - getWaitTimeSum
+  - title: Simulation of single simulated data set for a single treatment arm.
+    contents:
+      - getSimulatedData
+      - getOneToTwoRows
+      - addStaggeredEntry
