@@ -8,11 +8,11 @@ getOneToTwoRows(simDataOne, transition)
 }
 \arguments{
 \item{simDataOne}{(\code{data.frame})\cr a data frame containing all patients with transitions
-into the intermediate state.}
+into the intermediate state. See \code{\link[=getSimulatedData]{getSimulatedData()}} for details.}
 
 \item{transition}{(\code{TransitionParameters})\cr transition parameters comprising
-\code{hazards}, corresponding \code{intervals} and \code{weibull_rates}, see \code{exponential_transition }, \code{piecewise_exponential}
-and \code{weibull_transition}  for details.}
+\code{hazards}, corresponding \code{intervals} and \code{weibull_rates}, see \code{\link[=exponential_transition]{exponential_transition()}}, \code{\link[=piecewise_exponential]{piecewise_exponential()}}
+and \code{\link[=exponential_transition]{exponential_transition()}} for details.}
 }
 \value{
 This returns a data frame with one row per patient for the second transition,

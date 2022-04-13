@@ -5,10 +5,10 @@
 #' for an existing data frame containing the exit times out of the initial state.
 #'
 #' @param simDataOne (`data.frame`)\cr a data frame containing all patients with transitions
-#'  into the intermediate state.
+#'  into the intermediate state. See [getSimulatedData()] for details.
 #' @param transition (`TransitionParameters`)\cr transition parameters comprising
 #'  `hazards`, corresponding `intervals` and `weibull_rates`, see [exponential_transition()], [piecewise_exponential()]
-#'  and `weibull_transition`  for details.
+#'  and [exponential_transition()] for details.
 #'
 #' @return This returns a data frame with one row per patient for the second transition,
 #'  i.e. the transition out of the intermediate
@@ -24,6 +24,7 @@
 #' transition <- exponential_transition(1, 1.6, 0.3)
 #' getOneToTwoRows(simDataOne, transition)
 getOneToTwoRows <- function(simDataOne, transition) {
+  assert_data_frame(simDataOne, ncol = 6)
   assert_class(transition, "TransitionParameters")
 
   id1 <- simDataOne$id
@@ -51,10 +52,10 @@ getOneToTwoRows <- function(simDataOne, transition) {
   to1 <- ifelse(censTime1 < exit1, "cens", to1)
   exit1 <- pmin(censTime1, exit1)
 
-  data.frame(
+  return(data.frame(
     id = id1, from = from1, to = to1, entry = entry1, exit = exit1,
     censTime = censTime1, stringsAsFactors = FALSE
-  )
+  ))
 }
 
 
@@ -63,7 +64,7 @@ getOneToTwoRows <- function(simDataOne, transition) {
 #' This function adds staggered study entry times to a simulated data set with illness-death model structure.
 #'
 #' @param simData (`data.frame`)\cr simulated data frame containing entry and exit times
-#' at individual study time scale.
+#' at individual study time scale. See [getSimulatedData()] for details.
 #' @param N (`int`)\cr number of patients.
 #' @param accrualParam (`string`)\cr possible values are 'time' or 'intensity'.
 #' @param accrualValue  (`number`)\cr specifies the accrual intensity. For `accrualParam` equal time,
@@ -86,10 +87,9 @@ getOneToTwoRows <- function(simDataOne, transition) {
 #' )
 #' addStaggeredEntry(simData, 3, accrualParam = "time", accrualValue = 5)
 addStaggeredEntry <- function(simData, N, accrualParam, accrualValue) {
-  assert(check_choice(accrualParam, c("time", "intensity")),
-    check_number(accrualValue, lower = 0),
-    combine = "and", .var.name = "accrual"
-  )
+  assert_choice(accrualParam, c("time", "intensity"))
+  assert_number(accrualValue, lower = 0)
+
   # Get accrual times in calendar time per individual.
   # If no staggered study entry is present, all individuals have the same entry time 0.
   entry_act <- if (accrualValue != 0) {
@@ -127,15 +127,24 @@ addStaggeredEntry <- function(simData, N, accrualParam, accrualValue) {
 #'
 #' @param N (`int`)\cr number of patients.
 #' @param transition (`TransitionParameters`)\cr transition parameters comprising
-#'   `hazards`, corresponding `intervals` and `weibull_rates`, see `exponential_transition `, `piecewise_exponential`
-#'   and `weibull_transition` for details.
+#'   `hazards`, corresponding `intervals` and `weibull_rates`, see [exponential_transition()], [piecewise_exponential()]
+#'   and [weibull_transition()] for details.
 #' @param dropout (`list`)\cr specifies drop-out probability.
 #' Random censoring times are generated using exponential distribution. `dropout$rate` specifies
-#' the drop-out probability
-#' per `dropout$time` time units. If `dropout$rate` is equal to 0, then no censoring is applied.
+#' the drop-out probability per `dropout$time` time units.
+#' If `dropout$rate` is equal to 0, then no censoring is applied.
 #' @param accrual (`list`)\cr specifies accrual intensity. See [addStaggeredEntry()] for details.
 #'
 #' @return This returns a data frame with one row per transition per individual.
+#' @details The output data set contains the following columns:
+#' - id (`integer`): patient id.
+#' - from (`numeric`): starting state of the transition.
+#' - to (`character`): final state of the transition.
+#' - entry (`numeric`): entry time of the transition on the individual time scale.
+#' - exit (`numeric`): exit time of the transition on the individual time scale.
+#' - entryAct (`numeric`): entry time of the transition on study time scale.
+#' - exitAct (`numeric`):  exit time  of the transition on study time scale.
+#' - censAct (`numeric`):  censoring time of the individual on study time scale.
 #' @export
 #'
 #' @examples getSimulatedData(10,
@@ -150,12 +159,14 @@ getSimulatedData <- function(N,
   # Check input parameters.
   assert_int(N, lower = 1L)
   assert_class(transition, "TransitionParameters")
+  assert_list(dropout)
+
   assert(check_number(dropout$rate, lower = 0, upper = 1),
     check_number(dropout$time),
     check_true(dropout$time > 0, ),
     combine = "and", .var.name = "dropout"
   )
-
+  assert_list(accrual)
   # Initialize transition hazards, Weibull rates and intervals.
   h <- transition$hazard
   p <- transition$weibull_rates
@@ -212,8 +223,8 @@ getSimulatedData <- function(N,
   )
   # Add  1 -> 2 transition only for patients that are in the intermediate state 1.
   simDataOne <- simData[simData$to == 1, ]
-  newRows <- getOneToTwoRows(simDataOne, transition)
-  simData <- rbind(simData, newRows)
+  newrows <- getOneToTwoRows(simDataOne, transition)
+  simData <- rbind(simData, newrows)
   simData <- simData[order(simData$id), ]
   # Add staggered study entry, i.e. study entry at calendar time.
   simData <- addStaggeredEntry(

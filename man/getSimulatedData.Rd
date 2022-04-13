@@ -15,15 +15,15 @@ getSimulatedData(
 \item{N}{(\code{int})\cr number of patients.}
 
 \item{transition}{(\code{TransitionParameters})\cr transition parameters comprising
-\code{hazards}, corresponding \code{intervals} and \code{weibull_rates}, see \code{exponential_transition }, \code{piecewise_exponential}
-and \code{weibull_transition} for details.}
+\code{hazards}, corresponding \code{intervals} and \code{weibull_rates}, see \code{\link[=exponential_transition]{exponential_transition()}}, \code{\link[=piecewise_exponential]{piecewise_exponential()}}
+and \code{\link[=weibull_transition]{weibull_transition()}} for details.}
 
 \item{dropout}{(\code{list})\cr specifies drop-out probability.
 Random censoring times are generated using exponential distribution. \code{dropout$rate} specifies
-the drop-out probability
-per \code{dropout$time} time units. If \code{dropout$rate}is equal 0, no censoring is applied.}
+the drop-out probability per \code{dropout$time} time units.
+If \code{dropout$rate} is equal to 0, then no censoring is applied.}
 
-\item{accrual}{(\code{list})\cr specifies accrual intensity. See \code{addStaggeredEntry} for details.}
+\item{accrual}{(\code{list})\cr specifies accrual intensity. See \code{\link[=addStaggeredEntry]{addStaggeredEntry()}} for details.}
 }
 \value{
 This returns a data frame with one row per transition per individual.
@@ -31,6 +31,19 @@ This returns a data frame with one row per transition per individual.
 \description{
 This function creates a single simulated data set for a single treatment arm. It simulates data
 from an illness-death model with one row per transition and subject.
+}
+\details{
+The output data set contains the following columns:
+\itemize{
+\item id (\code{integer}): patient id.
+\item from (\code{numeric}): starting state of the transition.
+\item to (\code{character}): final state of the transition.
+\item entry (\code{numeric}): entry time of the transition on the individual time scale.
+\item exit (\code{numeric}): exit time of the transition on the individual time scale.
+\item entryAct (\code{numeric}): entry time of the transition on study time scale.
+\item exitAct (\code{numeric}):  exit time  of the transition on study time scale.
+\item censAct (\code{numeric}):  censoring time of the individual on study time scale.
+}
 }
 \examples{
 getSimulatedData(10,

@@ -8,13 +8,13 @@ addStaggeredEntry(simData, N, accrualParam, accrualValue)
 }
 \arguments{
 \item{simData}{(\code{data.frame})\cr simulated data frame containing entry and exit times
-at individual study time scale.}
+at individual study time scale. See \code{\link[=getSimulatedData]{getSimulatedData()}} for details.}
 
 \item{N}{(\code{int})\cr number of patients.}
 
-\item{accrualParam}{(\code{character})\cr possible values are 'time' or 'intensity'.}
+\item{accrualParam}{(\code{string})\cr possible values are 'time' or 'intensity'.}
 
-\item{accrualValue}{(\code{numeric})\cr specifies the accrual intensity. For \code{accrualParam} equal time,
+\item{accrualValue}{(\code{number})\cr specifies the accrual intensity. For \code{accrualParam} equal time,
 it describes the length of the accrual period. For \code{accrualParam} equal intensity, it describes
 the number of patients recruited per time unit.  If \code{accrualValue} is equal to 0,
 all patients start at calendar time 0
