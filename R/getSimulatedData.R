@@ -7,7 +7,7 @@
 #' @param simDataOne (`data.frame`)\cr a data frame containing all patients with transitions
 #'  into the intermediate state.
 #' @param transition (`TransitionParameters`)\cr transition parameters comprising
-#'  `hazards`, corresponding `intervals` and `weibull_rates`, see `exponential_transition `, `piecewise_exponential`
+#'  `hazards`, corresponding `intervals` and `weibull_rates`, see [exponential_transition()], [piecewise_exponential()]
 #'  and `weibull_transition`  for details.
 #'
 #' @return This returns a data frame with one row per patient for the second transition,
@@ -45,6 +45,7 @@ getOneToTwoRows <- function(simDataOne, transition) {
     getPCWDistr(U = U1, haz = h12, pw = pw12, t_0 = entry1)
   }
   exit1 <- entry1 + wait_time1
+
   # Add censoring.
   censTime1 <- simDataOne$censTime
   to1 <- ifelse(censTime1 < exit1, "cens", to1)
@@ -64,8 +65,8 @@ getOneToTwoRows <- function(simDataOne, transition) {
 #' @param simData (`data.frame`)\cr simulated data frame containing entry and exit times
 #' at individual study time scale.
 #' @param N (`int`)\cr number of patients.
-#' @param accrualParam (`character`)\cr possible values are 'time' or 'intensity'.
-#' @param accrualValue  (`numeric`)\cr specifies the accrual intensity. For `accrualParam` equal time,
+#' @param accrualParam (`string`)\cr possible values are 'time' or 'intensity'.
+#' @param accrualValue  (`number`)\cr specifies the accrual intensity. For `accrualParam` equal time,
 #'  it describes the length of the accrual period. For `accrualParam` equal intensity, it describes
 #'  the number of patients recruited per time unit.  If `accrualValue` is equal to 0,
 #'   all patients start at calendar time 0
@@ -109,7 +110,7 @@ addStaggeredEntry <- function(simData, N, accrualParam, accrualValue) {
   simData$exitAct <- simData$exit + simData$entry_act
   simData$censAct <- simData$censTime + simData$entry_act
   # Delete temporary helper columns.
-  simData[, c("entry_act")] <- list(NULL)
+  simData$entry_act <- NULL
   simData[, c("censTime")] <- list(NULL)
   return(simData)
 }
@@ -131,8 +132,8 @@ addStaggeredEntry <- function(simData, N, accrualParam, accrualValue) {
 #' @param dropout (`list`)\cr specifies drop-out probability.
 #' Random censoring times are generated using exponential distribution. `dropout$rate` specifies
 #' the drop-out probability
-#' per `dropout$time` time units. If `dropout$rate`is equal 0, no censoring is applied.
-#' @param accrual (`list`)\cr specifies accrual intensity. See `addStaggeredEntry` for details.
+#' per `dropout$time` time units. If `dropout$rate` is equal to 0, then no censoring is applied.
+#' @param accrual (`list`)\cr specifies accrual intensity. See [addStaggeredEntry()] for details.
 #'
 #' @return This returns a data frame with one row per transition per individual.
 #' @export
