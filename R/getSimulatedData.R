@@ -196,8 +196,8 @@ getSimulatedData <- function(N,
     # For distribution of waiting time in the initial state the all-cause hazard (h01+h02) is needed.
     wait_time <- getWaitTimeSum(U, h$h01, h$h02, p$p01, p$p02, entry)
     # A binomial experiment decides on death or progression.
-    numerator <- p$p01 * h$h01^p$p01 * wait_time^(p$p01 - 1)
-    denumerator <- numerator + p$p02 * h$h02^p$p02 * wait_time^(p$p02 - 1)
+    numerator <- p$p01 * h$h01^p$p01 * wait_time^(p$p01 - 1) # nolint
+    denumerator <- numerator + p$p02 * h$h02^p$p02 * wait_time^(p$p02 - 1) # nolint
 
     # Piecewise exponential distributed survival times.
   } else if (transition$family == "piecewise exponential") {
@@ -233,6 +233,6 @@ getSimulatedData <- function(N,
     accrualParam = accrual$param,
     accrualValue = accrual$value
   )
-
+  simData$to <- as.character(simData$to)
   return(simData)
 }
