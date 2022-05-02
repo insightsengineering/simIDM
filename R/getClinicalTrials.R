@@ -5,7 +5,7 @@
 #'
 #' @param nPat (`integer`)\cr number of patients per treatment arm.
 #' @param transitionByArm (`list`) \cr  transition parameters for each treatment group.
-#' See [exponential_transition()], [piecewise_exponential()] and [weibull__transition()] for details.
+#' See [exponential_transition()], [piecewise_exponential()] and [weibull_transition()] for details.
 #' @param dropout  dropout (`list`)\cr specifies drop-out probability. See [getSimulatedData()] for details.
 #' @param accrual  accrual (`list`)\cr specifies accrual intensity. See [addStaggeredEntry()] for details.
 #'
