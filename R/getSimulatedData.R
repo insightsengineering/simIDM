@@ -8,7 +8,7 @@
 #'  into the intermediate state. See [getSimulatedData()] for details.
 #' @param transition (`TransitionParameters`)\cr transition parameters comprising
 #'  `hazards`, corresponding `intervals` and `weibull_rates`, see [exponential_transition()], [piecewise_exponential()]
-#'  and [weibull__transition()] for details.
+#'  and [weibull_transition()] for details.
 #'
 #' @return This returns a data frame with one row per patient for the second transition,
 #'  i.e. the transition out of the intermediate

@@ -12,7 +12,7 @@ into the intermediate state. See \code{\link[=getSimulatedData]{getSimulatedData
 
 \item{transition}{(\code{TransitionParameters})\cr transition parameters comprising
 \code{hazards}, corresponding \code{intervals} and \code{weibull_rates}, see \code{\link[=exponential_transition]{exponential_transition()}}, \code{\link[=piecewise_exponential]{piecewise_exponential()}}
-and \code{\link[=weibull__transition]{weibull__transition()}} for details.}
+and \code{\link[=weibull_transition]{weibull_transition()}} for details.}
 }
 \value{
 This returns a data frame with one row per patient for the second transition,
