@@ -3,7 +3,7 @@
 #' This function creates a data set with a single simulated oncology clinical trial with one row per transition
 #' based on an illness-death model. Studies with an arbitrary number of treatment arms are possible.
 #'
-#' @param nPat (`integer`)\cr number of patients per treatment arm.
+#' @param nPat (`integer`)\cr numbers of patients per treatment arm.
 #' @param transitionByArm (`list`) \cr  transition parameters for each treatment group.
 #' See [exponential_transition()], [piecewise_exponential()] and [weibull_transition()] for details.
 #' @param dropout  dropout (`list`)\cr specifies drop-out probability. See [getSimulatedData()] for details.
@@ -43,7 +43,7 @@ getOneClinicalTrial <- function(nPat, transitionByArm,
   # Starting values for the loop.
   simdata <- NULL
   previousPts <- 0
-  for (i in 1:nArm) {
+  for (i in seq_len(nArm)) {
     group <- getSimulatedData(nPat[i], transitionByArm[[i]], dropout, accrual)
     group$trt <- i
     group$id <- group$id + previousPts
@@ -159,7 +159,7 @@ getClinicalTrials <- function(nRep, ..., seed = 1234, datType = "1rowTransition"
   # getOneClinicalTrial generates a single clinical trial with multiple arms. Generate nRep simulated trials:
   simulatedTrials <- lapply(
     seq_len(nRep),
-    FUN = function(x, ...) getOneClinicalTrial(...),
+    getOneClinicalTrial,
     ...
   )
   # Final data set format: one row per patient or one row per transition?
