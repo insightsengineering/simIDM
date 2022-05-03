@@ -12,7 +12,7 @@ getOneClinicalTrial(
 )
 }
 \arguments{
-\item{nPat}{(\code{integer})\cr number of patients per treatment arm.}
+\item{nPat}{(\code{integer})\cr numbers of patients per treatment arm.}
 
 \item{transitionByArm}{(\code{list}) \cr  transition parameters for each treatment group.
 See \code{\link[=exponential_transition]{exponential_transition()}}, \code{\link[=piecewise_exponential]{piecewise_exponential()}} and \code{\link[=weibull_transition]{weibull_transition()}} for details.}

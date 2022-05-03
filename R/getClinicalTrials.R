@@ -89,6 +89,8 @@ getOneClinicalTrial <- function(nPat, transitionByArm,
 #' )
 #' getDatasetWideFormat(simData)
 getDatasetWideFormat <- function(data) {
+  assert_data_frame(data, ncols = 9)
+  assert_subset(c("id", "from", "to", "entry", "exit", "entryAct", "exitAct", "censAct", "trt"), names(data))
   # Recruitment time is the actual entry time of the initial state.
   recruitTime <- subset(data[, c("id", "entryAct")], data$from == 0)
   names(recruitTime)[names(recruitTime) == "entryAct"] <- "recruitTime"
@@ -159,7 +161,7 @@ getClinicalTrials <- function(nRep, ..., seed = 1234, datType = "1rowTransition"
   # getOneClinicalTrial generates a single clinical trial with multiple arms. Generate nRep simulated trials:
   simulatedTrials <- lapply(
     seq_len(nRep),
-    getOneClinicalTrial,
+    FUN = function(x, ...) getOneClinicalTrial(...),
     ...
   )
   # Final data set format: one row per patient or one row per transition?
