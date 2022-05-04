@@ -36,3 +36,8 @@ reference:
       - getSimulatedData
       - getOneToTwoRows
       - addStaggeredEntry
+  - title: Simulation of a large number of clinical trials
+    contents:
+      - getOneClinicalTrial
+      - getDatasetWideFormat
+      - getClinicalTrials

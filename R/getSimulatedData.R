@@ -8,7 +8,7 @@
 #'  into the intermediate state. See [getSimulatedData()] for details.
 #' @param transition (`TransitionParameters`)\cr transition parameters comprising
 #'  `hazards`, corresponding `intervals` and `weibull_rates`, see [exponential_transition()], [piecewise_exponential()]
-#'  and [exponential_transition()] for details.
+#'  and [weibull_transition()] for details.
 #'
 #' @return This returns a data frame with one row per patient for the second transition,
 #'  i.e. the transition out of the intermediate
@@ -24,12 +24,12 @@
 #' transition <- exponential_transition(1, 1.6, 0.3)
 #' getOneToTwoRows(simDataOne, transition)
 getOneToTwoRows <- function(simDataOne, transition) {
-  assert_data_frame(simDataOne, ncol = 6)
+  assert_data_frame(simDataOne, ncols = 6)
   assert_class(transition, "TransitionParameters")
 
   id1 <- simDataOne$id
   N1 <- nrow(simDataOne)
-  U1 <- runif(N1)
+  U1 <- stats::runif(N1)
   to1 <- rep(2, N1)
   from1 <- rep(1, N1)
   entry1 <- simDataOne$exit
@@ -94,10 +94,10 @@ addStaggeredEntry <- function(simData, N, accrualParam, accrualValue) {
   # If no staggered study entry is present, all individuals have the same entry time 0.
   entry_act <- if (accrualValue != 0) {
     if (accrualParam == "time") {
-      runif(N, 0, accrualValue)
+      stats::runif(N, 0, accrualValue)
     } else if (accrualParam == "intensity") {
       accrualTime <- N / accrualValue
-      runif(N, 0, accrualTime)
+      stats::runif(N, 0, accrualTime)
     }
   } else if (accrualValue == 0) {
     rep(0, N)
@@ -181,7 +181,7 @@ getSimulatedData <- function(N,
   }
   # Censoring times for all individuals, infinity if no censoring is applied.
   censTime <- if (dropout$rate > 0) {
-    rexp(N, censRate)
+    stats::rexp(N, censRate)
   } else {
     rep(Inf, N)
   }
@@ -190,7 +190,7 @@ getSimulatedData <- function(N,
   entry <- rep(0, N)
   from <- rep(0, N)
   # Waiting time in the initial state 0.
-  U <- runif(N)
+  U <- stats::runif(N)
   # Exponential or Weibull distributed survival times.
   if (transition$family %in% c("exponential", "Weibull")) {
     # For distribution of waiting time in the initial state the all-cause hazard (h01+h02) is needed.
@@ -209,7 +209,7 @@ getSimulatedData <- function(N,
       getPCWHazard(h$h02, pw$pw02, wait_time)
   }
 
-  to_prob <- rbinom(N, 1, numerator / denumerator)
+  to_prob <- stats::rbinom(N, 1, numerator / denumerator)
   to <- ifelse(to_prob == 0, 2, 1)
   exit <- wait_time
 
