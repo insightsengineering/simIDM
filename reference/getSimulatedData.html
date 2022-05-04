@@ -24,7 +24,7 @@ from an illness-death model with one row per transition and subject."><!-- mathj
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SimulationEngineMSM</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9011</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9012</span>
       </span>
     </div>
 
@@ -35,15 +35,6 @@ from an illness-death model with one row per transition and subject."><!-- mathj
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
-<!-- start_releases -->
-<li class="dropdown">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-Other releases
-<span class="caret"></span></a><ul class="dropdown-menu" role="menu">
-   <li><a href="../index.html">latest</a></li>
-   <li><a href="..//index.html"></a></li>
-</ul></li>
-<!-- end_releases -->
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/insightsengineering/SimulationEngineMSM" class="external-link">
     <span class="fa fa-github"></span>
@@ -118,19 +109,21 @@ If <code>dropout$rate</code> is equal to 0, then no censoring is applied.</p></d
 <span class="r-in">  accrual <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>param <span class="op">=</span> <span class="st">"time"</span>, value <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    id from   to      entry       exit  entryAct   exitAct   censAct</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1    0    2 0.00000000 0.33219889 2.3409790 2.6731779 9.5885301</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   2    0    1 0.00000000 0.01307901 4.9658175 4.9788965 8.6098678</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   2    1    2 0.01307901 0.56922971 4.9788965 5.5350472 8.6098678</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   3    0    2 0.00000000 0.28163880 3.9475461 4.2291849 8.5604559</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   4    0    2 0.00000000 0.88358163 2.5607903 3.4443719 6.4969933</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   5    0    2 0.00000000 0.16979297 0.5236883 0.6934813 0.7054999</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   6    0    2 0.00000000 0.60767329 1.1663982 1.7740715 2.6714160</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   7    0    2 0.00000000 0.75049952 2.1875497 2.9380492 4.1515061</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9   8    0 cens 0.00000000 0.29298878 2.7219952 3.0149840 3.0149840</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10  9    0    1 0.00000000 0.08403398 1.9624626 2.0464966 2.7376964</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11  9    1 cens 0.08403398 0.77523372 2.0464966 2.7376964 2.7376964</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 10    0    1 0.00000000 0.49931941 2.4395420 2.9388614 4.8414456</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 10    1 cens 0.49931941 2.40190358 2.9388614 4.8414456 4.8414456</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1    0    1 0.00000000 0.48107282 0.4483028 0.9293757  5.639514</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   1    1    2 0.48107282 0.64523892 0.9293757 1.0935418  5.639514</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   2    0    1 0.00000000 0.08171642 1.7649768 1.8466933  3.167553</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   2    1    2 0.08171642 0.64314195 1.8466933 2.4081188  3.167553</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   3    0 cens 0.00000000 0.14246527 3.6832476 3.8257129  3.825713</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   4    0    2 0.00000000 0.69874788 0.3152854 1.0140333  2.793439</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   5    0    1 0.00000000 0.45824423 2.9096233 3.3678676  4.199572</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   5    1    2 0.45824423 0.91800938 3.3678676 3.8276327  4.199572</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   6    0    2 0.00000000 0.10352602 3.4787692 3.5822952  5.382354</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  7    0    2 0.00000000 0.39757976 3.6934425 4.0910222  4.716016</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  8    0    1 0.00000000 0.42983476 1.5536154 1.9834502  3.285288</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  8    1    2 0.42983476 1.38239321 1.9834502 2.9360086  3.285288</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13  9    0    2 0.00000000 0.94184155 1.7032853 2.6451268  6.297958</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 10    0    1 0.00000000 0.33998284 0.8629096 1.2028924 14.902135</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 10    1    2 0.33998284 2.11833164 1.2028924 2.9812412 14.902135</span>
 </code></pre></div>
     </div>
   </div>
@@ -145,8 +138,7 @@ If <code>dropout$rate</code> is equal to 0, then no censoring is applied.</p></d
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer></div>
