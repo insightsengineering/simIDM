@@ -137,7 +137,7 @@ getDatasetWideFormat <- function(data) {
 #' Simulation of a large number of oncology clinical trials.
 #'
 #' @param nRep (`int`)\cr number of simulated trials.
-#' @param ... \cr parameters transferred to [getOneClinicalTrial()], see  [getOneClinicalTrial()] for details.
+#' @param ... parameters transferred to [getOneClinicalTrial()], see  [getOneClinicalTrial()] for details.
 #' @param seed (`int`)\cr random seed used for this simulation.
 #' @param datType (`string`)\cr possible values are `1rowTransition` and `1rowPatient`.
 #'
@@ -164,6 +164,7 @@ getClinicalTrials <- function(nRep, ..., seed = 1234, datType = "1rowTransition"
     FUN = function(x, ...) getOneClinicalTrial(...),
     ...
   )
+
   # Final data set format: one row per patient or one row per transition?
   if (datType == "1rowPatient") {
     simulatedTrials <- lapply(simulatedTrials, getDatasetWideFormat)
