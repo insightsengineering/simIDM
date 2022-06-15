@@ -7,8 +7,6 @@ vignette: >
   %\VignetteIndexEntry{SimulationEngineMSM: Quickstart}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-
-
 ---
 
 ```{r setup, include = FALSE}
