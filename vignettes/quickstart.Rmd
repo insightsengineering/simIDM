@@ -3,6 +3,7 @@ title: "SimulationEngineMSM: Quickstart"
 author: "Alexandra Niessl"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
+bibliography: references.bib
 vignette: >
   %\VignetteIndexEntry{SimulationEngineMSM: Quickstart}
   %\VignetteEngine{knitr::rmarkdown}
@@ -20,15 +21,20 @@ knitr::opts_chunk$set(
 ## Introduction
 
 The purpose of this vignette is to explain the use of `getClinicalTrials()`, the core function of this package.  `getClinicalTrials()` can be used to simulate a large number of clinical trials
-with endpoints overall survival (OS) and progression-free survival (PFS). The underlying model is a survival multistate model with an initial state, an intermediate `progression` state and an absorbing `death` state. The multistate model approach has the advantage of naturally accounting for the correlation between the OS and PFS endpoints. OS is defined  as the time to reach the absorbing state death  and PFS is defined as the time to reach the absorbing state `death` or the intermediate state `progression`, whichever occurs first.  Figure .. shows the multistate model with the corresponding transition hazards.
+with endpoints overall survival (OS) and progression-free survival (PFS). The underlying model is a survival multistate model with an initial state, an intermediate `progression` state and an absorbing `death` state. The multistate model approach has the advantage of naturally accounting for the correlation between the OS and PFS endpoints [@meller2019joint]. OS is defined  as the time to reach the absorbing state death  and PFS is defined as the time to reach the absorbing state `death` or the intermediate state `progression`, whichever occurs first.  Figure 1 shows the multistate model with the corresponding transition hazards.
 To get started quickly, we show a simple and quick example of a clinical trial simulation.
 
-
-
+```{r, echo=FALSE,  fig.cap = "Figure 1 - Multistate model with indermediate state progession and absorbing state death",fig.height = 5, fig.width = 8, out.width = "60%"}
+library(prodlim)
+plotIllnessDeathModel(
+  style = 1, box1.label = "0: initial state", box2.label = "1: progression",
+  box3.label = "2: death", arrowLabelSymbol = "h"
+)
+```
 
 ## Simulation Specifications
 
-`getClinicalTrials()` simulates trials with an arbitrary number of treatment arms. Here, we consider a trial with 2 arms.
+`getClinicalTrials()` simulates trials with an arbitrary number of treatment arms. In general, the argument specifications were tried to be similar to the R-package Rpact [@rpact] in order to be more user-friendly. For illustration, we consider a trial with two arms.
 The number of patients per trial must be specified. In our example simulation there are 30 patients in the first treatment arm and 60 in the second treatment arm:
 
 
@@ -63,7 +69,7 @@ transitionbyArm <- list(transitionGroup1, transitionGroup2)
 
 The specification for random patient dropouts can be passed directly to `getClinicalTrials()`. A list with elements `rate` and `time` specifies the drop-out probability.
 Random censoring times are generated using the exponential distribution. `dropout$rate` specifies the drop-out probability per `dropout$time` time units.
-If `dropout$rate` is equal to 0, then no censoring is applied. In our example we expect that 10\%  of the patients drop-out within 12 months per treatment group (we take month as the time unit of our trial), thus we specify:
+If `dropout$rate` is equal to 0, then no censoring due to dropout is applied. In our example we expect that 10\%  of the patients drop-out within 12 months per treatment group (we take month as the time unit of our trial), thus we specify:
 
 
 ```{r}
@@ -109,3 +115,5 @@ We get as output a list with `nRep` elements, each containing a data set of a si
 head(simStudies1[[1]], 6)
 head(simStudies2[[1]], 5)
 ```
+
+## References
