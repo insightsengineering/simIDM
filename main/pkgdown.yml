@@ -1,0 +1,10 @@
+pandoc: 2.17.1.1
+pkgdown: 2.0.5
+pkgdown_sha: ~
+articles:
+  quickstart: quickstart.html
+last_built: 2022-07-18T08:56Z
+urls:
+  reference: https://insightsengineering.github.io/SimulationEngineMSM/main/reference
+  article: https://insightsengineering.github.io/SimulationEngineMSM/main/articles
+
