@@ -1,0 +1,118 @@
+---
+title: "SimulationEngineMSM: Quickstart"
+author: "Alexandra Niessl"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+bibliography: references.bib
+vignette: >
+  %\VignetteIndexEntry{SimulationEngineMSM: Quickstart}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+## Introduction
+
+The purpose of this vignette is to explain the use of `getClinicalTrials()`, the core function of this package.  `getClinicalTrials()` can be used to simulate a large number of clinical trials
+with endpoints overall survival (OS) and progression-free survival (PFS). The underlying model is a survival multistate model with an initial state, an intermediate `progression` state and an absorbing `death` state. The multistate model approach has the advantage of naturally accounting for the correlation between the OS and PFS endpoints [@meller2019joint]. OS is defined  as the time to reach the absorbing state death  and PFS is defined as the time to reach the absorbing state `death` or the intermediate state `progression`, whichever occurs first.  Figure 1 shows the multistate model with the corresponding transition hazards.
+To get started quickly, we show a simple and quick example of a clinical trial simulation.
+
+```{r, echo=FALSE,  fig.cap = "Figure 1 - Multistate model with indermediate state progession and absorbing state death",fig.height = 5, fig.width = 8, out.width = "60%"}
+library(prodlim)
+plotIllnessDeathModel(
+  style = 1, box1.label = "0: initial state", box2.label = "1: progression",
+  box3.label = "2: death", arrowLabelSymbol = "h"
+)
+```
+
+## Simulation Specifications
+
+`getClinicalTrials()` simulates trials with an arbitrary number of treatment arms. In general, the argument specifications were tried to be similar to the R-package Rpact [@rpact] in order to be more user-friendly. For illustration, we consider a trial with two arms.
+The number of patients per trial must be specified. In our example simulation there are 30 patients in the first treatment arm and 60 in the second treatment arm:
+
+
+```{r}
+nPat <- c(30, 60)
+```
+
+The transition parameters describing the transition hazards per treatment arm must be passed as a list to `getClinicalTrials()`. The class `TransitionParameters` contains the elements `hazards`, `intervals`, `weibull_rates` and `family` which allow to describe transition hazards leading to exponential, piecewise exponential or Weibull distributed survival times. There are some helper functions in the `SimulationEngineMSM` package to create the appropriate transition parameters for the desired distribution.
+- `exponential_transition()`: creates a list with class `TransitionParameters` containing
+hazards, time intervals and Weibull rates for exponential event times
+ in an illness-death model.
+- `piecewise_exponential()`: creates a list with class `TransitionParameters` containing
+hazards, time intervals and Weibull rates for piecewise exponential event times
+ in an illness-death model.
+- `weibull_transition()`: creates a list with class `TransitionParameters` containing
+hazards, time intervals and Weibull rates for Weibull distributed event times
+ in an illness-death model.
+
+ In our example we consider constant hazard rates, i.e. exponential distributed event times.
+
+
+```{r}
+library(SimulationEngineMSM)
+
+transitionGroup1 <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
+print(transitionGroup1$hazards)
+transitionGroup2 <- exponential_transition(h01 = 1, h02 = 1.3, h12 = 1.7)
+print(transitionGroup2$hazards)
+transitionbyArm <- list(transitionGroup1, transitionGroup2)
+```
+
+The specification for random patient dropouts can be passed directly to `getClinicalTrials()`. A list with elements `rate` and `time` specifies the drop-out probability.
+Random censoring times are generated using the exponential distribution. `dropout$rate` specifies the drop-out probability per `dropout$time` time units.
+If `dropout$rate` is equal to 0, then no censoring due to dropout is applied. In our example we expect that 10\%  of the patients drop-out within 12 months per treatment group (we take month as the time unit of our trial), thus we specify:
+
+
+```{r}
+dropout <- list(rate = 0.1, time = 12)
+```
+
+
+There are two time-scales that we need to consider when simulating multistate data. The individual time scale with start in the initial state at time 0 and the study time scale, which matches the individual time scale only if the study start time (e.g. randomization date) is the same time in calendar time for all patients.
+It can also be specified that  patients enter the study in a staggered manner. Uniformly distributed random variables are used to generate staggered study entry times. There are two possibilities for the specification: Either, the length of the accrual period is specified, e.g. 12 month,  in which case the staggered entry times are generated in each treatment group using random variables $U ~Unif(0, 12)$.  Or, it is specified how many patients are recruited per time unit in each treatment group. Thus, if 10 patients are recruited per month, then the staggered entry times are generated using random variables $U ~Unif(0, 30/10)$. A list `accural` with elements `accrualParam` and `accrualValue` is passed to `getClinicalTrials()` describing the accrual intensity. For `accrualParam` equal time, `accrualValue`describes the length of the accrual period. For `accrualParam` equal intensity, it describes the number of patients recruited per time unit.  If `accrualValue` is equal to 0, all patients start at the same calender time in the initial state.
+
+
+```{r}
+# first example
+accrual <- list(param = "intensity", value = 12)
+# second example
+accrual <- list(param = "intensity", value = 3)
+```
+
+
+## Application
+
+We now simulate 100 (`nRep`=100) clinical trials with the parameters described and specified above. There are two options for how the output data is presented, one row per patient or one row per transition and patient. Let's take a look at both.
+```{r}
+simStudies1 <- getClinicalTrials(
+  nRep = 100, nPat = nPat, seed = 1234, datType = "1rowTransition",
+  transitionByArm = transitionbyArm, dropout = dropout,
+  accrual = accrual
+)
+
+simStudies2 <- getClinicalTrials(
+  nRep = 100, nPat = nPat, seed = 1234, datType = "1rowPatient",
+  transitionByArm = transitionbyArm, dropout = dropout,
+  accrual = accrual
+)
+```
+
+
+## Output Data
+We get as output a list with `nRep` elements, each containing a data set of a single simulated trial.
+
+
+```{r}
+head(simStudies1[[1]], 6)
+head(simStudies2[[1]], 5)
+```
+
+## References
