@@ -25,19 +25,19 @@ test_that("getTimePoint works as expected by Arm", {
   simStudy <- getOneClinicalTrial(
     nPat = c(30, 30), transitionByArm = list(transition1, transition2),
     dropout = list(rate = 0.5, time = 12),
-    accrual = list(param = "time", value = 0)
+    accrual = list(param = "time", value = 5)
   )
   simStudyWide <- getDatasetWideFormat(simStudy)
 
   actual <- getTimePoint(data = simStudyWide, eventNum = 5, typeEvent = "OS", byArm = TRUE)
   actual2 <- getTimePoint(data = simStudyWide, eventNum = 7, typeEvent = "PFS", byArm = TRUE)
-  expect_equal(length(simStudyWide$id[simStudyWide$OSevent == 1 & simStudyWide$OStime <= actual[1] &
+  expect_equal(length(simStudyWide$id[simStudyWide$OSevent == 1 & simStudyWide$OStimeCal <= actual[1] &
     simStudyWide$trt == 1]), 5)
-  expect_equal(length(simStudyWide$id[simStudyWide$OSevent == 1 & simStudyWide$OStime <= actual[2] &
+  expect_equal(length(simStudyWide$id[simStudyWide$OSevent == 1 & simStudyWide$OStimeCal <= actual[2] &
     simStudyWide$trt == 2]), 5)
-  expect_equal(length(simStudyWide$id[simStudyWide$PFSevent == 1 & simStudyWide$PFStime <= actual2[1] &
+  expect_equal(length(simStudyWide$id[simStudyWide$PFSevent == 1 & simStudyWide$PFStimeCal <= actual2[1] &
     simStudyWide$trt == 1]), 7)
-  expect_equal(length(simStudyWide$id[simStudyWide$PFSevent == 1 & simStudyWide$PFStime <= actual2[2] &
+  expect_equal(length(simStudyWide$id[simStudyWide$PFSevent == 1 & simStudyWide$PFStimeCal <= actual2[2] &
     simStudyWide$trt == 2]), 7)
 })
 
@@ -51,14 +51,14 @@ test_that("censoringByNumberEvents works as expected", {
   simStudy <- getOneClinicalTrial(
     nPat = c(30, 30), transitionByArm = list(transition1, transition2),
     dropout = list(rate = 0.5, time = 12),
-    accrual = list(param = "time", value = 0)
+    accrual = list(param = "time", value = 7)
   )
   simStudyWide <- getDatasetWideFormat(simStudy)
 
   actual <- censoringByNumberEvents(data = simStudyWide, eventNum = 12, typeEvent = "OS")
   actual2 <- censoringByNumberEvents(data = simStudyWide, eventNum = 16, typeEvent = "PFS")
-  expect_equal(length(simStudyWide$id[actual$OSevent == 1]), 12)
-  expect_equal(length(simStudyWide$id[actual2$PFSevent == 1]), 16)
+  expect_equal(length(actual$id[actual$OSevent == 1]), 12)
+  expect_equal(length(actual2$id[actual2$PFSevent == 1]), 16)
 })
 
 # trackEventsPerTrial----
@@ -70,7 +70,7 @@ test_that("trackEventsPerTrial works as expected by arm", {
   simStudy <- getOneClinicalTrial(
     nPat = c(30, 30), transitionByArm = list(transition1, transition2),
     dropout = list(rate = 0.5, time = 2),
-    accrual = list(param = "time", value = 0)
+    accrual = list(param = "time", value = 5)
   )
   simStudyWide <- getDatasetWideFormat(simStudy)
 

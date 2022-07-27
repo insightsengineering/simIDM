@@ -44,5 +44,7 @@ reference:
   - title: Event-Tracking.
     contents:
       - getTimePoint
+      - getCensoredData
       - censoringByNumberEvents
+      - getEventsAll
       - trackEventsPerTrial

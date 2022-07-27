@@ -9,7 +9,7 @@ trackEventsPerTrial(data, timeP, byArm = FALSE)
 \arguments{
 \item{data}{(\code{data.frame})\cr illness-death data set in \verb{1rowPatient} format.}
 
-\item{timeP}{(\code{numeric})\cr  study time-point.}
+\item{timeP}{(\code{numeric})\cr  vector of study time-points.}
 
 \item{byArm}{(\code{logical})\cr  if \code{TRUE} time-point per treatment arm, else joint evaluation of treatment arms.}
 }
