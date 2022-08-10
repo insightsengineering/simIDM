@@ -4,15 +4,18 @@
 \alias{getCensoredData}
 \title{Helper function for \code{censoringByNumberEvents}}
 \usage{
-getCensoredData(data, typeEvent)
+getCensoredData(time, event, data)
 }
 \arguments{
-\item{(`data.frame`)\cr}{illness-death data set in \verb{1rowPatient} format.}
+\item{time}{(\code{numeric}) \cr event times.}
 
-\item{(`string`)\cr}{type of event. Possible values are \code{OS} and \code{PFS}.}
+\item{event}{(\code{numeric})\cr event indicator.}
+
+\item{data}{(\code{data.frame})\cr data frame including patient id \code{id}, recruiting time \code{recruitTime}
+and individual censoring time \code{censTimeInd}.}
 }
 \value{
-This function returns a data frame with OS or PFS columns:
+This function returns a data frame with columns:
 event time, censoring indicator, event indicator and event time
 in calendar time.
 }
@@ -29,8 +32,8 @@ simStudy <- getOneClinicalTrial(
   accrual = list(param = "time", value = 7)
 )
 simStudyWide <- getDatasetWideFormat(simStudy)
-censTimeInd <- 5 - simStudyWide$recruitTime
-NotRecruited <- simStudyWide$id[censTimeInd < 0]
+simStudyWide$censTimeInd <- 5 - simStudyWide$recruitTime
+NotRecruited <- simStudyWide$id[simStudyWide$censTimeInd < 0]
 censoredData <- simStudyWide[!(simStudyWide$id \%in\% NotRecruited), ]
-getCensoredData(censoredData, "OS")
+getCensoredData(time = censoredData$OStime, event = censoredData$OSevent, data = censoredData)
 }

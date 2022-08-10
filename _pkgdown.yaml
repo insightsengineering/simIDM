@@ -47,4 +47,5 @@ reference:
       - getCensoredData
       - censoringByNumberEvents
       - getEventsAll
+      - getNumberEvents
       - trackEventsPerTrial

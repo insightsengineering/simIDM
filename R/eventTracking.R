@@ -52,10 +52,13 @@ getTimePoint <- function(data, eventNum, typeEvent, byArm = FALSE) {
 }
 
 #' Helper function for `censoringByNumberEvents`
-#' @param (`data.frame`)\cr illness-death data set in `1rowPatient` format.
-#' @param (`string`)\cr type of event. Possible values are `OS` and `PFS`.
 #'
-#' @return This function returns a data frame with OS or PFS columns:
+#' @param time (`numeric`) \cr event times.
+#' @param event (`numeric`)\cr event indicator.
+#' @param data (`data.frame`)\cr data frame including patient id `id`, recruiting time `recruitTime`
+#'  and individual censoring time `censTimeInd`.
+#'
+#' @return This function returns a data frame with columns:
 #' event time, censoring indicator, event indicator and event time
 #' in calendar time.
 #' @export
@@ -70,22 +73,17 @@ getTimePoint <- function(data, eventNum, typeEvent, byArm = FALSE) {
 #'   accrual = list(param = "time", value = 7)
 #' )
 #' simStudyWide <- getDatasetWideFormat(simStudy)
-#' censTimeInd <- 5 - simStudyWide$recruitTime
-#' NotRecruited <- simStudyWide$id[censTimeInd < 0]
+#' simStudyWide$censTimeInd <- 5 - simStudyWide$recruitTime
+#' NotRecruited <- simStudyWide$id[simStudyWide$censTimeInd < 0]
 #' censoredData <- simStudyWide[!(simStudyWide$id %in% NotRecruited), ]
-#' getCensoredData(censoredData, "OS")
-getCensoredData <- function(data, typeEvent) {
-  assert_data_frame(data, ncols = 12)
-  assert_choice(typeEvent, c("OS", "PFS"))
-  if (typeEvent == "OS") {
-    time <- data$OStime
-    event <- data$OSevent
-  } else if (typeEvent == "PFS") {
-    time <- data$PFStime
-    event <- data$PFSevent
-  }
+#' getCensoredData(time = censoredData$OStime, event = censoredData$OSevent, data = censoredData)
+getCensoredData <- function(time, event, data) {
+  assert_numeric(time, lower = 0)
+  assert_numeric(event, lower = 0, upper = 1)
+  assert_data_frame(data)
+
   # Event time censored?
-  Censored <- data$id[time > data$censTimeInd]
+  Censored <- data$id[round(time, digits = 8) > round(data$censTimeInd, digits = 8)]
   # keep minimum of censoring and event time.
   Censoredtime <- pmin(time, data$censTimeInd)
   # adjust event and censoring indicators.
@@ -94,13 +92,7 @@ getCensoredData <- function(data, typeEvent) {
   # calculate corresponding calendar times.
   timeCal <- time + data$recruitTime
 
-  censoredData <- if (typeEvent == "OS") {
-    data.frame(OStime = Censoredtime, CensoredOS = Censored, OSevent = CensoredEvent, OStimeCal = timeCal)
-  } else if (typeEvent == "PFS") {
-    data.frame(PFStime = Censoredtime, CensoredPFS = Censored, PFSevent = CensoredEvent, PFStimeCal = timeCal)
-  }
-
-  return(censoredData)
+  return(data.frame(time = Censoredtime, Censored = Censored, event = CensoredEvent, timeCal = timeCal))
 }
 
 
@@ -136,19 +128,18 @@ censoringByNumberEvents <- function(data, eventNum, typeEvent) {
   censTime <- getTimePoint(data, eventNum, typeEvent, byArm = FALSE)
   # censoring time at individual time scale.
   data$censTimeInd <- censTime - data$recruitTime
-
   # patients that are not yet recruited at censoring time has to be deleted.
   NotRecruited <- data$id[data$censTimeInd < 0]
   censoredData <- data[!(data$id %in% NotRecruited), ]
 
-  OSdata <- getCensoredData(data = censoredData, typeEvent = "OS")
-  PFSdata <- getCensoredData(data = censoredData, typeEvent = "PFS")
+  OSdata <- getCensoredData(time = censoredData$OStime, event = censoredData$OSevent, data = censoredData)
+  PFSdata <- getCensoredData(time = censoredData$PFStime, event = censoredData$PFSevent, data = censoredData)
 
   return(data.frame(
     id = censoredData$id, trt = censoredData$trt,
-    PFStime = PFSdata$PFStime, CensoredPFS = PFSdata$CensoredPFS, PFSevent = PFSdata$PFSevent,
-    OStime = OSdata$OStime, CensoredOS = OSdata$CensoredOS, OSevent = OSdata$OSevent,
-    recruitTime = censoredData$recruitTime, OStimeCal = OSdata$OStimeCal, PFStimeCal = PFSdata$PFStimeCal
+    PFStime = PFSdata$time, PFSevent = PFSdata$event,
+    OStime = OSdata$time, CensoredOS = OSdata$Censored, OSevent = OSdata$event,
+    recruitTime = censoredData$recruitTime, OStimeCal = OSdata$timeCal, PFStimeCal = PFSdata$timeCal
   ))
 }
 
@@ -189,7 +180,25 @@ getEventsAll <- function(data, t) {
   return(c(Recruited = numRecruited, Censored = numCensored, UnderObs = numUnderObs))
 }
 
-
+#' Helper Function for `trackEventsPerTrial`
+#'
+#' @param event (`numeric`)\cr event indicator.
+#' @param time (`numeric`) \cr event times.
+#' @param t  (`numeric`)\cr  study time-point.
+#'
+#' @return This function returns the number of events occurred until time t.
+#' @export
+#'
+#' @examples
+#' event <- c(0, 1, 1, 1, 0)
+#' time <- c(3, 3.4, 5, 6, 5.5)
+#' getNumberEvents(event = event, time = time, t = 5)
+getNumberEvents <- function(event, time, t) {
+  assert_numeric(event, lower = 0, upper = 1)
+  assert_numeric(time, lower = 0)
+  assert_number(t, lower = 0)
+  return(sum(event[time <= t]))
+}
 
 
 #' Event tracking in an oncology trial.
@@ -223,12 +232,8 @@ trackEventsPerTrial <- function(data, timeP, byArm = FALSE) {
   byVar <- unique(data$trt)
   allNumbers <- lapply(byVar, function(j) {
     datTemp <- data[data$trt == j, ]
-    eventsPFS <- sapply(timeP, function(t) {
-      return(sum(datTemp$PFSevent[(datTemp$PFStime + datTemp$recruitTime) <= t]))
-    })
-    eventsOS <- sapply(timeP, function(t) {
-      return(sum(datTemp$OSevent[(datTemp$OStime + datTemp$recruitTime) <= t]))
-    })
+    eventsPFS <- sapply(timeP, getNumberEvents, event = datTemp$PFSevent, time = datTemp$PFStimeCal)
+    eventsOS <- sapply(timeP, getNumberEvents, event = datTemp$OSevent, time = datTemp$OStimeCal)
     eventsTrial <- sapply(timeP, getEventsAll, data = datTemp)
 
     allNumbers <- rbind(eventsPFS, eventsOS, eventsTrial)
