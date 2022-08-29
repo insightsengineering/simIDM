@@ -83,14 +83,15 @@ getCensoredData <- function(time, event, data) {
   assert_data_frame(data)
 
   # Event time censored?
-  Censored <- data$id[round(time, digits = 8) > round(data$censTimeInd, digits = 8)]
-  # keep minimum of censoring and event time.
+  epsilon <- 1e-10
+  Censored <- data$id[(time - epsilon) > data$censTimeInd]
+  # keep minimum of censoring and event time. epsilon)
   Censoredtime <- pmin(time, data$censTimeInd)
   # adjust event and censoring indicators.
   CensoredEvent <- ifelse(data$id %in% Censored, 0, event)
   Censored <- abs(1 - CensoredEvent)
   # calculate corresponding calendar times.
-  timeCal <- time + data$recruitTime
+  timeCal <- Censoredtime + data$recruitTime
 
   return(data.frame(time = Censoredtime, Censored = Censored, event = CensoredEvent, timeCal = timeCal))
 }
@@ -126,6 +127,7 @@ censoringByNumberEvents <- function(data, eventNum, typeEvent) {
 
   # first step get timePoint (calendar time) for censoring.
   censTime <- getTimePoint(data, eventNum, typeEvent, byArm = FALSE)
+
   # censoring time at individual time scale.
   data$censTimeInd <- censTime - data$recruitTime
   # patients that are not yet recruited at censoring time has to be deleted.
