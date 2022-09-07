@@ -40,13 +40,25 @@
     <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/reference/assert_positive_number.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/reference/censoringByNumberEvents.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/reference/exponential_transition.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/reference/getCensoredData.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/reference/getClinicalTrials.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/reference/getDatasetWideFormat.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/reference/getEventsAll.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/reference/getNumberEvents.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/reference/getOneClinicalTrial.html</loc>
@@ -67,6 +79,9 @@
     <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/reference/getSumPCW.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/reference/getTimePoint.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/reference/getWaitTimeSum.html</loc>
   </url>
   <url>
@@ -74,6 +89,9 @@
   </url>
   <url>
     <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/reference/piecewise_exponential.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/reference/trackEventsPerTrial.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/reference/weibull_transition.html</loc>
