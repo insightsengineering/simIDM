@@ -41,3 +41,11 @@ reference:
       - getOneClinicalTrial
       - getDatasetWideFormat
       - getClinicalTrials
+  - title: Event-Tracking.
+    contents:
+      - getTimePoint
+      - getCensoredData
+      - censoringByNumberEvents
+      - getEventsAll
+      - getNumberEvents
+      - trackEventsPerTrial
