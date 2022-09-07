@@ -17,6 +17,7 @@ Imports:
     stats
 Suggests:
     knitr,
+    prodlim,
     testthat (>= 2.0)
 VignetteBuilder:
     knitr
