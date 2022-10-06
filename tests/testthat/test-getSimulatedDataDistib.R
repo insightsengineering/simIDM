@@ -16,9 +16,10 @@ test_that("getSimulatedData generates distributions as expected", {
 
   # Nelson-Aalen estimator
   times <- seq(0, 3, 0.01)
+  library(mvna)
   EstimatedNA <- lapply(seq_along(actual), function(j) {
     na <- NULL
-    na <- mvna::mvna(actual[[j]][actual[[j]]$trt == 1, ], c("0", "1", "2"), tra, "cens")
+    na <- mvna(actual[[j]][actual[[j]]$trt == 1, ], c("0", "1", "2"), tra, "cens")
     na_predict <- predict(na, times,
       tr.choice = c("0 1"),
       level = 0.95, var.type = c("aalen"), ci.fun = c("log")
@@ -31,8 +32,10 @@ test_that("getSimulatedData generates distributions as expected", {
 
   trueNA <- transition1$hazards$h01 * times
 
-  # plot(times,   EstimatedNAMean, type="l") # nolint
-  # lines(times,trueNA, col="red") # nolint
+  if (interactive()) {
+    plot(times, EstimatedNAMean, type = "l")
+    lines(times, trueNA, col = "red")
+  }  
   tol1 <- 0.01
   expect_true(all(abs(EstimatedNAMean[1:130] - trueNA[1:130]) <= tol1))
 })
