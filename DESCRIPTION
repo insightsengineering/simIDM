@@ -14,7 +14,8 @@ Depends:
     R (>= 3.6)
 Imports:
     checkmate,
-    stats
+    stats,
+    mvna
 Suggests:
     knitr,
     prodlim,
