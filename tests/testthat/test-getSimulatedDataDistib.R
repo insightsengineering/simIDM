@@ -35,7 +35,7 @@ test_that("getSimulatedData generates distributions as expected", {
   if (interactive()) {
     plot(times, EstimatedNAMean, type = "l")
     lines(times, trueNA, col = "red")
-  }  
+  }
   tol1 <- 0.01
   expect_true(all(abs(EstimatedNAMean[1:130] - trueNA[1:130]) <= tol1))
 })
