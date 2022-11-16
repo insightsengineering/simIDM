@@ -46,6 +46,7 @@ Figure 1 shows the transition hazards, survival functions and the hazard ratios 
 The transition hazards are specified as follows:
 ```{r}
 library(SimulationEngineMSM)
+library(survival)
 transitionTrt <- exponential_transition(h01 = 0.2, h02 = 0.28, h12 = 0.4)
 transitionPl <- exponential_transition(h01 = 0.4, h02 = 0.3, h12 = 0.5)
 ```
@@ -57,7 +58,7 @@ Then,  we use our function  `getClinicalTrials()` with 10000 iterations to gener
 
 ```{r}
 transitionListNULL <- list(transitionPl, transitionPl)
-nRep <- 10
+nRep <- 10000
 SimNULL <- getClinicalTrials(
   nRep = nRep, nPat = c(800, 800), seed = 1238, datType = "1rowPatient",
   transitionByArm = transitionListNULL,
