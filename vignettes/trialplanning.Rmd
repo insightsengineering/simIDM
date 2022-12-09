@@ -58,7 +58,6 @@ The transition hazards are specified as follows:
 ```{r}
 library(SimulationEngineMSM)
 library(survival)
-library(AHR)
 transitionTrt <- exponential_transition(h01 = 0.2, h02 = 0.28, h12 = 0.4)
 transitionPl <- exponential_transition(h01 = 0.4, h02 = 0.3, h12 = 0.5)
 
@@ -91,6 +90,7 @@ CriticalPFS <- abs(qnorm(alphaPFS / 2))
 Using the Schoenfeld approximation, a preliminary sample size calculation could be made to get an idea of how many events are needed for 80 \% power. For PFS the hazard ratio is known by specification (= 0.6857), for OS an averaged HR can be calculated, e.g. by using the R package AHR [@AHR]. In our example, we get an average OS HR of 0.7981. The average HR can be derived, for example, in the following way:
 
 ```{r eval=FALSE}
+library(AHR)
 avergHR <- function(data) {
   lastTime <- sort(data$OStime, decreasing = TRUE)[1]
   avgHR <- ahrWKM(lastTime, Surv(OStime, OSevent) ~ trt, data, alpha = 0.5)
