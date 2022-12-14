@@ -1,11 +1,11 @@
 Type: Package
 Package: SimulationEngineMSM
-Title: Simulating clinical trials with endpoints overall survival and
-    progression-free survival using an illness-death model
+Title: Simulating Clinical Trials with Endpoints Overall Survival and
+    Progression-Free Survival using an Illness-Death Model
 Version: 0.0.0.9020
 Authors@R:
-    person("Alexandra Niessl", , , "niessl.alexandra@gene.com", role = c("aut", "cre"))
-Description: Put one paragraph with few sentences here.
+    person("Alexandra Erdmann", , , "alexandra.erdmann@uni-ulm.de", role = c("aut", "cre"))
+Description: The package can be used to simulate a large number of clinical trials with oncology endpoints overall survival (OS) and progression-free survival (PFS).  The simulation is based on a survival multistate model thatjointly models OS and PFS, i.e. an illness-death model is simulated. The simulation set-up allows for random and event-driven censoring, an arbitrary number of treatment arms and staggered study entry. Exponetially distributed, Weibull distributed and piecewise exponentially distributed surival times can be generated.
 License: Apache License 2.0 | file LICENSE
 URL: https://github.com/insightsengineering/SimulationEngineMSM/
 BugReports:
@@ -14,12 +14,12 @@ Depends:
     R (>= 3.6)
 Imports:
     checkmate,
-    mvna,
     stats
 Suggests:
     knitr,
     prodlim,
-    testthat (>= 2.0)
+    testthat (>= 2.0),
+    mvna
 VignetteBuilder:
     knitr
 Encoding: UTF-8

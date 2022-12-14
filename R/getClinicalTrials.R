@@ -7,7 +7,11 @@
 #' @param transitionByArm (`list`) \cr  transition parameters for each treatment group.
 #' See [exponential_transition()], [piecewise_exponential()] and [weibull_transition()] for details.
 #' @param dropout  dropout (`list`)\cr specifies drop-out probability. See [getSimulatedData()] for details.
+#' Can be specified either as one list that should be applied to all treatment groups or a separate list
+#'  for each treatment group.
 #' @param accrual  accrual (`list`)\cr specifies accrual intensity. See [addStaggeredEntry()] for details.
+#' #' Can be specified either as one list that should be applied to all treatment groups or a separate list
+#' for each treatment group.
 #'
 #' @return This returns a data frame with one simulated clinical trial and multiple treatment arms.
 #'  See [getSimulatedData()] for the explanation of the columns. The column `trt` contains the treatment indicator.
@@ -39,12 +43,26 @@ getOneClinicalTrial <- function(nPat, transitionByArm,
 
   assert_list(dropout)
   assert_list(accrual)
+
+  # same accrual and dropout parameters for each group?
+  if (typeof(dropout[[1]]) == "list") {
+    assert_list(dropout, len = nArm)
+  } else {
+    dropout <- rep(list(dropout), nArm)
+  }
+
+  if (typeof(accrual[[1]]) == "list") {
+    assert_list(accrual, len = nArm)
+  } else {
+    accrual <- rep(list(accrual), nArm)
+  }
+
   # Each loop simulates a single trial arm.
   # Starting values for the loop.
   simdata <- NULL
   previousPts <- 0
   for (i in seq_len(nArm)) {
-    group <- getSimulatedData(nPat[i], transitionByArm[[i]], dropout, accrual)
+    group <- getSimulatedData(nPat[i], transitionByArm[[i]], dropout[[i]], accrual[[i]])
     group$trt <- i
     group$id <- group$id + previousPts
     simdata <- rbind(simdata, group)

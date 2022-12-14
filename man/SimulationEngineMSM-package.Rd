@@ -17,6 +17,6 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Alexandra Niessl \email{niessl.alexandra@gene.com}
+\strong{Maintainer}: Alexandra Erdmann \email{alexandra.erdmann@uni-ulm.de}
 
 }
