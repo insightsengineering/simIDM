@@ -45,14 +45,14 @@ getOneClinicalTrial <- function(nPat, transitionByArm,
   assert_list(accrual)
 
   # same accrual and dropout parameters for each group?
-  if (typeof(dropout[[1]]) == "list") {
-    assert_list(dropout, len = nArm)
+  if (is.list(dropout[[1]])) {
+    assert_list(dropout, len = nArm, types = "list")
   } else {
     dropout <- rep(list(dropout), nArm)
   }
 
-  if (typeof(accrual[[1]]) == "list") {
-    assert_list(accrual, len = nArm)
+  if (is.list(accrual[[1]])) {
+    assert_list(accrual, len = nArm, types = "list")
   } else {
     accrual <- rep(list(accrual), nArm)
   }
