@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SimulationEngineMSM</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9018</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9020</span>
       </span>
     </div>
 
@@ -44,12 +44,6 @@
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/SimulationEngineMSM/main">main</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/insightsengineering/SimulationEngineMSM" class="external-link">
     <span class="fa fa-github"></span>
@@ -118,36 +112,39 @@ in calendar time.</p>
 <span class="r-in"><span><span class="va">censoredData</span> <span class="op">&lt;-</span> <span class="va">simStudyWide</span><span class="op">[</span><span class="op">!</span><span class="op">(</span><span class="va">simStudyWide</span><span class="op">$</span><span class="va">id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">NotRecruited</span><span class="op">)</span>, <span class="op">]</span></span></span>
 <span class="r-in"><span><span class="fu">getCensoredData</span><span class="op">(</span>time <span class="op">=</span> <span class="va">censoredData</span><span class="op">$</span><span class="va">OStime</span>, event <span class="op">=</span> <span class="va">censoredData</span><span class="op">$</span><span class="va">OSevent</span>, data <span class="op">=</span> <span class="va">censoredData</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          time Censored event   timeCal</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.54931559        0     1 1.3903685</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.28921729        0     1 1.8062342</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  0.18694237        1     0 5.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.39236339        0     1 3.8941304</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.16613252        1     0 3.4347227</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  0.30833972        0     1 1.3994263</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  1.20592426        0     1 1.3497559</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  0.18265325        0     1 4.0208348</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  0.53024802        1     0 5.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 0.15979528        0     1 0.4411703</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 0.10962641        0     1 4.4467067</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 0.75965524        0     1 1.1069072</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 1.70719200        0     1 3.3155868</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 0.03412700        0     1 0.1378609</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 0.07110864        0     1 1.1004479</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 0.23156743        0     1 0.2610417</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 0.09599017        0     1 3.4152241</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 1.58472494        0     1 4.4315516</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19 0.66406429        0     1 3.1880995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20 0.06635659        0     1 3.9215478</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21 0.31761286        0     1 3.3568219</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22 0.02713966        0     1 0.8208850</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23 0.10814350        0     1 2.0842834</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24 0.18127870        0     1 3.2702554</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25 0.83260274        0     1 1.4282311</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26 0.61098217        0     1 3.2278753</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27 0.18341982        0     1 0.7175816</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28 1.08070453        0     1 3.5940910</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29 0.63754586        0     1 2.6469085</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30 0.01492084        1     0 5.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.03698066        0     1 2.8486025</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.41372786        0     1 3.6255832</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  0.05683410        0     1 0.5768697</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.41405219        0     1 0.8128390</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.60708117        0     1 4.9404163</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  0.61755748        0     1 1.8492206</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  0.09410125        0     1 3.9063135</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  0.16634910        0     1 2.8947824</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  0.16838953        0     1 4.2715688</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 0.17342531        0     1 1.4006646</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 0.16512481        0     1 0.1974259</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 0.25360798        0     1 1.0929964</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 0.14779200        0     1 2.8224568</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 0.90368326        0     1 3.3924808</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 0.02876551        0     1 3.3179872</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 1.33395799        0     1 4.3220527</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 0.09660910        0     1 3.5726632</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 0.07895238        0     1 4.9717071</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 1.25311306        0     1 4.3558411</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 0.46121985        1     0 5.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 0.46841731        0     1 1.3087729</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22 0.42827405        0     1 0.6266459</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23 0.15403196        1     0 5.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24 0.83187740        1     0 5.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25 0.05223684        0     1 2.3174703</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26 1.16026086        0     1 3.8912962</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27 0.44173731        0     1 3.5084515</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28 0.45420745        1     0 3.3266930</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29 0.24295326        0     1 1.6222127</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30 0.53931075        0     1 4.6436812</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31 0.76440155        0     1 2.7657826</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32 0.51429877        0     1 0.9852821</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33 0.19747783        0     1 4.5135093</span>
 </code></pre></div>
     </div>
   </div>
@@ -158,7 +155,7 @@ in calendar time.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Alexandra Niessl.</p>
+  <p></p><p>Developed by Alexandra Erdmann.</p>
 </div>
 
 <div class="pkgdown">

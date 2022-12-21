@@ -24,7 +24,7 @@ based on an illness-death model. Studies with an arbitrary number of treatment a
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SimulationEngineMSM</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9018</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9020</span>
       </span>
     </div>
 
@@ -45,12 +45,6 @@ based on an illness-death model. Studies with an arbitrary number of treatment a
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/SimulationEngineMSM/main">main</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/insightsengineering/SimulationEngineMSM" class="external-link">
     <span class="fa fa-github"></span>
@@ -97,11 +91,15 @@ See <code><a href="exponential_transition.html">exponential_transition()</a></co
 
 
 <dt>dropout</dt>
-<dd><p>dropout (<code>list</code>)<br> specifies drop-out probability. See <code><a href="getSimulatedData.html">getSimulatedData()</a></code> for details.</p></dd>
+<dd><p>dropout (<code>list</code>)<br> specifies drop-out probability. See <code><a href="getSimulatedData.html">getSimulatedData()</a></code> for details.
+Can be specified either as one list that should be applied to all treatment groups or a separate list
+for each treatment group.</p></dd>
 
 
 <dt>accrual</dt>
-<dd><p>accrual (<code>list</code>)<br> specifies accrual intensity. See <code><a href="addStaggeredEntry.html">addStaggeredEntry()</a></code> for details.</p></dd>
+<dd><p>accrual (<code>list</code>)<br> specifies accrual intensity. See <code><a href="addStaggeredEntry.html">addStaggeredEntry()</a></code> for details.
+#' Can be specified either as one list that should be applied to all treatment groups or a separate list
+for each treatment group.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -246,7 +244,7 @@ This is a helper function of <code><a href="getClinicalTrials.html">getClinicalT
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Alexandra Niessl.</p>
+  <p></p><p>Developed by Alexandra Erdmann.</p>
 </div>
 
 <div class="pkgdown">
