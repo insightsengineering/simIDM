@@ -17,9 +17,13 @@ getOneClinicalTrial(
 \item{transitionByArm}{(\code{list}) \cr  transition parameters for each treatment group.
 See \code{\link[=exponential_transition]{exponential_transition()}}, \code{\link[=piecewise_exponential]{piecewise_exponential()}} and \code{\link[=weibull_transition]{weibull_transition()}} for details.}
 
-\item{dropout}{dropout (\code{list})\cr specifies drop-out probability. See \code{\link[=getSimulatedData]{getSimulatedData()}} for details.}
+\item{dropout}{dropout (\code{list})\cr specifies drop-out probability. See \code{\link[=getSimulatedData]{getSimulatedData()}} for details.
+Can be specified either as one list that should be applied to all treatment groups or a separate list
+for each treatment group.}
 
-\item{accrual}{accrual (\code{list})\cr specifies accrual intensity. See \code{\link[=addStaggeredEntry]{addStaggeredEntry()}} for details.}
+\item{accrual}{accrual (\code{list})\cr specifies accrual intensity. See \code{\link[=addStaggeredEntry]{addStaggeredEntry()}} for details.
+#' Can be specified either as one list that should be applied to all treatment groups or a separate list
+for each treatment group.}
 }
 \value{
 This returns a data frame with one simulated clinical trial and multiple treatment arms.
