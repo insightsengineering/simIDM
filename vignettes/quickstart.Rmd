@@ -1,6 +1,6 @@
 ---
 title: "SimulationEngineMSM: Quickstart"
-author: "Alexandra Niessl"
+author: "Alexandra Erdmann"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 bibliography: references.bib
