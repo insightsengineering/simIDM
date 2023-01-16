@@ -7,7 +7,7 @@
 WeibSurvPFS(t, h01, h02, p01, p02)
 }
 \arguments{
-\item{t}{(positive \code{number})\cr  study time-point.}
+\item{t}{(\code{numeric})\cr  study time-points.}
 
 \item{h01}{(positive \code{number})\cr transition hazard for 0 to 1 transition.}
 
@@ -24,5 +24,5 @@ This returns the value of PFS survival function at time t.
 PFS survival function from Weibull transition hazards.
 }
 \examples{
-WeibSurvPFS(5, 0.2, 0.5, 1.2, 0.9)
+WeibSurvPFS(c(1:5), 0.2, 0.5, 1.2, 0.9)
 }

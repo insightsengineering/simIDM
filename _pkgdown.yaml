@@ -54,7 +54,9 @@ reference:
       - ExpSurvPFS
       - ExpSurvOS
       - WeibSurvPFS
+      - WeibOSInteg
       - WeibSurvOS
       - pwA
       - PWCsurvPFS
+      - PwcOSInt
       - PWCsurvOS

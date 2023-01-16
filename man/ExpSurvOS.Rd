@@ -7,7 +7,7 @@
 ExpSurvOS(t, h01, h02, h12)
 }
 \arguments{
-\item{t}{(positive \code{number})\cr  study time-point.}
+\item{t}{(\code{numeric})\cr  study time-points.}
 
 \item{h01}{(positive \code{number})\cr transition hazard for 0 to 1 transition.}
 
@@ -22,5 +22,5 @@ This returns the value of OS survival function at time t.
 OS survival function from constant transition hazards.
 }
 \examples{
-ExpSurvOS(5, 0.2, 0.4, 0.1)
+ExpSurvOS(c(1:5), 0.2, 0.4, 0.1)
 }

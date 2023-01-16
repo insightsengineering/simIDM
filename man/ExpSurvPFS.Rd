@@ -7,7 +7,7 @@
 ExpSurvPFS(t, h01, h02)
 }
 \arguments{
-\item{t}{(positive \code{number})\cr  study time-point.}
+\item{t}{(\code{numeric})\cr  study time-points.}
 
 \item{h01}{(positive \code{number})\cr transition hazard for 0 to 1 transition.}
 
@@ -20,5 +20,5 @@ This returns the value of PFS survival function at time t.
 PFS survival function from constant transition hazards.
 }
 \examples{
-ExpSurvPFS(5, 0.2, 0.4)
+ExpSurvPFS(c(1:5), 0.2, 0.4)
 }

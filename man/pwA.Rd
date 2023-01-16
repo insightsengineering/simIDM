@@ -2,12 +2,12 @@
 % Please edit documentation in R/survivalFunctions.R
 \name{pwA}
 \alias{pwA}
-\title{Cumulative hazard for piecewise constant hazards}
+\title{Cumulative hazard for piecewise constant hazards.}
 \usage{
 pwA(t, haz, pw)
 }
 \arguments{
-\item{t}{(positive \code{number})\cr  study time-point.}
+\item{t}{(\code{numeric})\cr  study time-points.}
 
 \item{haz}{(\verb{numeric vector})\cr constant transition hazards.}
 
@@ -17,8 +17,8 @@ pwA(t, haz, pw)
 This returns the value of cumulative hazard at time t.
 }
 \description{
-Cumulative hazard for piecewise constant hazards
+Cumulative hazard for piecewise constant hazards.
 }
 \examples{
-pwA(5, c(0.5, 0.9), c(0, 4))
+pwA(1:5, c(0.5, 0.9), c(0, 4))
 }

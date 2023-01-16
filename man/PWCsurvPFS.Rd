@@ -7,11 +7,11 @@
 PWCsurvPFS(t, h01, h02, pw01, pw02)
 }
 \arguments{
-\item{t}{(positive \code{number})\cr study time-point.}
+\item{t}{(\code{numeric})\cr  study time-points.}
 
-\item{h01}{(\verb{numeric vector})\cr constant transition hazards for 0 to 1 transition}
+\item{h01}{(\verb{numeric vector})\cr constant transition hazards for 0 to 1 transition.}
 
-\item{h02}{(\verb{numeric vector})\cr constant transition hazards for 0 to 2 transition}
+\item{h02}{(\verb{numeric vector})\cr constant transition hazards for 0 to 2 transition.}
 
 \item{pw01}{(\verb{numeric vector})\cr time intervals for the piecewise constant hazards \code{h01}.}
 
@@ -24,5 +24,5 @@ This returns the value of PFS survival function at time t.
 PFS survival function from piecewise constant hazards.
 }
 \examples{
-PWCsurvPFS(5, c(0.3, 0.5), c(0.5, 0.8), c(0, 4), c(0, 8))
+PWCsurvPFS(1:5, c(0.3, 0.5), c(0.5, 0.8), c(0, 4), c(0, 8))
 }
