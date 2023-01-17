@@ -60,11 +60,36 @@ WeibSurvPFS <- function(t, h01, h02, p01, p02) {
 }
 
 
+#' Helper function for efficient integration.
+#'
+#' @param integrand an `R` function to be integrated.
+#' @param upperVector (`numeric`)\cr upper limits of integration.
+#' @param ...  additional arguments to be passed to `integrand`.
+#'
+#' @return This function returns for each upper limit the estimates of the integral.
+#' @export
+#'
+#' @examples
+#' integrand <- function(x) x^2
+#' upperVector <- c(0, 1, 0.4, 2, 5, 2, 0.3, 0.4, 1)
+#' integrateVector(integrand, upperVector = upperVector)
+integrateVector <- function(integrand, upperVector, ...) {
+  assert_true(all(upperVector >= 0))
+  boundaries <- sort(unique(upperVector))
+  nIntervals <- length(boundaries)
+  intervals <- mapply(
+    FUN = function(f, lower, upper, ...) integrate(f, ..., lower, upper)$value,
+    MoreArgs = list(f = integrand, ...),
+    lower = c(0, boundaries[-nIntervals]),
+    upper = boundaries
+  )
+  cumIntervals <- cumsum(intervals)
+  cumIntervals[match(upperVector, boundaries)]
+}
 
 #' Helper Function for `WeibSurvOS()`.
 #'
 #' @param x (`numeric`)\cr  variable of integration.
-#' @param t (positive `number`)\cr upper limit of the integral.
 #' @inheritParams WeibSurvOS
 #'
 #' @return Numeric results of the integrand used to calculate
@@ -72,11 +97,10 @@ WeibSurvPFS <- function(t, h01, h02, p01, p02) {
 #' @export
 #'
 #' @examples
-#' WeibOSInteg(1:5, 8, 0.2, 0.5, 2.1, 1.2, 0.9, 1)
-WeibOSInteg <- function(x, t, h01, h02, h12, p01, p02, p12) {
-  x^(p01 - 1) * exp(-h01 * x^p01 - h02 * x^p02 - h12 * (t^p12 - x^p12))
+#' WeibOSInteg(1:5, 0.2, 0.5, 2.1, 1.2, 0.9, 1)
+WeibOSInteg <- function(x, h01, h02, h12, p01, p02, p12) {
+  x^(p01 - 1) * exp(-h01 * x^p01 - h02 * x^p02 + h12 * x^p12)
 }
-
 
 #' OS survival function from Weibull transition hazards.
 #'
@@ -101,18 +125,15 @@ WeibSurvOS <- function(t, h01, h02, h12, p01, p02, p12) {
   assert_positive_number(p02)
   assert_positive_number(p12)
 
-
   res <- WeibSurvPFS(t, h01, h02, p01, p02) +
-    h01 * p01 *
-      sapply(t, function(u) {
-        return(integrate(WeibOSInteg,
-          t = u, h01 = h01, h02 = h02, h12 = h12, p01 = p01, p02 = p02, p12 = p12,
-          lower = 0, upper = u
-        )$value)
-      })
+    h01 * p01 * exp(-h12 * t^p12) *
+      integrateVector(WeibOSInteg,
+        upperVector = t,
+        h01 = h01, h02 = h02, h12 = h12, p01 = p01, p02 = p02, p12 = p12
+      )
+
   return(res)
 }
-
 
 
 #' Cumulative hazard for piecewise constant hazards.
@@ -211,14 +232,12 @@ PWCsurvOS <- function(t, h01, h02, h12, pw01, pw02, pw12) {
   assert_intervals(pw02, length(h02))
   assert_intervals(pw12, length(h12))
 
-
   res <- PWCsurvPFS(t, h01, h02, pw01, pw02) +
     exp(-pwA(t, h12, pw12)) *
-      sapply(t, function(u) {
-        integrate(PwcOSInt,
-          h01 = h01, h02 = h02, h12 = h12, pw01 = pw01, pw02 = pw02, pw12 = pw12, lower = 0, upper = u
-        )$value
-      })
+      integrateVector(PwcOSInt,
+        upperVector = t,
+        h01 = h01, h02 = h02, h12 = h12, pw01 = pw01, pw02 = pw02, pw12 = pw12
+      )
 
   return(res)
 }

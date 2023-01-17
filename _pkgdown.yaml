@@ -54,6 +54,7 @@ reference:
       - ExpSurvPFS
       - ExpSurvOS
       - WeibSurvPFS
+      - integrateVector
       - WeibOSInteg
       - WeibSurvOS
       - pwA

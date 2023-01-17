@@ -69,3 +69,18 @@ test_that("PWCsurvOS works as expected", {
   actual <- PWCsurvOS(c(0, 1, 2, 1.4), c(0.7, 0.9), c(0.5, 1), c(0.9, 1.2), c(0, 4), c(0, 3), c(0, 7))
   expect_equal(actual, ExpSurvOS(c(0, 1, 2, 1.4), 0.7, 0.5, 0.9))
 })
+
+
+# integrateVector ----
+test_that("integrateVector works as expected", {
+  integrand <- function(x) x^2
+  upperVector <- c(1, 0.4, 1)
+
+  actual <- integrateVector(integrand, upperVector = upperVector)
+  expected <- c(
+    integrate(integrand, 0, 1)$value,
+    integrate(integrand, 0, 0.4)$value,
+    integrate(integrand, 0, 1)$value
+  )
+  expect_equal(actual, expected)
+})
