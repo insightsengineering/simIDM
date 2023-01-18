@@ -3,8 +3,9 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   quickstart: quickstart.html
-last_built: 2023-01-18T08:02Z
+  trialplanning: trialplanning.html
+last_built: 2023-01-18T13:52Z
 urls:
-  reference: https://insightsengineering.github.io/SimulationEngineMSM/main/reference
-  article: https://insightsengineering.github.io/SimulationEngineMSM/main/articles
+  reference: https://insightsengineering.github.io/simIDM/main/reference
+  article: https://insightsengineering.github.io/simIDM/main/articles
 
