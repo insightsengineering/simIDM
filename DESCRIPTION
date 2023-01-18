@@ -2,7 +2,7 @@ Type: Package
 Package: SimulationEngineMSM
 Title: Simulating Clinical Trials with Endpoints Overall Survival and
     Progression-Free Survival using an Illness-Death Model
-Version: 0.0.0.9021
+Version: 0.0.0.9022
 Authors@R:
     person("Alexandra Erdmann", , , "alexandra.erdmann@uni-ulm.de", role = c("aut", "cre"))
 Description: The package can be used to simulate a large number of
