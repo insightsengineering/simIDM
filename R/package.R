@@ -1,6 +1,6 @@
-#' `SimulationEngineMSM` Package
+#' `simIDM` Package
 #'
-#' `SimulationEngineMSM` does ...
+#' `simIDM` does ...
 #'
 "_PACKAGE"
 

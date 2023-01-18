@@ -1,11 +1,11 @@
 ---
-title: "SimulationEngineMSM: Quickstart"
+title: "simIDM: Quickstart"
 author: "Alexandra Erdmann"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 bibliography: references.bib
 vignette: >
-  %\VignetteIndexEntry{SimulationEngineMSM: Quickstart}
+  %\VignetteIndexEntry{simIDM: Quickstart}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -42,7 +42,7 @@ The number of patients per trial must be specified. In our example simulation th
 nPat <- c(30, 60)
 ```
 
-The transition parameters describing the transition hazards per treatment arm must be passed as a list to `getClinicalTrials()`. The class `TransitionParameters` contains the elements `hazards`, `intervals`, `weibull_rates` and `family` which allow to describe transition hazards leading to exponential, piecewise exponential or Weibull distributed survival times. There are some helper functions in the `SimulationEngineMSM` package to create the appropriate transition parameters for the desired distribution.
+The transition parameters describing the transition hazards per treatment arm must be passed as a list to `getClinicalTrials()`. The class `TransitionParameters` contains the elements `hazards`, `intervals`, `weibull_rates` and `family` which allow to describe transition hazards leading to exponential, piecewise exponential or Weibull distributed survival times. There are some helper functions in the `simIDM` package to create the appropriate transition parameters for the desired distribution.
 - `exponential_transition()`: creates a list with class `TransitionParameters` containing
 hazards, time intervals and Weibull rates for exponential event times
  in an illness-death model.
@@ -57,7 +57,7 @@ hazards, time intervals and Weibull rates for Weibull distributed event times
 
 
 ```{r}
-library(SimulationEngineMSM)
+library(simIDM)
 
 transitionGroup1 <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
 print(transitionGroup1$hazards)

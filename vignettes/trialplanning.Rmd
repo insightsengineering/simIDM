@@ -1,5 +1,5 @@
 ---
-title: 'SimulationEngineMSM: power and type I error calculations'
+title: 'simIDM: power and type I error calculations'
 author: "Alexandra Erdmann"
 date: "11/14/2022"
 output:
@@ -10,7 +10,7 @@ output:
   pdf_document: default
 bibliography: references2.bib
 vignette: |
-  %\VignetteIndexEntry{SimulationEngineMSM: power and type I error calculations}
+  %\VignetteIndexEntry{simIDM: power and type I error calculations}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -58,7 +58,7 @@ Figure 2 shows the transition hazards, survival functions and the hazard ratios 
 
 The transition hazards are specified as follows:
 ```{r}
-library(SimulationEngineMSM)
+library(simIDM)
 library(survival)
 transitionTrt <- exponential_transition(h01 = 0.2, h02 = 0.28, h12 = 0.4)
 transitionPl <- exponential_transition(h01 = 0.4, h02 = 0.3, h12 = 0.5)

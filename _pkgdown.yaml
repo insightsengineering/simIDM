@@ -1,5 +1,5 @@
 ---
-url: https://insightsengineering.github.io/SimulationEngineMSM
+url: https://insightsengineering.github.io/simIDM
 
 template:
   params:
@@ -9,12 +9,12 @@ template:
 navbar:
   right:
     - icon: fa-github
-      href: https://github.com/insightsengineering/SimulationEngineMSM
+      href: https://github.com/insightsengineering/simIDM
 
 reference:
   - title: Package
     contents:
-      - SimulationEngineMSM-package
+      - simIDM-package
   - title: Assertions
     contents:
       - assert_positive_number
