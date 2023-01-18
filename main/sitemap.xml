@@ -25,10 +25,34 @@
     <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/pull_request_template.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/reference/ExpSurvOS.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/reference/ExpSurvPFS.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/reference/PCWInversionMethod.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/reference/PWCsurvOS.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/reference/PWCsurvPFS.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/reference/PwcOSInt.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/reference/SimulationEngineMSM-package.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/reference/WeibOSInteg.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/reference/WeibSurvOS.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/reference/WeibSurvPFS.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/reference/addStaggeredEntry.html</loc>
@@ -88,7 +112,13 @@
     <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/reference/index.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/reference/integrateVector.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/reference/piecewise_exponential.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/reference/pwA.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/SimulationEngineMSM/main/reference/trackEventsPerTrial.html</loc>
