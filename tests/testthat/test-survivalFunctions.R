@@ -74,9 +74,9 @@ test_that("PWCsurvOS works as expected", {
 # integrateVector ----
 test_that("integrateVector works as expected", {
   integrand <- function(x) x^2
-  upperVector <- c(1, 0.4, 1)
+  upper <- c(1, 0.4, 1)
 
-  actual <- integrateVector(integrand, upperVector = upperVector)
+  actual <- integrateVector(integrand, upper = upper)
   expected <- c(
     integrate(integrand, 0, 1)$value,
     integrate(integrand, 0, 0.4)$value,

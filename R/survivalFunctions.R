@@ -62,8 +62,8 @@ WeibSurvPFS <- function(t, h01, h02, p01, p02) {
 
 #' Helper function for efficient integration.
 #'
-#' @param integrand an `R` function to be integrated.
-#' @param upperVector (`numeric`)\cr upper limits of integration.
+#' @param integrand (`function`)\cr  to be integrated.
+#' @param upper (`numeric`)\cr upper limits of integration.
 #' @param ...  additional arguments to be passed to `integrand`.
 #'
 #' @return This function returns for each upper limit the estimates of the integral.
@@ -71,11 +71,11 @@ WeibSurvPFS <- function(t, h01, h02, p01, p02) {
 #'
 #' @examples
 #' integrand <- function(x) x^2
-#' upperVector <- c(0, 1, 0.4, 2, 5, 2, 0.3, 0.4, 1)
-#' integrateVector(integrand, upperVector = upperVector)
-integrateVector <- function(integrand, upperVector, ...) {
-  assert_true(all(upperVector >= 0))
-  boundaries <- sort(unique(upperVector))
+#' upper <- c(0, 1, 0.4, 2, 5, 2, 0.3, 0.4, 1)
+#' integrateVector(integrand, upper = upper)
+integrateVector <- function(integrand, upper, ...) {
+  assert_true(all(upper >= 0))
+  boundaries <- sort(unique(upper))
   nIntervals <- length(boundaries)
   intervals <- mapply(
     FUN = function(f, lower, upper, ...) integrate(f, ..., lower, upper)$value,
@@ -84,7 +84,7 @@ integrateVector <- function(integrand, upperVector, ...) {
     upper = boundaries
   )
   cumIntervals <- cumsum(intervals)
-  cumIntervals[match(upperVector, boundaries)]
+  cumIntervals[match(upper, boundaries)]
 }
 
 #' Helper Function for `WeibSurvOS()`.
@@ -128,7 +128,7 @@ WeibSurvOS <- function(t, h01, h02, h12, p01, p02, p12) {
   res <- WeibSurvPFS(t, h01, h02, p01, p02) +
     h01 * p01 * exp(-h12 * t^p12) *
       integrateVector(WeibOSInteg,
-        upperVector = t,
+        upper = t,
         h01 = h01, h02 = h02, h12 = h12, p01 = p01, p02 = p02, p12 = p12
       )
 
@@ -235,7 +235,7 @@ PWCsurvOS <- function(t, h01, h02, h12, pw01, pw02, pw12) {
   res <- PWCsurvPFS(t, h01, h02, pw01, pw02) +
     exp(-pwA(t, h12, pw12)) *
       integrateVector(PwcOSInt,
-        upperVector = t,
+        upper = t,
         h01 = h01, h02 = h02, h12 = h12, pw01 = pw01, pw02 = pw02, pw12 = pw12
       )
 

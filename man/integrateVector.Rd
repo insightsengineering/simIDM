@@ -4,12 +4,12 @@
 \alias{integrateVector}
 \title{Helper function for efficient integration.}
 \usage{
-integrateVector(integrand, upperVector, ...)
+integrateVector(integrand, upper, ...)
 }
 \arguments{
-\item{integrand}{an \code{R} function to be integrated.}
+\item{integrand}{(\code{function})\cr  to be integrated.}
 
-\item{upperVector}{(\code{numeric})\cr upper limits of integration.}
+\item{upper}{(\code{numeric})\cr upper limits of integration.}
 
 \item{...}{additional arguments to be passed to \code{integrand}.}
 }
@@ -21,6 +21,6 @@ Helper function for efficient integration.
 }
 \examples{
 integrand <- function(x) x^2
-upperVector <- c(0, 1, 0.4, 2, 5, 2, 0.3, 0.4, 1)
-integrateVector(integrand, upperVector = upperVector)
+upper <- c(0, 1, 0.4, 2, 5, 2, 0.3, 0.4, 1)
+integrateVector(integrand, upper = upper)
 }
