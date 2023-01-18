@@ -12,6 +12,8 @@ repos:
           - knitr
           - testthat
           - utils
+          - mvna
+          - git2r
       - id: use-tidy-description
       - id: spell-check
         exclude: >
@@ -47,6 +49,7 @@ repos:
           - knitr
           - testthat
           - utils
+          - mvna
       - id: readme-rmd-rendered
       - id: parsable-R
       - id: no-browser-statement

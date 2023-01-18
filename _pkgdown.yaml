@@ -49,3 +49,15 @@ reference:
       - getEventsAll
       - getNumberEvents
       - trackEventsPerTrial
+  - title: Survival Functions.
+    contents:
+      - ExpSurvPFS
+      - ExpSurvOS
+      - WeibSurvPFS
+      - integrateVector
+      - WeibOSInteg
+      - WeibSurvOS
+      - pwA
+      - PWCsurvPFS
+      - PwcOSInt
+      - PWCsurvOS
