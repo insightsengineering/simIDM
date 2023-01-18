@@ -10,7 +10,9 @@ output:
   pdf_document: default
 bibliography: references2.bib
 vignette: |
-  %\VignetteIndexEntry{SimulationEngineMSM: power and type I error calculations} %\VignetteEngine{knitr::rmarkdown} %\VignetteEncoding{UTF-8}
+  %\VignetteIndexEntry{SimulationEngineMSM: power and type I error calculations}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 
@@ -38,7 +40,7 @@ plotIllnessDeathModel(
 We consider the following study design:
 
 - OS and PFS as co-primary endpoints with one final analysis each
-- treatment vs control group, 1:1 randomization ratio
+- treatment vs control group, 1:1 randomization ratio  (but note that in principle any randomization ratio can be implemented)
 - global significance level: 5 \%
 - the standard log-rank test used to detect a significant difference between the groups
 - statistical power to detect a difference between the groups should be 80 \% for each endpoint
@@ -146,7 +148,7 @@ studyAtOSAna <- lapply(SimNULL, censoringByNumberEvents,
 TestPassedPFS <- lapply(studyAtPFSAna, LogRankTest, endpoint = "PFS", CriticalPFS)
 TestPassedOS <- lapply(studyAtOSAna, LogRankTest, endpoint = "OS", CriticalOS)
 ```
-  We get the type-I error for each endpoint and the global type-I error by counting the significant tests under $H_0$. The global type-I error is empirically determined by counting the trials in which either a significant log-rank test is observed for the  OS endpoint or for the PFS endpoint.
+  We estimate the type-I error for each endpoint and the global type-I error by counting the significant tests under $H_0$. The global type-I error is empirically estimated by counting the trials in which either a significant log-rank test is observed for the  OS endpoint or for the PFS endpoint.
 
 ```{r}
 # empirical type-I error of PFS
@@ -188,7 +190,7 @@ SimH1 <- getClinicalTrials(
   dropout = list(rate = 0.05, time = 12), accrual = list(param = "intensity", value = 100)
 )
 ```
-We derive the empirical power by counting the significant log-rank tests under $H_1$ for each endpoint. The multistate model approach allows us to easily determine further interesting metrics, that affect both endpoints. For example, the joint power, i.e.\ the power that both endpoints in one trial are significant, if each endpoint is analyzed at its planned time-point.
+We derive the empirical power by counting the significant log-rank tests under $H_1$ for each endpoint. The multistate model approach allows us to easily estimate further interesting metrics, that affect both endpoints. For example, the joint power, i.e.\ the power that both endpoints in one trial are significant, if each endpoint is analyzed at its planned time-point.
 
 ```{r}
 # Step 1: cut simulated data at time-point of OS/PFS analysis
