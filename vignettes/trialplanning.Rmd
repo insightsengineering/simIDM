@@ -66,6 +66,17 @@ transitionPl <- exponential_transition(h01 = 0.4, h02 = 0.3, h12 = 0.5)
 transitionList <- list(transitionPl, transitionTrt)
 ```
 
+The package provides functions that return  the values of  the OS or PFS survival functions for given transition hazards and time points.
+```{r}
+timepoints <- c(0, 0.1, 0.2, 0.3, 0.7, 1, 5)
+ExpSurvOS(timepoints, h01 = 0.2, h02 = 0.4, h12 = 0.1)
+WeibSurvOS(timepoints, h01 = 0.2, h02 = 0.5, h12 = 2.1, p01 = 1.2, p02 = 0.9, p12 = 1)
+PWCsurvOS(timepoints,
+  h01 = c(0.3, 0.5), h02 = c(0.5, 0.8), h12 = c(0.7, 1),
+  pw01 = c(0, 4), pw02 = c(0, 8), pw12 = c(0, 3)
+)
+```
+There are also functions for PFS survival functions available.
 ## Type-I error - simulation under $H_0$
 
 For the simulation under $H_0$ we set the transition hazards for the treatment group equal to the control group.
