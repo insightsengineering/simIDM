@@ -67,7 +67,8 @@ transitionbyArm <- list(transitionGroup1, transitionGroup2)
 ```
 
 The specification for random patient dropouts can be passed directly to `getClinicalTrials()`. A list with elements `rate` and `time` specifies the drop-out probability.
-Random censoring times are generated using the exponential distribution. `dropout$rate` specifies the drop-out probability per `dropout$time` time units.
+Random censoring times are generated using the exponential distribution. `dropout$rate` specifies the drop-out probability per `dropout$time` time units. The dropout parameters can be specified either as one list that should be applied to all treatment groups or a separate list
+for each treatment group.
 If `dropout$rate` is equal to 0, then no censoring due to dropout is applied. In our example we expect that 10\%  of the patients drop-out within 12 months per treatment group (we take month as the time unit of our trial), thus we specify:
 
 
@@ -77,7 +78,8 @@ dropout <- list(rate = 0.1, time = 12)
 
 
 There are two time-scales that we need to consider when simulating multistate data. The individual time scale with start in the initial state at time 0 and the study time scale, which matches the individual time scale only if the study start time (e.g. randomization date) is the same time in calendar time for all patients.
-It can also be specified that  patients enter the study in a staggered manner. Uniformly distributed random variables are used to generate staggered study entry times. There are two possibilities for the specification: Either, the length of the accrual period is specified, e.g. 12 month,  in which case the staggered entry times are generated in each treatment group using random variables $U ~Unif(0, 12)$.  Or, it is specified how many patients are recruited per time unit in each treatment group. Thus, if 10 patients are recruited per month, then the staggered entry times are generated using random variables $U ~Unif(0, 30/10)$. A list `accural` with elements `accrualParam` and `accrualValue` is passed to `getClinicalTrials()` describing the accrual intensity. For `accrualParam` equal time, `accrualValue`describes the length of the accrual period. For `accrualParam` equal intensity, it describes the number of patients recruited per time unit.  If `accrualValue` is equal to 0, all patients start at the same calender time in the initial state.
+It can also be specified that  patients enter the study in a staggered manner. Uniformly distributed random variables are used to generate staggered study entry times. There are two possibilities for the specification: Either, the length of the accrual period is specified, e.g. 12 month,  in which case the staggered entry times are generated in each treatment group using random variables $U ~Unif(0, 12)$.  Or, it is specified how many patients are recruited per time unit in each treatment group. Thus, if 10 patients are recruited per month, then the staggered entry times are generated using random variables $U ~Unif(0, 30/10)$. A list `accural` with elements `accrualParam` and `accrualValue` is passed to `getClinicalTrials()` describing the accrual intensity. For `accrualParam` equal time, `accrualValue`describes the length of the accrual period. For `accrualParam` equal intensity, it describes the number of patients recruited per time unit.  If `accrualValue` is equal to 0, all patients start at the same calender time in the initial state. The accrual parameters can be specified either as one list that should be applied to all treatment groups or a separate list
+for each treatment group.
 
 
 ```{r}
@@ -107,12 +109,41 @@ simStudies2 <- getClinicalTrials(
 
 
 ## Output Data
-We get as output a list with `nRep` elements, each containing a data set of a single simulated trial.
-
+We get as output a list with `nRep` elements, each containing a data set of a single simulated trial. The specification of the seed ensures, that
+the the datasets of the two lists contain the same study data, only the presentation is different. `simStudies1` shows the transition times per patient and `simStudies2` the OS and PFS times per patient.
 
 ```{r}
 head(simStudies1[[1]], 6)
 head(simStudies2[[1]], 5)
 ```
+If we want to simulate only one trial, `getOneClinicalTrial` can also be used and with `getDatasetWideFormat` can be used to convert the dataset from being displayed with transition time to displaying PFS and OS times.
+```{r}
+simStudy_Trans <- getOneClinicalTrial(
+  nPat = nPat, transitionByArm = transitionbyArm,
+  dropout = dropout,
+  accrual = accrual
+)
 
+simStudy_PFSOS <- getDatasetWideFormat(simStudy_Trans)
+head(simStudy_Trans, 10)
+head(simStudy_PFSOS, 10)
+```
+It is also possible to generate a a study that censors all patients after a pre-specified number of events (OS or PFS) occurred.
+
+```{r}
+simStudy_Trans <- getOneClinicalTrial(
+  nPat = nPat, transitionByArm = transitionbyArm,
+  dropout = dropout,
+  accrual = accrual
+)
+
+simStudy_PFSOS <- getDatasetWideFormat(simStudy_Trans)
+head(simStudy_Trans, 10)
+head(simStudy_PFSOS, 10)
+
+simStudy_40PFS <- censoringByNumberEvents(data = simStudy_PFSOS, eventNum = 40, typeEvent = "PFS")
+simStudy_30POS <- censoringByNumberEvents(data = simStudy_PFSOS, eventNum = 30, typeEvent = "PFS")
+simStudy_40PFS
+simStudy_30POS
+```
 ## References
