@@ -1,5 +1,5 @@
 Type: Package
-Package: SimulationEngineMSM
+Package: simIDM
 Title: Simulating Clinical Trials with Endpoints Overall Survival and
     Progression-Free Survival using an Illness-Death Model
 Version: 0.0.0.9023
@@ -15,9 +15,9 @@ Description: The package can be used to simulate a large number of
     distributed and piecewise exponentially distributed survival times can
     be generated.
 License: Apache License 2.0 | file LICENSE
-URL: https://github.com/insightsengineering/SimulationEngineMSM/
+URL: https://github.com/insightsengineering/simIDM/
 BugReports:
-    https://github.com/insightsengineering/SimulationEngineMSM/issues
+    https://github.com/insightsengineering/simIDM/issues
 Depends:
     R (>= 3.6)
 Imports:
