@@ -2,13 +2,8 @@
 title: 'simIDM: power and type I error calculations'
 author: "Alexandra Erdmann"
 date: "11/14/2022"
-output:
-  html_document:
-    df_print: paged
-    fig_caption: true
-
-  pdf_document: default
-bibliography: references2.bib
+output: rmarkdown::html_vignette
+bibliography: references.bib
 vignette: |
   %\VignetteIndexEntry{simIDM: power and type I error calculations}
   %\VignetteEngine{knitr::rmarkdown}
