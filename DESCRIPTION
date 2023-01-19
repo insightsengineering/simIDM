@@ -26,6 +26,7 @@ Suggests:
     knitr,
     mvna,
     prodlim,
+    rmarkdown,
     testthat (>= 2.0)
 VignetteBuilder:
     knitr
