@@ -25,7 +25,7 @@ getWaitTimeSum <- function(U, haz1, haz2, p1, p2, entry) {
 
   N <- length(U)
   # Exponential distributed survival times.
-  if (p1 == 1 & p2 == 1) {
+  if (p1 == 1 && p2 == 1) {
     return(-log(1 - U) / (haz1 + haz2))
   }
   # Weibull distributed survival times.
