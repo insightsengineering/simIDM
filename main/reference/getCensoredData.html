@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simIDM</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9024</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.1</span>
       </span>
     </div>
 
@@ -38,21 +38,15 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/quickstart.html">simIDM: Quickstart</a>
+      <a href="../articles/quickstart.html">simIDM: Getting Started</a>
     </li>
     <li>
-      <a href="../articles/trialplanning.html">simIDM: power and type I error calculations</a>
+      <a href="../articles/trialplanning.html">simIDM: Power and Type I Error Calculations</a>
     </li>
   </ul></li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/SimulationEngineMSM/main">main</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/insightsengineering/simIDM" class="external-link">
     <span class="fa fa-github"></span>
@@ -121,31 +115,33 @@ in calendar time.</p>
 <span class="r-in"><span><span class="va">censoredData</span> <span class="op">&lt;-</span> <span class="va">simStudyWide</span><span class="op">[</span><span class="op">!</span><span class="op">(</span><span class="va">simStudyWide</span><span class="op">$</span><span class="va">id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">NotRecruited</span><span class="op">)</span>, <span class="op">]</span></span></span>
 <span class="r-in"><span><span class="fu">getCensoredData</span><span class="op">(</span>time <span class="op">=</span> <span class="va">censoredData</span><span class="op">$</span><span class="va">OStime</span>, event <span class="op">=</span> <span class="va">censoredData</span><span class="op">$</span><span class="va">OSevent</span>, data <span class="op">=</span> <span class="va">censoredData</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          time Censored event   timeCal</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.27200168        1     0 3.1345371</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.34354705        1     0 5.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  0.14618777        0     1 4.8910097</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.78999628        0     1 2.9502418</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  1.08414695        0     1 4.6136632</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  0.27853320        0     1 4.7004881</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  0.16153625        0     1 0.1630164</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  0.21618713        0     1 3.0264980</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  0.61815009        0     1 3.5805462</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 0.95755656        0     1 3.1360558</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 0.18117464        0     1 4.7573637</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 0.52754718        0     1 0.6008224</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 0.99477551        0     1 1.9465726</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 0.33034397        0     1 3.5717043</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 1.13478953        0     1 4.1070687</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 1.90901881        1     0 5.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 0.30464703        0     1 2.8084721</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 0.80321637        0     1 3.0038295</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19 0.45118722        0     1 4.0749229</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20 0.13305719        0     1 0.8100313</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21 0.05284519        0     1 1.3689692</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22 2.17001159        0     1 2.6091534</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23 0.88323837        0     1 1.6932816</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24 0.09306042        0     1 3.9137953</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25 0.96862758        0     1 2.7113652</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.29485593        0     1 2.6086188</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1.15328118        0     1 4.3293550</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  0.47963539        0     1 2.2254971</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.70427960        0     1 2.3566830</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.54997104        0     1 1.4453319</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  0.18336196        0     1 2.4825239</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  0.50545532        1     0 5.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  0.33102433        0     1 4.9167743</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  0.09480276        0     1 1.7785382</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 0.42064479        0     1 0.5145006</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 0.36100102        0     1 4.3712587</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 0.06286334        0     1 1.4723109</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 0.77045143        1     0 5.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 0.09549147        0     1 3.6127132</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 1.89882868        0     1 3.5152586</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 0.57375907        0     1 4.7531137</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 0.27350137        1     0 5.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 0.15153635        0     1 3.1496138</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 0.52545197        0     1 4.6130139</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 1.48699776        0     1 3.3780485</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 0.17772942        0     1 4.2946914</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22 0.25600224        0     1 0.9976575</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23 1.64793697        0     1 2.7788859</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24 0.44500419        0     1 2.3380496</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25 0.13242485        0     1 4.7089088</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26 0.52553938        0     1 4.7941458</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27 0.66658304        0     1 4.7610977</span>
 </code></pre></div>
     </div>
   </div>
@@ -156,7 +152,7 @@ in calendar time.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Alexandra Erdmann.</p>
+  <p></p><p>Developed by Alexandra Erdmann, Kaspar Rufibach, F. Hoffmann-La Roche AG, University of Ulm.</p>
 </div>
 
 <div class="pkgdown">
