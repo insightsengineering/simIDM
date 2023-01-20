@@ -11,7 +11,7 @@ getDatasetWideFormat(data)
 See \code{\link[=getSimulatedData]{getSimulatedData()}} for details.}
 }
 \value{
-This function returns a data set with one row per patient and endpoints OS and PFS.
+This function returns a data set with one row per patient and endpoints PFS and OS.
 }
 \description{
 Conversion of a Data Set from One Row per Transition to One Row per Patient

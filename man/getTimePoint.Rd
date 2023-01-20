@@ -11,7 +11,7 @@ getTimePoint(data, eventNum, typeEvent, byArm = FALSE)
 
 \item{eventNum}{(\code{int})\cr number of events.}
 
-\item{typeEvent}{(\code{string})\cr type of event. Possible values are \code{OS} and \code{PFS}.}
+\item{typeEvent}{(\code{string})\cr type of event. Possible values are \code{PFS} and \code{OS}.}
 
 \item{byArm}{(\code{logical})\cr if \code{TRUE} time-point per treatment arm, else joint evaluation
 of treatment arms.}
@@ -20,7 +20,7 @@ of treatment arms.}
 This returns  the time-point by which \code{eventNum} of \code{typeEvent}-events occurred.
 }
 \description{
-This returns the study time-point by which a specified number of events (OS or PFS) occurred.
+This returns the study time-point by which a specified number of events (PFS or OS) occurred.
 }
 \examples{
 transition1 <- weibull_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6, p01 = 0.8, p02 = 0.9, p12 = 1)

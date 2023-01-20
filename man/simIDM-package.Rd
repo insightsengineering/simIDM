@@ -6,7 +6,7 @@
 \alias{simIDM-package}
 \title{\code{simIDM} Package}
 \description{
-\code{simIDM} simulates a survival multistate model that jointly models OS and PFS.
+\code{simIDM} simulates a survival multistate model that jointly models PFS and OS.
 }
 \seealso{
 Useful links:
@@ -28,6 +28,7 @@ Other contributors:
 \itemize{
   \item Daniel Sabanes Bove \email{daniel.sabanes_bove@roche.com} [contributor]
   \item F. Hoffmann-La Roche AG [copyright holder, funder]
+  \item University of Ulm [copyright holder, funder]
 }
 
 }
