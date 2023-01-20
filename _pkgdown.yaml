@@ -19,19 +19,19 @@ reference:
     contents:
       - assert_positive_number
       - assert_intervals
-  - title: Transition Parameters
+  - title: Transition parameters
     contents:
       - exponential_transition
       - piecewise_exponential
       - weibull_transition
-  - title: Helper Functions for Piecewise or Weibull Hazards
+  - title: Helper functions for piecewise or Weibull Hazards
     contents:
       - getPCWHazard
       - getSumPCW
       - getPCWDistr
       - PCWInversionMethod
       - getWaitTimeSum
-  - title: Simulation of single simulated data set for a single treatment arm.
+  - title: Simulation of a single data set for a single treatment arm
     contents:
       - getSimulatedData
       - getOneToTwoRows
@@ -41,7 +41,7 @@ reference:
       - getOneClinicalTrial
       - getDatasetWideFormat
       - getClinicalTrials
-  - title: Event-Tracking.
+  - title: Event tracking
     contents:
       - getTimePoint
       - getCensoredData
@@ -49,7 +49,7 @@ reference:
       - getEventsAll
       - getNumberEvents
       - trackEventsPerTrial
-  - title: Survival Functions.
+  - title: Survival functions
     contents:
       - ExpSurvPFS
       - ExpSurvOS
