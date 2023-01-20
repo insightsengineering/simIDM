@@ -1,5 +1,4 @@
-
-#' Piecewise exponentially distributed event times
+#' Piecewise Exponentially Distributed Event Times
 #'
 #' This returns event times with a distribution resulting from piece-wise constant hazards
 #' using the inversion method.
@@ -40,12 +39,10 @@ getPCWDistr <- function(U, haz, pw, t_0) {
       -LogU / haz_temp
     }
   }
-  return(t1)
+  t1
 }
 
-
-
-#' A single piecewise exponentially distributed event time.
+#' Single Piecewise Exponentially Distributed Event Time
 #'
 #' This returns an event time with a distribution resulting from piece-wise constant hazards
 #' using the inversion method.
@@ -79,7 +76,5 @@ PCWInversionMethod <- function(haz, pw, LogU) {
   # Use reverse index.
   index <- n - rev_index
   # Calculate event time.
-  t1 <- pw[index] + (sumA[index] - LogU) / haz[index]
-
-  return(t1)
+  pw[index] + (sumA[index] - LogU) / haz[index]
 }

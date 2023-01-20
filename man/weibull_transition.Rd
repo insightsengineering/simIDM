@@ -2,7 +2,7 @@
 % Please edit documentation in R/transitionParameters.R
 \name{weibull_transition}
 \alias{weibull_transition}
-\title{Transition hazards for Weibull distributed event times}
+\title{Transition Hazards for Weibull Distributed Event Times}
 \usage{
 weibull_transition(h01, h02, h12, p01, p02, p12)
 }

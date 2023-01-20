@@ -1,11 +1,11 @@
 ---
-title: 'simIDM: power and type I error calculations'
+title: 'simIDM: Power and Type I Error Calculations'
 author: "Alexandra Erdmann"
 date: "11/14/2022"
 output: rmarkdown::html_vignette
 bibliography: references.bib
 vignette: |
-  %\VignetteIndexEntry{simIDM: power and type I error calculations}
+  %\VignetteIndexEntry{simIDM: Power and Type I Error Calculations}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -19,8 +19,9 @@ knitr::opts_chunk$set(
 ```
 
 ## Introduction
-The goal of this vignette is to show with a simple example how the package can be used for planning a study design.  Jointly modeling the endpoints OS and PFS  with the illness-death model has the major advantage that, on the one hand, the correlation of the two endpoints is taken into account properly and, on the other hand, the strong assumption of proportional hazards is not required.
-OS is defined  as the time to reach the absorbing state death  and PFS is defined as the time to reach the absorbing state `death` or the intermediate state `progression`, whichever occurs first.  Figure 1 shows the multistate model with the corresponding transition hazards.
+
+The goal of this vignette is to show with a simple example how the package can be used for planning a study design.  Jointly modeling the endpoints PFS and OS with the illness-death model has the major advantage that, on the one hand, the correlation of the two endpoints is taken into account properly and, on the other hand, the strong assumption of proportional hazards is not required.
+OS is defined as the time to reach the absorbing state death, and PFS is defined as the time to reach the absorbing state `death` or the intermediate state `progression`, whichever occurs first.  Figure 1 shows the multistate model with the corresponding transition hazards.
 In the vignette, we show how type-I errors and statistical power can be  estimated from simulations and give an idea on how this can be used to plan complex study trials, in which PFS and OS both play a relevant role.
 
 ```{r, echo=FALSE,  fig.cap = " Figure 1 - Multistate model with indermediate state progession and absorbing state death",fig.height = 5, fig.width = 8, out.width = "60%"}
@@ -30,11 +31,11 @@ plotIllnessDeathModel(
   box3.label = "2: death", arrowLabelSymbol = "h"
 )
 ```
-## Scenario -  OS and PFS as co-primary endpoints
+## Scenario -  PFS and OS as co-primary endpoints
 
 We consider the following study design:
 
-- OS and PFS as co-primary endpoints with one final analysis each
+- PFS and OS as co-primary endpoints with one final analysis each
 - treatment vs control group, 1:1 randomization ratio  (but note that in principle any randomization ratio can be implemented)
 - global significance level: 5 \%
 - the standard log-rank test used to detect a significant difference between the groups
@@ -43,7 +44,7 @@ We consider the following study design:
 - accrual of 100 patients per time unit
 
 
-Using the multistate model approach implies that the trial planning is based on assumptions on the transition hazards in each arm, i.e. six hazards in total (which induces assumptions on the endpoints OS and PFS).
+Using the multistate model approach implies that the trial planning is based on assumptions on the transition hazards in each arm, i.e. six hazards in total (which induces assumptions on the endpoints PFS and OS).
 In our example scenario, we assume constant transition hazards and a small effect of the treatment on hazards from the initial state to death.
 Median time until PFS in the control arm is 0.99 time units, in the treatment arm 1.44 time units.
 The median time until an OS event in the control group is 1.94 time units, in the treatment group 2.29 time units.
@@ -61,7 +62,7 @@ transitionPl <- exponential_transition(h01 = 0.4, h02 = 0.3, h12 = 0.5)
 transitionList <- list(transitionPl, transitionTrt)
 ```
 
-The package provides functions that return  the values of  the OS or PFS survival functions for given transition hazards and time points.
+The package provides functions that return  the values of the PFS or OS survival functions for given transition hazards and time points.
 ```{r}
 timepoints <- c(0, 0.1, 0.2, 0.3, 0.7, 1, 5)
 ExpSurvOS(timepoints, h01 = 0.2, h02 = 0.4, h12 = 0.1)
@@ -75,7 +76,7 @@ There are also functions for PFS survival functions available.
 ## Type-I error - simulation under $H_0$
 
 For the simulation under $H_0$ we set the transition hazards for the treatment group equal to the control group.
-Then,  we use our function  `getClinicalTrials()` with 10000 iterations to generate a large number of simulated trials.
+Then, we use our function `getClinicalTrials()` with 10000 iterations to generate a large number of simulated trials.
 
 ```{r}
 transitionListNULL <- list(transitionPl, transitionPl)
@@ -136,7 +137,7 @@ LogRankTest <- function(data, endpoint, critical) {
 }
 ```
 
-and apply it to OS and PFS in our simulated trials.
+and apply it to PFS and OS in our simulated trials.
 
 
 ```{r}
@@ -154,7 +155,7 @@ studyAtOSAna <- lapply(SimNULL, censoringByNumberEvents,
 TestPassedPFS <- lapply(studyAtPFSAna, LogRankTest, endpoint = "PFS", CriticalPFS)
 TestPassedOS <- lapply(studyAtOSAna, LogRankTest, endpoint = "OS", CriticalOS)
 ```
-  We estimate the type-I error for each endpoint and the global type-I error by counting the significant tests under $H_0$. The global type-I error is empirically estimated by counting the trials in which either a significant log-rank test is observed for the  OS endpoint or for the PFS endpoint.
+  We estimate the type-I error for each endpoint and the global type-I error by counting the significant tests under $H_0$. The global type-I error is empirically estimated by counting the trials in which either a significant log-rank test is observed for the PFS endpoint or for the OS endpoint.
 
 ```{r}
 # empirical type-I error of PFS

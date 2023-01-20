@@ -15,34 +15,34 @@ Coverage](https://raw.githubusercontent.com/insightsengineering/simIDM/_xml_cove
 
 Survival multistate models are a powerful and flexible tool for modeling
 and analyzing complex time-to-event data. The three-state illness-death
-model can be used to jointly model the oncology endpoints overall
-survival (OS) and progression-free survival (PFS). Jointly modeling the
-endpoints OS and PFS with the illness-death model has the major
-advantage of both adequately accounting for the correlation of the two
-endpoints and eliminating the need of the strong assumption of
+model can be used to jointly model the oncology endpoints
+progression-free survival (PFS) and overall survival (OS). Jointly
+modeling the endpoints PFS and OS with the illness-death model has the
+major advantage of both adequately accounting for the correlation of the
+two endpoints and eliminating the need of the strong assumption of
 proportional hazards. This package provides the tools to simulate a
 large number of clinical trials with endpoints OS and PFS based on the
 illness-death model, which can be used for trail planning, for example.
 The simulation set-up allows random and event-driven censoring, an
-arbitrary number of treatment arms and staggered study entry.
-Exponentially distributed, Weibull distributed and piecewise
-exponentially distributed survival times can be generated.
+arbitrary number of treatment arms, staggered study entry and drop-out.
+Exponentially, Weibull and piecewise exponentially distributed survival
+times can be generated.
 
 **Scope:**
 
 - Simulation of the illness-death model with constant, Weibull or
   piecewise constant transition hazards.
-- Conversion of the transition times to OS and PFS survival times.
+- Conversion of the transition times to PFS and OS survival times.
 
 **Main Features:**
 
-- Exponentially distributed, Weibull distributed and piecewise
-  exponentially distributed survival times.
+- Exponentially, Weibull and piecewise exponentially distributed
+  survival times.
 - Random censoring and event-driven censoring after a pre-specified
-  number of OS or PFS events.
+  number of PFS or OS events.
 - Arbitrary number of treatment arms and flexible randomization ratio.
 - Staggered study entry.
-- Derivation of OS and PFS survival functions from transition hazards.
+- Derivation of PFS and OS survival functions from transition hazards.
 
 ## Installation
 

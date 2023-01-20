@@ -1,6 +1,3 @@
-
-
-
 #' Event Times Distributed as Sum of Weibull
 #'
 #' This returns event times with a distribution resulting from the sum of two Weibull distributed random variables
@@ -26,10 +23,9 @@ getWaitTimeSum <- function(U, haz1, haz2, p1, p2, entry) {
   assert_positive_number(p2)
   assert_numeric(entry, lower = 0, len = length(U), any.missing = FALSE, all.missing = FALSE)
 
-
   N <- length(U)
   # Exponential distributed survival times.
-  if (p1 == 1 & p2 == 1) {
+  if (p1 == 1 && p2 == 1) {
     return(-log(1 - U) / (haz1 + haz2))
   }
   # Weibull distributed survival times.
@@ -52,5 +48,5 @@ getWaitTimeSum <- function(U, haz1, haz2, p1, p2, entry) {
       cat("Error uniroot: Values at interval endpoints (interval=c(0,10000)) are not of opposite signs. \n")
     }
   }
-  return(stime)
+  stime
 }

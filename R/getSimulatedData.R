@@ -1,5 +1,4 @@
-#' Transitions from the intermediate state to the absorbing state.
-#'
+#' Transitions from the Intermediate State to the Absorbing State
 #'
 #' This function creates transition entry and exit times from the intermediate state to the absorbing state
 #' for an existing data frame containing the exit times out of the initial state.
@@ -12,7 +11,7 @@
 #'
 #' @return This returns a data frame with one row per patient for the second transition,
 #'  i.e. the transition out of the intermediate
-#' state. This is a helper function of [getSimulatedData()].
+#'  state. This is a helper function of [getSimulatedData()].
 #'
 #' @export
 #'
@@ -52,30 +51,34 @@ getOneToTwoRows <- function(simDataOne, transition) {
   to1 <- ifelse(censTime1 < exit1, "cens", to1)
   exit1 <- pmin(censTime1, exit1)
 
-  return(data.frame(
-    id = id1, from = from1, to = to1, entry = entry1, exit = exit1,
-    censTime = censTime1, stringsAsFactors = FALSE
-  ))
+  data.frame(
+    id = id1,
+    from = from1,
+    to = to1,
+    entry = entry1,
+    exit = exit1,
+    censTime = censTime1,
+    stringsAsFactors = FALSE
+  )
 }
 
-
-#' Staggered Study Entry.
+#' Staggered Study Entry
 #'
 #' This function adds staggered study entry times to a simulated data set with illness-death model structure.
 #'
 #' @param simData (`data.frame`)\cr simulated data frame containing entry and exit times
-#' at individual study time scale. See [getSimulatedData()] for details.
+#'   at individual study time scale. See [getSimulatedData()] for details.
 #' @param N (`int`)\cr number of patients.
 #' @param accrualParam (`string`)\cr possible values are 'time' or 'intensity'.
 #' @param accrualValue  (`number`)\cr specifies the accrual intensity. For `accrualParam` equal time,
-#'  it describes the length of the accrual period. For `accrualParam` equal intensity, it describes
-#'  the number of patients recruited per time unit.  If `accrualValue` is equal to 0,
+#'   it describes the length of the accrual period. For `accrualParam` equal intensity, it describes
+#'   the number of patients recruited per time unit.  If `accrualValue` is equal to 0,
 #'   all patients start at calendar time 0
-#'  in the initial state.
+#'   in the initial state.
 #'
 #' @return This returns a data set containing a single simulated study containing accrual times,
 #'  i.e. staggered study entry.
-#' This is a helper function of [getSimulatedData()].
+#'  This is a helper function of [getSimulatedData()].
 #'
 #' @export
 #'
@@ -112,15 +115,10 @@ addStaggeredEntry <- function(simData, N, accrualParam, accrualValue) {
   # Delete temporary helper columns.
   simData$entry_act <- NULL
   simData[, c("censTime")] <- list(NULL)
-  return(simData)
+  simData
 }
 
-
-
-
-
-
-#' Simulated data set from an illness-death model.
+#' Simulate Data Set from an Illness-Death Model
 #'
 #' This function creates a single simulated data set for a single treatment arm. It simulates data
 #'  from an illness-death model with one row per transition and subject.
@@ -130,9 +128,9 @@ addStaggeredEntry <- function(simData, N, accrualParam, accrualValue) {
 #'   `hazards`, corresponding `intervals` and `weibull_rates`, see [exponential_transition()], [piecewise_exponential()]
 #'   and [weibull_transition()] for details.
 #' @param dropout (`list`)\cr specifies drop-out probability.
-#' Random censoring times are generated using exponential distribution. `dropout$rate` specifies
-#' the drop-out probability per `dropout$time` time units.
-#' If `dropout$rate` is equal to 0, then no censoring is applied.
+#'   Random censoring times are generated using exponential distribution. `dropout$rate` specifies
+#'   the drop-out probability per `dropout$time` time units.
+#'   If `dropout$rate` is equal to 0, then no censoring is applied.
 #' @param accrual (`list`)\cr specifies accrual intensity. See [addStaggeredEntry()] for details.
 #'
 #' @return This returns a data frame with one row per transition per individual.
@@ -147,7 +145,9 @@ addStaggeredEntry <- function(simData, N, accrualParam, accrualValue) {
 #' - censAct (`numeric`):  censoring time of the individual on study time scale.
 #' @export
 #'
-#' @examples getSimulatedData(10,
+#' @examples
+#' getSimulatedData(
+#'   N = 10,
 #'   transition = exponential_transition(h01 = 1, h02 = 1.5, h12 = 1),
 #'   dropout = list(rate = 0.3, time = 1),
 #'   accrual = list(param = "time", value = 5)
@@ -234,5 +234,5 @@ getSimulatedData <- function(N,
     accrualValue = accrual$value
   )
   simData$to <- as.character(simData$to)
-  return(simData)
+  simData
 }

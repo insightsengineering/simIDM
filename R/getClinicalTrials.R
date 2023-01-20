@@ -1,21 +1,21 @@
-#' Simulation of a single oncology clinical trial.
+#' Simulation of a Single Oncology Clinical Trial
 #'
 #' This function creates a data set with a single simulated oncology clinical trial with one row per transition
 #' based on an illness-death model. Studies with an arbitrary number of treatment arms are possible.
 #'
 #' @param nPat (`integer`)\cr numbers of patients per treatment arm.
-#' @param transitionByArm (`list`) \cr  transition parameters for each treatment group.
-#' See [exponential_transition()], [piecewise_exponential()] and [weibull_transition()] for details.
+#' @param transitionByArm (`list`) \cr transition parameters for each treatment group.
+#'   See [exponential_transition()], [piecewise_exponential()] and [weibull_transition()] for details.
 #' @param dropout  dropout (`list`)\cr specifies drop-out probability. See [getSimulatedData()] for details.
-#' Can be specified either as one list that should be applied to all treatment groups or a separate list
+#'  Can be specified either as one list that should be applied to all treatment groups or a separate list
 #'  for each treatment group.
 #' @param accrual  accrual (`list`)\cr specifies accrual intensity. See [addStaggeredEntry()] for details.
-#' #' Can be specified either as one list that should be applied to all treatment groups or a separate list
-#' for each treatment group.
+#'  Can be specified either as one list that should be applied to all treatment groups or a separate list
+#'  for each treatment group.
 #'
 #' @return This returns a data frame with one simulated clinical trial and multiple treatment arms.
-#'  See [getSimulatedData()] for the explanation of the columns. The column `trt` contains the treatment indicator.
-#'  This is a helper function of [getClinicalTrials()].
+#'   See [getSimulatedData()] for the explanation of the columns. The column `trt` contains the treatment indicator.
+#'   This is a helper function of [getClinicalTrials()].
 #' @export
 #'
 #' @examples
@@ -33,18 +33,16 @@ getOneClinicalTrial <- function(nPat, transitionByArm,
   assert_list(transitionByArm)
   nPat <- as.integer(nPat)
   nArm <- length(transitionByArm)
-
   assert_integer(nPat,
     lower = 1,
     any.missing = FALSE,
     all.missing = FALSE,
     len = nArm,
   )
-
   assert_list(dropout)
   assert_list(accrual)
 
-  # same accrual and dropout parameters for each group?
+  # Same accrual and dropout parameters for each group?
   if (is.list(dropout[[1]])) {
     assert_list(dropout, len = nArm, types = "list")
   } else {
@@ -68,17 +66,15 @@ getOneClinicalTrial <- function(nPat, transitionByArm,
     simdata <- rbind(simdata, group)
     previousPts <- previousPts + nPat[i]
   }
-  return(simdata)
+  simdata
 }
 
-
-
-#' Conversion of a data set from one row per transition to one row per patient.
+#' Conversion of a Data Set from One Row per Transition to One Row per Patient
 #'
 #' @param data (`data.frame`)\cr data frame containing entry and exit times of an illness-death model.
-#' See [getSimulatedData()] for details.
+#'   See [getSimulatedData()] for details.
 #'
-#' @return This function returns a data set with one row per patient and endpoints OS and PFS.
+#' @return This function returns a data set with one row per patient and endpoints PFS and OS.
 #' @export
 #'
 #' @details
@@ -94,7 +90,6 @@ getOneClinicalTrial <- function(nPat, transitionByArm,
 #' - recruitTime (`numeric`): time of recruitment.
 #' - OStimeCal (`numeric`): OS event time at calendar time scale.
 #' - PFStimeCal (`numeric`): PFS event time at calendar time scale.
-
 #'
 #' @examples
 #' transition1 <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
@@ -109,6 +104,7 @@ getOneClinicalTrial <- function(nPat, transitionByArm,
 getDatasetWideFormat <- function(data) {
   assert_data_frame(data, ncols = 9)
   assert_subset(c("id", "from", "to", "entry", "exit", "entryAct", "exitAct", "censAct", "trt"), names(data))
+
   # Recruitment time is the actual entry time of the initial state.
   recruitTime <- subset(data[, c("id", "entryAct")], data$from == 0)
   names(recruitTime)[names(recruitTime) == "entryAct"] <- "recruitTime"
@@ -116,6 +112,7 @@ getDatasetWideFormat <- function(data) {
   # The OS time is the entry time into state 2 or the censoring time whatever occurs first.
   OStime <- subset(data[, c("id", "exit")], data$to == 2 | data$to == "cens")
   names(OStime)[names(OStime) == "exit"] <- "OStime"
+
   # The PFS time is the entry time into state 1 or state 2 or the censoring time whatever occurs first.
   PFStime <- subset(
     data[, c("id", "exit")],
@@ -134,10 +131,12 @@ getDatasetWideFormat <- function(data) {
   newdata <- unique(data[, c("id", "trt")])
   newdata <- merge(x = newdata, y = PFStime, by = "id")
   newdata <- merge(x = newdata, y = CensoredPFS, by = "id")
+
   # Do we have an observed PFS event?
   newdata$PFSevent <- abs(1 - newdata$CensoredPFS)
   newdata <- merge(x = newdata, y = OStime, by = "id")
   newdata <- merge(x = newdata, y = CensoredOS, by = "id")
+
   # Do we have an observed OS event?
   newdata$OSevent <- abs(1 - newdata$CensoredOS)
   newdata <- merge(x = newdata, y = recruitTime, by = "id")
@@ -146,13 +145,10 @@ getDatasetWideFormat <- function(data) {
   newdata$OStimeCal <- newdata$OStime + newdata$recruitTime
   newdata$PFStimeCal <- newdata$PFStime + newdata$recruitTime
 
-  return(newdata)
+  newdata
 }
 
-
-
-
-#' Simulation of a large number of oncology clinical trials.
+#' Simulation of a Large Number of Oncology Clinical Trials
 #'
 #' @param nRep (`int`)\cr number of simulated trials.
 #' @param ... parameters transferred to [getOneClinicalTrial()], see  [getOneClinicalTrial()] for details.
@@ -187,5 +183,5 @@ getClinicalTrials <- function(nRep, ..., seed = 1234, datType = "1rowTransition"
   if (datType == "1rowPatient") {
     simulatedTrials <- lapply(simulatedTrials, getDatasetWideFormat)
   }
-  return(simulatedTrials)
+  simulatedTrials
 }

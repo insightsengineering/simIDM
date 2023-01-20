@@ -2,7 +2,7 @@
 % Please edit documentation in R/transitionParameters.R
 \name{piecewise_exponential}
 \alias{piecewise_exponential}
-\title{Transition hazards for piecewise exponential event times}
+\title{Transition Hazards for Piecewise Exponential Event Times}
 \usage{
 piecewise_exponential(h01, h02, h12, pw01, pw02, pw12)
 }

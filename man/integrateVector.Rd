@@ -2,7 +2,7 @@
 % Please edit documentation in R/survivalFunctions.R
 \name{integrateVector}
 \alias{integrateVector}
-\title{Helper function for efficient integration.}
+\title{Helper for Efficient Integration}
 \usage{
 integrateVector(integrand, upper, ...)
 }
@@ -17,7 +17,7 @@ integrateVector(integrand, upper, ...)
 This function returns for each upper limit the estimates of the integral.
 }
 \description{
-Helper function for efficient integration.
+Helper for Efficient Integration
 }
 \examples{
 integrand <- function(x) x^2

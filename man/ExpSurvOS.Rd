@@ -2,7 +2,7 @@
 % Please edit documentation in R/survivalFunctions.R
 \name{ExpSurvOS}
 \alias{ExpSurvOS}
-\title{OS survival function from constant transition hazards.}
+\title{OS Survival Function from Constant Transition Hazards}
 \usage{
 ExpSurvOS(t, h01, h02, h12)
 }
@@ -19,7 +19,7 @@ ExpSurvOS(t, h01, h02, h12)
 This returns the value of OS survival function at time t.
 }
 \description{
-OS survival function from constant transition hazards.
+OS Survival Function from Constant Transition Hazards
 }
 \examples{
 ExpSurvOS(c(1:5), 0.2, 0.4, 0.1)

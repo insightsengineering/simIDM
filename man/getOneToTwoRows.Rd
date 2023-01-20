@@ -2,7 +2,7 @@
 % Please edit documentation in R/getSimulatedData.R
 \name{getOneToTwoRows}
 \alias{getOneToTwoRows}
-\title{Transitions from the intermediate state to the absorbing state.}
+\title{Transitions from the Intermediate State to the Absorbing State}
 \usage{
 getOneToTwoRows(simDataOne, transition)
 }

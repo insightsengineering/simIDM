@@ -1,4 +1,4 @@
-#' Transition hazards for exponential event times
+#' Transition Hazards for Exponential Event Times
 #'
 #' This creates a list with class `TransitionParameters` containing
 #' hazards, time intervals and Weibull rates for exponential event times
@@ -29,13 +29,11 @@ exponential_transition <- function(h01, h02, h12) {
   )
 }
 
-
-#' Transition hazards for piecewise exponential event times
+#' Transition Hazards for Piecewise Exponential Event Times
 #'
 #' This creates a list with class `TransitionParameters` containing
 #' hazards, time intervals and Weibull rates for piecewise exponential event times
 #' in an illness-death model.
-#'
 #'
 #' @param h01 (`numeric vector`)\cr constant transition hazards for 0 to 1 transition
 #' @param h02 (`numeric vector`)\cr  constant transition hazards for 0 to 2 transition
@@ -73,20 +71,18 @@ piecewise_exponential <- function(h01, h02, h12, pw01, pw02, pw12) {
   )
 }
 
-
-
-#' Transition hazards for Weibull distributed event times
+#' Transition Hazards for Weibull Distributed Event Times
 #'
 #' This creates a list with class `TransitionParameters` containing
 #' hazards, time intervals and Weibull rates for Weibull distributed event times
 #' in an illness-death model.
 #'
 #' @param h01 (positive `number`)\cr transition hazard for 0 to 1 transition
-#' @param h02  (positive `number`)\cr transition hazard for 0 to 2 transition
-#' @param h12  (positive `number`)\cr transition hazard for 1 to 2 transition
+#' @param h02 (positive `number`)\cr transition hazard for 0 to 2 transition
+#' @param h12 (positive `number`)\cr transition hazard for 1 to 2 transition
 #' @param p01 (positive `number`)\cr rate parameter of Weibull distribution for `h01`
 #' @param p02 (positive `number`)\cr rate parameter of Weibull distribution for `h02`
-#' @param p12  (positive `number`)\cr rate parameter of Weibull distribution for `h12`
+#' @param p12 (positive `number`)\cr rate parameter of Weibull distribution for `h12`
 #'
 #' @return List with elements `hazards`, `intervals`, `weibull_rates` and `family`
 #'   (Weibull).

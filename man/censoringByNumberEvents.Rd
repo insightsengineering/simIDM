@@ -11,10 +11,11 @@ censoringByNumberEvents(data, eventNum, typeEvent)
 
 \item{eventNum}{(\code{int})\cr number of events.}
 
-\item{typeEvent}{(\code{string})\cr type of event. Possible values are \code{OS} and \code{PFS}.}
+\item{typeEvent}{(\code{string})\cr type of event. Possible values are \code{PFS} and \code{OS}.}
 }
 \value{
-This function returns a data set that is censored after \code{eventNum} of \code{typeEvent}-events occurred.
+This function returns a data set that is censored after \code{eventNum} of
+\code{typeEvent}-events occurred.
 }
 \description{
 This function censors a study after a pre-specified number of events occurred.

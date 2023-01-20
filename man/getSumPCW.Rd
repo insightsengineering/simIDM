@@ -2,7 +2,7 @@
 % Please edit documentation in R/piecewiseHazards.R
 \name{getSumPCW}
 \alias{getSumPCW}
-\title{Sum of two piecewise constant hazards}
+\title{Sum of Two Piecewise Constant Hazards}
 \usage{
 getSumPCW(haz1, haz2, pw1, pw2)
 }
@@ -16,7 +16,7 @@ getSumPCW(haz1, haz2, pw1, pw2)
 \item{pw2}{(\code{numeric})\cr time intervals of second summand.}
 }
 \value{
-List with elements \code{hazards} and  \code{intervals} for the sum of two piecewise constant hazards.
+List with elements \code{hazards} and \code{intervals} for the sum of two piecewise constant hazards.
 }
 \description{
 This returns the sum of two piecewise constant hazards per interval.

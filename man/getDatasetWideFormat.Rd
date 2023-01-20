@@ -2,7 +2,7 @@
 % Please edit documentation in R/getClinicalTrials.R
 \name{getDatasetWideFormat}
 \alias{getDatasetWideFormat}
-\title{Conversion of a data set from one row per transition to one row per patient.}
+\title{Conversion of a Data Set from One Row per Transition to One Row per Patient}
 \usage{
 getDatasetWideFormat(data)
 }
@@ -11,10 +11,10 @@ getDatasetWideFormat(data)
 See \code{\link[=getSimulatedData]{getSimulatedData()}} for details.}
 }
 \value{
-This function returns a data set with one row per patient and endpoints OS and PFS.
+This function returns a data set with one row per patient and endpoints PFS and OS.
 }
 \description{
-Conversion of a data set from one row per transition to one row per patient.
+Conversion of a Data Set from One Row per Transition to One Row per Patient
 }
 \details{
 The output data set contains the following columns:

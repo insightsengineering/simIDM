@@ -6,7 +6,7 @@
 \alias{simIDM-package}
 \title{\code{simIDM} Package}
 \description{
-\code{simIDM} does ...
+\code{simIDM} simulates a survival multistate model that jointly models PFS and OS.
 }
 \seealso{
 Useful links:
@@ -18,5 +18,17 @@ Useful links:
 }
 \author{
 \strong{Maintainer}: Alexandra Erdmann \email{alexandra.erdmann@uni-ulm.de}
+
+Authors:
+\itemize{
+  \item Kaspar Rufibach \email{kaspar.rufibach@roche.com}
+}
+
+Other contributors:
+\itemize{
+  \item Daniel Sabanes Bove \email{daniel.sabanes_bove@roche.com} [contributor]
+  \item F. Hoffmann-La Roche AG [copyright holder, funder]
+  \item University of Ulm [copyright holder, funder]
+}
 
 }
