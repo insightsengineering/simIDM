@@ -74,7 +74,7 @@ getOneClinicalTrial <- function(nPat, transitionByArm,
 #' @param data (`data.frame`)\cr data frame containing entry and exit times of an illness-death model.
 #'   See [getSimulatedData()] for details.
 #'
-#' @return This function returns a data set with one row per patient and endpoints OS and PFS.
+#' @return This function returns a data set with one row per patient and endpoints PFS and OS.
 #' @export
 #'
 #' @details

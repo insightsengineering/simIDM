@@ -1,10 +1,10 @@
 #' Time-point by which a specified number of events occurred.
 #'
-#' This returns the study time-point by which a specified number of events (OS or PFS) occurred.
+#' This returns the study time-point by which a specified number of events (PFS or OS) occurred.
 #'
 #' @param data (`data.frame`)\cr illness-death data set in `1rowPatient` format.
 #' @param eventNum (`int`)\cr number of events.
-#' @param typeEvent (`string`)\cr type of event. Possible values are `OS` and `PFS`.
+#' @param typeEvent (`string`)\cr type of event. Possible values are `PFS` and `OS`.
 #' @param byArm  (`logical`)\cr if `TRUE` time-point per treatment arm, else joint evaluation
 #'   of treatment arms.
 #'
@@ -107,7 +107,7 @@ getCensoredData <- function(time, event, data) {
 #'
 #' @param data (`data.frame`)\cr illness-death data set in `1rowPatient` format.
 #' @param eventNum  (`int`)\cr number of events.
-#' @param typeEvent (`string`)\cr type of event. Possible values are `OS` and `PFS`.
+#' @param typeEvent (`string`)\cr type of event. Possible values are `PFS` and `OS`.
 #'
 #' @return This function returns a data set that is censored after `eventNum` of
 #'   `typeEvent`-events occurred.

@@ -1,11 +1,11 @@
 ---
-title: "simIDM: Quickstart"
+title: "simIDM: Getting Started"
 author: "Alexandra Erdmann"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 bibliography: references.bib
 vignette: >
-  %\VignetteIndexEntry{simIDM: Quickstart}
+  %\VignetteIndexEntry{simIDM: Getting Started}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 ## Introduction
 
 The purpose of this vignette is to explain the use of `getClinicalTrials()`, the core function of this package.  `getClinicalTrials()` can be used to simulate a large number of clinical trials
-with endpoints overall survival (OS) and progression-free survival (PFS). The underlying model is a survival multistate model with an initial state, an intermediate `progression` state and an absorbing `death` state. The multistate model approach has the advantage of naturally accounting for the correlation between the OS and PFS endpoints [@meller2019joint]. OS is defined  as the time to reach the absorbing state death  and PFS is defined as the time to reach the absorbing state `death` or the intermediate state `progression`, whichever occurs first.  Figure 1 shows the multistate model with the corresponding transition hazards.
+with endpoints progression-free survival (PFS) and overall survival (OS). The underlying model is a survival multistate model with an initial state, an intermediate `progression` state and an absorbing `death` state. The multistate model approach has the advantage of naturally accounting for the correlation between the PFS and OS endpoints [@meller2019joint]. OS is defined as the time to reach the absorbing state death and PFS is defined as the time to reach the absorbing state `death` or the intermediate state `progression`, whichever occurs first.  Figure 1 shows the multistate model with the corresponding transition hazards.
 To get started quickly, we show a simple and quick example of a clinical trial simulation.
 
 ```{r, echo=FALSE,  fig.cap = "Figure 1 - Multistate model with indermediate state progession and absorbing state death",fig.height = 5, fig.width = 8, out.width = "60%"}
@@ -110,7 +110,7 @@ simStudies2 <- getClinicalTrials(
 
 ## Output Data
 We get as output a list with `nRep` elements, each containing a data set of a single simulated trial. The specification of the seed ensures, that
-the the datasets of the two lists contain the same study data, only the presentation is different. `simStudies1` shows the transition times per patient and `simStudies2` the OS and PFS times per patient.
+the the datasets of the two lists contain the same study data, only the presentation is different. `simStudies1` shows the transition times per patient and `simStudies2` the PFS and OS times per patient.
 
 ```{r}
 head(simStudies1[[1]], 6)
@@ -128,7 +128,7 @@ simStudy_PFSOS <- getDatasetWideFormat(simStudy_Trans)
 head(simStudy_Trans, 10)
 head(simStudy_PFSOS, 10)
 ```
-It is also possible to generate a a study that censors all patients after a pre-specified number of events (OS or PFS) occurred.
+It is also possible to generate a a study that censors all patients after a pre-specified number of events (PFS or OS) occurred.
 
 ```{r}
 simStudy_Trans <- getOneClinicalTrial(

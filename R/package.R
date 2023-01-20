@@ -1,6 +1,6 @@
 #' `simIDM` Package
 #'
-#' `simIDM` simulates a survival multistate model that jointly models OS and PFS.
+#' `simIDM` simulates a survival multistate model that jointly models PFS and OS.
 #'
 "_PACKAGE"
 

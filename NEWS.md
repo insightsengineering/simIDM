@@ -5,8 +5,8 @@
 
 ### New Features
 
-* Exponentially distributed, Weibull distributed and piecewise exponentially distributed survival times.
-* Random censoring and event-driven censoring after a pre-specified number of OS or PFS events.
+* Exponentially, Weibull and piecewise exponentially distributed survival times.
+* Random censoring and event-driven censoring after a pre-specified number of PFS or OS events.
 * Arbitrary number of treatment arms and flexible randomization ratio.
 * Staggered study entry.
-* Derivation of OS and PFS survival functions from transition hazards.
+* Derivation of PFS and OS survival functions from transition hazards.
