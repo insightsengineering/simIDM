@@ -19,4 +19,15 @@ Useful links:
 \author{
 \strong{Maintainer}: Alexandra Erdmann \email{alexandra.erdmann@uni-ulm.de}
 
+Authors:
+\itemize{
+  \item Kaspar Rufibach \email{kaspar.rufibach@roche.com}
+}
+
+Other contributors:
+\itemize{
+  \item Daniel Sabanes Bove \email{daniel.sabanes_bove@roche.com} [contributor]
+  \item F. Hoffmann-La Roche AG [copyright holder, funder]
+}
+
 }
