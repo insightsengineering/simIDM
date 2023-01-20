@@ -2,7 +2,7 @@
 % Please edit documentation in R/getClinicalTrials.R
 \name{getClinicalTrials}
 \alias{getClinicalTrials}
-\title{Simulation of a large number of oncology clinical trials.}
+\title{Simulation of a Large Number of Oncology Clinical Trials}
 \usage{
 getClinicalTrials(nRep, ..., seed = 1234, datType = "1rowTransition")
 }
@@ -20,7 +20,7 @@ This function returns a list with \code{nRep} simulated data sets in the format 
 See \code{\link[=getDatasetWideFormat]{getDatasetWideFormat()}} \code{\link[=getOneClinicalTrial]{getOneClinicalTrial()}} for details.
 }
 \description{
-Simulation of a large number of oncology clinical trials.
+Simulation of a Large Number of Oncology Clinical Trials
 }
 \examples{
 transition1 <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)

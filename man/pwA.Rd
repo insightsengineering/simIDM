@@ -2,7 +2,7 @@
 % Please edit documentation in R/survivalFunctions.R
 \name{pwA}
 \alias{pwA}
-\title{Cumulative hazard for piecewise constant hazards.}
+\title{Cumulative Hazard for Piecewise Constant Hazards}
 \usage{
 pwA(t, haz, pw)
 }
@@ -17,7 +17,7 @@ pwA(t, haz, pw)
 This returns the value of cumulative hazard at time t.
 }
 \description{
-Cumulative hazard for piecewise constant hazards.
+Cumulative Hazard for Piecewise Constant Hazards
 }
 \examples{
 pwA(1:5, c(0.5, 0.9), c(0, 4))

@@ -2,7 +2,7 @@
 % Please edit documentation in R/survivalFunctions.R
 \name{WeibSurvPFS}
 \alias{WeibSurvPFS}
-\title{PFS survival function from Weibull transition hazards.}
+\title{PFS Survival Function from Weibull Transition Hazards}
 \usage{
 WeibSurvPFS(t, h01, h02, p01, p02)
 }
@@ -21,7 +21,7 @@ WeibSurvPFS(t, h01, h02, p01, p02)
 This returns the value of PFS survival function at time t.
 }
 \description{
-PFS survival function from Weibull transition hazards.
+PFS Survival Function from Weibull Transition Hazards
 }
 \examples{
 WeibSurvPFS(c(1:5), 0.2, 0.5, 1.2, 0.9)

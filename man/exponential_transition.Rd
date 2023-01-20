@@ -2,7 +2,7 @@
 % Please edit documentation in R/transitionParameters.R
 \name{exponential_transition}
 \alias{exponential_transition}
-\title{Transition hazards for exponential event times}
+\title{Transition Hazards for Exponential Event Times}
 \usage{
 exponential_transition(h01, h02, h12)
 }

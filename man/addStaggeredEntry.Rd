@@ -2,7 +2,7 @@
 % Please edit documentation in R/getSimulatedData.R
 \name{addStaggeredEntry}
 \alias{addStaggeredEntry}
-\title{Staggered Study Entry.}
+\title{Staggered Study Entry}
 \usage{
 addStaggeredEntry(simData, N, accrualParam, accrualValue)
 }

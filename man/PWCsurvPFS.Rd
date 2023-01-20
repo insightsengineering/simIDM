@@ -2,12 +2,12 @@
 % Please edit documentation in R/survivalFunctions.R
 \name{PWCsurvPFS}
 \alias{PWCsurvPFS}
-\title{PFS survival function from piecewise constant hazards.}
+\title{PFS Survival Function from Piecewise Constant Hazards}
 \usage{
 PWCsurvPFS(t, h01, h02, pw01, pw02)
 }
 \arguments{
-\item{t}{(\code{numeric})\cr  study time-points.}
+\item{t}{(\code{numeric})\cr study time-points.}
 
 \item{h01}{(\verb{numeric vector})\cr constant transition hazards for 0 to 1 transition.}
 
@@ -21,7 +21,7 @@ PWCsurvPFS(t, h01, h02, pw01, pw02)
 This returns the value of PFS survival function at time t.
 }
 \description{
-PFS survival function from piecewise constant hazards.
+PFS Survival Function from Piecewise Constant Hazards
 }
 \examples{
 PWCsurvPFS(1:5, c(0.3, 0.5), c(0.5, 0.8), c(0, 4), c(0, 8))

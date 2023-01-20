@@ -2,7 +2,7 @@
 % Please edit documentation in R/survivalFunctions.R
 \name{ExpSurvPFS}
 \alias{ExpSurvPFS}
-\title{PFS survival function from constant transition hazards.}
+\title{PFS Survival Function from Constant Transition Hazards}
 \usage{
 ExpSurvPFS(t, h01, h02)
 }
@@ -17,7 +17,7 @@ ExpSurvPFS(t, h01, h02)
 This returns the value of PFS survival function at time t.
 }
 \description{
-PFS survival function from constant transition hazards.
+PFS Survival Function from Constant Transition Hazards
 }
 \examples{
 ExpSurvPFS(c(1:5), 0.2, 0.4)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/survivalFunctions.R
 \name{WeibOSInteg}
 \alias{WeibOSInteg}
-\title{Helper Function for \code{WeibSurvOS()}.}
+\title{Helper Function for \code{WeibSurvOS()}}
 \usage{
 WeibOSInteg(x, h01, h02, h12, p01, p02, p12)
 }
@@ -26,7 +26,7 @@ Numeric results of the integrand used to calculate
 the OS survival function for Weibull transition hazards, see  \code{WeibSurvOS()}.
 }
 \description{
-Helper Function for \code{WeibSurvOS()}.
+Helper Function for \code{WeibSurvOS()}
 }
 \examples{
 WeibOSInteg(1:5, 0.2, 0.5, 2.1, 1.2, 0.9, 1)

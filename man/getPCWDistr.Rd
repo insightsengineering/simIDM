@@ -2,7 +2,7 @@
 % Please edit documentation in R/piecewiseDistribution.R
 \name{getPCWDistr}
 \alias{getPCWDistr}
-\title{Piecewise exponentially distributed event times}
+\title{Piecewise Exponentially Distributed Event Times}
 \usage{
 getPCWDistr(U, haz, pw, t_0)
 }

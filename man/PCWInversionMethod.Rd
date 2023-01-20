@@ -2,7 +2,7 @@
 % Please edit documentation in R/piecewiseDistribution.R
 \name{PCWInversionMethod}
 \alias{PCWInversionMethod}
-\title{A single piecewise exponentially distributed event time.}
+\title{Single Piecewise Exponentially Distributed Event Time}
 \usage{
 PCWInversionMethod(haz, pw, LogU)
 }

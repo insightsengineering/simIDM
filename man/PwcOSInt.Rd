@@ -2,7 +2,7 @@
 % Please edit documentation in R/survivalFunctions.R
 \name{PwcOSInt}
 \alias{PwcOSInt}
-\title{Helper Function of \code{PWCsurvOS()}.}
+\title{Helper Function of \code{PWCsurvOS()}}
 \usage{
 PwcOSInt(x, h01, h02, h12, pw01, pw02, pw12)
 }
@@ -26,7 +26,7 @@ Numeric results of the integrand used to calculate
 the OS survival function for piecewise constant transition hazards, see  \code{PWCsurvOS}.
 }
 \description{
-Helper Function of \code{PWCsurvOS()}.
+Helper Function of \code{PWCsurvOS()}
 }
 \examples{
 PwcOSInt(1:5, c(0.3, 0.5), c(0.5, 0.8), c(0.7, 1), c(0, 4), c(0, 8), c(0, 3))

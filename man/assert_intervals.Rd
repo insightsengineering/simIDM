@@ -9,7 +9,7 @@ assert_intervals(x, y)
 \arguments{
 \item{x}{what to check.}
 
-\item{y}{(\code{count})\cr required length of \code{y}}
+\item{y}{(\code{count})\cr required length of \code{y}.}
 }
 \value{
 Raises an error if \code{x} is not an intervals vector starting with 0.

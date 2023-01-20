@@ -1,4 +1,3 @@
-
 #' Piecewise Constant Hazard Values
 #'
 #' This returns piecewise constant hazard values at specified time points.
@@ -13,7 +12,7 @@
 #' @examples
 #' getPCWHazard(c(1, 1.2, 1.4), c(0, 2, 3), c(1, 4, 6))
 getPCWHazard <- function(haz, pw, x) { # nolint
-  haz_val <- sapply(x, function(jj) {
+  sapply(x, function(jj) {
     y <- NULL
     # Find interval and corresponding hazard value for time x[jj].
     for (ii in seq_along(haz)) {
@@ -21,17 +20,11 @@ getPCWHazard <- function(haz, pw, x) { # nolint
         y <- haz[ii]
       }
     }
-    haz_val <- y
-    return(haz_val)
+    y
   })
-  return(haz_val)
 }
 
-
-
-
-
-#' Sum of two piecewise constant hazards
+#' Sum of Two Piecewise Constant Hazards
 #'
 #' This returns the sum of two piecewise constant hazards per interval.
 #'
@@ -40,7 +33,7 @@ getPCWHazard <- function(haz, pw, x) { # nolint
 #' @param pw1 (`numeric`)\cr time intervals of first summand.
 #' @param pw2  (`numeric`)\cr time intervals of second summand.
 #'
-#' @return List with elements `hazards` and  `intervals` for the sum of two piecewise constant hazards.
+#' @return List with elements `hazards` and `intervals` for the sum of two piecewise constant hazards.
 #' @export
 #'
 #' @examples
@@ -54,5 +47,8 @@ getSumPCW <- function(haz1, haz2, pw1, pw2) {
     haz_sum[i] <- getPCWHazard(haz1, pw1, cuts_sum[i]) +
       getPCWHazard(haz2, pw2, cuts_sum[i])
   }
-  return(list(hazards = haz_sum, intervals = cuts_sum))
+  list(
+    hazards = haz_sum,
+    intervals = cuts_sum
+  )
 }

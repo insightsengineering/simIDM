@@ -1,5 +1,4 @@
-
-#' PFS survival function from constant transition hazards.
+#' PFS Survival Function from Constant Transition Hazards
 #'
 #' @inheritParams WeibSurvOS
 #' @return This returns the value of PFS survival function at time t.
@@ -12,12 +11,10 @@ ExpSurvPFS <- function(t, h01, h02) {
   assert_positive_number(h01, zero_ok = TRUE)
   assert_positive_number(h02, zero_ok = TRUE)
 
-  res <- exp(-(h01 + h02) * t)
-  return(res)
+  exp(-(h01 + h02) * t)
 }
 
-
-#' OS survival function from constant transition hazards.
+#' OS Survival Function from Constant Transition Hazards
 #'
 #' @inheritParams WeibSurvOS
 #'
@@ -33,16 +30,13 @@ ExpSurvOS <- function(t, h01, h02, h12) {
   assert_positive_number(h12, zero_ok = TRUE)
 
   h012 <- h12 - h01 - h02
-  res <- ExpSurvPFS(t, h01, h02) / h012 * (h12 - h02 - h01 * exp(-h012 * t))
-  return(res)
+  ExpSurvPFS(t, h01, h02) / h012 * (h12 - h02 - h01 * exp(-h012 * t))
 }
 
-
-
-#' PFS survival function from Weibull transition hazards.
+#' PFS Survival Function from Weibull Transition Hazards
 #'
 #' @inheritParams WeibSurvOS
-#' @return  This returns the value of PFS survival function at time t.
+#' @return This returns the value of PFS survival function at time t.
 #' @export
 #' @export
 #'
@@ -55,12 +49,10 @@ WeibSurvPFS <- function(t, h01, h02, p01, p02) {
   assert_positive_number(p01)
   assert_positive_number(p02)
 
-  res <- exp(-h01 * t^p01 - h02 * t^p02)
-  return(res)
+  exp(-h01 * t^p01 - h02 * t^p02)
 }
 
-
-#' Helper function for efficient integration.
+#' Helper for Efficient Integration
 #'
 #' @param integrand (`function`)\cr  to be integrated.
 #' @param upper (`numeric`)\cr upper limits of integration.
@@ -87,7 +79,7 @@ integrateVector <- function(integrand, upper, ...) {
   cumIntervals[match(upper, boundaries)]
 }
 
-#' Helper Function for `WeibSurvOS()`.
+#' Helper Function for `WeibSurvOS()`
 #'
 #' @param x (`numeric`)\cr  variable of integration.
 #' @inheritParams WeibSurvOS
@@ -102,7 +94,7 @@ WeibOSInteg <- function(x, h01, h02, h12, p01, p02, p12) {
   x^(p01 - 1) * exp(-h01 * x^p01 - h02 * x^p02 + h12 * x^p12)
 }
 
-#' OS survival function from Weibull transition hazards.
+#' OS Survival Function from Weibull Transition Hazards
 #'
 #' @param t  (`numeric`)\cr  study time-points.
 #' @param h01 (positive `number`)\cr transition hazard for 0 to 1 transition.
@@ -125,18 +117,16 @@ WeibSurvOS <- function(t, h01, h02, h12, p01, p02, p12) {
   assert_positive_number(p02)
   assert_positive_number(p12)
 
-  res <- WeibSurvPFS(t, h01, h02, p01, p02) +
+  WeibSurvPFS(t, h01, h02, p01, p02) +
     h01 * p01 * exp(-h12 * t^p12) *
-      integrateVector(WeibOSInteg,
-        upper = t,
-        h01 = h01, h02 = h02, h12 = h12, p01 = p01, p02 = p02, p12 = p12
-      )
-
-  return(res)
+    integrateVector(WeibOSInteg,
+                    upper = t,
+                    h01 = h01, h02 = h02, h12 = h12, p01 = p01, p02 = p02, p12 = p12
+    )
 }
 
 
-#' Cumulative hazard for piecewise constant hazards.
+#' Cumulative Hazard for Piecewise Constant Hazards
 #'
 #' @param t (`numeric`)\cr  study time-points.
 #' @param haz (`numeric vector`)\cr constant transition hazards.
@@ -152,22 +142,21 @@ pwA <- function(t, haz, pw) {
   assert_numeric(haz, lower = 0, any.missing = FALSE, all.missing = FALSE)
   assert_intervals(pw, length(haz))
 
-  # time intervals: time-points + cut points
+  # Time intervals: time-points + cut points.
   pw_new <- c(pw[pw < max(t)])
   pw_time <- sort(unique(c(pw_new, t)))
   haz_all <- getPCWHazard(haz, pw, pw_time)
 
-  # cumulative hazard
+  # Cumulative hazard.
   i <- 1:(length(pw_time) - 1)
   dA_pw <- haz_all[i] * (pw_time[i + 1] - pw_time[i])
   A_pw <- c(0, cumsum(dA_pw))
 
-  # match result with input
-  res <- A_pw[match(t, pw_time)]
-  return(res)
+  # Match result with input.
+  A_pw[match(t, pw_time)]
 }
 
-#' PFS survival function from piecewise constant hazards.
+#' PFS Survival Function from Piecewise Constant Hazards
 #'
 #' @inheritParams PWCsurvOS
 #'
@@ -187,11 +176,10 @@ PWCsurvPFS <- function(t, h01, h02, pw01, pw02) {
   A01 <- pwA(t, h01, pw01)
   A02 <- pwA(t, h02, pw02)
 
-  res <- exp(-A01 - A02)
-  return(res)
+  exp(-A01 - A02)
 }
 
-#' Helper Function of `PWCsurvOS()`.
+#' Helper Function of `PWCsurvOS()`
 #'
 #' @param x (`numeric`)\cr  variable of integration.
 #' @inheritParams PWCsurvOS
@@ -203,14 +191,14 @@ PWCsurvPFS <- function(t, h01, h02, pw01, pw02) {
 #' @examples
 #' PwcOSInt(1:5, c(0.3, 0.5), c(0.5, 0.8), c(0.7, 1), c(0, 4), c(0, 8), c(0, 3))
 PwcOSInt <- function(x, h01, h02, h12, pw01, pw02, pw12) {
-  return(PWCsurvPFS(x, h01, h02, pw01, pw02) *
+  PWCsurvPFS(x, h01, h02, pw01, pw02) *
     getPCWHazard(h01, pw01, x) *
-    exp(pwA(x, h12, pw12)))
+    exp(pwA(x, h12, pw12))
 }
 
-#' OS survival function from piecewise constant hazards.
+#' OS Survival Function from Piecewise Constant Hazards
 #'
-#' @param t  (`numeric`)\cr  study time-points.
+#' @param t (`numeric`)\cr study time-points.
 #' @param h01 (`numeric vector`)\cr constant transition hazards for 0 to 1 transition.
 #' @param h02 (`numeric vector`)\cr constant transition hazards for 0 to 2 transition.
 #' @param h12 (`numeric vector`)\cr constant transition hazards for 1 to 2 transition.
@@ -232,12 +220,10 @@ PWCsurvOS <- function(t, h01, h02, h12, pw01, pw02, pw12) {
   assert_intervals(pw02, length(h02))
   assert_intervals(pw12, length(h12))
 
-  res <- PWCsurvPFS(t, h01, h02, pw01, pw02) +
+  PWCsurvPFS(t, h01, h02, pw01, pw02) +
     exp(-pwA(t, h12, pw12)) *
-      integrateVector(PwcOSInt,
-        upper = t,
-        h01 = h01, h02 = h02, h12 = h12, pw01 = pw01, pw02 = pw02, pw12 = pw12
-      )
-
-  return(res)
+    integrateVector(PwcOSInt,
+                    upper = t,
+                    h01 = h01, h02 = h02, h12 = h12, pw01 = pw01, pw02 = pw02, pw12 = pw12
+    )
 }

@@ -6,7 +6,7 @@
 \alias{simIDM-package}
 \title{\code{simIDM} Package}
 \description{
-\code{simIDM} does ...
+\code{simIDM} simulates a survival multistate model that jointly models OS and PFS.
 }
 \seealso{
 Useful links:

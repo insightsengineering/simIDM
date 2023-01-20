@@ -2,7 +2,7 @@
 % Please edit documentation in R/getClinicalTrials.R
 \name{getOneClinicalTrial}
 \alias{getOneClinicalTrial}
-\title{Simulation of a single oncology clinical trial.}
+\title{Simulation of a Single Oncology Clinical Trial}
 \usage{
 getOneClinicalTrial(
   nPat,
@@ -14,7 +14,7 @@ getOneClinicalTrial(
 \arguments{
 \item{nPat}{(\code{integer})\cr numbers of patients per treatment arm.}
 
-\item{transitionByArm}{(\code{list}) \cr  transition parameters for each treatment group.
+\item{transitionByArm}{(\code{list}) \cr transition parameters for each treatment group.
 See \code{\link[=exponential_transition]{exponential_transition()}}, \code{\link[=piecewise_exponential]{piecewise_exponential()}} and \code{\link[=weibull_transition]{weibull_transition()}} for details.}
 
 \item{dropout}{dropout (\code{list})\cr specifies drop-out probability. See \code{\link[=getSimulatedData]{getSimulatedData()}} for details.
@@ -22,7 +22,7 @@ Can be specified either as one list that should be applied to all treatment grou
 for each treatment group.}
 
 \item{accrual}{accrual (\code{list})\cr specifies accrual intensity. See \code{\link[=addStaggeredEntry]{addStaggeredEntry()}} for details.
-#' Can be specified either as one list that should be applied to all treatment groups or a separate list
+Can be specified either as one list that should be applied to all treatment groups or a separate list
 for each treatment group.}
 }
 \value{

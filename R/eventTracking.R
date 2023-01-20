@@ -2,10 +2,11 @@
 #'
 #' This returns the study time-point by which a specified number of events (OS or PFS) occurred.
 #'
-#' @param data  (`data.frame`)\cr illness-death data set in `1rowPatient` format.
+#' @param data (`data.frame`)\cr illness-death data set in `1rowPatient` format.
 #' @param eventNum (`int`)\cr number of events.
 #' @param typeEvent (`string`)\cr type of event. Possible values are `OS` and `PFS`.
-#' @param byArm  (`logical`)\cr if `TRUE` time-point per treatment arm, else joint evaluation of treatment arms.
+#' @param byArm  (`logical`)\cr if `TRUE` time-point per treatment arm, else joint evaluation
+#'   of treatment arms.
 #'
 #' @return This returns  the time-point by which `eventNum` of `typeEvent`-events occurred.
 #' @export
@@ -40,7 +41,7 @@ getTimePoint <- function(data, eventNum, typeEvent, byArm = FALSE) {
     data$time <- data$PFStimeCal
   }
 
-  timePoint <- sapply(byVar, function(trt) {
+  sapply(byVar, function(trt) {
     dataTemp <- data[data$trt == trt, ]
     sortedTimes <- sort(dataTemp$time[dataTemp$event == 1])
     if (eventNum > length(sortedTimes)) {
@@ -48,7 +49,6 @@ getTimePoint <- function(data, eventNum, typeEvent, byArm = FALSE) {
     }
     timePoint <- sortedTimes[eventNum]
   })
-  return(timePoint)
 }
 
 #' Helper function for `censoringByNumberEvents`
@@ -93,10 +93,13 @@ getCensoredData <- function(time, event, data) {
   # calculate corresponding calendar times.
   timeCal <- Censoredtime + data$recruitTime
 
-  return(data.frame(time = Censoredtime, Censored = Censored, event = CensoredEvent, timeCal = timeCal))
+  data.frame(
+    time = Censoredtime,
+    Censored = Censored,
+    event = CensoredEvent,
+    timeCal = timeCal
+  )
 }
-
-
 
 #' Event-driven censoring.
 #'
@@ -106,7 +109,8 @@ getCensoredData <- function(time, event, data) {
 #' @param eventNum  (`int`)\cr number of events.
 #' @param typeEvent (`string`)\cr type of event. Possible values are `OS` and `PFS`.
 #'
-#' @return This function returns a data set that is censored after `eventNum` of `typeEvent`-events occurred.
+#' @return This function returns a data set that is censored after `eventNum` of
+#'   `typeEvent`-events occurred.
 #' @export
 #'
 #' @examples
@@ -137,15 +141,13 @@ censoringByNumberEvents <- function(data, eventNum, typeEvent) {
   OSdata <- getCensoredData(time = censoredData$OStime, event = censoredData$OSevent, data = censoredData)
   PFSdata <- getCensoredData(time = censoredData$PFStime, event = censoredData$PFSevent, data = censoredData)
 
-  return(data.frame(
+  data.frame(
     id = censoredData$id, trt = censoredData$trt,
     PFStime = PFSdata$time, PFSevent = PFSdata$event,
     OStime = OSdata$time, CensoredOS = OSdata$Censored, OSevent = OSdata$event,
     recruitTime = censoredData$recruitTime, OStimeCal = OSdata$timeCal, PFStimeCal = PFSdata$timeCal
-  ))
+  )
 }
-
-
 
 #' Number of recruited/censored/ongoing Patients.
 #'
@@ -182,7 +184,11 @@ getEventsAll <- function(data, t) {
   numCensored <- length(unique(allCensored))
   numUnderObs <- length(unique(allUnderObs))
 
-  return(c(Recruited = numRecruited, Censored = numCensored, UnderObs = numUnderObs))
+  c(
+    Recruited = numRecruited,
+    Censored = numCensored,
+    UnderObs = numUnderObs
+  )
 }
 
 #' Helper Function for `trackEventsPerTrial`
@@ -202,7 +208,8 @@ getNumberEvents <- function(event, time, t) {
   assert_numeric(event, lower = 0, upper = 1)
   assert_numeric(time, lower = 0)
   assert_number(t, lower = 0)
-  return(sum(event[time <= t]))
+
+  sum(event[time <= t])
 }
 
 
@@ -214,7 +221,6 @@ getNumberEvents <- function(event, time, t) {
 #'
 #' @return This function returns a data frame including number of PFS events, number of OS events,
 #'  number of recruited patients, number of censored patients and number of ongoing patients at `timeP`.
-#'
 #'
 #' @export
 #'
@@ -247,9 +253,8 @@ trackEventsPerTrial <- function(data, timeP, byArm = FALSE) {
     allNumbers <- rbind(eventsPFS, eventsOS, eventsTrial)
     rownames(allNumbers) <- c("PFS", "OS", "Recruited", "Censored", "Ongoing")
     colnames(allNumbers) <- paste0("Timepoint: ", round(timeP, 2))
-    return(allNumbers)
+    allNumbers
   })
   names(allNumbers) <- byVar
-
-  return(allNumbers)
+  allNumbers
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/survivalFunctions.R
 \name{WeibSurvOS}
 \alias{WeibSurvOS}
-\title{OS survival function from Weibull transition hazards.}
+\title{OS Survival Function from Weibull Transition Hazards}
 \usage{
 WeibSurvOS(t, h01, h02, h12, p01, p02, p12)
 }
@@ -25,7 +25,7 @@ WeibSurvOS(t, h01, h02, h12, p01, p02, p12)
 This returns the value of OS survival function at time t.
 }
 \description{
-OS survival function from Weibull transition hazards.
+OS Survival Function from Weibull Transition Hazards
 }
 \examples{
 WeibSurvOS(c(1:5), 0.2, 0.5, 2.1, 1.2, 0.9, 1)

@@ -2,12 +2,12 @@
 % Please edit documentation in R/survivalFunctions.R
 \name{PWCsurvOS}
 \alias{PWCsurvOS}
-\title{OS survival function from piecewise constant hazards.}
+\title{OS Survival Function from Piecewise Constant Hazards}
 \usage{
 PWCsurvOS(t, h01, h02, h12, pw01, pw02, pw12)
 }
 \arguments{
-\item{t}{(\code{numeric})\cr  study time-points.}
+\item{t}{(\code{numeric})\cr study time-points.}
 
 \item{h01}{(\verb{numeric vector})\cr constant transition hazards for 0 to 1 transition.}
 
@@ -25,7 +25,7 @@ PWCsurvOS(t, h01, h02, h12, pw01, pw02, pw12)
 This returns the value of OS survival function at time t.
 }
 \description{
-OS survival function from piecewise constant hazards.
+OS Survival Function from Piecewise Constant Hazards
 }
 \examples{
 PWCsurvOS(1:5, c(0.3, 0.5), c(0.5, 0.8), c(0.7, 1), c(0, 4), c(0, 8), c(0, 3))

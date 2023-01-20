@@ -13,7 +13,8 @@ getTimePoint(data, eventNum, typeEvent, byArm = FALSE)
 
 \item{typeEvent}{(\code{string})\cr type of event. Possible values are \code{OS} and \code{PFS}.}
 
-\item{byArm}{(\code{logical})\cr if \code{TRUE} time-point per treatment arm, else joint evaluation of treatment arms.}
+\item{byArm}{(\code{logical})\cr if \code{TRUE} time-point per treatment arm, else joint evaluation
+of treatment arms.}
 }
 \value{
 This returns  the time-point by which \code{eventNum} of \code{typeEvent}-events occurred.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/getSimulatedData.R
 \name{getSimulatedData}
 \alias{getSimulatedData}
-\title{Simulated data set from an illness-death model.}
+\title{Simulate Data Set from an Illness-Death Model}
 \usage{
 getSimulatedData(
   N,
@@ -46,7 +46,8 @@ The output data set contains the following columns:
 }
 }
 \examples{
-getSimulatedData(10,
+getSimulatedData(
+  N = 10,
   transition = exponential_transition(h01 = 1, h02 = 1.5, h12 = 1),
   dropout = list(rate = 0.3, time = 1),
   accrual = list(param = "time", value = 5)
