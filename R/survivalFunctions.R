@@ -70,7 +70,7 @@ integrateVector <- function(integrand, upper, ...) {
   boundaries <- sort(unique(upper))
   nIntervals <- length(boundaries)
   intervals <- mapply(
-    FUN = function(f, lower, upper, ...) integrate(f, ..., lower, upper)$value,
+    FUN = function(f, lower, upper, ...) stats::integrate(f, ..., lower, upper)$value,
     MoreArgs = list(f = integrand, ...),
     lower = c(0, boundaries[-nIntervals]),
     upper = boundaries
