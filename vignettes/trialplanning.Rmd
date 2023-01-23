@@ -101,7 +101,7 @@ Using the Schoenfeld approximation, a preliminary sample size calculation could 
 ```{r}
 library(coxphw)
 avergHR <- function(data) {
-  fit <- coxphw(formula = Surv(OStime+0.001, OSevent) ~ trt, data = data, template="AHR")
+  fit <- coxphw(formula = Surv(OStime + 0.001, OSevent) ~ trt, data = data, template = "AHR")
   exp(coef(fit))
 }
 
