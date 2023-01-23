@@ -27,7 +27,7 @@ Imports:
     checkmate,
     stats
 Suggests:
-    AHR,
+    coxphw,
     knitr,
     mvna,
     prodlim,
@@ -36,8 +36,6 @@ Suggests:
     testthat (>= 2.0)
 VignetteBuilder:
     knitr
-Remotes:
-    mbrueckner/AHR
 Encoding: UTF-8
 Language: en-US
 LazyData: true
