@@ -66,12 +66,6 @@
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/main">main</a> </div></li>
-<!-- end dropdown for versions -->
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -211,15 +205,13 @@ trials with co-primary endpoints.</p>
 calculation could be made to get an idea of how many events are needed
 for 80 % power. For PFS the hazard ratio is known by specification (=
 0.6857), for OS an averaged HR can be calculated, e.g. by using the R
-package AHR <span class="citation">(Brueckner 2018)</span>. In our
-example, we get an average OS HR of 0.7981. The average HR can be
-derived, for example, in the following way:</p>
+package <code>coxphw</code> <span class="citation">(Dunkler et al.
+2018)</span>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">AHR</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">coxphw</span><span class="op">)</span></span>
 <span><span class="va">avergHR</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">lastTime</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">OStime</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
-<span>  <span class="va">avgHR</span> <span class="op">&lt;-</span> <span class="fu">ahrWKM</span><span class="op">(</span><span class="va">lastTime</span>, <span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">OStime</span>, <span class="va">OSevent</span><span class="op">)</span> <span class="op">~</span> <span class="va">trt</span>, <span class="va">data</span>, alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
-<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">avgHR</span><span class="op">[[</span><span class="st">"hr"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/coxphw/man/coxphw.html" class="external-link">coxphw</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">OStime</span> <span class="op">+</span> <span class="fl">0.001</span>, <span class="va">OSevent</span><span class="op">)</span> <span class="op">~</span> <span class="va">trt</span>, data <span class="op">=</span> <span class="va">data</span>, template <span class="op">=</span> <span class="st">"AHR"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="va">StudyforAvg</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getClinicalTrials.html">getClinicalTrials</a></span><span class="op">(</span></span>
@@ -228,10 +220,10 @@ derived, for example, in the following way:</p>
 <span>  dropout <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>rate <span class="op">=</span> <span class="fl">0.05</span>, time <span class="op">=</span> <span class="fl">12</span><span class="op">)</span>, accrual <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>param <span class="op">=</span> <span class="st">"intensity"</span>, value <span class="op">=</span> <span class="fl">25</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">averageHR</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">StudyforAvg</span>, <span class="va">avergHR</span><span class="op">)</span></span>
-<span><span class="va">MeanAverageHR</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">averageHR</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>We use the standard log-rank test to test difference between
-groups:</p>
+<span><span class="va">averageHR</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">StudyforAvg</span>, <span class="va">avergHR</span><span class="op">)</span></span>
+<span><span class="va">MeanAverageHR</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">averageHR</span><span class="op">)</span></span></code></pre></div>
+<p>In our example, we get an average OS HR of 0.826. We use the standard
+log-rank test to test difference between groups:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">LogRankTest</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">endpoint</span>, <span class="va">critical</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">time</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="va">endpoint</span> <span class="op">==</span> <span class="st">"OS"</span><span class="op">)</span> <span class="op">{</span></span>
@@ -407,9 +399,11 @@ endpoint have occurred at that time.</p>
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
 <div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-AHR" class="csl-entry">
-Brueckner, Matthias. 2018. <em>Rpact: Confirmatory Adaptive Clinical
-Trial Design and Analysis</em>. <a href="https://CRAN.R-project.org/package=AHR" class="external-link">https://CRAN.R-project.org/package=AHR</a>.
+<div id="ref-coxphw" class="csl-entry">
+Dunkler, Daniela, Meinhard Ploner, Michael Schemper, and Georg Heinze.
+2018. <span>“Weighted <span>C</span>ox Regression Using the
+<span>R</span> Package Coxphw.”</span> <em>Journal of Statistical
+Software</em> 84 (2): 1–26. <a href="https://doi.org/10.18637/jss.v084.i02" class="external-link">https://doi.org/10.18637/jss.v084.i02</a>.
 </div>
 </div>
 </div>
