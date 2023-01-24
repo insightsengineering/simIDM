@@ -2,7 +2,7 @@ Type: Package
 Package: simIDM
 Title: Simulating Clinical Trials with Endpoints Progression-Free Survival
     and Overall Survival using an Illness-Death Model
-Version: 0.0.1.9000
+Version: 0.0.2
 Authors@R: c(
     person("Alexandra", "Erdmann", , "alexandra.erdmann@uni-ulm.de", role = c("aut", "cre")),
     person("Kaspar", "Rufibach", , "kaspar.rufibach@roche.com", role = "aut"),
@@ -10,9 +10,9 @@ Authors@R: c(
     person("F. Hoffmann-La Roche AG", role = c("cph", "fnd")),
     person("University of Ulm", role = c("cph", "fnd"))
   )
-Description: The package can be used to simulate a large number of
+Description: Based on the illness-death model a large number of
     clinical trials with oncology endpoints progression-free survival
-    (PFS) and overall survival (OS) using an illness-death model, see
+    (PFS) and overall survival (OS) can be simulated, see
     Meller, Beyersmann and Rufibach (2019) <doi:10.1002/sim.8295>.  The
     simulation set-up allows for random and event-driven censoring, an
     arbitrary number of treatment arms, staggered study entry and
