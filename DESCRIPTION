@@ -1,22 +1,22 @@
 Type: Package
 Package: simIDM
-Title: Simulating Clinical Trials with Endpoints Progression-Free Survival and Overall Survival
-     using an Illness-Death Model
-Version: 0.0.1
+Title: Simulating Clinical Trials with Endpoints Progression-Free Survival
+    and Overall Survival using an Illness-Death Model
+Version: 0.0.1.9000
 Authors@R: c(
-      person("Alexandra", "Erdmann", , "alexandra.erdmann@uni-ulm.de", role = c("aut", "cre")),
-      person("Kaspar", "Rufibach", , "kaspar.rufibach@roche.com", role = "aut"),
-      person("Daniel", "Sabanes Bove", , "daniel.sabanes_bove@roche.com", role = "ctb"),
-      person("F. Hoffmann-La Roche AG", role = c("cph", "fnd")),
-      person("University of Ulm", role = c("cph", "fnd"))
-    )
+    person("Alexandra", "Erdmann", , "alexandra.erdmann@uni-ulm.de", role = c("aut", "cre")),
+    person("Kaspar", "Rufibach", , "kaspar.rufibach@roche.com", role = "aut"),
+    person("Daniel", "Sabanes Bove", , "daniel.sabanes_bove@roche.com", role = "ctb"),
+    person("F. Hoffmann-La Roche AG", role = c("cph", "fnd")),
+    person("University of Ulm", role = c("cph", "fnd"))
+  )
 Description: The package can be used to simulate a large number of
-    clinical trials with oncology endpoints progression-free survival (PFS) and 
-    overall survival (OS) using an illness-death model,
-    see Meller, Beyersmann and Rufibach (2019) <doi:10.1002/sim.8295>. 
-    The simulation set-up allows for random and event-driven censoring,
-    an arbitrary number of treatment arms, staggered study entry and drop-out. 
-    Exponentially, Weibull and piecewise exponentially 
+    clinical trials with oncology endpoints progression-free survival
+    (PFS) and overall survival (OS) using an illness-death model, see
+    Meller, Beyersmann and Rufibach (2019) <doi:10.1002/sim.8295>.  The
+    simulation set-up allows for random and event-driven censoring, an
+    arbitrary number of treatment arms, staggered study entry and
+    drop-out.  Exponentially, Weibull and piecewise exponentially
     distributed survival times can be generated.
 License: Apache License 2.0
 URL: https://github.com/insightsengineering/simIDM/
