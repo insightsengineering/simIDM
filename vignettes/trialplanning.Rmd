@@ -96,14 +96,13 @@ alphaPFS <- 0.01
 CriticalOS <- abs(qnorm(alphaOS / 2))
 CriticalPFS <- abs(qnorm(alphaPFS / 2))
 ```
-Using the Schoenfeld approximation, a preliminary sample size calculation could be made to get an idea of how many events are needed for 80 \% power. For PFS the hazard ratio is known by specification (= 0.6857), for OS an averaged HR can be calculated, e.g. by using the R package AHR [@AHR]. In our example, we get an average OS HR of 0.7981. The average HR can be derived, for example, in the following way:
+Using the Schoenfeld approximation, a preliminary sample size calculation could be made to get an idea of how many events are needed for 80 \% power. For PFS the hazard ratio is known by specification (= 0.6857), for OS an averaged HR can be calculated, e.g. by using the R package `coxphw` [@coxphw]:  
 
-```{r eval=FALSE}
-library(AHR)
+```{r}
+library(coxphw)
 avergHR <- function(data) {
-  lastTime <- sort(data$OStime, decreasing = TRUE)[1]
-  avgHR <- ahrWKM(lastTime, Surv(OStime, OSevent) ~ trt, data, alpha = 0.5)
-  return(avgHR[["hr"]])
+  fit <- coxphw(formula = Surv(OStime + 0.001, OSevent) ~ trt, data = data, template = "AHR")
+  exp(coef(fit))
 }
 
 StudyforAvg <- getClinicalTrials(
@@ -112,12 +111,12 @@ StudyforAvg <- getClinicalTrials(
   dropout = list(rate = 0.05, time = 12), accrual = list(param = "intensity", value = 25)
 )
 
-averageHR <- lapply(StudyforAvg, avergHR)
-MeanAverageHR <- mean(unlist(averageHR))
+averageHR <- sapply(StudyforAvg, avergHR)
+MeanAverageHR <- mean(averageHR)
 ```
 
+In our example, we get an average OS HR of `r round(MeanAverageHR, 3)`.
 We use the standard log-rank test to test difference between groups:
-
 
 ```{r}
 LogRankTest <- function(data, endpoint, critical) {
@@ -155,7 +154,8 @@ studyAtOSAna <- lapply(SimNULL, censoringByNumberEvents,
 TestPassedPFS <- lapply(studyAtPFSAna, LogRankTest, endpoint = "PFS", CriticalPFS)
 TestPassedOS <- lapply(studyAtOSAna, LogRankTest, endpoint = "OS", CriticalOS)
 ```
-  We estimate the type-I error for each endpoint and the global type-I error by counting the significant tests under $H_0$. The global type-I error is empirically estimated by counting the trials in which either a significant log-rank test is observed for the PFS endpoint or for the OS endpoint.
+  
+We estimate the type-I error for each endpoint and the global type-I error by counting the significant tests under $H_0$. The global type-I error is empirically estimated by counting the trials in which either a significant log-rank test is observed for the PFS endpoint or for the OS endpoint.
 
 ```{r}
 # empirical type-I error of PFS
@@ -173,7 +173,8 @@ empGlobalAlpha
 
 In this example, the empirical significance level is close to 5\%.
 If the empirical type-I error is lower or higher than 5\%, the critical values used for the log-rank test can be adjusted until a significance level close to 5\% is obtained. This could be done, for example, in the following way:
-```{r eval=FALSE}
+
+```{r}
 while (empGlobalAlpha < 4.9) {
   CriticalOS <- CriticalOS - 0.01
   CriticalPFS <- CriticalPFS - 0.01
@@ -186,6 +187,7 @@ while (empGlobalAlpha < 4.9) {
   empGlobalAlpha <- 100 * (sum(TestBoth) / nRep)
 }
 ```
+
 ## Sample size and power calculation - simulation under $H_1$
 
 Next, we simulate a large number of trials under $H_1$ to get the empirical power.

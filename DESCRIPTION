@@ -27,10 +27,12 @@ Imports:
     checkmate,
     stats
 Suggests:
+    coxphw,
     knitr,
     mvna,
     prodlim,
     rmarkdown,
+    survival,
     testthat (>= 2.0)
 VignetteBuilder:
     knitr
