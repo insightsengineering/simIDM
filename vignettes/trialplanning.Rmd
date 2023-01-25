@@ -76,11 +76,11 @@ There are also functions for PFS survival functions available.
 ## Type-I error - simulation under $H_0$
 
 For the simulation under $H_0$ we set the transition hazards for the treatment group equal to the control group.
-Then, we use our function `getClinicalTrials()` with 10000 iterations to generate a large number of simulated trials.
+Then, we use our function `getClinicalTrials()` to generate a large number of simulated trials. For this example we use 1000 iterations, however for applications we would recommend a higher number, e.g. 10000
 
 ```{r}
 transitionListNULL <- list(transitionPl, transitionPl)
-nRep <- 10000
+nRep <- 1000
 SimNULL <- getClinicalTrials(
   nRep = nRep, nPat = c(800, 800), seed = 1238, datType = "1rowPatient",
   transitionByArm = transitionListNULL,
@@ -96,7 +96,7 @@ alphaPFS <- 0.01
 CriticalOS <- abs(qnorm(alphaOS / 2))
 CriticalPFS <- abs(qnorm(alphaPFS / 2))
 ```
-Using the Schoenfeld approximation, a preliminary sample size calculation could be made to get an idea of how many events are needed for 80 \% power. For PFS the hazard ratio is known by specification (= 0.6857), for OS an averaged HR can be calculated, e.g. by using the R package `coxphw` [@coxphw]:  
+Using the Schoenfeld approximation, a preliminary sample size calculation could be made to get an idea of how many events are needed for 80 \% power. For PFS the hazard ratio is known by specification (= 0.6857), for OS an averaged HR can be calculated, e.g. by using the R package `coxphw` [@coxphw]:
 
 ```{r}
 library(coxphw)
@@ -154,7 +154,7 @@ studyAtOSAna <- lapply(SimNULL, censoringByNumberEvents,
 TestPassedPFS <- lapply(studyAtPFSAna, LogRankTest, endpoint = "PFS", CriticalPFS)
 TestPassedOS <- lapply(studyAtOSAna, LogRankTest, endpoint = "OS", CriticalOS)
 ```
-  
+
 We estimate the type-I error for each endpoint and the global type-I error by counting the significant tests under $H_0$. The global type-I error is empirically estimated by counting the trials in which either a significant log-rank test is observed for the PFS endpoint or for the OS endpoint.
 
 ```{r}
@@ -174,7 +174,7 @@ empGlobalAlpha
 In this example, the empirical significance level is close to 5\%.
 If the empirical type-I error is lower or higher than 5\%, the critical values used for the log-rank test can be adjusted until a significance level close to 5\% is obtained. This could be done, for example, in the following way:
 
-```{r}
+```{r eval=FALSE}
 while (empGlobalAlpha < 4.9) {
   CriticalOS <- CriticalOS - 0.01
   CriticalPFS <- CriticalPFS - 0.01
