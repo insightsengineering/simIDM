@@ -2,7 +2,7 @@ Type: Package
 Package: simIDM
 Title: Simulating Clinical Trials with Endpoints Progression-Free Survival
     and Overall Survival using an Illness-Death Model
-Version: 0.0.4
+Version: 0.0.4.9000
 Authors@R: c(
     person("Alexandra", "Erdmann", , "alexandra.erdmann@uni-ulm.de", role = c("aut", "cre")),
     person("Kaspar", "Rufibach", , "kaspar.rufibach@roche.com", role = "aut"),
