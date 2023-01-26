@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simIDM</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.4</span>
       </span>
     </div>
 
@@ -72,6 +72,7 @@
           aria-expanded="false" aria-haspopup="true"
           id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/main">main</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/latest-tag">latest-tag</a>
+<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.4">v0.0.4</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.2">v0.0.2</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.1">v0.0.1</a> </div></li>
 <!-- end dropdown for versions -->
@@ -188,11 +189,13 @@ OS survival functions for given transition hazards and time points.</p>
 Type-I error - simulation under <span class="math inline">\(H_0\)</span></p>
 <p>For the simulation under <span class="math inline">\(H_0\)</span> we
 set the transition hazards for the treatment group equal to the control
-group. Then, we use our function <code><a href="../reference/getClinicalTrials.html">getClinicalTrials()</a></code> with
-10000 iterations to generate a large number of simulated trials.</p>
+group. Then, we use our function <code><a href="../reference/getClinicalTrials.html">getClinicalTrials()</a></code> to
+generate a large number of simulated trials. For this example we use 100
+iterations, however for applications we would recommend a higher number,
+e.g. 10000</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">transitionListNULL</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">transitionPl</span>, <span class="va">transitionPl</span><span class="op">)</span></span>
-<span><span class="va">nRep</span> <span class="op">&lt;-</span> <span class="fl">10000</span></span>
+<span><span class="va">nRep</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
 <span><span class="va">SimNULL</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getClinicalTrials.html">getClinicalTrials</a></span><span class="op">(</span></span>
 <span>  nRep <span class="op">=</span> <span class="va">nRep</span>, nPat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">800</span>, <span class="fl">800</span><span class="op">)</span>, seed <span class="op">=</span> <span class="fl">1238</span>, datType <span class="op">=</span> <span class="st">"1rowPatient"</span>,</span>
 <span>  transitionByArm <span class="op">=</span> <span class="va">transitionListNULL</span>,</span>
@@ -272,18 +275,13 @@ endpoint.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># empirical type-I error of PFS</span></span>
 <span><span class="va">empAlphaPFS</span> <span class="op">&lt;-</span> <span class="fl">100</span> <span class="op">*</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">TestPassedPFS</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="va">nRep</span><span class="op">)</span></span>
-<span><span class="va">empAlphaPFS</span></span>
-<span><span class="co">#&gt; [1] 0.89</span></span>
+<span></span>
 <span><span class="co"># empirical type-I error of OS</span></span>
 <span><span class="va">empAlphaOS</span> <span class="op">&lt;-</span> <span class="fl">100</span> <span class="op">*</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">TestPassedOS</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="va">nRep</span><span class="op">)</span></span>
-<span><span class="va">empAlphaOS</span></span>
-<span><span class="co">#&gt; [1] 4.2</span></span>
+<span></span>
 <span><span class="va">TestBoth</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">TestPassedPFS</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">TestPassedOS</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co"># empirical global significance level</span></span>
-<span><span class="va">empGlobalAlpha</span> <span class="op">&lt;-</span> <span class="fl">100</span> <span class="op">*</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">TestBoth</span><span class="op">)</span> <span class="op">/</span> <span class="va">nRep</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">empGlobalAlpha</span></span>
-<span><span class="co">#&gt; [1] 4.96</span></span></code></pre></div>
+<span><span class="va">empGlobalAlpha</span> <span class="op">&lt;-</span> <span class="fl">100</span> <span class="op">*</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">TestBoth</span><span class="op">)</span> <span class="op">/</span> <span class="va">nRep</span><span class="op">)</span></span></code></pre></div>
 <p>In this example, the empirical significance level is close to 5%. If
 the empirical type-I error is lower or higher than 5%, the critical
 values used for the log-rank test can be adjusted until a significance
@@ -344,17 +342,17 @@ if each endpoint is analyzed at its planned time-point.</p>
 <span><span class="co"># empirical power PFS</span></span>
 <span><span class="va">empPowerPFS</span> <span class="op">&lt;-</span> <span class="fl">100</span> <span class="op">*</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">TestPassedPFSH1</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="va">nRep</span><span class="op">)</span></span>
 <span><span class="va">empPowerPFS</span></span>
-<span><span class="co">#&gt; [1] 79.72</span></span>
+<span><span class="co">#&gt; [1] 79</span></span>
 <span><span class="co"># empirical power OS</span></span>
 <span><span class="va">empPowerOS</span> <span class="op">&lt;-</span> <span class="fl">100</span> <span class="op">*</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">TestPassedOSH1</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="va">nRep</span><span class="op">)</span></span>
 <span><span class="va">empPowerOS</span></span>
-<span><span class="co">#&gt; [1] 64.19</span></span>
+<span><span class="co">#&gt; [1] 64</span></span>
 <span><span class="co"># joint power</span></span>
 <span><span class="va">TestBothH1</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">TestPassedPFSH1</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">TestPassedOSH1</span><span class="op">)</span> <span class="op">==</span> <span class="fl">2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">jointPower</span> <span class="op">&lt;-</span> <span class="fl">100</span> <span class="op">*</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">TestBothH1</span><span class="op">)</span> <span class="op">/</span> <span class="va">nRep</span><span class="op">)</span></span>
 <span><span class="va">jointPower</span></span>
-<span><span class="co">#&gt; [1] 56.25</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 54</span></span></code></pre></div>
 <p>For the endpoint OS, the number of events has to be increased to
 obtain a power of 80 %.</p>
 <p>It is also possible to derive the median time at which a certain
@@ -375,9 +373,9 @@ endpoint have occurred at that time.</p>
 <span><span class="va">median_timeOS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">TimePointsOS</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">median_timePFS</span></span>
-<span><span class="co">#&gt; [1] 3.082436</span></span>
+<span><span class="co">#&gt; [1] 3.081201</span></span>
 <span><span class="va">median_timeOS</span></span>
-<span><span class="co">#&gt; [1] 6.002025</span></span>
+<span><span class="co">#&gt; [1] 5.998852</span></span>
 <span></span>
 <span><span class="co"># number of PFS events at time of OS analysis</span></span>
 <span><span class="va">eventsPFS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span></span>
@@ -400,9 +398,9 @@ endpoint have occurred at that time.</p>
 <span><span class="va">nOS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">eventsOS</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">nPFS</span></span>
-<span><span class="co">#&gt; [1] 226.3304</span></span>
+<span><span class="co">#&gt; [1] 225.97</span></span>
 <span><span class="va">nOS</span></span>
-<span><span class="co">#&gt; [1] 859.5728</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 860.45</span></span></code></pre></div>
 </div>
 <div class="section level2 unnumbered">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
