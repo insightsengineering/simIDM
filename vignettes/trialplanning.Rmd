@@ -76,11 +76,11 @@ There are also functions for PFS survival functions available.
 ## Type-I error - simulation under $H_0$
 
 For the simulation under $H_0$ we set the transition hazards for the treatment group equal to the control group.
-Then, we use our function `getClinicalTrials()` to generate a large number of simulated trials. For this example we use 1000 iterations, however for applications we would recommend a higher number, e.g. 10000
+Then, we use our function `getClinicalTrials()` to generate a large number of simulated trials. For this example we use 100 iterations, however for applications we would recommend a higher number, e.g. 10000
 
 ```{r}
 transitionListNULL <- list(transitionPl, transitionPl)
-nRep <- 1000
+nRep <- 100
 SimNULL <- getClinicalTrials(
   nRep = nRep, nPat = c(800, 800), seed = 1238, datType = "1rowPatient",
   transitionByArm = transitionListNULL,
@@ -160,15 +160,13 @@ We estimate the type-I error for each endpoint and the global type-I error by co
 ```{r}
 # empirical type-I error of PFS
 empAlphaPFS <- 100 * (sum(unlist(TestPassedPFS)) / nRep)
-empAlphaPFS
+
 # empirical type-I error of OS
 empAlphaOS <- 100 * (sum(unlist(TestPassedOS)) / nRep)
-empAlphaOS
+
 TestBoth <- (unlist(TestPassedPFS) + unlist(TestPassedOS) >= 1)
 # empirical global significance level
 empGlobalAlpha <- 100 * (sum(TestBoth) / nRep)
-
-empGlobalAlpha
 ```
 
 In this example, the empirical significance level is close to 5\%.
