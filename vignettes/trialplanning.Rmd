@@ -157,7 +157,7 @@ TestPassedOS <- lapply(studyAtOSAna, LogRankTest, endpoint = "OS", CriticalOS)
 
 We estimate the type-I error for each endpoint and the global type-I error by counting the significant tests under $H_0$. The global type-I error is empirically estimated by counting the trials in which either a significant log-rank test is observed for the PFS endpoint or for the OS endpoint.
 
-```{r eval=FALSE}
+```{r}
 # empirical type-I error of PFS
 empAlphaPFS <- 100 * (sum(unlist(TestPassedPFS)) / nRep)
 
