@@ -42,10 +42,10 @@ getWaitTimeSum <- function(U, haz1, haz2, p1, p2, entry) {
       stime[i] <- res$root
       i <- i + 1
       if (res$root == 0) {
-        cat("Error uniroot: accuracy (tol=10^-16) is not enough.")
+        warning("uniroot: accuracy (tol=10^-16) is not enough.")
       }
     } else {
-      cat("Error uniroot: Values at interval endpoints (interval=c(0,10000)) are not of opposite signs. \n")
+      warning("uniroot: Values at interval endpoints (interval=c(0,10000)) are not of opposite signs. \n")
     }
   }
   stime
