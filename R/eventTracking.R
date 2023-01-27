@@ -45,7 +45,7 @@ getTimePoint <- function(data, eventNum, typeEvent, byArm = FALSE) {
     dataTemp <- data[data$trt == trt, ]
     sortedTimes <- sort(dataTemp$time[dataTemp$event == 1])
     if (eventNum > length(sortedTimes)) {
-      cat("Less events occur till EOS than specified \n")
+      warning("Less events occur till EOS than specified \n")
     }
     timePoint <- sortedTimes[eventNum]
   })
