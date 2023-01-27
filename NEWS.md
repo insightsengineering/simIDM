@@ -1,4 +1,4 @@
-# simIDM 0.0.5
+# simIDM 0.0.5.9000
 
 - First CRAN version of the package.
 - The package simulates illness-death models with constant, Weibull or piecewise constant transition hazards.
