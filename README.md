@@ -9,6 +9,12 @@
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![CRAN
+status](https://www.r-pkg.org/badges/version-last-release/simIDM)](https://www.r-pkg.org/badges/version-last-release/simIDM)
+[![CRAN monthly
+downloads](https://cranlogs.r-pkg.org/badges/simIDM)](https://cranlogs.r-pkg.org/badges/simIDM)
+[![CRAN total
+downloads](https://cranlogs.r-pkg.org/badges/grand-total/simIDM)](https://cranlogs.r-pkg.org/badges/grand-total/simIDM)
 [![Code
 Coverage](https://raw.githubusercontent.com/insightsengineering/simIDM/_xml_coverage_reports/data/main/badge.svg)](https://raw.githubusercontent.com/insightsengineering/simIDM/_xml_coverage_reports/data/main/coverage.xml)
 <!-- badges: end -->  
