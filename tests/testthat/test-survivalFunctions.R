@@ -84,3 +84,9 @@ test_that("integrateVector works as expected", {
   )
   expect_equal(actual, expected)
 })
+
+# ExpQuantOS
+test_that("ExpQuantOS works as expected", {
+  actual <- ExpQuantOS(1 / 2, 0.2, 0.5, 2.1)
+  expect_equal(actual, 1.144539)
+})
