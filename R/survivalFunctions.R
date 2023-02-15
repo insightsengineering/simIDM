@@ -123,10 +123,10 @@ WeibSurvOS <- function(t, h01, h02, h12, p01, p02, p12) {
 
   WeibSurvPFS(t, h01, h02, p01, p02) +
     h01 * p01 * exp(-h12 * t^p12) *
-    integrateVector(WeibOSInteg,
-                    upper = t,
-                    h01 = h01, h02 = h02, h12 = h12, p01 = p01, p02 = p02, p12 = p12
-    )
+      integrateVector(WeibOSInteg,
+        upper = t,
+        h01 = h01, h02 = h02, h12 = h12, p01 = p01, p02 = p02, p12 = p12
+      )
 }
 
 
@@ -230,10 +230,10 @@ PWCsurvOS <- function(t, h01, h02, h12, pw01, pw02, pw12) {
 
   PWCsurvPFS(t, h01, h02, pw01, pw02) +
     exp(-pwA(t, h12, pw12)) *
-    integrateVector(PwcOSInt,
-                    upper = t,
-                    h01 = h01, h02 = h02, h12 = h12, pw01 = pw01, pw02 = pw02, pw12 = pw12
-    )
+      integrateVector(PwcOSInt,
+        upper = t,
+        h01 = h01, h02 = h02, h12 = h12, pw01 = pw01, pw02 = pw02, pw12 = pw12
+      )
 }
 
 
@@ -247,6 +247,7 @@ PWCsurvOS <- function(t, h01, h02, h12, pw01, pw02, pw12) {
 #'
 #' @return This returns the timepoint t such that the OS survival function at t equals q.
 #' @export
+#' @importFrom stats uniroot
 #'
 #' @examples ExpQuantOS(1 / 2, 0.2, 0.5, 2.1)
 ExpQuantOS <- function(q = 1 / 2, h01, h02, h12) {
