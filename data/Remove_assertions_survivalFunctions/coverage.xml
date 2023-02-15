@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage line-rate="0.991614255765199" branch-rate="0" lines-covered="473" lines-valid="477" branches-covered="0" branches-valid="0" complexity="0" version="3.6.1" timestamp="2023-02-15 19:30:00">
+<coverage line-rate="0.975257731958763" branch-rate="0" lines-covered="473" lines-valid="485" branches-covered="0" branches-valid="0" complexity="0" version="3.6.1" timestamp="2023-02-15 19:36:41">
   <sources/>
   <packages>
-    <package name="simIDM" line-rate="0.991614255765199" branch-rate="0" complexity="0">
+    <package name="simIDM" line-rate="0.975257731958763" branch-rate="0" complexity="0">
       <classes>
         <class name="assertions.R" filename="R/assertions.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
@@ -828,7 +828,7 @@
             <line number="53" hits="2001" branch="false"/>
           </lines>
         </class>
-        <class name="survivalFunctions.R" filename="R/survivalFunctions.R" line-rate="1" branch-rate="0" complexity="0">
+        <class name="survivalFunctions.R" filename="R/survivalFunctions.R" line-rate="0.911111111111111" branch-rate="0" complexity="0">
           <methods>
             <method name="ExpSurvPFS" signature="" line-rate="1" branch-rate="0">
               <lines>
@@ -952,6 +952,18 @@
                 <line number="236" hits="1" branch="false"/>
               </lines>
             </method>
+            <method name="ExpQuantOS" signature="" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="253" hits="0" branch="false"/>
+                <line number="254" hits="0" branch="false"/>
+                <line number="255" hits="0" branch="false"/>
+                <line number="256" hits="0" branch="false"/>
+                <line number="258" hits="0" branch="false"/>
+                <line number="259" hits="0" branch="false"/>
+                <line number="260" hits="0" branch="false"/>
+                <line number="261" hits="0" branch="false"/>
+              </lines>
+            </method>
           </methods>
           <lines>
             <line number="10" hits="8" branch="false"/>
@@ -1036,6 +1048,14 @@
             <line number="234" hits="1" branch="false"/>
             <line number="235" hits="1" branch="false"/>
             <line number="236" hits="1" branch="false"/>
+            <line number="253" hits="0" branch="false"/>
+            <line number="254" hits="0" branch="false"/>
+            <line number="255" hits="0" branch="false"/>
+            <line number="256" hits="0" branch="false"/>
+            <line number="258" hits="0" branch="false"/>
+            <line number="259" hits="0" branch="false"/>
+            <line number="260" hits="0" branch="false"/>
+            <line number="261" hits="0" branch="false"/>
           </lines>
         </class>
         <class name="transitionParameters.R" filename="R/transitionParameters.R" line-rate="1" branch-rate="0" complexity="0">
