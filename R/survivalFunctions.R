@@ -259,6 +259,5 @@ ExpQuantOS <- function(q = 1 / 2, h01, h02, h12) {
   toroot <- function(x, q, h01, h02, h12) {
     return(q - ExpSurvOS(t = x, h01, h02, h12))
   }
-  uniroot(toroot, interval = c(0, 10 ^ 3), q = q, h01 = h01, h02 = h02, h12 = h12, extendInt = "yes")$root
+  uniroot(toroot, interval = c(0, 10^3), q = q, h01 = h01, h02 = h02, h12 = h12, extendInt = "yes")$root
 }
-
