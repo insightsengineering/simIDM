@@ -235,3 +235,29 @@ PWCsurvOS <- function(t, h01, h02, h12, pw01, pw02, pw12) {
                     h01 = h01, h02 = h02, h12 = h12, pw01 = pw01, pw02 = pw02, pw12 = pw12
     )
 }
+
+
+
+#' Quantile function for OS survival function induced by IDM
+#'
+#' @param q (`numeric`)\cr quantile at which to compute event time (q = 1 / 2 corresponds to median).
+#' @param h01 (`numeric vector`)\cr constant transition hazards for 0 to 1 transition.
+#' @param h02 (`numeric vector`)\cr constant transition hazards for 0 to 2 transition.
+#' @param h12 (`numeric vector`)\cr constant transition hazards for 1 to 2 transition.
+#'
+#' @return This returns the timepoint t such that the OS survival function at t equals q.
+#' @export
+#'
+#' @examples ExpQuantOS(1 / 2, 0.2, 0.5, 2.1)
+ExpQuantOS <- function(q = 1 / 2, h01, h02, h12) {
+  assert_numeric(q, lower = 0, upper = 1, any.missing = FALSE, all.missing = FALSE)
+  assert_numeric(h01, lower = 0, any.missing = FALSE, all.missing = FALSE)
+  assert_numeric(h02, lower = 0, any.missing = FALSE, all.missing = FALSE)
+  assert_numeric(h12, lower = 0, any.missing = FALSE, all.missing = FALSE)
+
+  toroot <- function(x, q, h01, h02, h12) {
+    return(q - ExpSurvOS(t = x, h01, h02, h12))
+  }
+  uniroot(toroot, interval = c(0, 10 ^ 3), q = q, h01 = h01, h02 = h02, h12 = h12, extendInt = "yes")$root
+}
+
