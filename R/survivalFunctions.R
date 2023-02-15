@@ -7,7 +7,8 @@
 #' @examples
 #' ExpSurvPFS(c(1:5), 0.2, 0.4)
 ExpSurvPFS <- function(t, h01, h02) {
-  assert_numeric(t, lower = 0)
+  assert_vector(t, all.missing = FALSE)
+  assert_true(all(t >= 0))
   assert_positive_number(h01, zero_ok = TRUE)
   assert_positive_number(h02, zero_ok = TRUE)
 
@@ -24,7 +25,8 @@ ExpSurvPFS <- function(t, h01, h02) {
 #' @examples
 #' ExpSurvOS(c(1:5), 0.2, 0.4, 0.1)
 ExpSurvOS <- function(t, h01, h02, h12) {
-  assert_numeric(t, lower = 0)
+  assert_vector(t, all.missing = FALSE)
+  assert_true(all(t >= 0))
   assert_positive_number(h01, zero_ok = TRUE)
   assert_positive_number(h02, zero_ok = TRUE)
   assert_positive_number(h12, zero_ok = TRUE)
@@ -43,7 +45,8 @@ ExpSurvOS <- function(t, h01, h02, h12) {
 #' @examples
 #' WeibSurvPFS(c(1:5), 0.2, 0.5, 1.2, 0.9)
 WeibSurvPFS <- function(t, h01, h02, p01, p02) {
-  assert_numeric(t, lower = 0)
+  assert_vector(t, all.missing = FALSE)
+  assert_true(all(t >= 0))
   assert_positive_number(h01, zero_ok = TRUE)
   assert_positive_number(h02, zero_ok = TRUE)
   assert_positive_number(p01)
@@ -109,7 +112,8 @@ WeibOSInteg <- function(x, h01, h02, h12, p01, p02, p12) {
 #'
 #' @examples WeibSurvOS(c(1:5), 0.2, 0.5, 2.1, 1.2, 0.9, 1)
 WeibSurvOS <- function(t, h01, h02, h12, p01, p02, p12) {
-  assert_numeric(t, lower = 0)
+  assert_vector(t, all.missing = FALSE)
+  assert_true(all(t >= 0))
   assert_positive_number(h01, zero_ok = TRUE)
   assert_positive_number(h02, zero_ok = TRUE)
   assert_positive_number(h12, zero_ok = TRUE)
@@ -138,7 +142,8 @@ WeibSurvOS <- function(t, h01, h02, h12, p01, p02, p12) {
 #' @examples
 #' pwA(1:5, c(0.5, 0.9), c(0, 4))
 pwA <- function(t, haz, pw) {
-  assert_numeric(t, lower = 0)
+  assert_vector(t, all.missing = FALSE)
+  assert_true(all(t >= 0))
   assert_numeric(haz, lower = 0, any.missing = FALSE, all.missing = FALSE)
   assert_intervals(pw, length(haz))
 
@@ -166,7 +171,8 @@ pwA <- function(t, haz, pw) {
 #' @examples
 #' PWCsurvPFS(1:5, c(0.3, 0.5), c(0.5, 0.8), c(0, 4), c(0, 8))
 PWCsurvPFS <- function(t, h01, h02, pw01, pw02) {
-  assert_numeric(t, lower = 0)
+  assert_vector(t, all.missing = FALSE)
+  assert_true(all(t >= 0))
   assert_numeric(h01, lower = 0, any.missing = FALSE, all.missing = FALSE)
   assert_numeric(h02, lower = 0, any.missing = FALSE, all.missing = FALSE)
 
@@ -213,6 +219,8 @@ PwcOSInt <- function(x, h01, h02, h12, pw01, pw02, pw12) {
 #' @examples
 #' PWCsurvOS(1:5, c(0.3, 0.5), c(0.5, 0.8), c(0.7, 1), c(0, 4), c(0, 8), c(0, 3))
 PWCsurvOS <- function(t, h01, h02, h12, pw01, pw02, pw12) {
+  assert_vector(t, all.missing = FALSE)
+  assert_true(all(t >= 0))
   assert_numeric(h01, lower = 0, any.missing = FALSE, all.missing = FALSE)
   assert_numeric(h02, lower = 0, any.missing = FALSE, all.missing = FALSE)
   assert_numeric(h12, lower = 0, any.missing = FALSE, all.missing = FALSE)
