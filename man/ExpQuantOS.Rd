@@ -2,12 +2,12 @@
 % Please edit documentation in R/survivalFunctions.R
 \name{ExpQuantOS}
 \alias{ExpQuantOS}
-\title{Quantile function for OS survival function induced by IDM}
+\title{Quantile function for OS survival function induced by an illness-death model}
 \usage{
 ExpQuantOS(q = 1/2, h01, h02, h12)
 }
 \arguments{
-\item{q}{(\code{numeric})\cr quantile at which to compute event time (q = 1 / 2 corresponds to median).}
+\item{q}{(\code{numeric})\cr quantile(s) at which to compute event time (q = 1 / 2 corresponds to median).}
 
 \item{h01}{(\verb{numeric vector})\cr constant transition hazards for 0 to 1 transition.}
 
@@ -16,10 +16,10 @@ ExpQuantOS(q = 1/2, h01, h02, h12)
 \item{h12}{(\verb{numeric vector})\cr constant transition hazards for 1 to 2 transition.}
 }
 \value{
-This returns the timepoint t such that the OS survival function at t equals q.
+This returns the time(s) t such that the OS survival function at t equals q.
 }
 \description{
-Quantile function for OS survival function induced by IDM
+Quantile function for OS survival function induced by an illness-death model
 }
 \examples{
 ExpQuantOS(1 / 2, 0.2, 0.5, 2.1)

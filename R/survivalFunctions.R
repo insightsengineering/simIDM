@@ -7,8 +7,7 @@
 #' @examples
 #' ExpSurvPFS(c(1:5), 0.2, 0.4)
 ExpSurvPFS <- function(t, h01, h02) {
-  assert_vector(t, all.missing = FALSE)
-  assert_true(all(t >= 0))
+  assert_numeric(t, lower = 0, any.missing = FALSE)
   assert_positive_number(h01, zero_ok = TRUE)
   assert_positive_number(h02, zero_ok = TRUE)
 
@@ -25,8 +24,7 @@ ExpSurvPFS <- function(t, h01, h02) {
 #' @examples
 #' ExpSurvOS(c(1:5), 0.2, 0.4, 0.1)
 ExpSurvOS <- function(t, h01, h02, h12) {
-  assert_vector(t, all.missing = FALSE)
-  assert_true(all(t >= 0))
+  assert_numeric(t, lower = 0, any.missing = FALSE)
   assert_positive_number(h01, zero_ok = TRUE)
   assert_positive_number(h02, zero_ok = TRUE)
   assert_positive_number(h12, zero_ok = TRUE)
@@ -45,8 +43,7 @@ ExpSurvOS <- function(t, h01, h02, h12) {
 #' @examples
 #' WeibSurvPFS(c(1:5), 0.2, 0.5, 1.2, 0.9)
 WeibSurvPFS <- function(t, h01, h02, p01, p02) {
-  assert_vector(t, all.missing = FALSE)
-  assert_true(all(t >= 0))
+  assert_numeric(t, lower = 0, any.missing = FALSE)
   assert_positive_number(h01, zero_ok = TRUE)
   assert_positive_number(h02, zero_ok = TRUE)
   assert_positive_number(p01)
@@ -112,8 +109,7 @@ WeibOSInteg <- function(x, h01, h02, h12, p01, p02, p12) {
 #'
 #' @examples WeibSurvOS(c(1:5), 0.2, 0.5, 2.1, 1.2, 0.9, 1)
 WeibSurvOS <- function(t, h01, h02, h12, p01, p02, p12) {
-  assert_vector(t, all.missing = FALSE)
-  assert_true(all(t >= 0))
+  assert_numeric(t, lower = 0, any.missing = FALSE)
   assert_positive_number(h01, zero_ok = TRUE)
   assert_positive_number(h02, zero_ok = TRUE)
   assert_positive_number(h12, zero_ok = TRUE)
@@ -142,8 +138,7 @@ WeibSurvOS <- function(t, h01, h02, h12, p01, p02, p12) {
 #' @examples
 #' pwA(1:5, c(0.5, 0.9), c(0, 4))
 pwA <- function(t, haz, pw) {
-  assert_vector(t, all.missing = FALSE)
-  assert_true(all(t >= 0))
+  assert_numeric(t, lower = 0, any.missing = FALSE)
   assert_numeric(haz, lower = 0, any.missing = FALSE, all.missing = FALSE)
   assert_intervals(pw, length(haz))
 
@@ -171,8 +166,7 @@ pwA <- function(t, haz, pw) {
 #' @examples
 #' PWCsurvPFS(1:5, c(0.3, 0.5), c(0.5, 0.8), c(0, 4), c(0, 8))
 PWCsurvPFS <- function(t, h01, h02, pw01, pw02) {
-  assert_vector(t, all.missing = FALSE)
-  assert_true(all(t >= 0))
+  assert_numeric(t, lower = 0, any.missing = FALSE)
   assert_numeric(h01, lower = 0, any.missing = FALSE, all.missing = FALSE)
   assert_numeric(h02, lower = 0, any.missing = FALSE, all.missing = FALSE)
 
@@ -219,8 +213,7 @@ PwcOSInt <- function(x, h01, h02, h12, pw01, pw02, pw12) {
 #' @examples
 #' PWCsurvOS(1:5, c(0.3, 0.5), c(0.5, 0.8), c(0.7, 1), c(0, 4), c(0, 8), c(0, 3))
 PWCsurvOS <- function(t, h01, h02, h12, pw01, pw02, pw12) {
-  assert_vector(t, all.missing = FALSE)
-  assert_true(all(t >= 0))
+  assert_numeric(t, lower = 0, any.missing = FALSE)
   assert_numeric(h01, lower = 0, any.missing = FALSE, all.missing = FALSE)
   assert_numeric(h02, lower = 0, any.missing = FALSE, all.missing = FALSE)
   assert_numeric(h12, lower = 0, any.missing = FALSE, all.missing = FALSE)
@@ -236,28 +229,48 @@ PWCsurvOS <- function(t, h01, h02, h12, pw01, pw02, pw12) {
       )
 }
 
-
+#' Helper Function for Single Quantile for OS Survival Function
+#'
+#' @param q (`number`)\cr single quantile at which to compute event time.
+#' @inheritParams ExpQuantOS
+#'
+#' @return Single time t such that the OS survival function at t equals q.
+#' @keywords internal
+singleExpQuantOS <- function(q, h01, h02, h12) {
+  assert_number(q, finite = TRUE, lower = 0, upper = 1)
+  toroot <- function(x) {
+    return(q - ExpSurvOS(t = x, h01, h02, h12))
+  }
+  stats::uniroot(
+    toroot,
+    interval = c(0, 10^3),
+    extendInt = "yes"
+  )$root
+}
 
 #' Quantile function for OS survival function induced by an illness-death model
 #'
-#' @param q (`numeric`)\cr quantile at which to compute event time (q = 1 / 2 corresponds to median).
+#' @param q (`numeric`)\cr quantile(s) at which to compute event time (q = 1 / 2 corresponds to median).
 #' @param h01 (`numeric vector`)\cr constant transition hazards for 0 to 1 transition.
 #' @param h02 (`numeric vector`)\cr constant transition hazards for 0 to 2 transition.
 #' @param h12 (`numeric vector`)\cr constant transition hazards for 1 to 2 transition.
 #'
-#' @return This returns the time t such that the OS survival function at t equals q.
+#' @return This returns the time(s) t such that the OS survival function at t equals q.
 #' @export
-#' @importFrom stats uniroot
 #'
 #' @examples ExpQuantOS(1 / 2, 0.2, 0.5, 2.1)
 ExpQuantOS <- function(q = 1 / 2, h01, h02, h12) {
-  assert_numeric(q, lower = 0, upper = 1, any.missing = FALSE, all.missing = FALSE)
-  assert_numeric(h01, lower = 0, any.missing = FALSE, all.missing = FALSE)
-  assert_numeric(h02, lower = 0, any.missing = FALSE, all.missing = FALSE)
-  assert_numeric(h12, lower = 0, any.missing = FALSE, all.missing = FALSE)
+  assert_numeric(q, lower = 0, upper = 1, any.missing = FALSE)
+  assert_numeric(h01, lower = 0, any.missing = FALSE)
+  assert_numeric(h02, lower = 0, any.missing = FALSE)
+  assert_numeric(h12, lower = 0, any.missing = FALSE)
 
-  toroot <- function(x, q, h01, h02, h12) {
-    return(q - ExpSurvOS(t = x, h01, h02, h12))
-  }
-  uniroot(toroot, interval = c(0, 10^3), q = q, h01 = h01, h02 = h02, h12 = h12, extendInt = "yes")$root
+  vapply(
+    q,
+    FUN = singleExpQuantOS,
+    FUN.VALUE = numeric(1),
+    h01 = h01,
+    h02 = h02,
+    h12 = h12
+  )
 }
