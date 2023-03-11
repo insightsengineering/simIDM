@@ -25,6 +25,9 @@
     <loc>https://insightsengineering.github.io/simIDM/main/pull_request_template.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/simIDM/main/reference/ExpQuantOS.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/simIDM/main/reference/ExpSurvOS.html</loc>
   </url>
   <url>
@@ -119,6 +122,9 @@
   </url>
   <url>
     <loc>https://insightsengineering.github.io/simIDM/main/reference/simIDM-package.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/simIDM/main/reference/singleExpQuantOS.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/simIDM/main/reference/trackEventsPerTrial.html</loc>
