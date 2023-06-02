@@ -19,7 +19,7 @@ jobs:
     name: R CMD Check 🧬
     uses: insightsengineering/r.pkg.template/.github/workflows/build-check-install.yaml@main
     secrets:
-      REPO_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REPO_GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
     with:
       additional-r-cmd-check-params: --as-cran
   coverage:
@@ -27,7 +27,7 @@ jobs:
     name: Coverage 📔
     uses: insightsengineering/r.pkg.template/.github/workflows/test-coverage.yaml@main
     secrets:
-      REPO_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REPO_GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
   linter:
     if: github.event_name != 'push'
     name: SuperLinter 🦸‍♀️
@@ -36,7 +36,7 @@ jobs:
     name: Roxygen 🅾
     uses: insightsengineering/r.pkg.template/.github/workflows/roxygen.yaml@main
     secrets:
-      REPO_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REPO_GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
   gitleaks:
     name: gitleaks 💧
     uses: insightsengineering/r.pkg.template/.github/workflows/gitleaks.yaml@main
@@ -53,7 +53,7 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     uses: insightsengineering/r.pkg.template/.github/workflows/version-bump.yaml@main
     secrets:
-      REPO_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REPO_GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
   version:
     name: Version Check 🏁
     uses: insightsengineering/r.pkg.template/.github/workflows/version.yaml@main
