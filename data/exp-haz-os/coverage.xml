@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.98582995951417" branch-rate="0" lines-covered="487" lines-valid="494" branches-covered="0" branches-valid="0" complexity="0" version="3.6.2" timestamp="2023-09-19 14:49:26.49202">
+<coverage line-rate="0.991951710261569" branch-rate="0" lines-covered="493" lines-valid="497" branches-covered="0" branches-valid="0" complexity="0" version="3.6.2" timestamp="2023-09-19 15:40:43.996307">
   <sources>
     <source>/__w/simIDM/simIDM/simIDM</source>
   </sources>
   <packages>
-    <package name="simIDM" line-rate="0.98582995951417" branch-rate="0" complexity="0">
+    <package name="simIDM" line-rate="0.991951710261569" branch-rate="0" complexity="0">
       <classes>
         <class name="assertions.R" filename="R/assertions.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
             <method name="assert_positive_number" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="14" hits="25086" branch="false"/>
-                <line number="15" hits="25085" branch="false"/>
-                <line number="16" hits="25085" branch="false"/>
-                <line number="17" hits="12781" branch="false"/>
+                <line number="14" hits="25095" branch="false"/>
+                <line number="15" hits="25094" branch="false"/>
+                <line number="16" hits="25094" branch="false"/>
+                <line number="17" hits="12790" branch="false"/>
                 <line number="19" hits="12304" branch="false"/>
               </lines>
             </method>
@@ -34,10 +34,10 @@
             </method>
           </methods>
           <lines>
-            <line number="14" hits="25086" branch="false"/>
-            <line number="15" hits="25085" branch="false"/>
-            <line number="16" hits="25085" branch="false"/>
-            <line number="17" hits="12781" branch="false"/>
+            <line number="14" hits="25095" branch="false"/>
+            <line number="15" hits="25094" branch="false"/>
+            <line number="16" hits="25094" branch="false"/>
+            <line number="17" hits="12790" branch="false"/>
             <line number="19" hits="12304" branch="false"/>
             <line number="37" hits="553807" branch="false"/>
             <line number="38" hits="553807" branch="false"/>
@@ -255,22 +255,6 @@
             <line number="257" hits="1" branch="false"/>
             <line number="258" hits="1" branch="false"/>
             <line number="259" hits="1" branch="false"/>
-          </lines>
-        </class>
-        <class name="ExpHazOS.R" filename="R/ExpHazOS.R" line-rate="0" branch-rate="0" complexity="0">
-          <methods>
-            <method name="ExpHazOS" signature="" line-rate="0" branch-rate="0" complexity="0">
-              <lines>
-                <line number="14" hits="0" branch="false"/>
-                <line number="15" hits="0" branch="false"/>
-                <line number="16" hits="0" branch="false"/>
-              </lines>
-            </method>
-          </methods>
-          <lines>
-            <line number="14" hits="0" branch="false"/>
-            <line number="15" hits="0" branch="false"/>
-            <line number="16" hits="0" branch="false"/>
           </lines>
         </class>
         <class name="getClinicalTrials.R" filename="R/getClinicalTrials.R" line-rate="1" branch-rate="0" complexity="0">
@@ -717,6 +701,28 @@
             <line number="49" hits="4033" branch="false"/>
             <line number="50" hits="4033" branch="false"/>
             <line number="51" hits="4033" branch="false"/>
+          </lines>
+        </class>
+        <class name="hazardFunctions.R" filename="R/hazardFunctions.R" line-rate="1" branch-rate="0" complexity="0">
+          <methods>
+            <method name="ExpHazOS" signature="" line-rate="1" branch-rate="0" complexity="0">
+              <lines>
+                <line number="14" hits="3" branch="false"/>
+                <line number="15" hits="3" branch="false"/>
+                <line number="16" hits="3" branch="false"/>
+                <line number="17" hits="3" branch="false"/>
+                <line number="19" hits="3" branch="false"/>
+                <line number="20" hits="3" branch="false"/>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="14" hits="3" branch="false"/>
+            <line number="15" hits="3" branch="false"/>
+            <line number="16" hits="3" branch="false"/>
+            <line number="17" hits="3" branch="false"/>
+            <line number="19" hits="3" branch="false"/>
+            <line number="20" hits="3" branch="false"/>
           </lines>
         </class>
         <class name="piecewiseDistribution.R" filename="R/piecewiseDistribution.R" line-rate="1" branch-rate="0" complexity="0">
