@@ -22,5 +22,5 @@ This returns the value of the OS hazard function at time t.
 OS Hazard Function from Constant Transition Hazards
 }
 \examples{
-ExpHazOS(c(1:5), 0.2, 1.1 , 0.8)
+ExpHazOS(c(1:5), 0.2, 1.1, 0.8)
 }
