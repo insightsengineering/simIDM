@@ -4,8 +4,8 @@ test_that("ExpHazOS works as expected", {
   actual <- ExpHazOS(1, 0.2, 1.1, 0.8)
   expect_equal(actual, 1.038192, tolerance = 1e-3)
 
-  actual2 <- ExpHazOS(2, 0.4, 1.4, 0)
-  expect_equal(actual2, 0.1571141, tolerance = 1e-3)
+  actual2 <- ExpHazOS(2, 0.4, 1.4, 0.1)
+  expect_equal(actual2, 0.266345, tolerance = 1e-3)
 })
 
 test_that("ExpHazOS works also with vector of times t", {
