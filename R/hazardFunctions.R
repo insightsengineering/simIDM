@@ -12,9 +12,9 @@
 #' ExpHazOS(c(1:5), 0.2, 1.1, 0.8)
 ExpHazOS <- function(t, h01, h02, h12) {
   assert_numeric(t, lower = 0, any.missing = FALSE)
-  assert_positive_number(h01, zero_ok = FALSE)
-  assert_positive_number(h02, zero_ok = FALSE)
-  assert_positive_number(h12, zero_ok = FALSE)
+  assert_positive_number(h01)
+  assert_positive_number(h02)
+  assert_positive_number(h12)
 
   h012 <- h12 - h01 - h02
   ((h12 - h02) * (h01 + h02) - h01 * h12 * exp(-h012 * t)) / ((h12 - h02) - h01 * exp(-h012 * t))
