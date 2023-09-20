@@ -32,7 +32,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">simIDM</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5.9007</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,17 +54,6 @@
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.5">v0.0.5</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.4">v0.0.4</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.2">v0.0.2</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.1">v0.0.1</a> </div></li>
-<!-- end dropdown for versions -->
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
@@ -93,7 +82,7 @@
                         <h4 data-toc-skip class="author">Alexandra
 Erdmann</h4>
             
-            <h4 data-toc-skip class="date">2023-03-11</h4>
+            <h4 data-toc-skip class="date">2023-09-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/insightsengineering/simIDM/blob/HEAD/vignettes/quickstart.Rmd" class="external-link"><code>vignettes/quickstart.Rmd</code></a></small>
       <div class="d-none name"><code>quickstart.Rmd</code></div>
@@ -120,6 +109,8 @@ the absorbing state <code>death</code> or the intermediate state
 multistate model with the corresponding transition hazards. To get
 started quickly, we show a simple and quick example of a clinical trial
 simulation.</p>
+<pre><code><span><span class="co">#&gt; Warning in plot.Hist(idHist, stateLabels = stateLabels, box1.row = 2, box1.column = 1, : The dimension of the boxes may depend on the current graphical device</span></span>
+<span><span class="co">#&gt; in the sense that the layout and centering of text may change when you resize the graphical device and call the same plot.</span></span></code></pre>
 <div class="figure">
 <img src="quickstart_files/figure-html/unnamed-chunk-1-1.png" alt="Figure 1 - Multistate model with indermediate state progession and absorbing state death" width="60%"><p class="caption">
 Figure 1 - Multistate model with indermediate state progession and
@@ -137,7 +128,7 @@ user-friendly. For illustration, we consider a trial with two arms. The
 number of patients per trial must be specified. In our example
 simulation there are 30 patients in the first treatment arm and 60 in
 the second treatment arm:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nPat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">60</span><span class="op">)</span></span></code></pre></div>
 <p>The transition parameters describing the transition hazards per
 treatment arm must be passed as a list to
@@ -161,7 +152,7 @@ Weibull rates for Weibull distributed event times in an illness-death
 model.</p>
 <p>In our example we consider constant hazard rates, i.e. exponential
 distributed event times.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/insightsengineering/simIDM/" class="external-link">simIDM</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">transitionGroup1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/exponential_transition.html">exponential_transition</a></span><span class="op">(</span>h01 <span class="op">=</span> <span class="fl">1.2</span>, h02 <span class="op">=</span> <span class="fl">1.5</span>, h12 <span class="op">=</span> <span class="fl">1.6</span><span class="op">)</span></span>
@@ -197,7 +188,7 @@ all treatment groups or a separate list for each treatment group. If
 dropout is applied. In our example we expect that 10% of the patients
 drop-out within 12 months per treatment group (we take month as the time
 unit of our trial), thus we specify:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dropout</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>rate <span class="op">=</span> <span class="fl">0.1</span>, time <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div>
 <p>There are two time-scales that we need to consider when simulating
 multistate data. The individual time scale with start in the initial
@@ -223,7 +214,7 @@ is equal to 0, all patients start at the same calender time in the
 initial state. The accrual parameters can be specified either as one
 list that should be applied to all treatment groups or a separate list
 for each treatment group.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># first example</span></span>
 <span><span class="va">accrual</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>param <span class="op">=</span> <span class="st">"intensity"</span>, value <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
 <span><span class="co"># second example</span></span>
@@ -236,7 +227,7 @@ for each treatment group.</p>
 parameters described and specified above. There are two options for how
 the output data is presented, one row per patient or one row per
 transition and patient. Let’s take a look at both.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">simStudies1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getClinicalTrials.html">getClinicalTrials</a></span><span class="op">(</span></span>
 <span>  nRep <span class="op">=</span> <span class="fl">100</span>, nPat <span class="op">=</span> <span class="va">nPat</span>, seed <span class="op">=</span> <span class="fl">1234</span>, datType <span class="op">=</span> <span class="st">"1rowTransition"</span>,</span>
 <span>  transitionByArm <span class="op">=</span> <span class="va">transitionbyArm</span>, dropout <span class="op">=</span> <span class="va">dropout</span>,</span>
@@ -258,7 +249,7 @@ the seed ensures, that the the datasets of the two lists contain the
 same study data, only the presentation is different.
 <code>simStudies1</code> shows the transition times per patient and
 <code>simStudies2</code> the PFS and OS times per patient.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">simStudies1</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="fl">6</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   id from to     entry       exit entryAct   exitAct    censAct trt</span></span>
 <span><span class="co">#&gt; 1  1    0  2 0.0000000 0.46787743 1.234711  1.702588 286.171654   1</span></span>
@@ -285,7 +276,7 @@ same study data, only the presentation is different.
 <code>getDatasetWideFormat</code> can be used to convert the dataset
 from being displayed with transition time to displaying PFS and OS
 times.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">simStudy_Trans</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getOneClinicalTrial.html">getOneClinicalTrial</a></span><span class="op">(</span></span>
 <span>  nPat <span class="op">=</span> <span class="va">nPat</span>, transitionByArm <span class="op">=</span> <span class="va">transitionbyArm</span>,</span>
 <span>  dropout <span class="op">=</span> <span class="va">dropout</span>,</span>
@@ -330,7 +321,7 @@ times.</p>
 <span><span class="co">#&gt; 10   6.6150703  6.678191   6.678191</span></span></code></pre></div>
 <p>It is also possible to generate a a study that censors all patients
 after a pre-specified number of events (PFS or OS) occurred.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">simStudy_Trans</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getOneClinicalTrial.html">getOneClinicalTrial</a></span><span class="op">(</span></span>
 <span>  nPat <span class="op">=</span> <span class="va">nPat</span>, transitionByArm <span class="op">=</span> <span class="va">transitionbyArm</span>,</span>
 <span>  dropout <span class="op">=</span> <span class="va">dropout</span>,</span>

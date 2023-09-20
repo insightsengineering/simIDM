@@ -1,135 +1,138 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/404.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/404.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/articles/index.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/articles/quickstart.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/articles/quickstart.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/articles/trialplanning.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/articles/trialplanning.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/authors.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/authors.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/index.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/index.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/news/index.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/news/index.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/pull_request_template.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/pull_request_template.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/ExpQuantOS.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/ExpHazOS.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/ExpSurvOS.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/ExpQuantOS.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/ExpSurvPFS.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/ExpSurvOS.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/PCWInversionMethod.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/ExpSurvPFS.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/PWCsurvOS.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/PCWInversionMethod.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/PWCsurvPFS.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/PWCsurvOS.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/PwcOSInt.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/PWCsurvPFS.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/WeibOSInteg.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/PwcOSInt.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/WeibSurvOS.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/WeibOSInteg.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/WeibSurvPFS.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/WeibSurvOS.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/addStaggeredEntry.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/WeibSurvPFS.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/assert_intervals.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/addStaggeredEntry.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/assert_positive_number.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/assert_intervals.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/censoringByNumberEvents.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/assert_positive_number.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/exponential_transition.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/censoringByNumberEvents.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/getCensoredData.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/exponential_transition.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/getClinicalTrials.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/getCensoredData.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/getDatasetWideFormat.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/getClinicalTrials.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/getEventsAll.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/getDatasetWideFormat.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/getNumberEvents.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/getEventsAll.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/getOneClinicalTrial.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/getNumberEvents.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/getOneToTwoRows.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/getOneClinicalTrial.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/getPCWDistr.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/getOneToTwoRows.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/getPCWHazard.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/getPCWDistr.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/getSimulatedData.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/getPCWHazard.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/getSumPCW.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/getSimulatedData.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/getTimePoint.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/getSumPCW.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/getWaitTimeSum.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/getTimePoint.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/index.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/getWaitTimeSum.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/integrateVector.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/piecewise_exponential.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/integrateVector.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/pwA.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/piecewise_exponential.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/simIDM-package.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/pwA.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/singleExpQuantOS.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/simIDM-package.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/trackEventsPerTrial.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/singleExpQuantOS.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/main/reference/weibull_transition.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/trackEventsPerTrial.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/simIDM/reference/weibull_transition.html</loc>
   </url>
 </urlset>

@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">simIDM</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5.9007</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,17 +37,6 @@
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.5">v0.0.5</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.4">v0.0.4</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.2">v0.0.2</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.1">v0.0.1</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -118,11 +107,11 @@ This is a helper function of <code><a href="getSimulatedData.html">getSimulatedD
 <span class="r-in"><span>  exit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">5.3</span>, <span class="fl">5.6</span>, <span class="fl">7.2</span><span class="op">)</span>, censTime <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6.8</span>, <span class="fl">6.8</span>, <span class="fl">5.6</span>, <span class="fl">9.4</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">addStaggeredEntry</span><span class="op">(</span><span class="va">simData</span>, <span class="fl">3</span>, accrualParam <span class="op">=</span> <span class="st">"time"</span>, accrualValue <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   id from   to entry exit entryAct  exitAct   censAct</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1    0    1     0  3.0 2.585556 5.585556  9.385556</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1    1    2     3  5.3 5.585556 7.885556  9.385556</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  2    0 cens     0  5.6 2.852351 8.452351  8.452351</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  3    0    2     0  7.2 2.600225 9.800225 12.000225</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   id from   to entry exit  entryAct  exitAct   censAct</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1    0    1     0  3.0 4.0814305 7.081430 10.881430</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1    1    2     3  5.3 7.0814305 9.381430 10.881430</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  2    0 cens     0  5.6 0.5291975 6.129198  6.129198</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  3    0    2     0  7.2 1.2492885 8.449289 10.649289</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

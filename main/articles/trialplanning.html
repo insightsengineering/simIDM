@@ -32,7 +32,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">simIDM</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5.9007</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,17 +54,6 @@
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.5">v0.0.5</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.4">v0.0.4</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.2">v0.0.2</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.1">v0.0.1</a> </div></li>
-<!-- end dropdown for versions -->
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
@@ -118,6 +107,8 @@ vignette, we show how type-I errors and statistical power can be
 estimated from simulations and give an idea on how this can be used to
 plan complex study trials, in which PFS and OS both play a relevant
 role.</p>
+<pre><code><span><span class="co">#&gt; Warning in plot.Hist(idHist, stateLabels = stateLabels, box1.row = 2, box1.column = 1, : The dimension of the boxes may depend on the current graphical device</span></span>
+<span><span class="co">#&gt; in the sense that the layout and centering of text may change when you resize the graphical device and call the same plot.</span></span></code></pre>
 <div class="figure">
 <img src="trialplanning_files/figure-html/unnamed-chunk-1-1.png" alt=" Figure 1 - Multistate model with indermediate state progession and absorbing state death" width="60%"><p class="caption">
 Figure 1 - Multistate model with indermediate state progession and
@@ -151,12 +142,12 @@ the treatment arm 1.44 time units. The median time until an OS event in
 the control group is 1.94 time units, in the treatment group 2.29 time
 units. Figure 2 shows the transition hazards, survival functions and the
 hazard ratios for both endpoints.</p>
-<div class="figure">
-<img src="scenario.png" alt=""><p class="caption">Figure 2 - Transition hazards, survival functions and
-hazard ratios for our scenario.</p>
+<div class="float">
+<img src="scenario.png" alt="Figure 2 - Transition hazards, survival functions and hazard ratios for our scenario."><div class="figcaption">Figure 2 - Transition hazards, survival
+functions and hazard ratios for our scenario.</div>
 </div>
 <p>The transition hazards are specified as follows:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/insightsengineering/simIDM/" class="external-link">simIDM</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/therneau/survival" class="external-link">survival</a></span><span class="op">)</span></span>
 <span><span class="va">transitionTrt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/exponential_transition.html">exponential_transition</a></span><span class="op">(</span>h01 <span class="op">=</span> <span class="fl">0.2</span>, h02 <span class="op">=</span> <span class="fl">0.28</span>, h12 <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span></span>
@@ -165,7 +156,7 @@ hazard ratios for our scenario.</p>
 <span><span class="va">transitionList</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">transitionPl</span>, <span class="va">transitionTrt</span><span class="op">)</span></span></code></pre></div>
 <p>The package provides functions that return the values of the PFS or
 OS survival functions for given transition hazards and time points.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">timepoints</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.7</span>, <span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/ExpSurvOS.html">ExpSurvOS</a></span><span class="op">(</span><span class="va">timepoints</span>, h01 <span class="op">=</span> <span class="fl">0.2</span>, h02 <span class="op">=</span> <span class="fl">0.4</span>, h12 <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1.0000000 0.9610787 0.9242317 0.8893403 0.7671856 0.6912219 0.2724845</span></span>
@@ -184,7 +175,7 @@ group. Then, we use our function <code><a href="../reference/getClinicalTrials.h
 generate a large number of simulated trials. For this example we use 100
 iterations, however for applications we would recommend a higher number,
 e.g. 10000</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">transitionListNULL</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">transitionPl</span>, <span class="va">transitionPl</span><span class="op">)</span></span>
 <span><span class="va">nRep</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
 <span><span class="va">SimNULL</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getClinicalTrials.html">getClinicalTrials</a></span><span class="op">(</span></span>
@@ -199,7 +190,7 @@ values, such that the two-sided log-rank test has a significance level
 of 4 % for the OS endpoint and 1% for the PFS endpoint, i.e. we simply
 split the global significance level. This is a common approach for
 trials with co-primary endpoints.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">alphaOS</span> <span class="op">&lt;-</span> <span class="fl">0.04</span></span>
 <span><span class="va">alphaPFS</span> <span class="op">&lt;-</span> <span class="fl">0.01</span></span>
 <span><span class="va">CriticalOS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">qnorm</a></span><span class="op">(</span><span class="va">alphaOS</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
@@ -210,7 +201,7 @@ for 80 % power. For PFS the hazard ratio is known by specification (=
 0.6857), for OS an averaged HR can be calculated, e.g. by using the R
 package <code>coxphw</code> <span class="citation">(Dunkler et al.
 2018)</span>:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">coxphw</span><span class="op">)</span></span>
 <span><span class="va">avergHR</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/coxphw/man/coxphw.html" class="external-link">coxphw</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">OStime</span> <span class="op">+</span> <span class="fl">0.001</span>, <span class="va">OSevent</span><span class="op">)</span> <span class="op">~</span> <span class="va">trt</span>, data <span class="op">=</span> <span class="va">data</span>, template <span class="op">=</span> <span class="st">"AHR"</span><span class="op">)</span></span>
@@ -227,7 +218,7 @@ package <code>coxphw</code> <span class="citation">(Dunkler et al.
 <span><span class="va">MeanAverageHR</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">averageHR</span><span class="op">)</span></span></code></pre></div>
 <p>In our example, we get an average OS HR of 0.826. We use the standard
 log-rank test to test difference between groups:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">LogRankTest</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">endpoint</span>, <span class="va">critical</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">time</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="va">endpoint</span> <span class="op">==</span> <span class="st">"OS"</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">data</span><span class="op">$</span><span class="va">OStime</span></span>
@@ -244,7 +235,7 @@ log-rank test to test difference between groups:</p>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">Passed</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>and apply it to PFS and OS in our simulated trials.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Step 1: cut simulated data at time-point of OS/PFS analysis</span></span>
 <span><span class="va">studyAtPFSAna</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">SimNULL</span>, <span class="va">censoringByNumberEvents</span>,</span>
 <span>  eventNum <span class="op">=</span> <span class="fl">329</span>, typeEvent <span class="op">=</span> <span class="st">"PFS"</span></span>
@@ -263,7 +254,7 @@ error by counting the significant tests under <span class="math inline">\(H_0\)<
 empirically estimated by counting the trials in which either a
 significant log-rank test is observed for the PFS endpoint or for the OS
 endpoint.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># empirical type-I error of PFS</span></span>
 <span><span class="va">empAlphaPFS</span> <span class="op">&lt;-</span> <span class="fl">100</span> <span class="op">*</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">TestPassedPFS</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="va">nRep</span><span class="op">)</span></span>
 <span></span>
@@ -278,7 +269,7 @@ the empirical type-I error is lower or higher than 5%, the critical
 values used for the log-rank test can be adjusted until a significance
 level close to 5% is obtained. This could be done, for example, in the
 following way:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">while</span> <span class="op">(</span><span class="va">empGlobalAlpha</span> <span class="op">&lt;</span> <span class="fl">4.9</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">CriticalOS</span> <span class="op">&lt;-</span> <span class="va">CriticalOS</span> <span class="op">-</span> <span class="fl">0.01</span></span>
 <span>  <span class="va">CriticalPFS</span> <span class="op">&lt;-</span> <span class="va">CriticalPFS</span> <span class="op">-</span> <span class="fl">0.01</span></span>
@@ -295,7 +286,7 @@ following way:</p>
 <h2 id="sample-size-and-power-calculation---simulation-under-h_1">Sample size and power calculation - simulation under <span class="math inline">\(H_1\)</span><a class="anchor" aria-label="anchor" href="#sample-size-and-power-calculation---simulation-under-h_1"></a>
 </h2>
 <p>Next, we simulate a large number of trials under <span class="math inline">\(H_1\)</span> to get the empirical power.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">SimH1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getClinicalTrials.html">getClinicalTrials</a></span><span class="op">(</span></span>
 <span>  nRep <span class="op">=</span> <span class="va">nRep</span>, nPat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">800</span>, <span class="fl">800</span><span class="op">)</span>, seed <span class="op">=</span> <span class="fl">1238</span>, datType <span class="op">=</span> <span class="st">"1rowPatient"</span>,</span>
@@ -308,7 +299,7 @@ The multistate model approach allows us to easily estimate further
 interesting metrics, that affect both endpoints. For example, the joint
 power, i.e. the power that both endpoints in one trial are significant,
 if each endpoint is analyzed at its planned time-point.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Step 1: cut simulated data at time-point of OS/PFS analysis</span></span>
 <span><span class="va">studyAtPFSAnaH1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">SimH1</span>, <span class="va">censoringByNumberEvents</span>,</span>
 <span>  eventNum <span class="op">=</span> <span class="fl">329</span>, typeEvent <span class="op">=</span> <span class="st">"PFS"</span></span>
@@ -349,7 +340,7 @@ obtain a power of 80 %.</p>
 <p>It is also possible to derive the median time at which a certain
 number of events are expected to occur and how many events of the second
 endpoint have occurred at that time.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># median time</span></span>
 <span><span class="va">TimePointsPFS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">SimH1</span>, <span class="va">getTimePoint</span>,</span>
 <span>  eventNum <span class="op">=</span> <span class="fl">329</span>, typeEvent <span class="op">=</span> <span class="st">"PFS"</span>,</span>
