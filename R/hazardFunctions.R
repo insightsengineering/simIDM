@@ -19,3 +19,40 @@ ExpHazOS <- function(t, h01, h02, h12) {
   h012 <- h12 - h01 - h02
   ((h12 - h02) * (h01 + h02) - h01 * h12 * exp(-h012 * t)) / ((h12 - h02) - h01 * exp(-h012 * t))
 }
+
+#' Average OS Hazard Ratio from Constant Transition Hazards
+#'
+#' @param transitionByArm (`list`) \cr transition parameters for each treatment group.
+#'   See [exponential_transition()], [piecewise_exponential()] and [weibull_transition()] for details.
+#' @param alpha assigns weights to time points, where values higher than 0.5 assign greater weight
+#' to earlier times and values lower than 0.5 assign greater weight to later times.
+#' @param upper upper (time) limit of integration
+#'
+#' @return This returns the value of the average hazard ratio
+#' @export
+#'
+#' @examples
+#' transitionTrt <- exponential_transition(h01 = 0.18, h02 = 0.06, h12 = 0.17)
+#' transitionCtl <- exponential_transition(h01 = 0.23, h02 = 0.07, h12 = 0.19)
+#' transitionList <- list(transitionCtl, transitionTrt)
+#' ahrExpOS(transitionByArm = transitionList, alpha = 0.5, upper = 100)
+ahrExpOS <- function(transitionByArm, alpha = 0.5, upper = Inf) {
+  assert_list(transitionByArm, len = 2)
+  assert_class(transitionByArm[[1]], "TransitionParameters")
+  assert_class(transitionByArm[[2]], "TransitionParameters")
+  assert_positive_number(alpha)
+  assert_positive_number(upper)
+
+  h0 <- transitionByArm[[1]]$hazard
+  h1 <- transitionByArm[[2]]$hazard
+
+  toInt <- function(t, h01, h02, h12) {
+    weightedSurv <- (ExpSurvOS(t = t, h01 = h0$h01, h02 = h0$h02, h12 = h0$h12) *
+      ExpSurvOS(t = t, h01 = h1$h01, h02 = h1$h02, h12 = h1$h12))^alpha
+    return(ExpHazOS(t, h01, h02, h12) * weightedSurv)
+  }
+
+  a <- integrate(toInt, lower = 0, upper = upper, h01 = h1$h01, h02 = h1$h02, h12 = h1$h12)$value
+  b <- integrate(toInt, lower = 0, upper = upper, h01 = h0$h01, h02 = h0$h02, h12 = h0$h12)$value
+  return(a / b)
+}

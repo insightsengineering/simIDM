@@ -66,3 +66,4 @@ reference:
   - title: Hazard functions
     contents:
       - ExpHazOS
+      - ahrExpOS
