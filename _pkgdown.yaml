@@ -63,3 +63,6 @@ reference:
       - PWCsurvPFS
       - PwcOSInt
       - PWCsurvOS
+  - title: Hazard functions
+    contents:
+      - ExpHazOS
