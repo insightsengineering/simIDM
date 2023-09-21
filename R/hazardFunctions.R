@@ -22,8 +22,9 @@ ExpHazOS <- function(t, h01, h02, h12) {
 
 #' Helper Function for `avgHRExpOS()`
 #'
-#' It is an integrand of the form OS hazard function with intensities h01, h02, h12 at time point t multiplied with a weighted
-#' product of the two OS Survival functions at t (one for intensities h0 and one for h1).
+#' It is an integrand of the form OS hazard function with intensities h01, h02, h12
+#' at time point t multiplied with a weighted product of the two OS Survival functions
+#' at t (one for intensities h0 and one for h1).
 #'
 #' @param x (`numeric`)\cr variable of integration.
 #' @param h01 (positive `number`)\cr transition hazard for 0 to 1 transition.
