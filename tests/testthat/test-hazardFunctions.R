@@ -14,15 +14,15 @@ test_that("ExpHazOS works also with vector of times t", {
   expect_equal(result, expected, tolerance = 1e-3)
 })
 
-# avgHRInteg ----
+# avgHRIntegExpOS ----
 
-test_that("avgHRInteg works as expected", {
+test_that("avgHRIntegExpOS works as expected", {
   h0 <- list(h01 = 0.18, h02 = 0.06, h12 = 0.17)
   h1 <- list(h01 = 0.23, h02 = 0.07, h12 = 0.19)
-  actual <- avgHRInteg(x = 5, h01 = 0.2, h02 = 0.5, h12 = 0.7, h0 = h0, h1 = h1, alpha = 0.5)
+  actual <- avgHRIntegExpOS(x = 5, h01 = 0.2, h02 = 0.5, h12 = 0.7, h0 = h0, h1 = h1, alpha = 0.5)
   expect_equal(actual, 0.297362, tolerance = 1e-3)
 
-  actual2 <- avgHRInteg(x = 1, h01 = 0.3, h02 = 0.4, h12 = 0.5, h0 = h0, h1 = h1, alpha = 0.8)
+  actual2 <- avgHRIntegExpOS(x = 1, h01 = 0.3, h02 = 0.4, h12 = 0.5, h0 = h0, h1 = h1, alpha = 0.8)
   expect_equal(actual2, 0.3764565, tolerance = 1e-3)
 })
 

@@ -66,5 +66,5 @@ reference:
   - title: Hazard functions
     contents:
       - ExpHazOS
-      - avgHRInteg
+      - avgHRIntegExpOS
       - avgHRExpOS

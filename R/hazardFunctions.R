@@ -40,8 +40,8 @@ ExpHazOS <- function(t, h01, h02, h12) {
 #' @examples
 #' h0 <- list(h01 = 0.18, h02 = 0.06, h12 = 0.17)
 #' h1 <- list(h01 = 0.23, h02 = 0.07, h12 = 0.19)
-#' avgHRInteg(x = 5, h01 = 0.2, h02 = 0.5, h12 = 0.7, h0 = h0, h1 = h1, alpha = 0.5)
-avgHRInteg <- function(x, h01, h02, h12, h0, h1, alpha) {
+#' avgHRIntegExpOS(x = 5, h01 = 0.2, h02 = 0.5, h12 = 0.7, h0 = h0, h1 = h1, alpha = 0.5)
+avgHRIntegExpOS <- function(x, h01, h02, h12, h0, h1, alpha) {
   assert_positive_number(alpha)
 
   weightedSurv <- (ExpSurvOS(t = x, h01 = h0$h01, h02 = h0$h02, h12 = h0$h12) *
@@ -75,11 +75,11 @@ avgHRExpOS <- function(transitionByArm, alpha = 0.5, upper = Inf) {
   h0 <- transitionByArm[[1]]$hazard
   h1 <- transitionByArm[[2]]$hazard
 
-  num <- integrate(avgHRInteg,
+  num <- integrate(avgHRIntegExpOS,
     lower = 0, upper = upper, h01 = h1$h01, h02 = h1$h02, h12 = h1$h12,
     h0 = h0, h1 = h1, alpha = alpha
   )$value
-  denom <- integrate(avgHRInteg,
+  denom <- integrate(avgHRIntegExpOS,
     lower = 0, upper = upper, h01 = h0$h01, h02 = h0$h02, h12 = h0$h12,
     h0 = h0, h1 = h1, alpha = alpha
   )$value
