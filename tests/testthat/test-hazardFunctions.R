@@ -14,17 +14,17 @@ test_that("ExpHazOS works also with vector of times t", {
   expect_equal(result, expected, tolerance = 1e-3)
 })
 
-# ahrExpOS ----
+# avgHRExpOS ----
 
-test_that("ahrExpOS works as expected", {
+test_that("avgHRExpOS works as expected", {
   transition1 <- exponential_transition(h01 = 0.1, h02 = 0.4, h12 = 0.3)
   transition2 <- exponential_transition(h01 = 0.06, h02 = 0.3, h12 = 0.3)
   transitionList1 <- list(transition1, transition2)
   transitionList2 <- list(transition1, transition1)
 
-  actual <- ahrExpOS(transitionByArm = transitionList1, alpha = 0.5, upper = 100)
+  actual <- avgHRExpOS(transitionByArm = transitionList1, alpha = 0.5, upper = 100)
   expect_equal(actual, 0.8038991, tolerance = 1e-3)
 
-  actual2 <- ahrExpOS(transitionByArm = transitionList2, alpha = 0.5, upper = 100)
+  actual2 <- avgHRExpOS(transitionByArm = transitionList2, alpha = 0.5, upper = 100)
   expect_equal(actual2, 1, tolerance = 1e-3)
 })
