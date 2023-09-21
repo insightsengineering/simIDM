@@ -22,15 +22,18 @@ ExpHazOS <- function(t, h01, h02, h12) {
 
 #' Helper Function for `avgHRExpOS()`
 #'
+#' It is an integrand of the form OS hazard function with intensities h01, h02, h12 at time point t multiplied with a weighted
+#' product of the two OS Survival functions at t (one for intensities h0 and one for h1).
+#'
 #' @param x (`numeric`)\cr variable of integration.
 #' @param h01 (positive `number`)\cr transition hazard for 0 to 1 transition.
 #' @param h02 (positive `number`)\cr transition hazard for 0 to 2 transition.
 #' @param h12 (positive `number`)\cr transition hazard for 1 to 2 transition.
 #' @param h0 (`list`)\cr transition parameters for the first treatment group.
 #' @param h1 (`list`)\cr transition parameters for the second treatment group.
-#' @param alpha (`number`)\cr weight parameter, see `avgHRExpOS`.
+#' @param alpha (`number`)\cr weight parameter, see [avgHRExpOS()].
 #' @return This returns the value of the integrand used to calculate
-#' the average hazard ratio for constant transition hazards, see `avgHRExpOS()`.
+#' the average hazard ratio for constant transition hazards, see [avgHRExpOS()].
 #' @export
 #'
 #' @examples
@@ -38,6 +41,8 @@ ExpHazOS <- function(t, h01, h02, h12) {
 #' h1 <- list(h01 = 0.23, h02 = 0.07, h12 = 0.19)
 #' avgHRInteg(x = 5, h01 = 0.2, h02 = 0.5, h12 = 0.7, h0 = h0, h1 = h1, alpha = 0.5)
 avgHRInteg <- function(x, h01, h02, h12, h0, h1, alpha) {
+  assert_positive_number(alpha)
+
   weightedSurv <- (ExpSurvOS(t = x, h01 = h0$h01, h02 = h0$h02, h12 = h0$h12) *
     ExpSurvOS(t = x, h01 = h1$h01, h02 = h1$h02, h12 = h1$h12))^alpha
   ExpHazOS(x, h01, h02, h12) * weightedSurv

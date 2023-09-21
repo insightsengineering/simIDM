@@ -19,14 +19,15 @@ avgHRInteg(x, h01, h02, h12, h0, h1, alpha)
 
 \item{h1}{(\code{list})\cr transition parameters for the second treatment group.}
 
-\item{alpha}{(\code{number})\cr weight parameter, see \code{avgHRExpOS}.}
+\item{alpha}{(\code{number})\cr weight parameter, see \code{\link[=avgHRExpOS]{avgHRExpOS()}}.}
 }
 \value{
 This returns the value of the integrand used to calculate
-the average hazard ratio for constant transition hazards, see \code{avgHRExpOS()}.
+the average hazard ratio for constant transition hazards, see \code{\link[=avgHRExpOS]{avgHRExpOS()}}.
 }
 \description{
-Helper Function for \code{avgHRExpOS()}
+It is an integrand of the form OS hazard function with intensities h01, h02, h12 at time point t multiplied with a weighted
+product of the two OS Survival functions at t (one for intensities h0 and one for h1).
 }
 \examples{
 h0 <- list(h01 = 0.18, h02 = 0.06, h12 = 0.17)
