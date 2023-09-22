@@ -22,6 +22,7 @@ This function evaluates the significance of either PFS or OS endpoints in a tria
 based on a pre-specified critical value.
 }
 \examples{
+library(survival)
 transition1 <- exponential_transition(h01 = 0.06, h02 = 0.3, h12 = 0.3)
 transition2 <- exponential_transition(h01 = 0.1, h02 = 0.4, h12 = 0.3)
 simTrial <- getClinicalTrials(
