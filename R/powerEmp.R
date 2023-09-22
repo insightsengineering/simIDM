@@ -47,9 +47,9 @@ logRankTest <- function(data, typeEvent, critical) {
 #' results in simulated trials, each ending when a set number of PFS/OS events occur.
 #' Critical values for PFS and OS test significance must be specified.
 #'
-#' @param simulatedTrials (`list`)\cr simulated trial data sets, see [getClinicalTrials()].
-#' @param criticalValuePFS (positive `number`)\cr critical value of the log-rank test for PFS.
-#' @param criticalValueOS (positive `number`)\cr critical value of the log-rank test for OS.
+#' @param simTrials (`list`)\cr simulated trial data sets, see [getClinicalTrials()].
+#' @param criticalPFS (positive `number`)\cr critical value of the log-rank test for PFS.
+#' @param criticalOS (positive `number`)\cr critical value of the log-rank test for OS.
 #' @param eventNumPFS (`integer`)\cr number of PFS events required to trigger PFS analysis.
 #' @param eventNumOS (`integer`)\cr number of OS events required to trigger OS analysis.
 #'

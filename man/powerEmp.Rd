@@ -7,15 +7,15 @@
 powerEmp(simTrials, criticalPFS, criticalOS, eventNumPFS, eventNumOS)
 }
 \arguments{
+\item{simTrials}{(\code{list})\cr simulated trial data sets, see \code{\link[=getClinicalTrials]{getClinicalTrials()}}.}
+
+\item{criticalPFS}{(positive \code{number})\cr critical value of the log-rank test for PFS.}
+
+\item{criticalOS}{(positive \code{number})\cr critical value of the log-rank test for OS.}
+
 \item{eventNumPFS}{(\code{integer})\cr number of PFS events required to trigger PFS analysis.}
 
 \item{eventNumOS}{(\code{integer})\cr number of OS events required to trigger OS analysis.}
-
-\item{simulatedTrials}{(\code{list})\cr simulated trial data sets, see \code{\link[=getClinicalTrials]{getClinicalTrials()}}.}
-
-\item{criticalValuePFS}{(positive \code{number})\cr critical value of the log-rank test for PFS.}
-
-\item{criticalValueOS}{(positive \code{number})\cr critical value of the log-rank test for OS.}
 }
 \value{
 This returns values of four measures of empirical power.
