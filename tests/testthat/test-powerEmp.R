@@ -1,6 +1,7 @@
 # logRankTest ----
 
 test_that("logRankTest works as expected", {
+  library(survival)
   transition1 <- exponential_transition(h01 = 0.06, h02 = 0.3, h12 = 0.3)
   transition2 <- exponential_transition(h01 = 0.1, h02 = 0.4, h12 = 0.3)
   simTrial <- getClinicalTrials(
@@ -18,6 +19,7 @@ test_that("logRankTest works as expected", {
 # powerEmp ----
 
 test_that("powerEmp works as expected", {
+  library(survival)
   transition1 <- exponential_transition(h01 = 0.06, h02 = 0.3, h12 = 0.3)
   transition2 <- exponential_transition(h01 = 0.1, h02 = 0.4, h12 = 0.3)
   simTrials <- getClinicalTrials(
