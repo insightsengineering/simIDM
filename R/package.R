@@ -6,4 +6,5 @@
 
 #' @import checkmate
 #' @importFrom stats acf
+#' @importFrom survival survdiff
 NULL

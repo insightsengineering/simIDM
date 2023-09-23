@@ -31,7 +31,7 @@ test_that("powerEmp works as expected", {
     simTrials = simTrials, criticalPFS = 2.4, criticalOS = 2.2,
     eventNumPFS = 300, eventNumOS = 500
   )
-  expect_equal(actual, c(
+  expect_equal(actual, list(
     "powerPFS" = 0.74,
     "powerOS" = 0.52,
     "powerAtLeast" = 0.78,

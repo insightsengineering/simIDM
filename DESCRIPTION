@@ -24,14 +24,14 @@ Depends:
     R (>= 3.6)
 Imports:
     checkmate,
-    stats
+    stats,
+    survival
 Suggests:
     coxphw,
     knitr,
     mvna,
     prodlim,
     rmarkdown,
-    survival,
     testthat (>= 2.0)
 VignetteBuilder:
     knitr

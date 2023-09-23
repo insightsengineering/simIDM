@@ -75,11 +75,11 @@ avgHRExpOS <- function(transitionByArm, alpha = 0.5, upper = Inf) {
   h0 <- transitionByArm[[1]]$hazard
   h1 <- transitionByArm[[2]]$hazard
 
-  num <- integrate(avgHRIntegExpOS,
+  num <- stats::integrate(avgHRIntegExpOS,
     lower = 0, upper = upper, h01 = h1$h01, h02 = h1$h02, h12 = h1$h12,
     h0 = h0, h1 = h1, alpha = alpha
   )$value
-  denom <- integrate(avgHRIntegExpOS,
+  denom <- stats::integrate(avgHRIntegExpOS,
     lower = 0, upper = upper, h01 = h0$h01, h02 = h0$h02, h12 = h0$h12,
     h0 = h0, h1 = h1, alpha = alpha
   )$value

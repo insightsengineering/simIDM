@@ -4,7 +4,7 @@
 \alias{logRankTest}
 \title{Log-Rank Test for a Single Trial}
 \usage{
-logRankTest(data, typeEvent, critical)
+logRankTest(data, typeEvent = c("PFS", "OS"), critical)
 }
 \arguments{
 \item{data}{(\code{data.frame})\cr data frame containing entry and exit times of an

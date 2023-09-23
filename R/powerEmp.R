@@ -21,10 +21,11 @@
 #'   accrual = list(param = "intensity", value = 7)
 #' )[[1]]
 #' logRankTest(data = simTrial, typeEvent = "OS", critical = 3.4)
-logRankTest <- function(data, typeEvent, critical) {
-  # must be `1rowTransition`, i.e. have 10 (censored) or 11 columns
+logRankTest <- function(data, typeEvent = c("PFS", "OS"), critical) {
+  # Must be have the format of one row per patient (`datType` must be 1rowPatient`
+  # in getClinicalTrials()), i.e. have 10 (censored) or 11 columns.
   assert_data_frame(data, min.cols = 10, max.cols = 11)
-  assert_choice(typeEvent, c("OS", "PFS"))
+  typeEvent <- match.arg(typeEvent)
   assert_positive_number(critical)
 
   if (typeEvent == "OS") {
@@ -35,7 +36,7 @@ logRankTest <- function(data, typeEvent, critical) {
     event <- data$PFSevent
   }
 
-  logRank <- survdiff(Surv(time, event) ~ trt, data)
+  logRank <- survival::survdiff(Surv(time, event) ~ trt, data)
   sqrt(logRank$chisq) > critical
 }
 
@@ -73,42 +74,43 @@ powerEmp <- function(simTrials, criticalPFS, criticalOS, eventNumPFS, eventNumOS
   assert_list(simTrials, null.ok = FALSE)
   assert_positive_number(criticalPFS)
   assert_positive_number(criticalOS)
-  assert_int(eventNumPFS, lower = 1L)
-  assert_int(eventNumOS, lower = 1L)
+  assert_count(eventNumPFS, positive = TRUE)
+  assert_count(eventNumOS, positive = TRUE)
 
   nRep <- length(simTrials)
   simTrials <- lapply(simTrials, function(x) if (ncol(x) == 9) getDatasetWideFormat(x) else x)
 
-  # Censor simulated trials at time-point of OS/PFS analysis
-  trialsAnaPFS <- lapply(simTrials, censoringByNumberEvents,
-    eventNum = eventNumPFS, typeEvent = "PFS"
-  )
-  trialsAnaOS <- lapply(simTrials, censoringByNumberEvents,
-    eventNum = eventNumOS, typeEvent = "OS"
-  )
+  # Helper function to conduct log-rank tests for either PFS or OS:
+  passedLogRank <- function(typeEvent, eventNum, critical) {
+    # Censor simulated trials at time-point of OS/PFS analysis.
+    trialsAna <- lapply(simTrials, censoringByNumberEvents,
+      eventNum, typeEvent
+    )
+    # Compute log-rank test for all trials for OS/PFS.
+    passedTests <- unlist(lapply(trialsAna,
+      logRankTest,
+      typeEvent,
+      critical
+    ))
+    passedTests
+  }
 
-  # Compute log-rank test for all trials for both OS/PFS
-  passedLogRankPFS <- unlist(lapply(trialsAnaPFS,
-    logRankTest,
-    typeEvent = "PFS",
-    criticalPFS
-  ))
-  passedLogRankOS <- unlist(lapply(trialsAnaOS,
-    logRankTest,
-    typeEvent = "OS",
-    criticalOS
-  ))
+  passedLogRankPFS <- passedLogRank(typeEvent = "PFS", eventNumPFS, criticalPFS)
+  passedLogRankOS <- passedLogRank("OS", eventNumOS, criticalOS)
 
-  # Empirical power is the fraction of trials with significant log-rank test
+  # Empirical power is the fraction of trials with significant log-rank test:
   powerPFS <- sum(passedLogRankPFS) / nRep
   powerOS <- sum(passedLogRankOS) / nRep
 
-  # Derived measures of power
+  # Derived measures of power:
   sumPassed <- passedLogRankPFS + passedLogRankOS
-  # At-least power: At least one of PFS/OS has significant log-rank test
+  # At-least power: At least one of PFS/OS has significant log-rank test.
   powerAtLeast <- sum(sumPassed >= 1) / nRep
-  # Joint power: Both PFS/OS have significant log-rank tests
+  # Joint power: Both PFS/OS have significant log-rank tests.
   powerJoint <- sum(sumPassed == 2) / nRep
 
-  c("powerPFS" = powerPFS, "powerOS" = powerOS, "powerAtLeast" = powerAtLeast, "powerJoint" = powerJoint)
+  list("powerPFS" = powerPFS,
+       "powerOS" = powerOS,
+       "powerAtLeast" = powerAtLeast,
+       "powerJoint" = powerJoint)
 }
