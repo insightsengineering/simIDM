@@ -83,11 +83,13 @@ powerEmp <- function(simTrials, criticalPFS, criticalOS, eventNumPFS, eventNumOS
   # Helper function to conduct log-rank tests for either PFS or OS:
   passedLogRank <- function(typeEvent, eventNum, critical) {
     # Censor simulated trials at time-point of OS/PFS analysis.
-    trialsAna <- lapply(simTrials, censoringByNumberEvents,
+    trialsAna <- lapply(
+      simTrials, censoringByNumberEvents,
       eventNum, typeEvent
     )
     # Compute log-rank test for all trials for OS/PFS.
-    passedTests <- unlist(lapply(trialsAna,
+    passedTests <- unlist(lapply(
+      trialsAna,
       logRankTest,
       typeEvent,
       critical
@@ -109,8 +111,10 @@ powerEmp <- function(simTrials, criticalPFS, criticalOS, eventNumPFS, eventNumOS
   # Joint power: Both PFS/OS have significant log-rank tests.
   powerJoint <- sum(sumPassed == 2) / nRep
 
-  list("powerPFS" = powerPFS,
-       "powerOS" = powerOS,
-       "powerAtLeast" = powerAtLeast,
-       "powerJoint" = powerJoint)
+  list(
+    "powerPFS" = powerPFS,
+    "powerOS" = powerOS,
+    "powerAtLeast" = powerAtLeast,
+    "powerJoint" = powerJoint
+  )
 }
