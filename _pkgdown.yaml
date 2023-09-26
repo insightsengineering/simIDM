@@ -71,5 +71,4 @@ reference:
   - title: Empirical power
     contents:
       - logRankTest
-      - passedLogRank
       - powerEmp

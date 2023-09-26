@@ -19,10 +19,10 @@ passedLogRank(simTrials, typeEvent, eventNum, critical)
 Logical vector indicating log-rank test significance for each trial.
 }
 \description{
-Helper function to conduct log-rank tests for either PFS or OS
+This function evaluates the significance of either PFS or OS endpoints for each trial
+in a list of trials, based on a pre-specified critical value.
 }
 \examples{
-library(survival)
 transition1 <- exponential_transition(h01 = 0.06, h02 = 0.3, h12 = 0.3)
 transition2 <- exponential_transition(h01 = 0.1, h02 = 0.4, h12 = 0.3)
 simTrials <- getClinicalTrials(
@@ -32,3 +32,4 @@ simTrials <- getClinicalTrials(
 )
 passedLogRank(simTrials = simTrials, typeEvent = "PFS", eventNum = 300, critical = 2.4)
 }
+\keyword{internal}

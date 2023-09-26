@@ -12,7 +12,6 @@
 #' @export
 #'
 #' @examples
-#' library(survival)
 #' transition1 <- exponential_transition(h01 = 0.06, h02 = 0.3, h12 = 0.3)
 #' transition2 <- exponential_transition(h01 = 0.1, h02 = 0.4, h12 = 0.3)
 #' simTrial <- getClinicalTrials(
@@ -36,12 +35,15 @@ logRankTest <- function(data, typeEvent = c("PFS", "OS"), critical) {
     event <- data$PFSevent
   }
 
-  logRank <- survival::survdiff(Surv(time, event) ~ trt, data)
+  logRank <- survival::survdiff(survival::Surv(time, event) ~ trt, data)
   sqrt(logRank$chisq) > critical
 }
 
 
 #' Helper function to conduct log-rank tests for either PFS or OS
+#'
+#' This function evaluates the significance of either PFS or OS endpoints for each trial
+#' in a list of trials, based on a pre-specified critical value.
 #'
 #' @param simTrials (`list`)\cr simulated trial data sets, see [getClinicalTrials()].
 #' @param typeEvent (`string`)\cr endpoint to be evaluated, possible values are `PFS` and `OS`.
@@ -52,7 +54,6 @@ logRankTest <- function(data, typeEvent = c("PFS", "OS"), critical) {
 #' @export
 #'
 #' @examples
-#' library(survival)
 #' transition1 <- exponential_transition(h01 = 0.06, h02 = 0.3, h12 = 0.3)
 #' transition2 <- exponential_transition(h01 = 0.1, h02 = 0.4, h12 = 0.3)
 #' simTrials <- getClinicalTrials(
@@ -61,6 +62,7 @@ logRankTest <- function(data, typeEvent = c("PFS", "OS"), critical) {
 #'   accrual = list(param = "intensity", value = 7)
 #' )
 #' passedLogRank(simTrials = simTrials, typeEvent = "PFS", eventNum = 300, critical = 2.4)
+#' @keywords internal
 passedLogRank <- function(simTrials, typeEvent, eventNum, critical) {
   assert_list(simTrials, null.ok = FALSE)
   assert_positive_number(critical)
@@ -68,17 +70,18 @@ passedLogRank <- function(simTrials, typeEvent, eventNum, critical) {
 
   # Censor simulated trials at time-point of OS/PFS analysis.
   trialsAna <- lapply(
-    simTrials, censoringByNumberEvents,
-    eventNum, typeEvent
+    X = simTrials,
+    FUN = censoringByNumberEvents,
+    eventNum = eventNum,
+    typeEvent = typeEvent
   )
   # Compute log-rank test for all trials for OS/PFS.
-  passedTests <- unlist(lapply(
-    trialsAna,
-    logRankTest,
-    typeEvent,
-    critical
+  unlist(lapply(
+    X = trialsAna,
+    FUN = logRankTest,
+    typeEvent = typeEvent,
+    critical = critical
   ))
-  passedTests
 }
 
 #' Empirical Power for a List of Simulated Trials
@@ -99,7 +102,6 @@ passedLogRank <- function(simTrials, typeEvent, eventNum, critical) {
 #' @export
 #'
 #' @examples
-#' library(survival)
 #' transition1 <- exponential_transition(h01 = 0.06, h02 = 0.3, h12 = 0.3)
 #' transition2 <- exponential_transition(h01 = 0.1, h02 = 0.4, h12 = 0.3)
 #' simTrials <- getClinicalTrials(
@@ -119,7 +121,10 @@ powerEmp <- function(simTrials, criticalPFS, criticalOS, eventNumPFS, eventNumOS
   assert_count(eventNumOS, positive = TRUE)
 
   nRep <- length(simTrials)
-  simTrials <- lapply(simTrials, function(x) if (ncol(x) == 9) getDatasetWideFormat(x) else x)
+  simTrials <- lapply(
+    X = simTrials,
+    FUN = function(x) if (ncol(x) == 9) getDatasetWideFormat(x) else x
+  )
 
   # Which trials passed the log-rank test for PFS/OS?
   passedLogRankPFS <- passedLogRank(

@@ -28,7 +28,6 @@ results in simulated trials, each ending when a set number of PFS/OS events occu
 Critical values for PFS and OS test significance must be specified.
 }
 \examples{
-library(survival)
 transition1 <- exponential_transition(h01 = 0.06, h02 = 0.3, h12 = 0.3)
 transition2 <- exponential_transition(h01 = 0.1, h02 = 0.4, h12 = 0.3)
 simTrials <- getClinicalTrials(
