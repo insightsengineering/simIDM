@@ -124,7 +124,16 @@
     <loc>https://insightsengineering.github.io/simIDM/reference/integrateVector.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/simIDM/reference/logRankTest.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/simIDM/reference/passedLogRank.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/simIDM/reference/piecewise_exponential.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/simIDM/reference/powerEmp.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/simIDM/reference/pwA.html</loc>
