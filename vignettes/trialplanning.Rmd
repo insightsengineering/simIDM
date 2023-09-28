@@ -20,262 +20,186 @@ knitr::opts_chunk$set(
 
 ## Introduction
 
-The goal of this vignette is to show with a simple example how the package can be used for planning a study design.  Jointly modeling the endpoints PFS and OS with the illness-death model has the major advantage that, on the one hand, the correlation of the two endpoints is taken into account properly and, on the other hand, the strong assumption of proportional hazards is not required.
-OS is defined as the time to reach the absorbing state death, and PFS is defined as the time to reach the absorbing state `death` or the intermediate state `progression`, whichever occurs first.  Figure 1 shows the multistate model with the corresponding transition hazards.
-In the vignette, we show how type-I errors and statistical power can be  estimated from simulations and give an idea on how this can be used to plan complex study trials, in which PFS and OS both play a relevant role.
+This vignette demonstrates how to use `simIDM` for trial design planning with a simple example. We will show how to estimate type I errors and statistical power from simulations to optimize study design (see @erdmann2023 for more details).
+Jointly modeling the endpoints PFS and OS with the illness-death model has two major advantages:
+- we properly account for the correlation between PFS and OS
+- the strong assumption of proportional hazards is not required
+OS is defined as the time to reach the absorbing state death, and PFS is defined as the time to reach the absorbing state `death` or the intermediate state `progression`, whichever occurs first.
+Figure 1 shows the multistate model with the corresponding transition hazards.
+In the vignette, we show how to estimate type I errors and statistical power from simulations and give an idea on how this can be used to plan complex study trials.
 
-```{r, echo=FALSE,  fig.cap = " Figure 1 - Multistate model with indermediate state progession and absorbing state death",fig.height = 5, fig.width = 8, out.width = "60%"}
+```{r, echo=FALSE,  fig.cap = " Figure 1 - Multistate model with indermediate state progession and absorbing state death", fig.height = 5, fig.width = 8, out.width = "60%"}
 library(prodlim)
 plotIllnessDeathModel(
   style = 1, box1.label = "0: initial state", box2.label = "1: progression",
   box3.label = "2: death", arrowLabelSymbol = "h"
 )
 ```
-## Scenario -  PFS and OS as co-primary endpoints
+## Scenario -  PFS and OS as Co-primary Endpoints
 
 We consider the following study design:
 
 - PFS and OS as co-primary endpoints with one final analysis each
-- treatment vs control group, 1:1 randomization ratio  (but note that in principle any randomization ratio can be implemented)
-- global significance level: 5 \%
-- the standard log-rank test used to detect a significant difference between the groups
+- treatment vs. control group, 1:1 randomization ratio  (but note that in principle any randomization ratio can be implemented)
+- global significance level of 5 \%
+- the standard log-rank test is used to detect a significant difference between the groups
 - statistical power to detect a difference between the groups should be 80 \% for each endpoint
 - 5 \% drop-out rate within 12 time units
 - accrual of 100 patients per time unit
 
 
-Using the multistate model approach implies that the trial planning is based on assumptions on the transition hazards in each arm, i.e. six hazards in total (which induces assumptions on the endpoints PFS and OS).
+Using the multistate model approach implies that trial planning is based on assumptions on the three transition hazards in each arm, i.e. six hazards in total (which induces assumptions on the endpoints PFS and OS).
 In our example scenario, we assume constant transition hazards and a small effect of the treatment on hazards from the initial state to death.
-Median time until PFS in the control arm is 0.99 time units, in the treatment arm 1.44 time units.
-The median time until an OS event in the control group is 1.94 time units, in the treatment group 2.29 time units.
-Figure 2 shows the transition hazards, survival functions and the hazard ratios for both endpoints.
+Median time until a PFS event is 0.99 time units in the control arm and 1.44 time units in the treatment arm.
+Median time until an OS event is 1.94 time units in the control group and 2.29 time units in the treatment group.
+Figure 2 shows the transition hazards, survival functions, hazard functions and hazard ratios for both endpoints.
 
-![Figure 2 - Transition hazards, survival functions and hazard ratios for our scenario.](scenario.png)
+![Figure 2 - Transition hazards, survival functions, hazard functions and hazard ratios for our scenario.](scenario.png)
 
 The transition hazards are specified as follows:
 ```{r}
 library(simIDM)
-library(survival)
+devtools::load_all()
 transitionTrt <- exponential_transition(h01 = 0.2, h02 = 0.28, h12 = 0.4)
 transitionPl <- exponential_transition(h01 = 0.4, h02 = 0.3, h12 = 0.5)
 
 transitionList <- list(transitionPl, transitionTrt)
 ```
 
-The package provides functions that return  the values of the PFS or OS survival functions for given transition hazards and time points.
+The package provides functions that return the values of the PFS or OS survival functions for given transition hazards (Constant, Weibull or Piecewise Constant) and time points.
 ```{r}
-timepoints <- c(0, 0.1, 0.2, 0.3, 0.7, 1, 5)
+timepoints <- c(0, 0.1, 0.3, 0.7, 1, 5)
+# Survival function for Constant transition hazards:
 ExpSurvOS(timepoints, h01 = 0.2, h02 = 0.4, h12 = 0.1)
+# Survival function for Weibull transition hazards:
 WeibSurvOS(timepoints, h01 = 0.2, h02 = 0.5, h12 = 2.1, p01 = 1.2, p02 = 0.9, p12 = 1)
+# Survival function for Piecewise Constant transition hazards:
 PWCsurvOS(timepoints,
   h01 = c(0.3, 0.5), h02 = c(0.5, 0.8), h12 = c(0.7, 1),
   pw01 = c(0, 4), pw02 = c(0, 8), pw12 = c(0, 3)
 )
 ```
 There are also functions for PFS survival functions available.
-## Type-I error - simulation under $H_0$
 
-For the simulation under $H_0$ we set the transition hazards for the treatment group equal to the control group.
-Then, we use our function `getClinicalTrials()` to generate a large number of simulated trials. For this example we use 100 iterations, however for applications we would recommend a higher number, e.g. 10000
+For PFS, the hazard ratio under $H_0$ is known by specification (0.6857); for OS, an averaged HR can be calculated using `avgHRExpOS` (note that this requires constant transition hazards):
 
 ```{r}
-transitionListNULL <- list(transitionPl, transitionPl)
+avgHRExpOS(transitionByArm = transitionList, alpha = 0.5, upper = 1000)
+```
+
+In our example, we get an average OS HR of `r round(avgHRExpOS(transitionByArm = transitionList, alpha = 0.5, upper = 1000), 3)`.
+
+## Type I Error - Simulation Under $H_0$
+
+The type I error can be estimated empirically by simulating clinical trials under $H_0$. To achieve this, we set the transition hazards of the treatment group to match those of the control group.
+Then, we use `getClinicalTrials()` to generate a large number of simulated trials. We will use 100 iterations here, for applications however a higher number (e.g. 10,000) is recommended.
+
+```{r}
+transitionListNull <- list(transitionPl, transitionPl)
 nRep <- 100
-SimNULL <- getClinicalTrials(
+simNull <- getClinicalTrials(
   nRep = nRep, nPat = c(800, 800), seed = 1238, datType = "1rowPatient",
-  transitionByArm = transitionListNULL,
+  transitionByArm = transitionListNull,
   dropout = list(rate = 0.05, time = 12), accrual = list(param = "intensity", value = 100)
 )
 ```
 
-The simulation can be used to determine critical values for the log-rank test for both endpoints, such that the global significance level is controlled at 5\%. As a starting point we use the critical values, such that the two-sided log-rank test has a significance level  of 4 \% for the OS endpoint and 1\% for the PFS endpoint, i.e.\ we simply split the global significance level. This is a common approach for trials with co-primary endpoints.
+Using the simulation, we can now identify critical log-rank test values for both PFS and OS to maintain a 5\% global significance level. Initially, we allocate critical values so that the two-sided log-rank test has a 4\% significance level for the OS endpoint and 1% for the PFS endpoint, effectively splitting the global significance level. This method is widely used in trials with co-primary endpoints.
 
 ```{r}
 alphaOS <- 0.04
 alphaPFS <- 0.01
-CriticalOS <- abs(qnorm(alphaOS / 2))
-CriticalPFS <- abs(qnorm(alphaPFS / 2))
+criticalOS <- abs(qnorm(alphaOS / 2))
+criticalPFS <- abs(qnorm(alphaPFS / 2))
 ```
-Using the Schoenfeld approximation, a preliminary sample size calculation could be made to get an idea of how many events are needed for 80 \% power. For PFS the hazard ratio is known by specification (= 0.6857), for OS an averaged HR can be calculated, e.g. by using the R package `coxphw` [@coxphw]:
+
+With the Schoenfeld approximation, preliminary sample sizes can be computed to get an idea of how many events are needed to achieve 80 \% power. Using these critical values and required number of events for PFS and OS, we can now determine the global type I error empirically by counting the number of trials simulated under $H_0$ with significant log-rank tests.
+The empirical type I error for each endpoint is calculated as the proportion of trials with significant log-rank tests, while the global Type I error is the proportion of trials where at least one of PFS or OS with a significant log-rank test. This can be done using `empSignificant`:
 
 ```{r}
-library(coxphw)
-avergHR <- function(data) {
-  fit <- coxphw(formula = Surv(OStime + 0.001, OSevent) ~ trt, data = data, template = "AHR")
-  exp(coef(fit))
-}
-
-StudyforAvg <- getClinicalTrials(
-  nRep = 100, nPat = c(800, 800), seed = 1238, datType = "1rowPatient",
-  transitionByArm = transitionList,
-  dropout = list(rate = 0.05, time = 12), accrual = list(param = "intensity", value = 25)
-)
-
-averageHR <- sapply(StudyforAvg, avergHR)
-MeanAverageHR <- mean(averageHR)
+empSignificant(simTrials = simNull,
+         criticalPFS = criticalPFS,
+         criticalOS = criticalOS,
+         eventNumPFS = 329,
+         eventNumOS = 660)
 ```
-
-In our example, we get an average OS HR of `r round(MeanAverageHR, 3)`.
-We use the standard log-rank test to test difference between groups:
-
-```{r}
-LogRankTest <- function(data, endpoint, critical) {
-  time <- if (endpoint == "OS") {
-    data$OStime
-  } else if (endpoint == "PFS") {
-    data$PFStime
-  }
-  event <- if (endpoint == "OS") {
-    data$OSevent
-  } else if (endpoint == "PFS") {
-    data$PFSevent
-  }
-  LogRank <- survdiff(Surv(time, event) ~ trt, data)
-  Passed <- sqrt(LogRank$chisq) > critical
-  return(Passed)
-}
-```
-
-and apply it to PFS and OS in our simulated trials.
-
-
-```{r}
-# Step 1: cut simulated data at time-point of OS/PFS analysis
-studyAtPFSAna <- lapply(SimNULL, censoringByNumberEvents,
-  eventNum = 329, typeEvent = "PFS"
-)
-
-studyAtOSAna <- lapply(SimNULL, censoringByNumberEvents,
-  eventNum = 660, typeEvent = "OS"
-)
-
-# Step 2: get results of log-rank test for both endpoints and all studies
-
-TestPassedPFS <- lapply(studyAtPFSAna, LogRankTest, endpoint = "PFS", CriticalPFS)
-TestPassedOS <- lapply(studyAtOSAna, LogRankTest, endpoint = "OS", CriticalOS)
-```
-
-We estimate the type-I error for each endpoint and the global type-I error by counting the significant tests under $H_0$. The global type-I error is empirically estimated by counting the trials in which either a significant log-rank test is observed for the PFS endpoint or for the OS endpoint.
-
-```{r}
-# empirical type-I error of PFS
-empAlphaPFS <- 100 * (sum(unlist(TestPassedPFS)) / nRep)
-
-# empirical type-I error of OS
-empAlphaOS <- 100 * (sum(unlist(TestPassedOS)) / nRep)
-
-TestBoth <- (unlist(TestPassedPFS) + unlist(TestPassedOS) >= 1)
-# empirical global significance level
-empGlobalAlpha <- 100 * (sum(TestBoth) / nRep)
-```
-
-In this example, the empirical significance level is close to 5\%.
+In this example, the empirical type I error rate is 3\%.
 If the empirical type-I error is lower or higher than 5\%, the critical values used for the log-rank test can be adjusted until a significance level close to 5\% is obtained. This could be done, for example, in the following way:
 
 ```{r eval=FALSE}
-while (empGlobalAlpha < 4.9) {
-  CriticalOS <- CriticalOS - 0.01
-  CriticalPFS <- CriticalPFS - 0.01
+while (empGlobalAlpha < 0.049) {
+  criticalPFS <- criticalPFS - 0.01
+  criticalOS <- criticalOS - 0.01
 
-  TestPassedPFS <- lapply(studyAtPFSAna, LogRankTest, endpoint = "PFS", CriticalPFS)
-  TestPassedOS <- lapply(studyAtOSAna, LogRankTest, endpoint = "OS", CriticalOS)
-  TestBoth <- (unlist(TestPassedPFS) + unlist(TestPassedOS) >= 1)
-
-  # empirical global significance level
-  empGlobalAlpha <- 100 * (sum(TestBoth) / nRep)
+# empirical global significance level
+empGlobalAlpha <- empSignificant(simTrials = simNull,
+                                 criticalPFS = criticalPFS,
+                                 criticalOS = criticalOS,
+                                 eventNumPFS = 329,
+                                 eventNumOS = 660)[[3]]
 }
 ```
 
 ## Sample size and power calculation - simulation under $H_1$
 
-Next, we simulate a large number of trials under $H_1$ to get the empirical power.
-```{r}
+Next, we simulate a large number of trials under $H_1$ to compute the empirical power:
 
-SimH1 <- getClinicalTrials(
+```{r}
+simH1 <- getClinicalTrials(
   nRep = nRep, nPat = c(800, 800), seed = 1238, datType = "1rowPatient",
   transitionByArm = transitionList,
   dropout = list(rate = 0.05, time = 12), accrual = list(param = "intensity", value = 100)
 )
 ```
-We derive the empirical power by counting the significant log-rank tests under $H_1$ for each endpoint. The multistate model approach allows us to easily estimate further interesting metrics, that affect both endpoints. For example, the joint power, i.e.\ the power that both endpoints in one trial are significant, if each endpoint is analyzed at its planned time-point.
+
+The empirical power for each endpoint is the proportion of simulated trials with significant log-rank tests under $H_1$. The multistate model approach allows us to easily estimate further interesting metrics, such as joint power, i.e. the probability that both endpoints in a trial are significant, if each endpoint is analyzed at its planned time-point.
 
 ```{r}
-# Step 1: cut simulated data at time-point of OS/PFS analysis
-studyAtPFSAnaH1 <- lapply(SimH1, censoringByNumberEvents,
-  eventNum = 329, typeEvent = "PFS"
-)
-
-studyAtOSAnaH1 <- lapply(SimH1, censoringByNumberEvents,
-  eventNum = 660, typeEvent = "OS"
-)
-
-# Step 2: get results of log-rank test for both endpoints and all studies.
-
-logrankPFSH1 <- lapply(studyAtPFSAnaH1, LogRankTest,
-  endpoint = "PFS", CriticalPFS
-)
-logrankOSH1 <- lapply(studyAtOSAnaH1, LogRankTest,
-  endpoint = "OS", CriticalOS
-)
-
-TestPassedPFSH1 <- lapply(logrankPFSH1, `[[`, 1)
-TestPassedOSH1 <- lapply(logrankOSH1, `[[`, 1)
-# Step 3: count significant log-rank tests.
-# empirical power PFS
-empPowerPFS <- 100 * (sum(unlist(TestPassedPFSH1)) / nRep)
-empPowerPFS
-# empirical power OS
-empPowerOS <- 100 * (sum(unlist(TestPassedOSH1)) / nRep)
-empPowerOS
-# joint power
-TestBothH1 <- (unlist(TestPassedPFSH1) + unlist(TestPassedOSH1) == 2)
-
-jointPower <- 100 * (sum(TestBothH1) / nRep)
-jointPower
+empSignificant(simTrials = simH1,
+         criticalPFS = criticalPFS,
+         criticalOS = criticalOS,
+         eventNumPFS = 329,
+         eventNumOS = 660)
 ```
-For the endpoint OS, the number of events has to be increased to obtain a power of 80 \%.
+In this example, for the endpoint OS, the number of events has to be increased to obtain a power of 80 \%.
 
-It is also possible to derive the median time at which a certain number of events are expected to occur and how many events of the second endpoint have occurred at that time.
+It is also possible to derive the median time at which a certain number of events are expected to occur and how many events of the second endpoint have occurred at that time on average.
 
 ```{r}
-# median time
-TimePointsPFS <- lapply(SimH1, getTimePoint,
+# median time point for 329 PFS events to have occurred:
+timePointsPFS <- lapply(simH1,getTimePoint,
   eventNum = 329, typeEvent = "PFS",
   byArm = FALSE
 )
-median_timePFS <- median(unlist(TimePointsPFS))
+median(unlist(timePointsPFS))
 
-TimePointsOS <- lapply(SimH1, getTimePoint,
+# median time point for 684 OS events to have occurred:
+timePointsOS <- lapply(simH1, getTimePoint,
   eventNum = 684, typeEvent = "OS",
   byArm = FALSE
 )
-median_timeOS <- median(unlist(TimePointsOS))
+median(unlist(timePointsOS))
 
-median_timePFS
-median_timeOS
-
-# number of PFS events at time of OS analysis
+# mean number of PFS events at time of OS analysis
 eventsPFS <- lapply(
-  seq_along(TimePointsPFS),
+  seq_along(timePointsPFS),
   function(t) {
-    return(sum(SimH1[[t]]$OSevent[(SimH1[[t]]$OStime + SimH1[[t]]$recruitTime)
-    <= TimePointsPFS[[t]]]))
+    return(sum(simH1[[t]]$OSevent[(simH1[[t]]$OStime + simH1[[t]]$recruitTime)
+    <= timePointsPFS[[t]]]))
   }
 )
-# number of OS events at time of PFS analysis
+mean(unlist(eventsPFS))
+
+# mean number of OS events at time of PFS analysis
 eventsOS <- lapply(
-  seq_along(TimePointsOS),
+  seq_along(timePointsOS),
   function(t) {
-    return(sum(SimH1[[t]]$PFSevent[(SimH1[[t]]$PFStime + SimH1[[t]]$recruitTime)
-    <= TimePointsOS[[t]]]))
+    return(sum(simH1[[t]]$PFSevent[(simH1[[t]]$PFStime + simH1[[t]]$recruitTime)
+    <= timePointsOS[[t]]]))
   }
 )
+mean(unlist(eventsOS))
 
-nPFS <- mean(unlist(eventsPFS))
-nOS <- mean(unlist(eventsOS))
-
-nPFS
-nOS
 ```
 
 

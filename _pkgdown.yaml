@@ -68,7 +68,7 @@ reference:
       - ExpHazOS
       - avgHRIntegExpOS
       - avgHRExpOS
-  - title: Empirical power
+  - title: Empirical significance
     contents:
       - logRankTest
-      - powerEmp
+      - empSignificant
