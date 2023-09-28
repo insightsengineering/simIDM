@@ -47,7 +47,6 @@ We consider the following study design:
 - 5 \% drop-out rate within 12 time units
 - accrual of 100 patients per time unit
 
-
 Using the multistate model approach implies that trial planning is based on assumptions on the three transition hazards in each arm, i.e. six hazards in total (which induces assumptions on the endpoints PFS and OS).
 In our example scenario, we assume constant transition hazards and a small effect of the treatment on hazards from the initial state to death.
 Median time until a PFS event is 0.99 time units in the control arm and 1.44 time units in the treatment arm.
@@ -59,8 +58,8 @@ Figure 2 shows the transition hazards, survival functions, hazard functions and 
 The transition hazards are specified as follows:
 ```{r}
 library(simIDM)
-transitionTrt <- exponential_transition(h01 = 0.2, h02 = 0.28, h12 = 0.4)
-transitionPl <- exponential_transition(h01 = 0.4, h02 = 0.3, h12 = 0.5)
+transitionTrt <- exponential_transition(h01 = 0.3, h02 = 0.28, h12 = 0.5)
+transitionPl <- exponential_transition(h01 = 0.5, h02 = 0.3, h12 = 0.6)
 
 transitionList <- list(transitionPl, transitionTrt)
 ```
@@ -80,14 +79,20 @@ PWCsurvOS(timepoints,
 ```
 There are also functions for PFS survival functions available.
 
-For PFS, the hazard ratio under $H_0$ is known by specification (0.6857); for OS, an averaged HR can be calculated using `avgHRExpOS` (note that this requires constant transition hazards):
+For PFS, the hazard ratio under $H_0$ is known by specification:
 
 ```{r}
-avgHRExpOS(transitionByArm = transitionList, alpha = 0.5, upper = 1000)
+hTrtPFS <- sum(unlist(transitionTrt$hazards[1:2]))
+hPlPFS <- sum(unlist(transitionPl$hazards[1:2]))
+hRatioPFS <- hTrtPFS / hPlPFS
+hRatioPFS
 ```
+For OS, this is not as straightforward, but for constant transition hazards an averaged HR can be calculated using `avgHRExpOS`:
 
-In our example, we get an average OS HR of `r round(avgHRExpOS(transitionByArm = transitionList, alpha = 0.5, upper = 1000), 3)`.
-
+```{r}
+hRatioOS <- avgHRExpOS(transitionByArm = transitionList, alpha = 0.5, upper = 1000)
+hRatioOS
+```
 ## Type I Error - Simulation Under $H_0$
 
 The type I error can be estimated empirically by simulating clinical trials under $H_0$. To achieve this, we set the transition hazards of the treatment group to match those of the control group.
@@ -112,18 +117,38 @@ criticalOS <- abs(qnorm(alphaOS / 2))
 criticalPFS <- abs(qnorm(alphaPFS / 2))
 ```
 
-With the Schoenfeld approximation, preliminary sample sizes can be computed to get an idea of how many events are needed to achieve 80 \% power. Using these critical values and required number of events for PFS and OS, we can now determine the global type I error empirically by counting the number of trials simulated under $H_0$ with significant log-rank tests.
+With the Schoenfeld approximation, preliminary sample sizes can be computed to get an idea of how many events are needed to achieve 80 \% power:
+
+```{r}
+library(rpact)
+# Number of PFS events required for 80 % power via Schoenfeld:
+schoenfeldPFS <- getSampleSizeSurvival(lambda2 = hPlPFS, hazardRatio = hRatioPFS, 
+                                accrualTime = 0, accrualIntensity = 500,
+                                maxNumberOfSubjects = 1000, sided = 1,
+                                alpha = alphaPFS / 2, beta = 0.2)
+eventNumPFS <- ceiling(schoenfeldPFS$eventsFixed)
+eventNumPFS
+
+# Number of OS events required for 80 % power via Schoenfeld:
+schoenfeldOS <- getSampleSizeSurvival(lambda2 = hPlPFS, hazardRatio = hRatioOS, 
+                                accrualTime = 0, accrualIntensity = 500,
+                                maxNumberOfSubjects = 1000, sided = 1,
+                                alpha = alphaOS / 2, beta = 0.2)
+eventNumOS <- ceiling(schoenfeldOS$eventsFixed)
+eventNumOS
+```
+Using these critical values and required number of events for PFS and OS, we can now determine the global type I error empirically by counting the number of trials simulated under $H_0$ with significant log-rank tests.
 The empirical type I error for each endpoint is calculated as the proportion of trials with significant log-rank tests, while the global Type I error is the proportion of trials where at least one of PFS or OS with a significant log-rank test. This can be done using `empSignificant`:
 
 ```{r}
 empSignificant(simTrials = simNull,
          criticalPFS = criticalPFS,
          criticalOS = criticalOS,
-         eventNumPFS = 329,
-         eventNumOS = 660)
+         eventNumPFS = eventNumPFS,
+         eventNumOS = eventNumOS)
 ```
-In this example, the empirical type I error rate is 3\%.
-If the empirical type-I error is lower or higher than 5\%, the critical values used for the log-rank test can be adjusted until a significance level close to 5\% is obtained. This could be done, for example, in the following way:
+In this example, the global type I error rate is 3\%.
+If the global type-I error is lower than 5\%, the critical values used for the log-rank test can be lowered until a significance level close to 5\% is obtained. This could be done, for example, in the following way:
 
 ```{r eval=FALSE}
 while (empGlobalAlpha < 0.049) {
@@ -134,10 +159,12 @@ while (empGlobalAlpha < 0.049) {
 empGlobalAlpha <- empSignificant(simTrials = simNull,
                                  criticalPFS = criticalPFS,
                                  criticalOS = criticalOS,
-                                 eventNumPFS = 329,
-                                 eventNumOS = 660)[[3]]
+                                 eventNumPFS = eventNumPFS,
+                                 eventNumOS = eventNumOS)[[3]]
 }
 ```
+
+If the global type-I error is higher than 5\%, we could use a similar procedure to increase the critical values until we are close to the 5\% threshold.
 
 ## Sample size and power calculation - simulation under $H_1$
 
@@ -157,10 +184,10 @@ The empirical power for each endpoint is the proportion of simulated trials with
 empSignificant(simTrials = simH1,
          criticalPFS = criticalPFS,
          criticalOS = criticalOS,
-         eventNumPFS = 329,
-         eventNumOS = 660)
+         eventNumPFS = eventNumPFS,
+         eventNumOS = eventNumOS)
 ```
-In this example, for the endpoint OS, the number of events has to be increased to obtain a power of 80 \%.
+In this example, for the endpoint OS, the number of events has to be increased to obtain a power of 80 \%. Similarly, we can reduce the number of events if the simulation shows that a trial design appears to be overpowered.
 
 It is also possible to derive the median time at which a certain number of events are expected to occur and how many events of the second endpoint have occurred at that time on average.
 
@@ -200,6 +227,5 @@ eventsOS <- lapply(
 mean(unlist(eventsOS))
 
 ```
-
 
 ## References
