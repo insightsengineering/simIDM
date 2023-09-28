@@ -84,13 +84,15 @@ passedLogRank <- function(simTrials, typeEvent, eventNum, critical) {
   ))
 }
 
-#' Empirical Power for a List of Simulated Trials
+#' Empirical Significance for a List of Simulated Trials
 #'
-#' This function computes four types of empirical power — PFS, OS, at-least (significant
+#' This function computes four types of empirical significance — PFS, OS, at-least (significant
 #' in at least one of PFS/OS), and joint (significant in both PFS and OS) — using
-#' the log-rank test. Empirical power is calculated as the proportion of significant
+#' the log-rank test. Empirical significance is calculated as the proportion of significant
 #' results in simulated trials, each ending when a set number of PFS/OS events occur.
-#' Critical values for PFS and OS test significance must be specified.
+#' Critical values for PFS and OS test significance must be specified. If trials simulate equal
+#' transition hazards across groups (H0), empirical significance estimates type I error;
+#' if they simulate differing transition hazards (H1), it estimates power.
 #'
 #' @param simTrials (`list`)\cr simulated trial data sets, see [getClinicalTrials()].
 #' @param criticalPFS (positive `number`)\cr critical value of the log-rank test for PFS.
@@ -98,7 +100,7 @@ passedLogRank <- function(simTrials, typeEvent, eventNum, critical) {
 #' @param eventNumPFS (`integer`)\cr number of PFS events required to trigger PFS analysis.
 #' @param eventNumOS (`integer`)\cr number of OS events required to trigger OS analysis.
 #'
-#' @return This returns values of four measures of empirical power.
+#' @return This returns values of four measures of empirical significance.
 #' @export
 #'
 #' @examples
@@ -109,11 +111,11 @@ passedLogRank <- function(simTrials, typeEvent, eventNum, critical) {
 #'   transitionByArm = list(transition1, transition2), dropout = list(rate = 0.5, time = 12),
 #'   accrual = list(param = "intensity", value = 7)
 #' )
-#' powerEmp(
+#' empSignificant(
 #'   simTrials = simTrials, criticalPFS = 2.4, criticalOS = 2.2,
 #'   eventNumPFS = 300, eventNumOS = 500
 #' )
-powerEmp <- function(simTrials, criticalPFS, criticalOS, eventNumPFS, eventNumOS) {
+empSignificant <- function(simTrials, criticalPFS, criticalOS, eventNumPFS, eventNumOS) {
   assert_list(simTrials, null.ok = FALSE)
   assert_positive_number(criticalPFS)
   assert_positive_number(criticalOS)
@@ -140,21 +142,21 @@ powerEmp <- function(simTrials, criticalPFS, criticalOS, eventNumPFS, eventNumOS
     critical = criticalOS
   )
 
-  # Empirical power is the fraction of trials with significant log-rank test:
-  powerPFS <- sum(passedLogRankPFS) / nRep
-  powerOS <- sum(passedLogRankOS) / nRep
+  # Empirical significance is the fraction of trials with significant log-rank test:
+  significantPFS <- sum(passedLogRankPFS) / nRep
+  significantOS <- sum(passedLogRankOS) / nRep
 
-  # Derived measures of power:
+  # Derived measures of significance:
   sumPassed <- passedLogRankPFS + passedLogRankOS
-  # At-least power: At least one of PFS/OS has significant log-rank test.
-  powerAtLeast <- sum(sumPassed >= 1) / nRep
-  # Joint power: Both PFS/OS have significant log-rank tests.
-  powerJoint <- sum(sumPassed == 2) / nRep
+  # At least one of PFS/OS has significant log-rank test.
+  significantAtLeastOne <- sum(sumPassed >= 1) / nRep
+  # Both PFS/OS have significant log-rank tests.
+  significantBoth <- sum(sumPassed == 2) / nRep
 
   list(
-    "powerPFS" = powerPFS,
-    "powerOS" = powerOS,
-    "powerAtLeast" = powerAtLeast,
-    "powerJoint" = powerJoint
+    "significantPFS" = significantPFS,
+    "significantOS" = significantOS,
+    "significantAtLeastOne" = significantAtLeastOne,
+    "significantBoth" = significantBoth
   )
 }

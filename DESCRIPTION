@@ -32,6 +32,7 @@ Suggests:
     mvna,
     prodlim,
     rmarkdown,
+    rpact,
     testthat (>= 2.0)
 VignetteBuilder:
     knitr
