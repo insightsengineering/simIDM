@@ -49,7 +49,7 @@ test_that("empSignificant works as expected", {
   expect_equal(actual, list(
     "significantPFS" = 0.74,
     "significantOS" = 0.52,
-    "significantAtLeast" = 0.78,
-    "significantJoint" = 0.48
+    "significantAtLeastOne" = 0.78,
+    "significantBoth" = 0.48
   ))
 })
