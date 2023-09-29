@@ -120,27 +120,10 @@ criticalPFS <- abs(qnorm(alphaPFS / 2))
 With the Schoenfeld approximation, preliminary sample sizes can be computed to get an idea of how many events are needed to achieve 80 \% power:
 
 ```{r}
-library(rpact)
-# Number of PFS events required for 80 % power via Schoenfeld:
-schoenfeldPFS <- getSampleSizeSurvival(
-  lambda2 = hPlPFS, hazardRatio = hRatioPFS,
-  accrualTime = 0, accrualIntensity = 500,
-  maxNumberOfSubjects = 1000, sided = 1,
-  alpha = alphaPFS / 2, beta = 0.2
-)
-eventNumPFS <- ceiling(schoenfeldPFS$eventsFixed)
-eventNumPFS
-
-# Number of OS events required for 80 % power via Schoenfeld:
-schoenfeldOS <- getSampleSizeSurvival(
-  lambda2 = hPlPFS, hazardRatio = hRatioOS,
-  accrualTime = 0, accrualIntensity = 500,
-  maxNumberOfSubjects = 1000, sided = 1,
-  alpha = alphaOS / 2, beta = 0.2
-)
-eventNumOS <- ceiling(schoenfeldOS$eventsFixed)
-eventNumOS
+eventNumPFS <- 452
+eventNumOS <- 732
 ```
+
 Using these critical values and required number of events for PFS and OS, we can now determine the global type I error empirically by counting the number of trials simulated under $H_0$ with significant log-rank tests.
 The empirical type I error for each endpoint is calculated as the proportion of trials with significant log-rank tests, while the global Type I error is the proportion of trials where at least one of PFS or OS with a significant log-rank test. This can be done using `empSignificant`:
 
@@ -156,7 +139,7 @@ empSignificant(
 In this example, the global type I error rate is 3\%.
 If the global type-I error is lower than 5\%, the critical values used for the log-rank test can be lowered until a significance level close to 5\% is obtained. This could be done, for example, in the following way:
 
-```{r eval=FALSE}
+```{r eval = FALSE}
 while (empGlobalAlpha < 0.049) {
   criticalPFS <- criticalPFS - 0.01
   criticalOS <- criticalOS - 0.01
