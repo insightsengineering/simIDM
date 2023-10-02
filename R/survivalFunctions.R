@@ -30,7 +30,7 @@ ExpSurvOS <- function(t, h01, h02, h12) {
   assert_positive_number(h12, zero_ok = TRUE)
 
   h012 <- h12 - h01 - h02
-  ExpSurvPFS(t, h01, h02) / h012 * (h12 - h02 - h01 * exp(-h012 * t))
+  ExpSurvPFS(t, h01, h02) + h01 * h012^-1 * (ExpSurvPFS(t, h01, h02) - exp(-h12 * t))
 }
 
 #' PFS Survival Function from Weibull Transition Hazards

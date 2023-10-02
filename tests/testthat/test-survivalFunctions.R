@@ -22,6 +22,9 @@ test_that("ExpSurvOS works as expected", {
 
   actual2 <- ExpSurvOS(0, 0.7, 0.5, 0.8)
   expect_equal(actual2, 1)
+
+  actual3 <- ExpSurvOS(1000, 1.2, 1.5, 1.6)
+  expect_equal(actual3, 0)
 })
 
 test_that("ExpSurvOS works also with vector of times t", {

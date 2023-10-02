@@ -1,5 +1,9 @@
 # simIDM 0.0.5.9011
 
+- ExpSurvOS now returns 0 instead of NaN for large values of t (#73, @holgstr)
+
+# simIDM 0.0.5.9011
+
 - First CRAN version of the package.
 - The package simulates illness-death models with constant, Weibull or piecewise constant transition hazards.
 
