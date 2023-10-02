@@ -10,3 +10,7 @@
 - Arbitrary number of treatment arms and flexible randomization ratio.
 - Staggered study entry.
 - Derivation of PFS and OS survival functions from transition hazards.
+
+## Minor improvements and bug fixes
+
+- ExpSurvOS now returns 0 instead of NaN for large values of t (#73, @holgstr)
