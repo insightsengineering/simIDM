@@ -76,6 +76,9 @@
     <loc>https://insightsengineering.github.io/simIDM/reference/censoringByNumberEvents.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/simIDM/reference/empSignificant.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/simIDM/reference/exponential_transition.html</loc>
   </url>
   <url>
@@ -131,9 +134,6 @@
   </url>
   <url>
     <loc>https://insightsengineering.github.io/simIDM/reference/piecewise_exponential.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/simIDM/reference/powerEmp.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/simIDM/reference/pwA.html</loc>
