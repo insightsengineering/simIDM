@@ -1,170 +1,170 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="addStaggeredEntry" timestamp="2023-10-02T14:42:18Z" hostname="b0075a2afd9a" tests="10" skipped="0" failures="0" errors="0" time="0.168">
-    <testcase time="0.02" classname="addStaggeredEntry" name="addStaggeredEntry_works_as_expected_if_no_staggered_study_entry_is_present"/>
+  <testsuite name="addStaggeredEntry" timestamp="2023-10-02T14:52:30Z" hostname="37802a934e24" tests="10" skipped="0" failures="0" errors="0" time="0.165">
+    <testcase time="0.0189999999999999" classname="addStaggeredEntry" name="addStaggeredEntry_works_as_expected_if_no_staggered_study_entry_is_present"/>
     <testcase time="0.026" classname="addStaggeredEntry" name="addStaggeredEntry_works_as_expected_if_no_staggered_study_entry_is_present"/>
-    <testcase time="0.0939999999999999" classname="addStaggeredEntry" name="addStaggeredEntry_works_as_expected_if_staggered_study_entry_is_specified_by_accrual_parameter_time"/>
+    <testcase time="0.093" classname="addStaggeredEntry" name="addStaggeredEntry_works_as_expected_if_staggered_study_entry_is_specified_by_accrual_parameter_time"/>
     <testcase time="0.004" classname="addStaggeredEntry" name="addStaggeredEntry_works_as_expected_if_staggered_study_entry_is_specified_by_accrual_parameter_time"/>
     <testcase time="0.004" classname="addStaggeredEntry" name="addStaggeredEntry_works_as_expected_if_staggered_study_entry_is_specified_by_accrual_parameter_time"/>
-    <testcase time="0.002" classname="addStaggeredEntry" name="addStaggeredEntry_works_as_expected_if_staggered_study_entry_is_specified_by_accrual_parameter_time"/>
+    <testcase time="0.00099999999999989" classname="addStaggeredEntry" name="addStaggeredEntry_works_as_expected_if_staggered_study_entry_is_specified_by_accrual_parameter_time"/>
     <testcase time="0.00900000000000012" classname="addStaggeredEntry" name="addStaggeredEntry_works_as_expected_if_staggered_study_entry_is_specified_by_accrual_parameter_intensity"/>
     <testcase time="0.004" classname="addStaggeredEntry" name="addStaggeredEntry_works_as_expected_if_staggered_study_entry_is_specified_by_accrual_parameter_intensity"/>
     <testcase time="0.004" classname="addStaggeredEntry" name="addStaggeredEntry_works_as_expected_if_staggered_study_entry_is_specified_by_accrual_parameter_intensity"/>
     <testcase time="0.00099999999999989" classname="addStaggeredEntry" name="addStaggeredEntry_works_as_expected_if_staggered_study_entry_is_specified_by_accrual_parameter_intensity"/>
   </testsuite>
-  <testsuite name="assertions" timestamp="2023-10-02T14:42:18Z" hostname="b0075a2afd9a" tests="11" skipped="0" failures="0" errors="0" time="0.073">
-    <testcase time="0.0190000000000001" classname="assertions" name="assert_positive_number_works_as_expected"/>
-    <testcase time="0.002" classname="assertions" name="assert_positive_number_works_as_expected"/>
+  <testsuite name="assertions" timestamp="2023-10-02T14:52:30Z" hostname="37802a934e24" tests="11" skipped="0" failures="0" errors="0" time="0.071">
+    <testcase time="0.02" classname="assertions" name="assert_positive_number_works_as_expected"/>
+    <testcase time="0.00100000000000011" classname="assertions" name="assert_positive_number_works_as_expected"/>
     <testcase time="0.01" classname="assertions" name="assert_positive_number_works_as_expected"/>
     <testcase time="0.00499999999999989" classname="assertions" name="assert_positive_number_works_as_expected"/>
     <testcase time="0.00600000000000001" classname="assertions" name="assert_positive_number_works_as_expected"/>
     <testcase time="0.00600000000000001" classname="assertions" name="assert_intervals_works_as_expected"/>
     <testcase time="0.002" classname="assertions" name="assert_intervals_works_as_expected"/>
+    <testcase time="0.00500000000000012" classname="assertions" name="assert_intervals_works_as_expected"/>
+    <testcase time="0.00499999999999989" classname="assertions" name="assert_intervals_works_as_expected"/>
     <testcase time="0.00600000000000001" classname="assertions" name="assert_intervals_works_as_expected"/>
     <testcase time="0.00500000000000012" classname="assertions" name="assert_intervals_works_as_expected"/>
-    <testcase time="0.00600000000000001" classname="assertions" name="assert_intervals_works_as_expected"/>
-    <testcase time="0.00600000000000001" classname="assertions" name="assert_intervals_works_as_expected"/>
   </testsuite>
-  <testsuite name="empSignificant" timestamp="2023-10-02T14:42:18Z" hostname="b0075a2afd9a" tests="5" skipped="0" failures="0" errors="0" time="1.722">
-    <testcase time="0.0539999999999998" classname="empSignificant" name="logRankTest_works_as_expected"/>
-    <testcase time="0.00600000000000001" classname="empSignificant" name="logRankTest_works_as_expected"/>
-    <testcase time="0.0880000000000001" classname="empSignificant" name="passedLogRank_works_as_expected"/>
+  <testsuite name="empSignificant" timestamp="2023-10-02T14:52:30Z" hostname="37802a934e24" tests="5" skipped="0" failures="0" errors="0" time="1.721">
+    <testcase time="0.0529999999999999" classname="empSignificant" name="logRankTest_works_as_expected"/>
+    <testcase time="0.00499999999999989" classname="empSignificant" name="logRankTest_works_as_expected"/>
+    <testcase time="0.0860000000000001" classname="empSignificant" name="passedLogRank_works_as_expected"/>
     <testcase time="0.0149999999999999" classname="empSignificant" name="passedLogRank_works_as_expected"/>
-    <testcase time="1.559" classname="empSignificant" name="empSignificant_works_as_expected"/>
+    <testcase time="1.562" classname="empSignificant" name="empSignificant_works_as_expected"/>
   </testsuite>
-  <testsuite name="eventTracking" timestamp="2023-10-02T14:42:20Z" hostname="b0075a2afd9a" tests="15" skipped="0" failures="0" errors="0" time="0.146">
-    <testcase time="0.0310000000000001" classname="eventTracking" name="getTimePoint_works_as_expected"/>
+  <testsuite name="eventTracking" timestamp="2023-10-02T14:52:32Z" hostname="37802a934e24" tests="15" skipped="0" failures="0" errors="0" time="0.144">
+    <testcase time="0.0309999999999997" classname="eventTracking" name="getTimePoint_works_as_expected"/>
     <testcase time="0.00200000000000022" classname="eventTracking" name="getTimePoint_works_as_expected"/>
-    <testcase time="0.0219999999999998" classname="eventTracking" name="getTimePoint_works_as_expected_by_Arm"/>
-    <testcase time="0.00099999999999989" classname="eventTracking" name="getTimePoint_works_as_expected_by_Arm"/>
+    <testcase time="0.0209999999999999" classname="eventTracking" name="getTimePoint_works_as_expected_by_Arm"/>
     <testcase time="0.00200000000000022" classname="eventTracking" name="getTimePoint_works_as_expected_by_Arm"/>
     <testcase time="0.00099999999999989" classname="eventTracking" name="getTimePoint_works_as_expected_by_Arm"/>
+    <testcase time="0.00099999999999989" classname="eventTracking" name="getTimePoint_works_as_expected_by_Arm"/>
     <testcase time="0.0249999999999999" classname="eventTracking" name="censoringByNumberEvents_works_as_expected"/>
-    <testcase time="0.00099999999999989" classname="eventTracking" name="censoringByNumberEvents_works_as_expected"/>
-    <testcase time="0.0220000000000002" classname="eventTracking" name="trackEventsPerTrial_works_as_expected_by_arm"/>
+    <testcase time="0.00100000000000033" classname="eventTracking" name="censoringByNumberEvents_works_as_expected"/>
+    <testcase time="0.0219999999999998" classname="eventTracking" name="trackEventsPerTrial_works_as_expected_by_arm"/>
     <testcase time="0.004" classname="eventTracking" name="trackEventsPerTrial_works_as_expected_by_arm"/>
     <testcase time="0.00199999999999978" classname="eventTracking" name="trackEventsPerTrial_works_as_expected_by_arm"/>
     <testcase time="0.004" classname="eventTracking" name="trackEventsPerTrial_works_as_expected_by_arm"/>
     <testcase time="0.00700000000000012" classname="eventTracking" name="getCensoredData_works_as_expected"/>
-    <testcase time="0.016" classname="eventTracking" name="getEventsAll_works_as_expected"/>
-    <testcase time="0.00600000000000023" classname="eventTracking" name="getNumberEvents_works_as_expected"/>
+    <testcase time="0.0150000000000001" classname="eventTracking" name="getEventsAll_works_as_expected"/>
+    <testcase time="0.00599999999999978" classname="eventTracking" name="getNumberEvents_works_as_expected"/>
   </testsuite>
-  <testsuite name="getClinicalTrials" timestamp="2023-10-02T14:42:20Z" hostname="b0075a2afd9a" tests="16" skipped="0" failures="0" errors="0" time="0.378">
-    <testcase time="0.0309999999999997" classname="getClinicalTrials" name="getOneClinicalTrial_works_as_expected"/>
-    <testcase time="0.00500000000000034" classname="getClinicalTrials" name="getOneClinicalTrial_works_as_expected"/>
+  <testsuite name="getClinicalTrials" timestamp="2023-10-02T14:52:32Z" hostname="37802a934e24" tests="16" skipped="0" failures="0" errors="0" time="0.367">
+    <testcase time="0.0300000000000002" classname="getClinicalTrials" name="getOneClinicalTrial_works_as_expected"/>
     <testcase time="0.004" classname="getClinicalTrials" name="getOneClinicalTrial_works_as_expected"/>
-    <testcase time="0.0319999999999996" classname="getClinicalTrials" name="getOneClinicalTrial_works_as_expected_accrual_and_dropout_as_list"/>
+    <testcase time="0.004" classname="getClinicalTrials" name="getOneClinicalTrial_works_as_expected"/>
+    <testcase time="0.0310000000000001" classname="getClinicalTrials" name="getOneClinicalTrial_works_as_expected_accrual_and_dropout_as_list"/>
     <testcase time="0.004" classname="getClinicalTrials" name="getOneClinicalTrial_works_as_expected_accrual_and_dropout_as_list"/>
-    <testcase time="0.00500000000000034" classname="getClinicalTrials" name="getOneClinicalTrial_works_as_expected_accrual_and_dropout_as_list"/>
-    <testcase time="0.0179999999999998" classname="getClinicalTrials" name="getOneClinicalTrial_creates_expected_data_set"/>
-    <testcase time="0.0960000000000001" classname="getClinicalTrials" name="getClinicalTrials_works_as_expected_if_it_creates_1_row_per_patient"/>
-    <testcase time="0.00199999999999978" classname="getClinicalTrials" name="getClinicalTrials_works_as_expected_if_it_creates_1_row_per_patient"/>
-    <testcase time="0.004" classname="getClinicalTrials" name="getClinicalTrials_works_as_expected_if_it_creates_1_row_per_patient"/>
-    <testcase time="0.103" classname="getClinicalTrials" name="getClinicalTrials_works_as_expected_if_accrual_and_dropout_are_lists"/>
-    <testcase time="0.00200000000000022" classname="getClinicalTrials" name="getClinicalTrials_works_as_expected_if_accrual_and_dropout_are_lists"/>
+    <testcase time="0.004" classname="getClinicalTrials" name="getOneClinicalTrial_works_as_expected_accrual_and_dropout_as_list"/>
+    <testcase time="0.0169999999999999" classname="getClinicalTrials" name="getOneClinicalTrial_creates_expected_data_set"/>
+    <testcase time="0.0949999999999998" classname="getClinicalTrials" name="getClinicalTrials_works_as_expected_if_it_creates_1_row_per_patient"/>
+    <testcase time="0.00100000000000033" classname="getClinicalTrials" name="getClinicalTrials_works_as_expected_if_it_creates_1_row_per_patient"/>
+    <testcase time="0.00499999999999989" classname="getClinicalTrials" name="getClinicalTrials_works_as_expected_if_it_creates_1_row_per_patient"/>
+    <testcase time="0.1" classname="getClinicalTrials" name="getClinicalTrials_works_as_expected_if_accrual_and_dropout_are_lists"/>
+    <testcase time="0.00199999999999978" classname="getClinicalTrials" name="getClinicalTrials_works_as_expected_if_accrual_and_dropout_are_lists"/>
     <testcase time="0.004" classname="getClinicalTrials" name="getClinicalTrials_works_as_expected_if_accrual_and_dropout_are_lists"/>
-    <testcase time="0.0619999999999998" classname="getClinicalTrials" name="getClinicalTrials_works_as_expected_if_it_creates_1_row_per_transition"/>
-    <testcase time="0.00199999999999978" classname="getClinicalTrials" name="getClinicalTrials_works_as_expected_if_it_creates_1_row_per_transition"/>
-    <testcase time="0.00400000000000045" classname="getClinicalTrials" name="getClinicalTrials_works_as_expected_if_it_creates_1_row_per_transition"/>
+    <testcase time="0.0609999999999999" classname="getClinicalTrials" name="getClinicalTrials_works_as_expected_if_it_creates_1_row_per_transition"/>
+    <testcase time="0.00099999999999989" classname="getClinicalTrials" name="getClinicalTrials_works_as_expected_if_it_creates_1_row_per_transition"/>
+    <testcase time="0.004" classname="getClinicalTrials" name="getClinicalTrials_works_as_expected_if_it_creates_1_row_per_transition"/>
   </testsuite>
-  <testsuite name="getDatsetWideFormat" timestamp="2023-10-02T14:42:20Z" hostname="b0075a2afd9a" tests="7" skipped="0" failures="0" errors="0" time="0.05">
-    <testcase time="0.0279999999999996" classname="getDatsetWideFormat" name="getDatasetWideFormat_works_as_expected"/>
+  <testsuite name="getDatsetWideFormat" timestamp="2023-10-02T14:52:32Z" hostname="37802a934e24" tests="7" skipped="0" failures="0" errors="0" time="0.046">
+    <testcase time="0.0259999999999998" classname="getDatsetWideFormat" name="getDatasetWideFormat_works_as_expected"/>
     <testcase time="0.00400000000000045" classname="getDatsetWideFormat" name="getDatasetWideFormat_works_as_expected"/>
-    <testcase time="0.00499999999999989" classname="getDatsetWideFormat" name="getDatasetWideFormat_works_as_expected"/>
+    <testcase time="0.00300000000000011" classname="getDatsetWideFormat" name="getDatasetWideFormat_works_as_expected"/>
     <testcase time="0.00399999999999956" classname="getDatsetWideFormat" name="getDatasetWideFormat_works_as_expected"/>
     <testcase time="0.00400000000000045" classname="getDatsetWideFormat" name="getDatasetWideFormat_works_as_expected"/>
     <testcase time="0.00399999999999956" classname="getDatsetWideFormat" name="getDatasetWideFormat_works_as_expected"/>
     <testcase time="0.00100000000000033" classname="getDatsetWideFormat" name="getDatasetWideFormat_works_as_expected"/>
   </testsuite>
-  <testsuite name="getSimulatedData" timestamp="2023-10-02T14:42:20Z" hostname="b0075a2afd9a" tests="17" skipped="0" failures="0" errors="0" time="0.098">
-    <testcase time="0.0129999999999999" classname="getSimulatedData" name="getOneToTwoRows_works_as_expected"/>
+  <testsuite name="getSimulatedData" timestamp="2023-10-02T14:52:32Z" hostname="37802a934e24" tests="17" skipped="0" failures="0" errors="0" time="0.092">
+    <testcase time="0.0119999999999996" classname="getSimulatedData" name="getOneToTwoRows_works_as_expected"/>
     <testcase time="0.00400000000000045" classname="getSimulatedData" name="getOneToTwoRows_works_as_expected"/>
     <testcase time="0.00399999999999956" classname="getSimulatedData" name="getOneToTwoRows_works_as_expected"/>
-    <testcase time="0.00399999999999956" classname="getSimulatedData" name="getOneToTwoRows_works_as_expected"/>
     <testcase time="0.00400000000000045" classname="getSimulatedData" name="getOneToTwoRows_works_as_expected"/>
-    <testcase time="0.00999999999999979" classname="getSimulatedData" name="getOneToTwoRows_works_as_expected"/>
-    <testcase time="0.0110000000000001" classname="getSimulatedData" name="getSimulatedData_works_as_expected_if_no_random_censoring_is_present"/>
-    <testcase time="0.00199999999999978" classname="getSimulatedData" name="getSimulatedData_works_as_expected_if_no_random_censoring_is_present"/>
-    <testcase time="0.00400000000000045" classname="getSimulatedData" name="getSimulatedData_works_as_expected_if_no_random_censoring_is_present"/>
+    <testcase time="0.00399999999999956" classname="getSimulatedData" name="getOneToTwoRows_works_as_expected"/>
+    <testcase time="0.00900000000000034" classname="getSimulatedData" name="getOneToTwoRows_works_as_expected"/>
+    <testcase time="0.00999999999999979" classname="getSimulatedData" name="getSimulatedData_works_as_expected_if_no_random_censoring_is_present"/>
+    <testcase time="0.00100000000000033" classname="getSimulatedData" name="getSimulatedData_works_as_expected_if_no_random_censoring_is_present"/>
     <testcase time="0.00399999999999956" classname="getSimulatedData" name="getSimulatedData_works_as_expected_if_no_random_censoring_is_present"/>
     <testcase time="0.00400000000000045" classname="getSimulatedData" name="getSimulatedData_works_as_expected_if_no_random_censoring_is_present"/>
-    <testcase time="0.0110000000000001" classname="getSimulatedData" name="getSimulatedData_works_as_expected_if_random_censoring_is_present"/>
-    <testcase time="0.000999999999999446" classname="getSimulatedData" name="getSimulatedData_works_as_expected_if_random_censoring_is_present"/>
-    <testcase time="0.00499999999999989" classname="getSimulatedData" name="getSimulatedData_works_as_expected_if_random_censoring_is_present"/>
-    <testcase time="0.00400000000000045" classname="getSimulatedData" name="getSimulatedData_works_as_expected_if_random_censoring_is_present"/>
+    <testcase time="0.00399999999999956" classname="getSimulatedData" name="getSimulatedData_works_as_expected_if_no_random_censoring_is_present"/>
+    <testcase time="0.0100000000000007" classname="getSimulatedData" name="getSimulatedData_works_as_expected_if_random_censoring_is_present"/>
+    <testcase time="0.00199999999999978" classname="getSimulatedData" name="getSimulatedData_works_as_expected_if_random_censoring_is_present"/>
     <testcase time="0.00399999999999956" classname="getSimulatedData" name="getSimulatedData_works_as_expected_if_random_censoring_is_present"/>
-    <testcase time="0.00900000000000034" classname="getSimulatedData" name="getSimulatedData_creates_expected_data_set"/>
+    <testcase time="0.00400000000000045" classname="getSimulatedData" name="getSimulatedData_works_as_expected_if_random_censoring_is_present"/>
+    <testcase time="0.00300000000000011" classname="getSimulatedData" name="getSimulatedData_works_as_expected_if_random_censoring_is_present"/>
+    <testcase time="0.00899999999999945" classname="getSimulatedData" name="getSimulatedData_creates_expected_data_set"/>
   </testsuite>
-  <testsuite name="getSimulatedDataDistib" timestamp="2023-10-02T14:42:20Z" hostname="b0075a2afd9a" tests="3" skipped="0" failures="0" errors="0" time="127.62">
-    <testcase time="16.507" classname="getSimulatedDataDistib" name="getSimulatedData_generates_distributions_as_expected_Exponential"/>
-    <testcase time="64.914" classname="getSimulatedDataDistib" name="getSimulatedData_generates_distributions_as_expected_Weibull"/>
-    <testcase time="46.199" classname="getSimulatedDataDistib" name="getSimulatedData_generates_distributions_as_expected_PW"/>
+  <testsuite name="getSimulatedDataDistib" timestamp="2023-10-02T14:52:32Z" hostname="37802a934e24" tests="3" skipped="0" failures="0" errors="0" time="125.699">
+    <testcase time="16.26" classname="getSimulatedDataDistib" name="getSimulatedData_generates_distributions_as_expected_Exponential"/>
+    <testcase time="65.239" classname="getSimulatedDataDistib" name="getSimulatedData_generates_distributions_as_expected_Weibull"/>
+    <testcase time="44.2" classname="getSimulatedDataDistib" name="getSimulatedData_generates_distributions_as_expected_PW"/>
   </testsuite>
-  <testsuite name="hazardFunctions" timestamp="2023-10-02T14:44:28Z" hostname="b0075a2afd9a" tests="7" skipped="0" failures="0" errors="0" time="0.034">
+  <testsuite name="hazardFunctions" timestamp="2023-10-02T14:54:38Z" hostname="37802a934e24" tests="7" skipped="0" failures="0" errors="0" time="0.055">
     <testcase time="0.00899999999998613" classname="hazardFunctions" name="ExpHazOS_works_as_expected"/>
     <testcase time="0.00200000000000955" classname="hazardFunctions" name="ExpHazOS_works_as_expected"/>
     <testcase time="0.00499999999999545" classname="hazardFunctions" name="ExpHazOS_works_also_with_vector_of_times_t"/>
     <testcase time="0.00499999999999545" classname="hazardFunctions" name="avgHRIntegExpOS_works_as_expected"/>
-    <testcase time="0.00200000000000955" classname="hazardFunctions" name="avgHRIntegExpOS_works_as_expected"/>
-    <testcase time="0.007000000000005" classname="hazardFunctions" name="avgHRExpOS_works_as_expected"/>
-    <testcase time="0.00399999999999068" classname="hazardFunctions" name="avgHRExpOS_works_as_expected"/>
+    <testcase time="0.00100000000000477" classname="hazardFunctions" name="avgHRIntegExpOS_works_as_expected"/>
+    <testcase time="0.0300000000000011" classname="hazardFunctions" name="avgHRExpOS_works_as_expected"/>
+    <testcase time="0.00300000000001432" classname="hazardFunctions" name="avgHRExpOS_works_as_expected"/>
   </testsuite>
-  <testsuite name="piecewiseDistrb" timestamp="2023-10-02T14:44:28Z" hostname="b0075a2afd9a" tests="4" skipped="0" failures="0" errors="0" time="0.023">
-    <testcase time="0.00800000000000978" classname="piecewiseDistrb" name="getPCWDistr_works_as_expected_for_constant_hazards_after_time_shift"/>
+  <testsuite name="piecewiseDistrb" timestamp="2023-10-02T14:54:38Z" hostname="37802a934e24" tests="4" skipped="0" failures="0" errors="0" time="0.022">
+    <testcase time="0.00799999999998136" classname="piecewiseDistrb" name="getPCWDistr_works_as_expected_for_constant_hazards_after_time_shift"/>
     <testcase time="0.00499999999999545" classname="piecewiseDistrb" name="getPCWDistr_works_as_expected_for_pwc_hazards_without_time_shift"/>
-    <testcase time="0.00499999999999545" classname="piecewiseDistrb" name="getPCWDistr_works_as_expected_for_piecewise_constant_hazards_with_time_shift"/>
-    <testcase time="0.00499999999999545" classname="piecewiseDistrb" name="PCWInversionMethod_works_as_expected"/>
+    <testcase time="0.00500000000002387" classname="piecewiseDistrb" name="getPCWDistr_works_as_expected_for_piecewise_constant_hazards_with_time_shift"/>
+    <testcase time="0.00399999999999068" classname="piecewiseDistrb" name="PCWInversionMethod_works_as_expected"/>
   </testsuite>
-  <testsuite name="piecewiseHazards" timestamp="2023-10-02T14:44:28Z" hostname="b0075a2afd9a" tests="2" skipped="0" failures="0" errors="0" time="0.013">
-    <testcase time="0.007000000000005" classname="piecewiseHazards" name="getPCWHazard_works_as_expected"/>
-    <testcase time="0.00600000000000023" classname="piecewiseHazards" name="getSumPCW_works_as_expected"/>
+  <testsuite name="piecewiseHazards" timestamp="2023-10-02T14:54:38Z" hostname="37802a934e24" tests="2" skipped="0" failures="0" errors="0" time="0.013">
+    <testcase time="0.00800000000000978" classname="piecewiseHazards" name="getPCWHazard_works_as_expected"/>
+    <testcase time="0.00499999999999545" classname="piecewiseHazards" name="getSumPCW_works_as_expected"/>
   </testsuite>
-  <testsuite name="survivalFunctions" timestamp="2023-10-02T14:44:28Z" hostname="b0075a2afd9a" tests="20" skipped="0" failures="0" errors="0" time="0.123">
-    <testcase time="0.00900000000001455" classname="survivalFunctions" name="ExpSurvPFS_works_as_expected"/>
-    <testcase time="0.000999999999976353" classname="survivalFunctions" name="ExpSurvPFS_works_as_expected"/>
-    <testcase time="0.00500000000002387" classname="survivalFunctions" name="ExpSurvPFS_works_also_with_vector_of_times_t"/>
-    <testcase time="0.00499999999999545" classname="survivalFunctions" name="ExpSurvOS_works_as_expected"/>
+  <testsuite name="survivalFunctions" timestamp="2023-10-02T14:54:38Z" hostname="37802a934e24" tests="20" skipped="0" failures="0" errors="0" time="0.094">
+    <testcase time="0.00999999999999091" classname="survivalFunctions" name="ExpSurvPFS_works_as_expected"/>
+    <testcase time="0.00100000000000477" classname="survivalFunctions" name="ExpSurvPFS_works_as_expected"/>
+    <testcase time="0.00499999999999545" classname="survivalFunctions" name="ExpSurvPFS_works_also_with_vector_of_times_t"/>
+    <testcase time="0.00399999999999068" classname="survivalFunctions" name="ExpSurvOS_works_as_expected"/>
+    <testcase time="0.00200000000000955" classname="survivalFunctions" name="ExpSurvOS_works_as_expected"/>
     <testcase time="0.00100000000000477" classname="survivalFunctions" name="ExpSurvOS_works_as_expected"/>
-    <testcase time="0.00199999999998113" classname="survivalFunctions" name="ExpSurvOS_works_as_expected"/>
     <testcase time="0.00499999999999545" classname="survivalFunctions" name="ExpSurvOS_works_also_with_vector_of_times_t"/>
-    <testcase time="0.00500000000002387" classname="survivalFunctions" name="WeibSurvPFS_works_as_expected"/>
-    <testcase time="0.000999999999976353" classname="survivalFunctions" name="WeibSurvPFS_works_as_expected"/>
+    <testcase time="0.00499999999999545" classname="survivalFunctions" name="WeibSurvPFS_works_as_expected"/>
+    <testcase time="0.00100000000000477" classname="survivalFunctions" name="WeibSurvPFS_works_as_expected"/>
     <testcase time="0.00600000000000023" classname="survivalFunctions" name="WeibSurvOS_works_as_expected"/>
-    <testcase time="0.00200000000000955" classname="survivalFunctions" name="WeibSurvOS_works_as_expected"/>
-    <testcase time="0.00499999999999545" classname="survivalFunctions" name="pwA_works_as_expected"/>
-    <testcase time="0.0330000000000155" classname="survivalFunctions" name="PWCsurvPFS_works_as_expected"/>
-    <testcase time="0.00199999999998113" classname="survivalFunctions" name="PWCsurvPFS_works_as_expected"/>
+    <testcase time="0.00100000000000477" classname="survivalFunctions" name="WeibSurvOS_works_as_expected"/>
+    <testcase time="0.00600000000000023" classname="survivalFunctions" name="pwA_works_as_expected"/>
+    <testcase time="0.00499999999999545" classname="survivalFunctions" name="PWCsurvPFS_works_as_expected"/>
     <testcase time="0.00200000000000955" classname="survivalFunctions" name="PWCsurvPFS_works_as_expected"/>
-    <testcase time="0.00800000000000978" classname="survivalFunctions" name="PWCsurvOS_works_as_expected"/>
-    <testcase time="0.00600000000000023" classname="survivalFunctions" name="integrateVector_works_as_expected"/>
-    <testcase time="0.00699999999997658" classname="survivalFunctions" name="singleExpQuantOS_works_as_expected"/>
+    <testcase time="0.000999999999976353" classname="survivalFunctions" name="PWCsurvPFS_works_as_expected"/>
+    <testcase time="0.00900000000001455" classname="survivalFunctions" name="PWCsurvOS_works_as_expected"/>
+    <testcase time="0.00499999999999545" classname="survivalFunctions" name="integrateVector_works_as_expected"/>
+    <testcase time="0.007000000000005" classname="survivalFunctions" name="singleExpQuantOS_works_as_expected"/>
     <testcase time="0.007000000000005" classname="survivalFunctions" name="ExpQuantOS_works_as_expected"/>
     <testcase time="0.0109999999999957" classname="survivalFunctions" name="ExpQuantOS_works_also_with_vector_of_quantiles_q"/>
   </testsuite>
-  <testsuite name="transitionParameters" timestamp="2023-10-02T14:44:28Z" hostname="b0075a2afd9a" tests="19" skipped="0" failures="0" errors="0" time="0.07">
-    <testcase time="0.00800000000000978" classname="transitionParameters" name="exponential_transition_works_as_expected"/>
-    <testcase time="0.00100000000000477" classname="transitionParameters" name="exponential_transition_works_as_expected"/>
+  <testsuite name="transitionParameters" timestamp="2023-10-02T14:54:38Z" hostname="37802a934e24" tests="19" skipped="0" failures="0" errors="0" time="0.09">
+    <testcase time="0.0300000000000011" classname="transitionParameters" name="exponential_transition_works_as_expected"/>
     <testcase time="0.00100000000000477" classname="transitionParameters" name="exponential_transition_works_as_expected"/>
     <testcase time="0.00199999999998113" classname="transitionParameters" name="exponential_transition_works_as_expected"/>
-    <testcase time="0.00500000000002387" classname="transitionParameters" name="exponential_transition_works_as_expected"/>
+    <testcase time="0.00100000000000477" classname="transitionParameters" name="exponential_transition_works_as_expected"/>
     <testcase time="0.00499999999999545" classname="transitionParameters" name="exponential_transition_works_as_expected"/>
+    <testcase time="0.00500000000002387" classname="transitionParameters" name="exponential_transition_works_as_expected"/>
     <testcase time="0.00600000000000023" classname="transitionParameters" name="piecewise_exponential_works_as_expected"/>
-    <testcase time="0.00100000000000477" classname="transitionParameters" name="piecewise_exponential_works_as_expected"/>
     <testcase time="0.000999999999976353" classname="transitionParameters" name="piecewise_exponential_works_as_expected"/>
     <testcase time="0.00100000000000477" classname="transitionParameters" name="piecewise_exponential_works_as_expected"/>
+    <testcase time="0.00100000000000477" classname="transitionParameters" name="piecewise_exponential_works_as_expected"/>
     <testcase time="0.00600000000000023" classname="transitionParameters" name="piecewise_exponential_works_as_expected"/>
     <testcase time="0.00600000000000023" classname="transitionParameters" name="piecewise_exponential_works_as_expected"/>
     <testcase time="0.00600000000000023" classname="transitionParameters" name="piecewise_exponential_works_as_expected"/>
-    <testcase time="0.00600000000000023" classname="transitionParameters" name="weibull_transition_works_as_expected"/>
+    <testcase time="0.00499999999999545" classname="transitionParameters" name="weibull_transition_works_as_expected"/>
     <testcase time="0.00100000000000477" classname="transitionParameters" name="weibull_transition_works_as_expected"/>
     <testcase time="0.00100000000000477" classname="transitionParameters" name="weibull_transition_works_as_expected"/>
     <testcase time="0.00100000000000477" classname="transitionParameters" name="weibull_transition_works_as_expected"/>
     <testcase time="0.00600000000000023" classname="transitionParameters" name="weibull_transition_works_as_expected"/>
-    <testcase time="0.00600000000000023" classname="transitionParameters" name="weibull_transition_works_as_expected"/>
+    <testcase time="0.00499999999999545" classname="transitionParameters" name="weibull_transition_works_as_expected"/>
   </testsuite>
-  <testsuite name="waitTimeSum" timestamp="2023-10-02T14:44:28Z" hostname="b0075a2afd9a" tests="3" skipped="0" failures="0" errors="0" time="0.046">
-    <testcase time="0.0349999999999966" classname="waitTimeSum" name="getWaitTimeSum_works_as_expected_for_sum_of_constant_hazards"/>
-    <testcase time="0.00600000000000023" classname="waitTimeSum" name="getWaitTimeSum_works_as_expected_for_sum_of_hazards_entry_0_"/>
+  <testsuite name="waitTimeSum" timestamp="2023-10-02T14:54:38Z" hostname="37802a934e24" tests="3" skipped="0" failures="0" errors="0" time="0.018">
+    <testcase time="0.00799999999998136" classname="waitTimeSum" name="getWaitTimeSum_works_as_expected_for_sum_of_constant_hazards"/>
     <testcase time="0.00499999999999545" classname="waitTimeSum" name="getWaitTimeSum_works_as_expected_for_sum_of_hazards_entry_0_"/>
+    <testcase time="0.00500000000002387" classname="waitTimeSum" name="getWaitTimeSum_works_as_expected_for_sum_of_hazards_entry_0_"/>
   </testsuite>
 </testsuites>
