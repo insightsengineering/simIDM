@@ -1,7 +1,6 @@
 # logRankTest ----
 
 test_that("logRankTest works as expected", {
-  library(survival)
   transition1 <- exponential_transition(h01 = 0.06, h02 = 0.3, h12 = 0.3)
   transition2 <- exponential_transition(h01 = 0.1, h02 = 0.4, h12 = 0.3)
   simTrial <- getClinicalTrials(
@@ -19,7 +18,6 @@ test_that("logRankTest works as expected", {
 # passedLogRank ----
 
 test_that("passedLogRank works as expected", {
-  library(survival)
   transition1 <- exponential_transition(h01 = 0.06, h02 = 0.3, h12 = 0.3)
   transition2 <- exponential_transition(h01 = 0.1, h02 = 0.4, h12 = 0.3)
   simTrials <- getClinicalTrials(
@@ -34,10 +32,9 @@ test_that("passedLogRank works as expected", {
   expect_equal(actual2, c(FALSE, FALSE, FALSE))
 })
 
-# powerEmp ----
+# empSignificant ----
 
-test_that("powerEmp works as expected", {
-  library(survival)
+test_that("empSignificant works as expected", {
   transition1 <- exponential_transition(h01 = 0.06, h02 = 0.3, h12 = 0.3)
   transition2 <- exponential_transition(h01 = 0.1, h02 = 0.4, h12 = 0.3)
   simTrials <- getClinicalTrials(
@@ -45,14 +42,14 @@ test_that("powerEmp works as expected", {
     transitionByArm = list(transition1, transition2), dropout = list(rate = 0.5, time = 12),
     accrual = list(param = "intensity", value = 7)
   )
-  actual <- powerEmp(
+  actual <- empSignificant(
     simTrials = simTrials, criticalPFS = 2.4, criticalOS = 2.2,
     eventNumPFS = 300, eventNumOS = 500
   )
   expect_equal(actual, list(
-    "powerPFS" = 0.74,
-    "powerOS" = 0.52,
-    "powerAtLeast" = 0.78,
-    "powerJoint" = 0.48
+    "significantPFS" = 0.74,
+    "significantOS" = 0.52,
+    "significantAtLeastOne" = 0.78,
+    "significantBoth" = 0.48
   ))
 })
