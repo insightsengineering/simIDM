@@ -76,10 +76,12 @@ test_that("getSimulatedData creates expected data set for exponential transition
 test_that("getSimulatedData creates expected data set for Weibull transitions", {
   set.seed(1243)
   actual <- getSimulatedData(4,
-                             transition = weibull_transition(h01 = 1, h02 = 1.5, h12 = 1,
-                                                             p01 = 1.1, p02 = 0.8, p12 = 1.2),
-                             dropout = list(rate = 0.5, time = 1),
-                             accrual = list(param = "time", value = 5)
+    transition = weibull_transition(
+      h01 = 1, h02 = 1.5, h12 = 1,
+      p01 = 1.1, p02 = 0.8, p12 = 1.2
+    ),
+    dropout = list(rate = 0.5, time = 1),
+    accrual = list(param = "time", value = 5)
   )
   row1 <- data.frame(
     id = 1, from = 0, to = "2", entry = 0.0000000, exit = 0.0842096040823,
