@@ -51,8 +51,8 @@ test_that("getOneClinicalTrial creates expected data set", {
     accrual = list(param = "time", value = 0)
   )
   row1 <- data.frame(
-    id = 1, from = 0, to = "1", entry = 0.0000000, exit = 0.1953989333804476,
-    entryAct = 0, exitAct = 0.1953989333804476, censAct = 19.10280613143678, trt = 1,
+    id = 1, from = 0, to = "1", entry = 0.0000000, exit = 0.186746130343395766,
+    entryAct = 0, exitAct = 0.186746130343395766, censAct = 19.10280613143678, trt = 1,
     stringsAsFactors = FALSE
   )
   expect_equal(actual[1, ], row1)

@@ -65,7 +65,7 @@ test_that("getSimulatedData generates distributions as expected - Weibull", {
 
   # true NA - trt 1 0 -> 1 transition.
 
-  trueNA <- (transition1$hazards$h01 * times)^transition1$weibull_rates$p01
+  trueNA <- transition1$hazards$h01 * times^transition1$weibull_rates$p01
 
   if (interactive()) {
     plot(times, EstimatedNAMean, type = "l")
