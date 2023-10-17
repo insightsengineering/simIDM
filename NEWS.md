@@ -1,4 +1,4 @@
-# simIDM 0.0.5.9012
+# simIDM 0.0.5.9013
 
 - ExpSurvOS now returns 0 instead of NaN for large values of t (#73, @holgstr)
 
