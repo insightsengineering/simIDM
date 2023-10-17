@@ -30,7 +30,7 @@ getWaitTimeSum <- function(U, haz1, haz2, p1, p2, entry) {
   }
   # Weibull distributed survival times.
   temp <- function(x, y, t0) {
-    return((haz1 * (x + t0))^p1 - (haz1 * t0)^p1 - (haz2 * t0)^p2 + (haz2 * (x + t0))^p2 + y)
+    return(haz1 * (x + t0)^p1 - haz1 * t0^p1 - haz2 * t0^p2 + haz2 * (x + t0)^p2 + y)
   }
   stime <- NULL
   i <- 1

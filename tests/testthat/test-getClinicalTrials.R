@@ -51,8 +51,8 @@ test_that("getOneClinicalTrial creates expected data set", {
     accrual = list(param = "time", value = 0)
   )
   row1 <- data.frame(
-    id = 1, from = 0, to = "1", entry = 0.0000000, exit = 0.1953989333804476,
-    entryAct = 0, exitAct = 0.1953989333804476, censAct = 19.10280613143678, trt = 1,
+    id = 1, from = 0, to = "1", entry = 0.0000000, exit = 0.186746130343395766,
+    entryAct = 0, exitAct = 0.186746130343395766, censAct = 19.10280613143678, trt = 1,
     stringsAsFactors = FALSE
   )
   expect_equal(actual[1, ], row1)
@@ -109,4 +109,85 @@ test_that("getClinicalTrials works as expected if it creates 1 row per transitio
   expect_length(actual, 10)
   # at least one row per patient and not more than two per patient?
   expect_true(all(sapply(actual, nrow) >= 40 & sapply(actual, nrow) <= 80))
+})
+
+test_that("getClinicalTrials works as expected and generates data according to Exponential", {
+  transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
+  actual <- getClinicalTrials(
+    nRep = 1, nPat = c(2000, 2000), seed = 1234, datType = "1rowPatient",
+    transitionByArm = list(transition, transition), dropout = list(rate = 0, time = 12),
+    accrual = list(param = "intensity", value = 0)
+  )[[1]]
+  # Theoretical CDF PFS:
+  ExpCDFPFS <- function(t, h01, h02) {
+    1 - ExpSurvPFS(t, h01, h02)
+  }
+  # Theoretical CDF OS:
+  ExpCDFOS <- function(t, h01, h02, h12) {
+    1 - ExpSurvOS(t, h01, h02, h12)
+  }
+  # Kolmogorov-Smirnov Tests:
+  testPFS <- ks.test(x = actual$PFStime, y = "ExpCDFPFS", h01 = 1.2, h02 = 1.5)$p.value
+  testOS <- ks.test(x = actual$OStime, y = "ExpCDFOS", h01 = 1.2, h02 = 1.5, h12 = 1.6)$p.value
+  expect_true(testPFS > 0.05)
+  expect_true(testOS > 0.05)
+})
+
+test_that("getClinicalTrials works as expected and generates data according to Weibull", {
+  transition <- weibull_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6, p01 = 2, p02 = 0.4, p12 = 1.3)
+  actual <- getClinicalTrials(
+    nRep = 1, nPat = c(2000, 2000), seed = 1234, datType = "1rowPatient",
+    transitionByArm = list(transition, transition), dropout = list(rate = 0, time = 12),
+    accrual = list(param = "intensity", value = 0)
+  )[[1]]
+  # Theoretical CDF PFS:
+  WeibCDFPFS <- function(t, h01, h02, p01, p02) {
+    1 - WeibSurvPFS(t, h01, h02, p01, p02)
+  }
+  # Theoretical CDF OS:
+  WeibCDFOS <- function(t, h01, h02, h12, p01, p02, p12) {
+    1 - WeibSurvOS(t, h01, h02, h12, p01, p02, p12)
+  }
+  # Kolmogorov-Smirnov Tests:
+  testPFS <- ks.test(
+    x = actual$PFStime, y = "WeibCDFPFS", h01 = 1.2, h02 = 1.5,
+    p01 = 2, p02 = 0.4
+  )$p.value
+  testOS <- ks.test(
+    x = actual$OStime, y = "WeibCDFOS", h01 = 1.2, h02 = 1.5, h12 = 1.6,
+    p01 = 2, p02 = 0.4, p12 = 1.3
+  )$p.value
+  expect_true(testPFS > 0.05)
+  expect_true(testOS > 0.05)
+})
+
+test_that("getClinicalTrials works as expected and generates data according to PWC", {
+  transition <- piecewise_exponential(
+    h01 = c(1, 1.2, 1), h02 = c(0.3, 1, 2), h12 = c(2, 1, 2),
+    pw01 = c(0, 3, 8), pw02 = c(0, 6, 7), pw12 = c(0, 8, 9)
+  )
+  actual <- getClinicalTrials(
+    nRep = 1, nPat = c(2000, 2000), seed = 1234, datType = "1rowPatient",
+    transitionByArm = list(transition, transition), dropout = list(rate = 0, time = 12),
+    accrual = list(param = "intensity", value = 0)
+  )[[1]]
+  # Theoretical CDF PFS:
+  PWCCDFPFS <- function(t, h01, h02, pw01, pw02) {
+    1 - PWCsurvPFS(t, h01, h02, pw01, pw02)
+  }
+  # Theoretical CDF OS:
+  PWCCDFOS <- function(t, h01, h02, h12, pw01, pw02, pw12) {
+    1 - PWCsurvOS(t, h01, h02, h12, pw01, pw02, pw12)
+  }
+  # Kolmogorov-Smirnov Tests:
+  testPFS <- ks.test(
+    x = actual$PFStime, y = "PWCCDFPFS", h01 = c(1, 1.2, 1), h02 = c(0.3, 1, 2),
+    pw01 = c(0, 3, 8), pw02 = c(0, 6, 7)
+  )$p.value
+  testOS <- ks.test(
+    x = actual$OStime, y = "PWCCDFOS", h01 = c(1, 1.2, 1), h02 = c(0.3, 1, 2), h12 = c(2, 1, 2),
+    pw01 = c(0, 3, 8), pw02 = c(0, 6, 7), pw12 = c(0, 8, 9)
+  )$p.value
+  expect_true(testPFS > 0.05)
+  expect_true(testOS > 0.05)
 })
