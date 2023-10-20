@@ -1,6 +1,10 @@
 # simIDM 0.0.5.9013
 
-- ExpSurvOS now returns 0 instead of NaN for large values of t (#73, @holgstr)
+## Bugfixes
+
+- `ExpSurvOS` now returns 0 instead of NaN for large values of t.
+- `getSimulatedData` now also works when there are no transitions from progression to death, similarly for `getOneClinicalTrial` (which now warns if there are no such transitions at all).
+
 
 # simIDM 0.0.5.9011
 
