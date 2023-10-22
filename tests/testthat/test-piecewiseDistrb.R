@@ -1,4 +1,5 @@
 # getPCWdistr ----
+
 test_that("getPCWDistr works as expected for constant hazards after time shift", {
   U <- 0.65
   actual <- getPCWDistr(U, c(1.1, 0.8), c(0, 5), 6)
@@ -22,7 +23,6 @@ test_that("getPCWDistr works as expected for piecewise constant hazards with tim
   expected <- 1 - exp(-(0.8 * 0.5) - (actual + 4.2 - 5) * 0.4)
   expect_equal(U, expected)
 })
-
 
 # PCWInversionMethod ----
 

@@ -58,7 +58,78 @@ test_that("getOneClinicalTrial creates expected data set", {
   expect_equal(actual[1, ], row1)
 })
 
+test_that("getOneClinicalTrial also works in edge case", {
+  n_pat <- c(1, 1)
+  param_control <- c(0.04781994, 0.03882345, 0.31313900)
+  param_i <- c(0.06971534, 0.00000000, 0.24160661)
+  sep_time <- 2
+  transition_i <- piecewise_exponential(
+    pw01 = c(0, sep_time),
+    pw02 = c(0, sep_time),
+    pw12 = c(0, sep_time),
+    h01 = c(param_control[1], param_i[1]),
+    h02 = c(param_control[2], param_i[2]),
+    h12 = c(param_control[3], param_i[3])
+  )
+  transition_control <- piecewise_exponential(
+    pw01 = c(0, sep_time),
+    pw02 = c(0, sep_time),
+    pw12 = c(0, sep_time),
+    h01 = rep(param_control[1], 2),
+    h02 = rep(param_control[2], 2),
+    h12 = rep(param_control[3], 2)
+  )
+  transition_by_arm <- list(transition_i, transition_control)
+  dropout <- list(rate = 0, time = 1)
+  accrual <- list(param = "intensity", value = 5)
+  set.seed(977)
+  result <- expect_silent(getOneClinicalTrial(
+    nPat = n_pat,
+    transitionByArm = transition_by_arm,
+    dropout = dropout,
+    accrual = accrual
+  ))
+  expect_true(any(result$to == 1))
+  expect_true(any(result$from == 1))
+})
 
+test_that("getOneClinicalTrial gives a warning if there are no progression to death transitions at all", {
+  n_pat <- c(1, 1)
+  param_control <- c(0.04781994, 0.03882345, 0.31313900)
+  param_i <- c(0.06971534, 0.00000000, 0.24160661)
+  sep_time <- 2
+  transition_i <- piecewise_exponential(
+    pw01 = c(0, sep_time),
+    pw02 = c(0, sep_time),
+    pw12 = c(0, sep_time),
+    h01 = c(param_control[1], param_i[1]),
+    h02 = c(param_control[2], param_i[2]),
+    h12 = c(param_control[3], param_i[3])
+  )
+  transition_control <- piecewise_exponential(
+    pw01 = c(0, sep_time),
+    pw02 = c(0, sep_time),
+    pw12 = c(0, sep_time),
+    h01 = rep(param_control[1], 2),
+    h02 = rep(param_control[2], 2),
+    h12 = rep(param_control[3], 2)
+  )
+  transition_by_arm <- list(transition_i, transition_control)
+  dropout <- list(rate = 0, time = 1)
+  accrual <- list(param = "intensity", value = 5)
+  set.seed(59)
+  result <- expect_warning(
+    getOneClinicalTrial(
+      nPat = n_pat,
+      transitionByArm = transition_by_arm,
+      dropout = dropout,
+      accrual = accrual
+    ),
+    "no progression to death transitions included in the simulated data"
+  )
+  expect_false(any(result$to == 1))
+  expect_false(any(result$from == 1))
+})
 
 # getClinicalTrials ----
 

@@ -221,11 +221,14 @@ getSimulatedData <- function(N,
     id = 1:N, from = from, to = to, entry = entry, exit = exit,
     censTime = censTime, stringsAsFactors = FALSE
   )
-  # Add  1 -> 2 transition only for patients that are in the intermediate state 1.
-  simDataOne <- simData[simData$to == 1, ]
-  newrows <- getOneToTwoRows(simDataOne, transition)
-  simData <- rbind(simData, newrows)
-  simData <- simData[order(simData$id), ]
+  is_intermediate_state <- simData$to == 1
+  if (any(is_intermediate_state)) {
+    # Add 1 -> 2 transition only for patients that are in the intermediate state 1.
+    simDataOne <- simData[is_intermediate_state, ]
+    newrows <- getOneToTwoRows(simDataOne, transition)
+    simData <- rbind(simData, newrows)
+    simData <- simData[order(simData$id), ]
+  }
   # Add staggered study entry, i.e. study entry at calendar time.
   simData <- addStaggeredEntry(
     simData = simData,

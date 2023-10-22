@@ -66,6 +66,9 @@ getOneClinicalTrial <- function(nPat, transitionByArm,
     simdata <- rbind(simdata, group)
     previousPts <- previousPts + nPat[i]
   }
+  if (!any(simdata$from == 1)) {
+    warning("no progression to death transitions included in the simulated data")
+  }
   simdata
 }
 

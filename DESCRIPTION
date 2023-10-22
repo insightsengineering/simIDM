@@ -5,7 +5,8 @@ Version: 0.0.5.9013
 Authors@R: c(
     person("Alexandra", "Erdmann", , "alexandra.erdmann@uni-ulm.de", role = c("aut", "cre")),
     person("Kaspar", "Rufibach", , "kaspar.rufibach@roche.com", role = "aut"),
-    person("Daniel", "Sabanes Bove", , "daniel.sabanes_bove@roche.com", role = "ctb"),
+    person("Holger", "Loewe", , "holger.loewe@roche.com", role = "aut"),
+    person("Daniel", "Sabanes Bove", , "daniel.sabanes_bove@roche.com", role = "aut"),
     person("F. Hoffmann-La Roche AG", role = c("cph", "fnd")),
     person("University of Ulm", role = c("cph", "fnd"))
   )
