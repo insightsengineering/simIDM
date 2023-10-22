@@ -18,7 +18,7 @@ from an illness-death model with one row per transition and subject."><!-- mathj
     
     <a class="navbar-brand me-2" href="../index.html">simIDM</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5.9011</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5.9013</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,17 +39,6 @@ from an illness-death model with one row per transition and subject."><!-- mathj
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.5">v0.0.5</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.4">v0.0.4</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.2">v0.0.2</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.1">v0.0.1</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -135,20 +124,21 @@ If <code>dropout$rate</code> is equal to 0, then no censoring is applied.</p></d
 <span class="r-in"><span>  dropout <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>rate <span class="op">=</span> <span class="fl">0.3</span>, time <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  accrual <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>param <span class="op">=</span> <span class="st">"time"</span>, value <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id from   to     entry        exit  entryAct  exitAct   censAct</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1    0    2 0.0000000 0.001616455 2.7684671 2.770084 18.510199</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   2    0    1 0.0000000 0.620109694 1.4826298 2.102739  3.915739</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   2    1 cens 0.6201097 2.433109601 2.1027395 3.915739  3.915739</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   3    0    2 0.0000000 0.008524979 2.2084749 2.217000  5.166295</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   4    0    1 0.0000000 0.179999738 4.7083564 4.888356 11.244076</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   4    1    2 0.1799997 0.693119644 4.8883562 5.401476 11.244076</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   5    0    2 0.0000000 0.100762491 4.4569281 4.557691 12.757715</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   6    0    2 0.0000000 0.269376008 0.7384638 1.007840  1.445770</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9   7    0    2 0.0000000 0.251356782 2.7693123 3.020669  8.424595</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10  8    0    2 0.0000000 0.895647415 4.2223962 5.118044  9.371488</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11  9    0    2 0.0000000 0.099131641 2.6340240 2.733156  3.494487</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 10    0    1 0.0000000 0.522817343 3.7638254 4.286643  5.619036</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 10    1 cens 0.5228173 1.855210094 4.2866428 5.619036  5.619036</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    id from to     entry        exit  entryAct   exitAct   censAct</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1    0  1 0.0000000 0.620109694 2.2084749 2.8285846  4.641584</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   1    1  2 0.6201097 1.133229600 2.8285846 3.3417045  4.641584</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   2    0  2 0.0000000 0.008524979 4.7083564 4.7168814  7.666176</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   3    0  1 0.0000000 0.179999738 4.4569281 4.6369278 10.992647</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   3    1  2 0.1799997 2.352246465 4.6369278 6.8091746 10.992647</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   4    0  2 0.0000000 0.100762491 0.7384638 0.8392262  9.039251</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   5    0  2 0.0000000 0.269376008 2.7693123 3.0386883  3.476619</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   6    0  2 0.0000000 0.251356782 4.2223962 4.4737530  9.877679</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   7    0  2 0.0000000 0.895647415 2.6340240 3.5296714  7.783116</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  8    0  2 0.0000000 0.099131641 3.7638254 3.8629571  4.624288</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  9    0  1 0.0000000 0.522817343 1.2393274 1.7621448  3.094538</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  9    1  2 0.5228173 1.329566488 1.7621448 2.5688939  3.094538</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 10    0  1 0.0000000 0.126395549 3.1352993 3.2616948 16.829769</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 10    1  2 0.1263955 0.478119852 3.2616948 3.6134191 16.829769</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -156,7 +146,7 @@ If <code>dropout$rate</code> is equal to 0, then no censoring is applied.</p></d
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Alexandra Erdmann, Kaspar Rufibach, F. Hoffmann-La Roche AG, University of Ulm.</p>
+  <p></p><p>Developed by Alexandra Erdmann, Kaspar Rufibach, Holger Loewe, Daniel Sabanes Bove, F. Hoffmann-La Roche AG, University of Ulm.</p>
 </div>
 
 <div class="pkgdown-footer-right">
