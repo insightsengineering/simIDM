@@ -58,8 +58,6 @@ Figure 2 shows the transition hazards, survival functions, hazard functions and 
 The transition hazards are specified as follows:
 ```{r}
 library(simIDM)
-library(devtools)
-load_all()
 transitionTrt <- exponential_transition(h01 = 0.3, h02 = 0.28, h12 = 0.5)
 transitionPl <- exponential_transition(h01 = 0.5, h02 = 0.3, h12 = 0.6)
 
