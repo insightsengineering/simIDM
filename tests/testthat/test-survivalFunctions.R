@@ -51,6 +51,9 @@ test_that("WeibSurvOS works as expected", {
 
   actual2 <- WeibSurvOS(0, 0.7, 0.5, 0.8, 1.2, 1, 0.9)
   expect_equal(actual2, 1)
+
+  actual3 <- WeibSurvOS(1000, 1, 1.1, 1.2, 1.3, 0.8, 1.4)
+  expect_equal(actual3, 0)
 })
 
 # pwA ----
