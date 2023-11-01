@@ -89,9 +89,9 @@ integrateVector <- function(integrand, upper, ...) {
 #' @export
 #'
 #' @examples
-#' WeibOSInteg(1:5, 0.2, 0.5, 2.1, 1.2, 0.9, 1)
-WeibOSInteg <- function(x, h01, h02, h12, p01, p02, p12) {
-  x^(p01 - 1) * exp(-h01 * x^p01 - h02 * x^p02 + h12 * x^p12)
+#' WeibOSInteg(1:5, 2:6, 0.2, 0.5, 2.1, 1.2, 0.9, 1)
+WeibOSInteg <- function(x, t, h01, h02, h12, p01, p02, p12) {
+  x^(p01 - 1) * exp(-h01 * x^p01 - h02 * x^p02 - h12 * (t^p12 - x^p12))
 }
 
 #' OS Survival Function from Weibull Transition Hazards
@@ -118,13 +118,20 @@ WeibSurvOS <- function(t, h01, h02, h12, p01, p02, p12) {
   assert_positive_number(p12)
 
   WeibSurvPFS(t, h01, h02, p01, p02) +
-    h01 * p01 * exp(-h12 * t^p12) *
-      integrateVector(WeibOSInteg,
-        upper = t,
-        h01 = h01, h02 = h02, h12 = h12, p01 = p01, p02 = p02, p12 = p12
-      )
+    h01 * p01 *
+      sapply(t, function(t) {
+        integrateVector(WeibOSInteg,
+          upper = t,
+          t = t,
+          h01 = h01,
+          h02 = h02,
+          h12 = h12,
+          p01 = p01,
+          p02 = p02,
+          p12 = p12
+        )
+      })
 }
-
 
 #' Cumulative Hazard for Piecewise Constant Hazards
 #'

@@ -4,10 +4,12 @@
 \alias{WeibOSInteg}
 \title{Helper Function for \code{WeibSurvOS()}}
 \usage{
-WeibOSInteg(x, h01, h02, h12, p01, p02, p12)
+WeibOSInteg(x, t, h01, h02, h12, p01, p02, p12)
 }
 \arguments{
 \item{x}{(\code{numeric})\cr  variable of integration.}
+
+\item{t}{(\code{numeric})\cr  study time-points.}
 
 \item{h01}{(positive \code{number})\cr transition hazard for 0 to 1 transition.}
 
@@ -29,5 +31,5 @@ the OS survival function for Weibull transition hazards, see  \code{WeibSurvOS()
 Helper Function for \code{WeibSurvOS()}
 }
 \examples{
-WeibOSInteg(1:5, 0.2, 0.5, 2.1, 1.2, 0.9, 1)
+WeibOSInteg(1:5, 2:6, 0.2, 0.5, 2.1, 1.2, 0.9, 1)
 }
