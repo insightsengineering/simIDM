@@ -1,6 +1,6 @@
 #' Preparation of a Data Set to Compute Log-likelihood
 #'
-#' @param data (`data.frame`)\cr data frame containing entry and exit times of an illness-death model.
+#' @param data (`data.frame`)\cr containing entry and exit times of an illness-death model.
 #'   See [getOneClinicalTrial()] for details.
 #'
 #' @return This function returns a data set with one row per patient and transition, when the patient is at risk.
