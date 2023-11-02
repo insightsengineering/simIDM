@@ -24,20 +24,19 @@
 #'   accrual = list(param = "time", value = 1)
 #' )
 #' prepareData(simData)
-#' @keywords internal
 prepareData <- function(data) {
   assert_data_frame(data, min.cols = 9, max.cols = 11)
-  if (ncol(data) == 9) {
+  colNames <- c(
+    "id", "trt", "PFStime", "CensoredPFS", "PFSevent", "OStime",
+    "CensoredOS", "OSevent", "recruitTime",
+    "OStimeCal", "PFStimeCal"
+  )
+  if (!all(names(data) %in% colNames)) {
     data <- getDatasetWideFormat(data)
-  } else {
-    assert_subset(c(
-      "id", "trt", "PFStime", "CensoredPFS", "PFSevent", "OStime",
-      "CensoredOS", "OSevent", "recruitTime",
-      "OStimeCal", "PFStimeCal"
-    ), names(data))
   }
 
   # Transform simIDM trial data to log-likelihood-compatible format.
+  # Suppress warning about how msprep handles 1 -> 3 transitions.
   dataNew <- suppressWarnings(mstate::msprep(
     time = c("recruitTime", "PFStime", "OStime"),
     status = c("trt", "PFSevent", "OSevent"),
@@ -45,11 +44,12 @@ prepareData <- function(data) {
     trans = mstate::trans.illdeath(),
     id = data$id
   ))
-  names(dataNew)[5:6] <- c("entry", "exit")
+  cols <- which(names(dataNew) %in% c("Tstart", "Tstop"))
+  names(dataNew)[cols] <- c("entry", "exit")
   # Correct msprep results for uncensored PFS=OS events.
   ids <- data$id[data$PFStimeCal == data$OStimeCal & data$CensoredPFS == 0]
   dataNew <- dataNew[!(dataNew$id %in% ids & dataNew$trans == 3), ]
   dataNew$status[dataNew$id %in% ids] <- abs(dataNew$status[dataNew$id %in% ids] - 1)
 
-  as.data.frame(dataNew[, -7], row.names = seq_len(nrow(dataNew)))
+  as.data.frame(dataNew[, -which(names(dataNew) == "time")], row.names = seq_len(nrow(dataNew)))
 }

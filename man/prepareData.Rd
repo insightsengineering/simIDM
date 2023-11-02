@@ -7,7 +7,7 @@
 prepareData(data)
 }
 \arguments{
-\item{data}{(\code{data.frame})\cr data frame containing entry and exit times of an illness-death model.
+\item{data}{(\code{data.frame})\cr containing entry and exit times of an illness-death model.
 See \code{\link[=getOneClinicalTrial]{getOneClinicalTrial()}} for details.}
 }
 \value{
@@ -37,4 +37,3 @@ simData <- getOneClinicalTrial(
 )
 prepareData(simData)
 }
-\keyword{internal}
