@@ -1,7 +1,6 @@
 # prepareData ----
 
 test_that("prepareData works as expected", {
-  local_edition(3)
   # Create simIDM data for the 4 possible different transition scenarios.
   colnames <- c(
     "id", "trt", "PFStime", "CensoredPFS", "PFSevent", "OStime",

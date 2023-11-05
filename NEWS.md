@@ -2,7 +2,7 @@
 
 ### New Features
 
--   Trial data format to compute log-likelihood.
+-   `preparedata` allows formatting of trial data for log-likelihood computation.
 
 ### Bug Fixes
 
