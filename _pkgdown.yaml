@@ -72,3 +72,6 @@ reference:
     contents:
       - logRankTest
       - empSignificant
+  - title: Parameter Estimation
+    contents:
+      - prepareData

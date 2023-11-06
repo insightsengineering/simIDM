@@ -25,6 +25,7 @@ Depends:
     R (>= 3.6)
 Imports:
     checkmate,
+    mstate,
     stats,
     survival
 Suggests:
@@ -33,7 +34,7 @@ Suggests:
     mvna,
     prodlim,
     rmarkdown,
-    testthat (>= 2.0)
+    testthat (>= 3.0.0)
 VignetteBuilder:
     knitr
 Encoding: UTF-8
@@ -41,3 +42,4 @@ Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+Config/testthat/edition: 3
