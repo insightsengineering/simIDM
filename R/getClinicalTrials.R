@@ -153,7 +153,7 @@ getDatasetWideFormat <- function(data) {
 
 #' Helper Function for Adding Progress Bar to Trial Simulation
 #'
-#' @param x (`int`)\cr iteration index within lappy.
+#' @param x (`int`)\cr iteration index within lapply.
 #' @param ... parameters transferred to [getOneClinicalTrial()], see [getOneClinicalTrial()] for details.
 #'
 #' @return This returns the same as [getOneClinicalTrial()], but updates the progress bar.
