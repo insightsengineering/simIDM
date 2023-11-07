@@ -53,3 +53,60 @@ prepareData <- function(data) {
 
   as.data.frame(dataNew[, -which(names(dataNew) == "time")], row.names = seq_len(nrow(dataNew)))
 }
+
+# transition <- weibull_transition(h01 = 0.5, h02 = 1.3, h12 = 1.1, p01 = 1.2, p02 = 0.5, p12 = 1.4)
+# trial <- getOneClinicalTrial(nPat = c(5000),
+#                             transitionByArm = list(transition),
+#                             dropout = list(rate = 0.3, time = 1),
+#                             accrual = list(param = "intensity", value = 100))
+
+# estimateParams(trial, "Weibull")
+
+NegLogLik <- function(data, params, family = c("exponential", "Weibull")) {
+  family <- match.arg(family)
+
+  with(data, -sum(log(haz(exit, trans, params, family)^status * SurvTrans(exit, trans, params, family) / SurvTrans(entry, trans, params, family))))
+}
+
+haz <- function(t, trans, params, family = c("exponential", "Weibull")) {
+  family <- match.arg(family)
+
+  if (family == "Weibull") {
+    # params (in this order): h01, h02, h12, p01, p02, p12
+    params[trans] * params[trans + 3] * t^(params[trans + 3] - 1)
+  } else {
+    # params (in this order): h01, h02, h12
+    params[trans]
+  }
+}
+
+SurvTrans<- function(t, trans, params, family = c("exponential", "Weibull")) {
+  family <- match.arg(family)
+
+  if (family == "Weibull") {
+    # params (in this order): h01, h02, h12, p01, p02, p12
+    exp(-params[trans] * t^params[trans + 3])
+  } else {
+    # params (in this order): h01, h02, h12
+    exp(-params[trans] * t)
+  }
+}
+
+estimateParams <- function(data, family = c("exponential", "Weibull")) {
+  data <- prepareData(data)
+  family <- match.arg(family)
+  initial <- if (family == "exponential") {c(1, 1, 1)} else {c(1, 1, 1, 1, 1, 1)}
+
+  res <- optim(par = initial,
+               NegLogLik,
+               method = "Nelder-Mead",
+               data = data,
+               family = family)$par
+
+  if (family == "exponential") {
+    list("h01" = res[1], "h02" = res[2], "h12" = res[3])
+  } else {
+    list("h01" = res[1], "h02" = res[2], "h12" = res[3],
+         "p01" = res[4], "p02" = res[5], "p12" = res[6])
+  }
+}
