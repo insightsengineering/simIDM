@@ -151,10 +151,22 @@ getDatasetWideFormat <- function(data) {
   newdata
 }
 
+#' Helper Function for Adding Progress Bar to Trial Simulation
+#'
+#' @param x (`int`)\cr iteration index within lappy.
+#' @param ... parameters transferred to [getOneClinicalTrial()], see [getOneClinicalTrial()] for details.
+#'
+#' @return This returns the same as [getOneClinicalTrial()], but updates the progress bar.
+#' @keywords internal
+runTrial <- function(x, pb, ...) {
+  utils::setTxtProgressBar(pb, x)
+  getOneClinicalTrial(...)
+}
+
 #' Simulation of a Large Number of Oncology Clinical Trials
 #'
 #' @param nRep (`int`)\cr number of simulated trials.
-#' @param ... parameters transferred to [getOneClinicalTrial()], see  [getOneClinicalTrial()] for details.
+#' @param ... parameters transferred to [getOneClinicalTrial()], see [getOneClinicalTrial()] for details.
 #' @param seed (`int`)\cr random seed used for this simulation.
 #' @param datType (`string`)\cr possible values are `1rowTransition` and `1rowPatient`.
 #'
@@ -175,13 +187,15 @@ getClinicalTrials <- function(nRep, ..., seed = 1234, datType = "1rowTransition"
   assert_choice(datType, c("1rowTransition", "1rowPatient"))
 
   set.seed(seed)
+  cat("Simulating", nRep, "trials:\n")
+  pb <- utils::txtProgressBar(min = 0, max = nRep, style = 3)
   # getOneClinicalTrial generates a single clinical trial with multiple arms. Generate nRep simulated trials:
   simulatedTrials <- lapply(
     seq_len(nRep),
-    FUN = function(x, ...) getOneClinicalTrial(...),
+    FUN = function(x, ...) runTrial(x, pb, ...),
     ...
   )
-
+  close(pb)
   # Final data set format: one row per patient or one row per transition?
   if (datType == "1rowPatient") {
     simulatedTrials <- lapply(simulatedTrials, getDatasetWideFormat)
