@@ -80,7 +80,7 @@ haz <- function(t, trans, params, family = c("exponential", "Weibull")) {
   }
 }
 
-SurvTrans<- function(t, trans, params, family = c("exponential", "Weibull")) {
+SurvTrans <- function(t, trans, params, family = c("exponential", "Weibull")) {
   family <- match.arg(family)
 
   if (family == "Weibull") {
@@ -95,18 +95,26 @@ SurvTrans<- function(t, trans, params, family = c("exponential", "Weibull")) {
 estimateParams <- function(data, family = c("exponential", "Weibull")) {
   data <- prepareData(data)
   family <- match.arg(family)
-  initial <- if (family == "exponential") {c(1, 1, 1)} else {c(1, 1, 1, 1, 1, 1)}
+  initial <- if (family == "exponential") {
+    c(1, 1, 1)
+  } else {
+    c(1, 1, 1, 1, 1, 1)
+  }
 
-  res <- optim(par = initial,
-               NegLogLik,
-               method = "Nelder-Mead",
-               data = data,
-               family = family)$par
+  res <- optim(
+    par = initial,
+    NegLogLik,
+    method = "Nelder-Mead",
+    data = data,
+    family = family
+  )$par
 
   if (family == "exponential") {
     list("h01" = res[1], "h02" = res[2], "h12" = res[3])
   } else {
-    list("h01" = res[1], "h02" = res[2], "h12" = res[3],
-         "p01" = res[4], "p02" = res[5], "p12" = res[6])
+    list(
+      "h01" = res[1], "h02" = res[2], "h12" = res[3],
+      "p01" = res[4], "p02" = res[5], "p12" = res[6]
+    )
   }
 }
