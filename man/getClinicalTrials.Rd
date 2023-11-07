@@ -9,7 +9,7 @@ getClinicalTrials(nRep, ..., seed = 1234, datType = "1rowTransition")
 \arguments{
 \item{nRep}{(\code{int})\cr number of simulated trials.}
 
-\item{...}{parameters transferred to \code{\link[=getOneClinicalTrial]{getOneClinicalTrial()}}, see  \code{\link[=getOneClinicalTrial]{getOneClinicalTrial()}} for details.}
+\item{...}{parameters transferred to \code{\link[=getOneClinicalTrial]{getOneClinicalTrial()}}, see \code{\link[=getOneClinicalTrial]{getOneClinicalTrial()}} for details.}
 
 \item{seed}{(\code{int})\cr random seed used for this simulation.}
 
