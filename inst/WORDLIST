@@ -24,6 +24,7 @@ entryAct
 exitAct
 funder
 integrand
+lapply
 multistate
 pre
 recruitTime

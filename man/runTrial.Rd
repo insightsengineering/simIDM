@@ -7,7 +7,7 @@
 runTrial(x, pb, ...)
 }
 \arguments{
-\item{x}{(\code{int})\cr iteration index within lappy.}
+\item{x}{(\code{int})\cr iteration index within lapply.}
 
 \item{...}{parameters transferred to \code{\link[=getOneClinicalTrial]{getOneClinicalTrial()}}, see \code{\link[=getOneClinicalTrial]{getOneClinicalTrial()}} for details.}
 }
