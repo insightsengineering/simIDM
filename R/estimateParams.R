@@ -55,13 +55,13 @@ prepareData <- function(data) {
 }
 
 
-#transition <- weibull_transition(h01 = 1.5, h02 = 0.5, h12 = 1.1, p01 = 0.4, p02 = 0.5, p12 = 2.4)
-#trial <- getOneClinicalTrial(nPat = c(10000),
+# transition <- weibull_transition(h01 = 1.5, h02 = 0.5, h12 = 1.1, p01 = 0.4, p02 = 0.5, p12 = 2.4)
+# trial <- getOneClinicalTrial(nPat = c(10000),
 #                             transitionByArm = list(transition),
 #                             dropout = list(rate = 0.3, time = 1),
 #                             accrual = list(param = "intensity", value = 100))
 
-#estimateParams(trial, "Weibull")
+# estimateParams(trial, "Weibull")
 
 NegLogLik <- function(transition, data) {
   UseMethod(NegLogLik)
@@ -114,8 +114,10 @@ getNegLogLik <- function(params, data, family = c("exponential", "Weibull")) {
   if (family == "exponential") {
     NegLogLik(transition = exponential_transition(h01 = params[1], h02 = params[2], h12 = params[3]), data = data)
   } else {
-    NegLogLik(transition = weibull_transition(h01 = params[1], h02 = params[2], h12 = params[3],
-              p01 = params[4], p02 = params[5], p12 = params[6]), data = data)
+    NegLogLik(transition = weibull_transition(
+      h01 = params[1], h02 = params[2], h12 = params[3],
+      p01 = params[4], p02 = params[5], p12 = params[6]
+    ), data = data)
   }
 }
 
