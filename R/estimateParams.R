@@ -109,12 +109,12 @@ getInitial <- function(transition) {
 
 getTarget <- function(params, data, transition) {
   if (transition$family == "exponential") {
-      negLogLik(transition = exponential_transition(h01 = params[1], h02 = params[2], h12 = params[3]), data = data)
+    negLogLik(transition = exponential_transition(h01 = params[1], h02 = params[2], h12 = params[3]), data = data)
   } else {
-      negLogLik(transition = weibull_transition(
-        h01 = params[1], h02 = params[2], h12 = params[3],
-        p01 = params[4], p02 = params[5], p12 = params[6]
-      ), data = data)
+    negLogLik(transition = weibull_transition(
+      h01 = params[1], h02 = params[2], h12 = params[3],
+      p01 = params[4], p02 = params[5], p12 = params[6]
+    ), data = data)
   }
 }
 
