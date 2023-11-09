@@ -63,16 +63,8 @@ prepareData <- function(data) {
 
 # estimateParams(trial, "Weibull")
 
-NegLogLik <- function(transition, data) {
-  UseMethod(NegLogLik)
-}
-
-NegLogLik.ExponentialTransition <- function(transition, data) {
-  with(data, -sum(log(haz(transition, exit, trans)^status * SurvTrans(transition, exit, trans) / SurvTrans(transition, entry, trans))))
-}
-
-NegLogLik.WeibullTransition <- function(transition, data) {
-  with(data, -sum(log(haz(transition, exit, trans)^status * SurvTrans(transition, exit, trans) / SurvTrans(transition, entry, trans))))
+negLogLik <- function(transition, data) {
+  with(data, -sum(log(haz(transition, exit, trans)^status * survTrans(transition, exit, trans) / survTrans(transition, entry, trans))))
 }
 
 haz <- function(transition, t, trans = c(1, 2, 3)) {
@@ -92,18 +84,18 @@ haz.WeibullTransition <- function(transition, t, trans = c(1, 2, 3)) {
   exp(-params[trans] * t)
 }
 
-SurvTrans <- function(transition, t, trans = c(1, 2, 3)) {
+survTrans <- function(transition, t, trans = c(1, 2, 3)) {
   trans <- match.arg(trans)
-  UseMethod(SurvTrans)
+  UseMethod(survTrans)
 }
 
-SurvTrans.Exponential <- function(transition, t, trans = c(1, 2, 3)) {
+survTrans.Exponential <- function(transition, t, trans = c(1, 2, 3)) {
   # params (in this order): h01, h02, h12
   params <- unlist(transition$hazards)
   exp(-params[trans] * t)
 }
 
-SurvTrans.Weibull <- function(transition, t, trans = c(1, 2, 3)) {
+survTrans.Weibull <- function(transition, t, trans = c(1, 2, 3)) {
   # params (in this order): h01, h02, h12, p01, p02, p12
   params <- c(unlist(transition$hazards), unlist(transition$weibull_rates))
   exp(-params[trans] * t^params[trans + 3])
@@ -112,9 +104,9 @@ SurvTrans.Weibull <- function(transition, t, trans = c(1, 2, 3)) {
 getNegLogLik <- function(params, data, family = c("exponential", "Weibull")) {
   family <- match.arg(family)
   if (family == "exponential") {
-    NegLogLik(transition = exponential_transition(h01 = params[1], h02 = params[2], h12 = params[3]), data = data)
+    negLogLik(transition = exponential_transition(h01 = params[1], h02 = params[2], h12 = params[3]), data = data)
   } else {
-    NegLogLik(transition = weibull_transition(
+    negLogLik(transition = weibull_transition(
       h01 = params[1], h02 = params[2], h12 = params[3],
       p01 = params[4], p02 = params[5], p12 = params[6]
     ), data = data)
