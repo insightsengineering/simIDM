@@ -75,9 +75,9 @@ reference:
   - title: Parameter Estimation
     contents:
       - estimateParams
-      - getInitial
-      - getInitial.ExponentialTransition
-      - getInitial.WeibullTransition
+      - getInit
+      - getInit.ExponentialTransition
+      - getInit.WeibullTransition
       - getResults
       - getResults.ExponentialTransition
       - getResults.WeibullTransition

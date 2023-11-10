@@ -220,14 +220,14 @@ survTrans.WeibullTransition <- function(transition, t, trans) {
 #' @export
 #'
 #' @details
-#' This function dispatches to either `getInitial.ExponentialTransition` or `getInitial.WeibullTransition`
+#' This function dispatches to either `getInit.ExponentialTransition` or `getInit.WeibullTransition`
 #' based on the `transition` object class.
 #'
 #' @examples
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
-#' getInitial(transition)
-getInitial <- function(transition) {
-  UseMethod("getInitial")
+#' getInit(transition)
+getInit <- function(transition) {
+  UseMethod("getInit")
 }
 
 #' Retrieve Initial Parameters for Exponential Transition Model
@@ -243,8 +243,8 @@ getInitial <- function(transition) {
 #'
 #' @examples
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
-#' getInitial.ExponentialTransition(transition)
-getInitial.ExponentialTransition <- function(transition) {
+#' getInit.ExponentialTransition(transition)
+getInit.ExponentialTransition <- function(transition) {
   unlist(transition$hazards)
 }
 
@@ -261,8 +261,8 @@ getInitial.ExponentialTransition <- function(transition) {
 #'
 #' @examples
 #' transition <- weibull_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6, p01 = 2, p02 = 2.5, p12 = 3)
-#' getInitial.WeibullTransition(transition)
-getInitial.WeibullTransition <- function(transition) {
+#' getInit.WeibullTransition(transition)
+getInit.WeibullTransition <- function(transition) {
   c(unlist(transition$hazards), unlist(transition$weibull_rates))
 }
 
@@ -390,7 +390,7 @@ estimateParams <- function(data, transition) {
   data <- prepareData(data)
 
   res <- stats::optim(
-    par = getInitial(transition),
+    par = getInit(transition),
     fn = getTarget,
     method = "L-BFGS-B",
     lower = 1e-3,
