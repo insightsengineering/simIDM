@@ -123,16 +123,65 @@ haz.WeibullTransition <- function(transition, t, trans) {
   params[trans] * params[trans + 3] * t^(params[trans + 3] - 1)
 }
 
+#' Survival Function for Different Transition Models
+#'
+#' @param transition (`ExponentialTransition` or `WeibullTransition`)\cr
+#'   See [exponential_transition()] or [weibull_transition()] for details.
+#' @param t (`numeric`)\cr time at which survival probability is to be computed.
+#' @param trans (`integer`)\cr index specifying the transition type.
+#'
+#' @return Returns the survival probability (`numeric`) for the specified transition and time.
+#' @export
+#'
+#' @details
+#' This function dispatches to either `survTrans.ExponentialTransition` or `survTrans.WeibullTransition`
+#' based on the `transition` object type.
+#'
+#' @examples
+#' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
+#' survTrans(transition, 0.4, 2)
 survTrans <- function(transition, t, trans) {
   UseMethod("survTrans")
 }
 
+#' Survival Function for Exponential Transition Model
+#'
+#' @param transition (`ExponentialTransition`)\cr
+#'   See [exponential_transition()] for details.
+#' @param t (`numeric`)\cr time at which survival probability is to be computed.
+#' @param trans (`integer`)\cr index specifying the transition type.
+#'
+#' @return Returns the survival probability (`numeric`) for the exponential transition at the specified time.
+#' @export
+#'
+#' @details
+#' Computes the survival function specifically for an exponential transition model using provided parameters.
+#'
+#' @examples
+#' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
+#' survTrans.ExponentialTransition(transition, 0.4, 2)
 survTrans.ExponentialTransition <- function(transition, t, trans) {
   # params (in this order): h01, h02, h12
   params <- unlist(transition$hazards)
   exp(-params[trans] * t)
 }
 
+#' Survival Function for Weibull Transition Model
+#'
+#' @param transition (`WeibullTransition`)\cr
+#'   See [weibull_transition()] for details.
+#' @param t (`numeric`)\cr time at which survival probability is to be computed.
+#' @param trans (`integer`)\cr index specifying the transition type.
+#'
+#' @return Returns the survival probability (`numeric`) for the Weibull transition at the specified time.
+#' @export
+#'
+#' @details
+#' Computes the survival function specifically for a Weibull transition model using provided parameters.
+#'
+#' @examples
+#' transition <- weibull_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6, p01 = 2, p02 = 2.5, p12 = 3)
+#' survTrans.WeibullTransition(transition, 0.4, 2)
 survTrans.WeibullTransition <- function(transition, t, trans) {
   # params (in this order): h01, h02, h12, p01, p02, p12
   params <- c(unlist(transition$hazards), unlist(transition$weibull_rates))
