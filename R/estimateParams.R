@@ -266,7 +266,27 @@ getInitial.WeibullTransition <- function(transition) {
   c(unlist(transition$hazards), unlist(transition$weibull_rates))
 }
 
-
+#' Generate the Target Function for Optimization
+#'
+#' @param params (`numeric` vector)\cr
+#'   Vector of parameters to be optimized over.
+#' @param data (`data.frame`)\cr
+#'   Data frame in the format created by [prepareData()].
+#' @param transition (`transitionParameters` object)\cr
+#'   Object specifying the distribution family. See [exponential_transition()] or [weibull_transition()] for details.
+#'
+#' @return Returns a function that calculates the negative log-likelihood (`numeric`) for the given parameters.
+#' @export
+#'
+#' @details
+#' This function creates a target function for optimization, which computes the negative log-likelihood for given
+#' parameters, data, and transition model type.
+#'
+#' @examples
+#' params <- c(1.2, 1.5, 1.6) # For ExponentialTransition
+#' data <- prepareData(your_dataset)
+#' transition <- exponential_transition()
+#' getTarget(params, data, transition)
 getTarget <- function(params, data, transition) {
   if ("ExponentialTransition" %in% class(transition)) {
     negLogLik(transition = exponential_transition(h01 = params[1], h02 = params[2], h12 = params[3]), data = data)
