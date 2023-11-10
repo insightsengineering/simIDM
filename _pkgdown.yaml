@@ -74,4 +74,19 @@ reference:
       - empSignificant
   - title: Parameter Estimation
     contents:
-      - prepareData
+      - estimateParams
+      - getInitial
+      - getResults
+      - getInitial.ExponentialTransition
+      - getResults.ExponentialTransition
+      - getInitial.WeibullTransition
+      - getResults.WeibullTransition
+  - title: Likelihood
+    contents:
+      - haz
+      - haz.ExponentialTransition
+      - haz.WeibullTransition
+      - survTrans
+      - survTrans.ExponentialTransition
+      - survTrans.WeibullTransition
+      - negLogLik

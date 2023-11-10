@@ -14,7 +14,7 @@
 #'
 #' @examples
 #' exponential_transition(1, 1.6, 0.3)
-exponential_transition <- function(h01, h02, h12) {
+exponential_transition <- function(h01 = 1, h02 = 1, h12 = 1) {
   assert_positive_number(h01, zero_ok = TRUE)
   assert_positive_number(h02, zero_ok = TRUE)
   assert_positive_number(h12, zero_ok = TRUE)
@@ -25,7 +25,7 @@ exponential_transition <- function(h01, h02, h12) {
       weibull_rates = list(p01 = 1, p02 = 1, p12 = 1),
       family = "exponential"
     ),
-    class = "TransitionParameters"
+    class = c("ExponentialTransition", "TransitionParameters")
   )
 }
 
@@ -67,7 +67,7 @@ piecewise_exponential <- function(h01, h02, h12, pw01, pw02, pw12) {
       weibull_rates = list(p01 = 1, p02 = 1, p12 = 1),
       family = "piecewise exponential"
     ),
-    class = "TransitionParameters"
+    class = c("PWCTransition", "TransitionParameters")
   )
 }
 
@@ -90,7 +90,7 @@ piecewise_exponential <- function(h01, h02, h12, pw01, pw02, pw12) {
 #'
 #' @examples
 #' weibull_transition(h01 = 1, h02 = 1.3, h12 = 0.5, p01 = 1.2, p02 = 1.3, p12 = 0.5)
-weibull_transition <- function(h01, h02, h12, p01, p02, p12) {
+weibull_transition <- function(h01 = 1, h02 = 1, h12 = 1, p01 = 1, p02 = 1, p12 = 1) {
   assert_positive_number(h01, zero_ok = TRUE)
   assert_positive_number(h02, zero_ok = TRUE)
   assert_positive_number(h12, zero_ok = TRUE)
@@ -104,6 +104,6 @@ weibull_transition <- function(h01, h02, h12, p01, p02, p12) {
       intervals = list(pw01 = 0, pw02 = 0, pw12 = 0),
       family = "Weibull"
     ),
-    class = "TransitionParameters"
+    class = c("WeibullTransition", "TransitionParameters")
   )
 }
