@@ -58,16 +58,65 @@ negLogLik <- function(transition, data) {
   with(data, -sum(log(haz(transition, exit, trans)^status * survTrans(transition, exit, trans) / survTrans(transition, entry, trans))))
 }
 
+#' Hazard Function for Different Transition Models
+#'
+#' @param transition (`ExponentialTransition` or `WeibullTransition`)\cr.
+#'   See [exponential_transition()] or [weibull_transition()] for details.
+#' @param t (`numeric`)\cr time at which hazard is to be computed.
+#' @param trans (`integer`)\cr index specifying the transition type.
+#'
+#' @return Returns the hazard rate (`numeric`) for the specified transition and time.
+#' @export
+#'
+#' @details
+#' This function dispatches to either `haz.ExponentialTransition` or `haz.WeibullTransition`
+#' based on the `transition` object type.
+#'
+#' @examples
+#' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
+#' haz(transition, 0.4, 2)
 haz <- function(transition, t, trans) {
   UseMethod("haz")
 }
 
+#' Hazard Function for Exponential Transition Model
+#'
+#' @param transition (`ExponentialTransition`)\cr
+#'   See [exponential_transition()] for details.
+#' @param t (`numeric`)\cr time at which hazard is to be computed.
+#' @param trans (`integer`)\cr index specifying the transition type.
+#'
+#' @return Returns the hazard rate (`numeric`) for the exponential transition at the specified time.
+#' @export
+#'
+#' @details
+#' Computes the hazard function specifically for an exponential transition model using provided parameters.
+#'
+#' @examples
+#' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
+#' haz.ExponentialTransition(transition, 0.4, 2)
 haz.ExponentialTransition <- function(transition, t, trans) {
   # params (in this order): h01, h02, h12
   params <- unlist(transition$hazards)
   params[trans]
 }
 
+#' Hazard Function for Weibull Transition Model
+#'
+#' @param transition (`WeibullTransition`)\cr
+#'   See [weibull_transition()] for details.
+#' @param t (`numeric`)\cr time at which hazard is to be computed.
+#' @param trans (`integer`)\cr index specifying the transition type.
+#'
+#' @return Returns the hazard rate (`numeric`) for the Weibull transition at the specified time.
+#' @export
+#'
+#' @details
+#' Computes the hazard function specifically for a Weibull transition model using provided parameters.
+#'
+#' @examples
+#' transition <- weibull_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6, p01 = 2, p02 = 2.5, p12 = 3)
+#' haz.WeibullTransition(transition, 0.4, 2)
 haz.WeibullTransition <- function(transition, t, trans) {
   # params (in this order): h01, h02, h12, p01, p02, p12
   params <- c(unlist(transition$hazards), unlist(transition$weibull_rates))
