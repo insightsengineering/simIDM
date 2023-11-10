@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.936923076923077" branch-rate="0" lines-covered="609" lines-valid="650" branches-covered="0" branches-valid="0" complexity="0" version="3.6.3" timestamp="2023-11-10 20:31:48.821864">
+<coverage line-rate="0.935483870967742" branch-rate="0" lines-covered="609" lines-valid="651" branches-covered="0" branches-valid="0" complexity="0" version="3.6.3" timestamp="2023-11-10 20:57:05.708001">
   <sources>
     <source>/__w/simIDM/simIDM/simIDM</source>
   </sources>
   <packages>
-    <package name="simIDM" line-rate="0.936923076923077" branch-rate="0" complexity="0">
+    <package name="simIDM" line-rate="0.935483870967742" branch-rate="0" complexity="0">
       <classes>
         <class name="assertions.R" filename="R/assertions.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
@@ -187,7 +187,7 @@
             <line number="161" hits="1" branch="false"/>
           </lines>
         </class>
-        <class name="estimateParams.R" filename="R/estimateParams.R" line-rate="0.350877192982456" branch-rate="0" complexity="0">
+        <class name="estimateParams.R" filename="R/estimateParams.R" line-rate="0.344827586206897" branch-rate="0" complexity="0">
           <methods>
             <method name="prepareData" signature="" line-rate="0.952380952380952" branch-rate="0" complexity="0">
               <lines>
@@ -217,97 +217,98 @@
             <method name="negLogLik" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
                 <line number="80" hits="0" branch="false"/>
+                <line number="81" hits="0" branch="false"/>
               </lines>
             </method>
             <method name="haz" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
-                <line number="101" hits="0" branch="false"/>
+                <line number="102" hits="0" branch="false"/>
               </lines>
             </method>
             <method name="haz.ExponentialTransition" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
-                <line number="122" hits="0" branch="false"/>
                 <line number="123" hits="0" branch="false"/>
+                <line number="124" hits="0" branch="false"/>
               </lines>
             </method>
             <method name="haz.WeibullTransition" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
-                <line number="144" hits="0" branch="false"/>
                 <line number="145" hits="0" branch="false"/>
+                <line number="146" hits="0" branch="false"/>
               </lines>
             </method>
             <method name="survTrans" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
-                <line number="166" hits="0" branch="false"/>
+                <line number="167" hits="0" branch="false"/>
               </lines>
             </method>
             <method name="survTrans.ExponentialTransition" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
-                <line number="187" hits="0" branch="false"/>
                 <line number="188" hits="0" branch="false"/>
+                <line number="189" hits="0" branch="false"/>
               </lines>
             </method>
             <method name="survTrans.WeibullTransition" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
-                <line number="209" hits="0" branch="false"/>
                 <line number="210" hits="0" branch="false"/>
+                <line number="211" hits="0" branch="false"/>
               </lines>
             </method>
             <method name="getInitial" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
-                <line number="229" hits="0" branch="false"/>
+                <line number="230" hits="0" branch="false"/>
               </lines>
             </method>
             <method name="getInitial.ExponentialTransition" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
-                <line number="247" hits="0" branch="false"/>
+                <line number="248" hits="0" branch="false"/>
               </lines>
             </method>
             <method name="getInitial.WeibullTransition" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
-                <line number="265" hits="0" branch="false"/>
+                <line number="266" hits="0" branch="false"/>
               </lines>
             </method>
             <method name="getTarget" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
-                <line number="290" hits="0" branch="false"/>
                 <line number="291" hits="0" branch="false"/>
-                <line number="293" hits="0" branch="false"/>
+                <line number="292" hits="0" branch="false"/>
                 <line number="294" hits="0" branch="false"/>
                 <line number="295" hits="0" branch="false"/>
                 <line number="296" hits="0" branch="false"/>
+                <line number="297" hits="0" branch="false"/>
               </lines>
             </method>
             <method name="getResults" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
-                <line number="317" hits="0" branch="false"/>
+                <line number="318" hits="0" branch="false"/>
               </lines>
             </method>
             <method name="getResults.ExponentialTransition" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
-                <line number="336" hits="0" branch="false"/>
+                <line number="337" hits="0" branch="false"/>
               </lines>
             </method>
             <method name="getResults.WeibullTransition" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
-                <line number="355" hits="0" branch="false"/>
                 <line number="356" hits="0" branch="false"/>
                 <line number="357" hits="0" branch="false"/>
                 <line number="358" hits="0" branch="false"/>
+                <line number="359" hits="0" branch="false"/>
               </lines>
             </method>
             <method name="estimateParams" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
-                <line number="387" hits="0" branch="false"/>
-                <line number="389" hits="0" branch="false"/>
                 <line number="390" hits="0" branch="false"/>
-                <line number="391" hits="0" branch="false"/>
                 <line number="392" hits="0" branch="false"/>
                 <line number="393" hits="0" branch="false"/>
                 <line number="394" hits="0" branch="false"/>
                 <line number="395" hits="0" branch="false"/>
                 <line number="396" hits="0" branch="false"/>
+                <line number="397" hits="0" branch="false"/>
                 <line number="398" hits="0" branch="false"/>
+                <line number="399" hits="0" branch="false"/>
+                <line number="401" hits="0" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -334,41 +335,42 @@
             <line number="52" hits="1" branch="false"/>
             <line number="54" hits="1" branch="false"/>
             <line number="80" hits="0" branch="false"/>
-            <line number="101" hits="0" branch="false"/>
-            <line number="122" hits="0" branch="false"/>
+            <line number="81" hits="0" branch="false"/>
+            <line number="102" hits="0" branch="false"/>
             <line number="123" hits="0" branch="false"/>
-            <line number="144" hits="0" branch="false"/>
+            <line number="124" hits="0" branch="false"/>
             <line number="145" hits="0" branch="false"/>
-            <line number="166" hits="0" branch="false"/>
-            <line number="187" hits="0" branch="false"/>
+            <line number="146" hits="0" branch="false"/>
+            <line number="167" hits="0" branch="false"/>
             <line number="188" hits="0" branch="false"/>
-            <line number="209" hits="0" branch="false"/>
+            <line number="189" hits="0" branch="false"/>
             <line number="210" hits="0" branch="false"/>
-            <line number="229" hits="0" branch="false"/>
-            <line number="247" hits="0" branch="false"/>
-            <line number="265" hits="0" branch="false"/>
-            <line number="290" hits="0" branch="false"/>
+            <line number="211" hits="0" branch="false"/>
+            <line number="230" hits="0" branch="false"/>
+            <line number="248" hits="0" branch="false"/>
+            <line number="266" hits="0" branch="false"/>
             <line number="291" hits="0" branch="false"/>
-            <line number="293" hits="0" branch="false"/>
+            <line number="292" hits="0" branch="false"/>
             <line number="294" hits="0" branch="false"/>
             <line number="295" hits="0" branch="false"/>
             <line number="296" hits="0" branch="false"/>
-            <line number="317" hits="0" branch="false"/>
-            <line number="336" hits="0" branch="false"/>
-            <line number="355" hits="0" branch="false"/>
+            <line number="297" hits="0" branch="false"/>
+            <line number="318" hits="0" branch="false"/>
+            <line number="337" hits="0" branch="false"/>
             <line number="356" hits="0" branch="false"/>
             <line number="357" hits="0" branch="false"/>
             <line number="358" hits="0" branch="false"/>
-            <line number="387" hits="0" branch="false"/>
-            <line number="389" hits="0" branch="false"/>
+            <line number="359" hits="0" branch="false"/>
             <line number="390" hits="0" branch="false"/>
-            <line number="391" hits="0" branch="false"/>
             <line number="392" hits="0" branch="false"/>
             <line number="393" hits="0" branch="false"/>
             <line number="394" hits="0" branch="false"/>
             <line number="395" hits="0" branch="false"/>
             <line number="396" hits="0" branch="false"/>
+            <line number="397" hits="0" branch="false"/>
             <line number="398" hits="0" branch="false"/>
+            <line number="399" hits="0" branch="false"/>
+            <line number="401" hits="0" branch="false"/>
           </lines>
         </class>
         <class name="eventTracking.R" filename="R/eventTracking.R" line-rate="0.977272727272727" branch-rate="0" complexity="0">
