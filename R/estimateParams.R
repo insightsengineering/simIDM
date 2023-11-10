@@ -78,7 +78,7 @@ prepareData <- function(data) {
 #' negLogLik(transition, prepareData(simData))
 negLogLik <- function(transition, data) {
   with(data, -sum(log(haz(transition, exit, trans)^status
-    * survTrans(transition, exit, trans) / survTrans(transition, entry, trans))))
+                      * survTrans(transition, exit, trans) / survTrans(transition, entry, trans))))
 }
 
 #' Hazard Function for Different Transition Models
