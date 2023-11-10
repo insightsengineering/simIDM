@@ -11,7 +11,9 @@ estimateParams(data, transition)
 Data frame in the format produced by \code{\link[=getOneClinicalTrial]{getOneClinicalTrial()}}.}
 
 \item{transition}{(\code{transitionParameters} object)\cr
-Object specifying the assumed distribution of transition hazards. Initial parameters for optimization can be specified here. See \code{\link[=exponential_transition]{exponential_transition()}} or \code{\link[=weibull_transition]{weibull_transition()}} for details.}
+Object specifying the assumed distribution of transition hazards.
+Initial parameters for optimization can be specified here.
+See \code{\link[=exponential_transition]{exponential_transition()}} or \code{\link[=weibull_transition]{weibull_transition()}} for details.}
 }
 \value{
 Returns a \code{transitionParameters} object with the estimated parameters.
