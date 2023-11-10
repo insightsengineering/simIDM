@@ -118,8 +118,10 @@ getResults.ExponentialTransition <- function(transition, res) {
 }
 
 getResults.WeibullTransition <- function(transition, res) {
-  weibull_transition(h01 = res[1], h02 = res[2], h12 = res[3],
-                     p01 = res[4], p02 = res[5], p12 = res[6])
+  weibull_transition(
+    h01 = res[1], h02 = res[2], h12 = res[3],
+    p01 = res[4], p02 = res[5], p12 = res[6]
+  )
 }
 
 estimateParams <- function(data, transition) {
