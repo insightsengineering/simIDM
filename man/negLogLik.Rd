@@ -25,11 +25,10 @@ and survival functions specific to the transition model.
 }
 \examples{
 transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
-trial <- getOneClinicalTrial(
-  nPat = c(40),
-  transitionByArm = list(transition),
-  dropout = list(rate = 0.2, time = 1),
-  accrual = list(param = "intensity", value = 100)
+simData <- getOneClinicalTrial(
+  nPat = c(30), transitionByArm = list(transition),
+  dropout = list(rate = 0.8, time = 12),
+  accrual = list(param = "time", value = 1)
 )
-negLogLik(transition, prepareData(trial))
+negLogLik(transition, prepareData(simData))
 }

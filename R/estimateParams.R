@@ -70,13 +70,12 @@ prepareData <- function(data) {
 #'
 #' @examples
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
-#' trial <- getOneClinicalTrial(
-#'   nPat = c(40),
-#'   transitionByArm = list(transition),
-#'   dropout = list(rate = 0.2, time = 1),
-#'   accrual = list(param = "intensity", value = 100)
+#' simData <- getOneClinicalTrial(
+#'   nPat = c(30), transitionByArm = list(transition),
+#'   dropout = list(rate = 0.8, time = 12),
+#'   accrual = list(param = "time", value = 1)
 #' )
-#' negLogLik(transition, prepareData(trial))
+#' negLogLik(transition, prepareData(simData))
 negLogLik <- function(transition, data) {
   with(data, -sum(log(haz(transition, exit, trans)^status * survTrans(transition, exit, trans) / survTrans(transition, entry, trans))))
 }
@@ -119,7 +118,7 @@ haz <- function(transition, t, trans) {
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
 #' haz.ExponentialTransition(transition, 0.4, 2)
 haz.ExponentialTransition <- function(transition, t, trans) {
-  # params (in this order): h01, h02, h12
+  # params (in this order): h01, h02, h12.
   params <- unlist(transition$hazards)
   params[trans]
 }
@@ -141,7 +140,7 @@ haz.ExponentialTransition <- function(transition, t, trans) {
 #' transition <- weibull_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6, p01 = 2, p02 = 2.5, p12 = 3)
 #' haz.WeibullTransition(transition, 0.4, 2)
 haz.WeibullTransition <- function(transition, t, trans) {
-  # params (in this order): h01, h02, h12, p01, p02, p12
+  # params (in this order): h01, h02, h12, p01, p02, p12.
   params <- c(unlist(transition$hazards), unlist(transition$weibull_rates))
   params[trans] * params[trans + 3] * t^(params[trans + 3] - 1)
 }
@@ -184,7 +183,7 @@ survTrans <- function(transition, t, trans) {
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
 #' survTrans.ExponentialTransition(transition, 0.4, 2)
 survTrans.ExponentialTransition <- function(transition, t, trans) {
-  # params (in this order): h01, h02, h12
+  # params (in this order): h01, h02, h12.
   params <- unlist(transition$hazards)
   exp(-params[trans] * t)
 }
@@ -206,7 +205,7 @@ survTrans.ExponentialTransition <- function(transition, t, trans) {
 #' transition <- weibull_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6, p01 = 2, p02 = 2.5, p12 = 3)
 #' survTrans.WeibullTransition(transition, 0.4, 2)
 survTrans.WeibullTransition <- function(transition, t, trans) {
-  # params (in this order): h01, h02, h12, p01, p02, p12
+  # params (in this order): h01, h02, h12, p01, p02, p12.
   params <- c(unlist(transition$hazards), unlist(transition$weibull_rates))
   exp(-params[trans] * t^params[trans + 3])
 }
@@ -359,6 +358,31 @@ getResults.WeibullTransition <- function(transition, res) {
   )
 }
 
+#' Estimate Parameters of the Multistate Model Using Clinical Trial Data
+#'
+#' @param data (`data.frame`)\cr
+#'   Data frame in the format produced by [getOneClinicalTrial()].
+#' @param transition (`transitionParameters` object)\cr
+#'   Object specifying the assumed distribution of transition hazards. Initial parameters for optimization can be specified here. See [exponential_transition()] or [weibull_transition()] for details.
+#'
+#' @return Returns a `transitionParameters` object with the estimated parameters.
+#' @export
+#'
+#' @details
+#' This function estimates parameters for transition models using clinical trial data.
+#' The `transition` object can be initialized with starting values for parameter estimation.
+#' It uses [stats::optim()] to optimize the parameters.
+#'
+#' @examples
+#' transition <- exponential_transition(h01 = 2, h02 = 1.4, h12 = 1.6)
+#' simData <- getOneClinicalTrial(
+#'   nPat = c(30), transitionByArm = list(transition),
+#'   dropout = list(rate = 0.3, time = 12),
+#'   accrual = list(param = "time", value = 1)
+#' )
+#' # Initialize transition with desired starting values for optimization:
+#' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
+#' estimate <- estimateParams(simData, transition)
 estimateParams <- function(data, transition) {
   data <- prepareData(data)
 
