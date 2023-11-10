@@ -91,11 +91,15 @@ survTrans.WeibullTransition <- function(transition, t, trans) {
 }
 
 getInitial <- function(transition) {
-  if ("ExponentialTransition" %in% class(transition)) {
-    unlist(transition$hazards)
-  } else {
-    c(unlist(transition$hazards), unlist(transition$weibull_rates))
-  }
+  UseMethod("getInitial")
+}
+
+getInitial.ExponentialTransition <- function(transition) {
+  unlist(transition$hazards)
+}
+
+getInitial.WeibullTransition <- function(transition) {
+  c(unlist(transition$hazards), unlist(transition$weibull_rates))
 }
 
 getTarget <- function(params, data, transition) {

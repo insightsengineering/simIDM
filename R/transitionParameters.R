@@ -25,7 +25,7 @@ exponential_transition <- function(h01 = 1, h02 = 1, h12 = 1) {
       weibull_rates = list(p01 = 1, p02 = 1, p12 = 1),
       family = "exponential"
     ),
-    class = c("TransitionParameters", "ExponentialTransition")
+    class = c("ExponentialTransition", "TransitionParameters")
   )
 }
 
@@ -67,7 +67,7 @@ piecewise_exponential <- function(h01, h02, h12, pw01, pw02, pw12) {
       weibull_rates = list(p01 = 1, p02 = 1, p12 = 1),
       family = "piecewise exponential"
     ),
-    class = c("TransitionParameters", "PWCTransition")
+    class = c("PWCTransition", "TransitionParameters")
   )
 }
 
@@ -104,6 +104,6 @@ weibull_transition <- function(h01 = 1, h02 = 1, h12 = 1, p01 = 1, p02 = 1, p12 
       intervals = list(pw01 = 0, pw02 = 0, pw12 = 0),
       family = "Weibull"
     ),
-    class = c("TransitionParameters", "WeibullTransition")
+    class = c("WeibullTransition", "TransitionParameters")
   )
 }
