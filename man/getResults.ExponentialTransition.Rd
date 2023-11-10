@@ -22,7 +22,6 @@ Format Results of Parameter Estimation for Exponential Transition
 Constructs an \code{ExponentialTransition} object with parameters estimated from likelihood maximization.
 }
 \examples{
-transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
 results <- c(1.2, 1.5, 1.6)
-getResults.ExponentialTransition(transition, results)
+getResults.ExponentialTransition(exponential_transition(), results)
 }

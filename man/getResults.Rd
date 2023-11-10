@@ -23,7 +23,6 @@ This function dispatches to either \code{getResults.ExponentialTransition} or \c
 based on the \code{transition} object class, using the results from likelihood maximization.
 }
 \examples{
-transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
 results <- c(1.2, 1.5, 1.6)
-getResults(transition, results)
+getResults(exponential_transition(), results)
 }

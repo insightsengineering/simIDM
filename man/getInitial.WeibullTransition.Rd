@@ -7,7 +7,7 @@
 \method{getInitial}{WeibullTransition}(transition)
 }
 \arguments{
-\item{transition}{(\code{WeibullTransition})\cr
+\item{transition}{(\code{WeibullTransition})\cr containing the initial parameters.
 See \code{\link[=weibull_transition]{weibull_transition()}} for details.}
 }
 \value{

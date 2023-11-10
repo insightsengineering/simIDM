@@ -22,7 +22,6 @@ Format Results of Parameter Estimation for Weibull Transition
 Constructs a \code{WeibullTransition} object with parameters estimated from likelihood maximization.
 }
 \examples{
-transition <- weibull_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6, p01 = 2, p02 = 2.5, p12 = 3)
 results <- c(1.2, 1.5, 1.6, 2, 2.5, 1)
-getResults.WeibullTransition(transition, results)
+getResults.WeibullTransition(weibull_transition(), results)
 }

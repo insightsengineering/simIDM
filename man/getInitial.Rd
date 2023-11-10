@@ -7,7 +7,7 @@
 getInitial(transition)
 }
 \arguments{
-\item{transition}{(\code{ExponentialTransition} or \code{WeibullTransition})\cr
+\item{transition}{(\code{ExponentialTransition} or \code{WeibullTransition})\cr containing the initial parameters.
 See \code{\link[=exponential_transition]{exponential_transition()}} or \code{\link[=weibull_transition]{weibull_transition()}} for details.}
 }
 \value{

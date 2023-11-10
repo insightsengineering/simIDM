@@ -190,7 +190,7 @@ survTrans.WeibullTransition <- function(transition, t, trans) {
 
 #' Retrieve Initial Parameter Vectors for Likelihood Maximization
 #'
-#' @param transition (`ExponentialTransition` or `WeibullTransition`)\cr
+#' @param transition (`ExponentialTransition` or `WeibullTransition`)\cr containing the initial parameters.
 #'   See [exponential_transition()] or [weibull_transition()] for details.
 #'
 #' @return Returns a vector (`numeric`) of initial parameters for likelihood maximization.
@@ -209,7 +209,7 @@ getInitial <- function(transition) {
 
 #' Retrieve Initial Parameters for Exponential Transition Model
 #'
-#' @param transition (`ExponentialTransition`)\cr
+#' @param transition (`ExponentialTransition`)\cr containing the initial parameters.
 #'   See [exponential_transition()] for details.
 #'
 #' @return Returns a vector (`numeric`) of initial parameters for the exponential transition.
@@ -227,7 +227,7 @@ getInitial.ExponentialTransition <- function(transition) {
 
 #' Retrieve Initial Parameters for Weibull Transition Model
 #'
-#' @param transition (`WeibullTransition`)\cr
+#' @param transition (`WeibullTransition`)\cr containing the initial parameters.
 #'   See [weibull_transition()] for details.
 #'
 #' @return Returns a vector (`numeric`) of initial parameters for the Weibull transition.
@@ -269,9 +269,8 @@ getTarget <- function(params, data, transition) {
 #' based on the `transition` object class, using the results from likelihood maximization.
 #'
 #' @examples
-#' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
 #' results <- c(1.2, 1.5, 1.6)
-#' getResults(transition, results)
+#' getResults(exponential_transition(), results)
 getResults <- function(transition, res) {
   UseMethod("getResults")
 }
@@ -289,9 +288,8 @@ getResults <- function(transition, res) {
 #' Constructs an `ExponentialTransition` object with parameters estimated from likelihood maximization.
 #'
 #' @examples
-#' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
 #' results <- c(1.2, 1.5, 1.6)
-#' getResults.ExponentialTransition(transition, results)
+#' getResults.ExponentialTransition(exponential_transition(), results)
 getResults.ExponentialTransition <- function(transition, res) {
   exponential_transition(h01 = res[1], h02 = res[2], h12 = res[3])
 }
@@ -309,9 +307,8 @@ getResults.ExponentialTransition <- function(transition, res) {
 #' Constructs a `WeibullTransition` object with parameters estimated from likelihood maximization.
 #'
 #' @examples
-#' transition <- weibull_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6, p01 = 2, p02 = 2.5, p12 = 3)
 #' results <- c(1.2, 1.5, 1.6, 2, 2.5, 1)
-#' getResults.WeibullTransition(transition, results)
+#' getResults.WeibullTransition(weibull_transition(), results)
 getResults.WeibullTransition <- function(transition, res) {
   weibull_transition(
     h01 = res[1], h02 = res[2], h12 = res[3],

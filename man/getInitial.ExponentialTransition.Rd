@@ -7,7 +7,7 @@
 \method{getInitial}{ExponentialTransition}(transition)
 }
 \arguments{
-\item{transition}{(\code{ExponentialTransition})\cr
+\item{transition}{(\code{ExponentialTransition})\cr containing the initial parameters.
 See \code{\link[=exponential_transition]{exponential_transition()}} for details.}
 }
 \value{
