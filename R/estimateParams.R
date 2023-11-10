@@ -70,7 +70,7 @@ negLogLik <- function(transition, data) {
 #'
 #' @details
 #' This function dispatches to either `haz.ExponentialTransition` or `haz.WeibullTransition`
-#' based on the `transition` object type.
+#' based on the `transition` object class.
 #'
 #' @examples
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
@@ -135,7 +135,7 @@ haz.WeibullTransition <- function(transition, t, trans) {
 #'
 #' @details
 #' This function dispatches to either `survTrans.ExponentialTransition` or `survTrans.WeibullTransition`
-#' based on the `transition` object type.
+#' based on the `transition` object class
 #'
 #' @examples
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
@@ -188,17 +188,61 @@ survTrans.WeibullTransition <- function(transition, t, trans) {
   exp(-params[trans] * t^params[trans + 3])
 }
 
+#' Retrieve Initial Parameter Vectors for Likelihood Maximization
+#'
+#' @param transition (`ExponentialTransition` or `WeibullTransition`)\cr
+#'   See [exponential_transition()] or [weibull_transition()] for details.
+#'
+#' @return Returns a vector (`numeric`) of initial parameters for likelihood maximization.
+#' @export
+#'
+#' @details
+#' This function dispatches to either `getInitial.ExponentialTransition` or `getInitial.WeibullTransition`
+#' based on the `transition` object class.
+#'
+#' @examples
+#' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
+#' getInitial(transition)
 getInitial <- function(transition) {
   UseMethod("getInitial")
 }
 
+#' Retrieve Initial Parameters for Exponential Transition Model
+#'
+#' @param transition (`ExponentialTransition`)\cr
+#'   See [exponential_transition()] for details.
+#'
+#' @return Returns a vector (`numeric`) of initial parameters for the exponential transition.
+#' @export
+#'
+#' @details
+#' Extracts initial parameter values specifically for an exponential transition model.
+#'
+#' @examples
+#' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
+#' getInitial.ExponentialTransition(transition)
 getInitial.ExponentialTransition <- function(transition) {
   unlist(transition$hazards)
 }
 
+#' Retrieve Initial Parameters for Weibull Transition Model
+#'
+#' @param transition (`WeibullTransition`)\cr
+#'   See [weibull_transition()] for details.
+#'
+#' @return Returns a vector (`numeric`) of initial parameters for the Weibull transition.
+#' @export
+#'
+#' @details
+#' Extracts initial parameter values specifically for a Weibull transition model.
+#'
+#' @examples
+#' transition <- weibull_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6, p01 = 2, p02 = 2.5, p12 = 3)
+#' getInitial.WeibullTransition(transition)
 getInitial.WeibullTransition <- function(transition) {
   c(unlist(transition$hazards), unlist(transition$weibull_rates))
 }
+
 
 getTarget <- function(params, data, transition) {
   if ("ExponentialTransition" %in% class(transition)) {

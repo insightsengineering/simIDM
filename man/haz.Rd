@@ -22,7 +22,7 @@ Hazard Function for Different Transition Models
 }
 \details{
 This function dispatches to either \code{haz.ExponentialTransition} or \code{haz.WeibullTransition}
-based on the \code{transition} object type.
+based on the \code{transition} object class.
 }
 \examples{
 transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
