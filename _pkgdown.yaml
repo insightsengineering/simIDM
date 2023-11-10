@@ -76,11 +76,13 @@ reference:
     contents:
       - estimateParams
       - getInitial
-      - getResults
       - getInitial.ExponentialTransition
-      - getResults.ExponentialTransition
       - getInitial.WeibullTransition
+      - getResults
+      - getResults.ExponentialTransition
       - getResults.WeibullTransition
+      - getTarget
+      - prepareData
   - title: Likelihood
     contents:
       - haz
