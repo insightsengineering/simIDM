@@ -54,6 +54,29 @@ prepareData <- function(data) {
   as.data.frame(dataNew[, -which(names(dataNew) == "time")], row.names = seq_len(nrow(dataNew)))
 }
 
+#' Compute the Negative Log-Likelihood for a Given Data Set and Transition Model
+#'
+#' @param transition (`ExponentialTransition` or `WeibullTransition`)\cr.
+#'   See [exponential_transition()] or [weibull_transition()] for details.
+#' @param data (`data.frame`)\cr
+#'   Data frame in the format created by [prepareData()].
+#'
+#' @return Returns the value of the negative log-likelihood (`numeric`).
+#' @export
+#'
+#' @details
+#' Calculates the negative log-likelihood for a given data set and transition model. It uses the hazard
+#' and survival functions specific to the transition model.
+#'
+#' @examples
+#' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
+#' trial <- getOneClinicalTrial(
+#'   nPat = c(40),
+#'   transitionByArm = list(transition),
+#'   dropout = list(rate = 0.2, time = 1),
+#'   accrual = list(param = "intensity", value = 100)
+#' )
+#' negLogLik(transition, prepareData(trial))
 negLogLik <- function(transition, data) {
   with(data, -sum(log(haz(transition, exit, trans)^status * survTrans(transition, exit, trans) / survTrans(transition, entry, trans))))
 }
