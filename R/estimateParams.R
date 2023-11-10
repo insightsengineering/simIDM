@@ -53,3 +53,86 @@ prepareData <- function(data) {
 
   as.data.frame(dataNew[, -which(names(dataNew) == "time")], row.names = seq_len(nrow(dataNew)))
 }
+
+negLogLik <- function(transition, data) {
+  with(data, -sum(log(haz(transition, exit, trans)^status * survTrans(transition, exit, trans) / survTrans(transition, entry, trans))))
+}
+
+haz <- function(transition, t, trans) {
+  UseMethod("haz")
+}
+
+haz.ExponentialTransition <- function(transition, t, trans) {
+  # params (in this order): h01, h02, h12
+  params <- unlist(transition$hazards)
+  params[trans]
+}
+
+haz.WeibullTransition <- function(transition, t, trans) {
+  # params (in this order): h01, h02, h12, p01, p02, p12
+  params <- c(unlist(transition$hazards), unlist(transition$weibull_rates))
+  params[trans] * params[trans + 3] * t^(params[trans + 3] - 1)
+}
+
+survTrans <- function(transition, t, trans) {
+  UseMethod("survTrans")
+}
+
+survTrans.ExponentialTransition <- function(transition, t, trans) {
+  # params (in this order): h01, h02, h12
+  params <- unlist(transition$hazards)
+  exp(-params[trans] * t)
+}
+
+survTrans.WeibullTransition <- function(transition, t, trans) {
+  # params (in this order): h01, h02, h12, p01, p02, p12
+  params <- c(unlist(transition$hazards), unlist(transition$weibull_rates))
+  exp(-params[trans] * t^params[trans + 3])
+}
+
+getInitial <- function(transition) {
+  if ("ExponentialTransition" %in% class(transition)) {
+    unlist(transition$hazards)
+  } else {
+    c(unlist(transition$hazards), unlist(transition$weibull_rates))
+  }
+}
+
+getTarget <- function(params, data, transition) {
+  if ("ExponentialTransition" %in% class(transition)) {
+    negLogLik(transition = exponential_transition(h01 = params[1], h02 = params[2], h12 = params[3]), data = data)
+  } else {
+    negLogLik(transition = weibull_transition(
+      h01 = params[1], h02 = params[2], h12 = params[3],
+      p01 = params[4], p02 = params[5], p12 = params[6]
+    ), data = data)
+  }
+}
+
+getResults <- function(transition, res) {
+  UseMethod("getResults")
+}
+
+getResults.ExponentialTransition <- function(transition, res) {
+  exponential_transition(h01 = res[1], h02 = res[2], h12 = res[3])
+}
+
+getResults.WeibullTransition <- function(transition, res) {
+  weibull_transition(h01 = res[1], h02 = res[2], h12 = res[3],
+                     p01 = res[4], p02 = res[5], p12 = res[6])
+}
+
+estimateParams <- function(data, transition) {
+  data <- prepareData(data)
+
+  res <- stats::optim(
+    par = getInitial(transition),
+    fn = getTarget,
+    method = "L-BFGS-B",
+    lower = 1e-3,
+    data = data,
+    transition = transition
+  )$par
+
+  getResults(transition, res)
+}
