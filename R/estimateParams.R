@@ -77,7 +77,8 @@ prepareData <- function(data) {
 #' )
 #' negLogLik(transition, prepareData(simData))
 negLogLik <- function(transition, data) {
-  with(data, -sum(log(haz(transition, exit, trans)^status * survTrans(transition, exit, trans) / survTrans(transition, entry, trans))))
+  with(data, -sum(log(haz(transition, exit, trans)^status
+                      * survTrans(transition, exit, trans) / survTrans(transition, entry, trans))))
 }
 
 #' Hazard Function for Different Transition Models
@@ -363,7 +364,9 @@ getResults.WeibullTransition <- function(transition, res) {
 #' @param data (`data.frame`)\cr
 #'   Data frame in the format produced by [getOneClinicalTrial()].
 #' @param transition (`transitionParameters` object)\cr
-#'   Object specifying the assumed distribution of transition hazards. Initial parameters for optimization can be specified here. See [exponential_transition()] or [weibull_transition()] for details.
+#'   Object specifying the assumed distribution of transition hazards.
+#'   Initial parameters for optimization can be specified here.
+#'   See [exponential_transition()] or [weibull_transition()] for details.
 #'
 #' @return Returns a `transitionParameters` object with the estimated parameters.
 #' @export

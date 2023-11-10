@@ -72,7 +72,7 @@ reference:
     contents:
       - logRankTest
       - empSignificant
-- title: Parameter Estimation
+  - title: Parameter Estimation
     contents:
       - estimateParams
       - getInitial
