@@ -25,5 +25,5 @@ Computes the hazard function specifically for a Weibull transition model using p
 }
 \examples{
 transition <- weibull_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6, p01 = 2, p02 = 2.5, p12 = 3)
-haz.WeibullTransition(transition, 0.4, 2)
+haz(transition, 0.4, 2)
 }

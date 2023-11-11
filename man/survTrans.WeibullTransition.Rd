@@ -25,5 +25,5 @@ Computes the survival function specifically for a Weibull transition model using
 }
 \examples{
 transition <- weibull_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6, p01 = 2, p02 = 2.5, p12 = 3)
-survTrans.WeibullTransition(transition, 0.4, 2)
+survTrans(transition, 0.4, 2)
 }

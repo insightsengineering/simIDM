@@ -27,8 +27,14 @@ This function creates a target function for optimization, which computes the neg
 parameters, data, and transition model type.
 }
 \examples{
+transition <- exponential_transition(2, 1.3, 0.8)
+simData <- getOneClinicalTrial(
+  nPat = c(30), transitionByArm = list(transition),
+  dropout = list(rate = 0.8, time = 12),
+  accrual = list(param = "time", value = 1)
+)
 params <- c(1.2, 1.5, 1.6) # For ExponentialTransition
-data <- prepareData(your_dataset)
+data <- prepareData(simData)
 transition <- exponential_transition()
 getTarget(params, data, transition)
 }

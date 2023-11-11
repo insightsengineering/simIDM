@@ -25,5 +25,5 @@ Computes the hazard function specifically for an exponential transition model us
 }
 \examples{
 transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
-haz.ExponentialTransition(transition, 0.4, 2)
+haz(transition, 0.4, 2)
 }

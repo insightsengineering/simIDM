@@ -21,5 +21,5 @@ Extracts initial parameter values specifically for a Weibull transition model.
 }
 \examples{
 transition <- weibull_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6, p01 = 2, p02 = 2.5, p12 = 3)
-getInit.WeibullTransition(transition)
+getInit(transition)
 }

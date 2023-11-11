@@ -23,5 +23,5 @@ Constructs a \code{WeibullTransition} object with parameters estimated from like
 }
 \examples{
 results <- c(1.2, 1.5, 1.6, 2, 2.5, 1)
-getResults.WeibullTransition(weibull_transition(), results)
+getResults(weibull_transition(), results)
 }

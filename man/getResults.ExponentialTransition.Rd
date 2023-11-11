@@ -23,5 +23,5 @@ Constructs an \code{ExponentialTransition} object with parameters estimated from
 }
 \examples{
 results <- c(1.2, 1.5, 1.6)
-getResults.ExponentialTransition(exponential_transition(), results)
+getResults(exponential_transition(), results)
 }

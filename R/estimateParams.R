@@ -117,7 +117,7 @@ haz <- function(transition, t, trans) {
 #'
 #' @examples
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
-#' haz.ExponentialTransition(transition, 0.4, 2)
+#' haz(transition, 0.4, 2)
 haz.ExponentialTransition <- function(transition, t, trans) {
   # params (in this order): h01, h02, h12.
   params <- unlist(transition$hazards)
@@ -139,7 +139,7 @@ haz.ExponentialTransition <- function(transition, t, trans) {
 #'
 #' @examples
 #' transition <- weibull_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6, p01 = 2, p02 = 2.5, p12 = 3)
-#' haz.WeibullTransition(transition, 0.4, 2)
+#' haz(transition, 0.4, 2)
 haz.WeibullTransition <- function(transition, t, trans) {
   # params (in this order): h01, h02, h12, p01, p02, p12.
   params <- c(unlist(transition$hazards), unlist(transition$weibull_rates))
@@ -182,7 +182,7 @@ survTrans <- function(transition, t, trans) {
 #'
 #' @examples
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
-#' survTrans.ExponentialTransition(transition, 0.4, 2)
+#' survTrans(transition, 0.4, 2)
 survTrans.ExponentialTransition <- function(transition, t, trans) {
   # params (in this order): h01, h02, h12.
   params <- unlist(transition$hazards)
@@ -204,7 +204,7 @@ survTrans.ExponentialTransition <- function(transition, t, trans) {
 #'
 #' @examples
 #' transition <- weibull_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6, p01 = 2, p02 = 2.5, p12 = 3)
-#' survTrans.WeibullTransition(transition, 0.4, 2)
+#' survTrans(transition, 0.4, 2)
 survTrans.WeibullTransition <- function(transition, t, trans) {
   # params (in this order): h01, h02, h12, p01, p02, p12.
   params <- c(unlist(transition$hazards), unlist(transition$weibull_rates))
@@ -243,7 +243,7 @@ getInit <- function(transition) {
 #'
 #' @examples
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
-#' getInit.ExponentialTransition(transition)
+#' getInit(transition)
 getInit.ExponentialTransition <- function(transition) {
   unlist(transition$hazards)
 }
@@ -261,7 +261,7 @@ getInit.ExponentialTransition <- function(transition) {
 #'
 #' @examples
 #' transition <- weibull_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6, p01 = 2, p02 = 2.5, p12 = 3)
-#' getInit.WeibullTransition(transition)
+#' getInit(transition)
 getInit.WeibullTransition <- function(transition) {
   c(unlist(transition$hazards), unlist(transition$weibull_rates))
 }
@@ -283,8 +283,14 @@ getInit.WeibullTransition <- function(transition) {
 #' parameters, data, and transition model type.
 #'
 #' @examples
+#' transition <- exponential_transition(2, 1.3, 0.8)
+#' simData <- getOneClinicalTrial(
+#'   nPat = c(30), transitionByArm = list(transition),
+#'   dropout = list(rate = 0.8, time = 12),
+#'   accrual = list(param = "time", value = 1)
+#' )
 #' params <- c(1.2, 1.5, 1.6) # For ExponentialTransition
-#' data <- prepareData(your_dataset)
+#' data <- prepareData(simData)
 #' transition <- exponential_transition()
 #' getTarget(params, data, transition)
 getTarget <- function(params, data, transition) {
@@ -332,7 +338,7 @@ getResults <- function(transition, res) {
 #'
 #' @examples
 #' results <- c(1.2, 1.5, 1.6)
-#' getResults.ExponentialTransition(exponential_transition(), results)
+#' getResults(exponential_transition(), results)
 getResults.ExponentialTransition <- function(transition, res) {
   exponential_transition(h01 = res[1], h02 = res[2], h12 = res[3])
 }
@@ -351,7 +357,7 @@ getResults.ExponentialTransition <- function(transition, res) {
 #'
 #' @examples
 #' results <- c(1.2, 1.5, 1.6, 2, 2.5, 1)
-#' getResults.WeibullTransition(weibull_transition(), results)
+#' getResults(weibull_transition(), results)
 getResults.WeibullTransition <- function(transition, res) {
   weibull_transition(
     h01 = res[1], h02 = res[2], h12 = res[3],
