@@ -3,6 +3,7 @@
 ### New Features
 
 -   `prepareData` allows formatting of trial data for log-likelihood computation.
+-   `estimateParams` introduces parameter estimation for exponential and Weibull transition hazards for a given data set.
 
 ### Bug Fixes
 

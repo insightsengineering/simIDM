@@ -99,6 +99,9 @@ negLogLik <- function(transition, data) {
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
 #' haz(transition, 0.4, 2)
 haz <- function(transition, t, trans) {
+  assert_class(transition, "TransitionParameters")
+  assert_numeric(t, lower = 0)
+  assert_subset(trans, c(1, 2, 3))
   UseMethod("haz")
 }
 
@@ -120,7 +123,7 @@ haz <- function(transition, t, trans) {
 #' haz(transition, 0.4, 2)
 haz.ExponentialTransition <- function(transition, t, trans) {
   # params (in this order): h01, h02, h12.
-  params <- unlist(transition$hazards)
+  params <- unlist(transition$hazards, use.names = FALSE)
   params[trans]
 }
 
@@ -142,7 +145,7 @@ haz.ExponentialTransition <- function(transition, t, trans) {
 #' haz(transition, 0.4, 2)
 haz.WeibullTransition <- function(transition, t, trans) {
   # params (in this order): h01, h02, h12, p01, p02, p12.
-  params <- c(unlist(transition$hazards), unlist(transition$weibull_rates))
+  params <- c(unlist(transition$hazards, use.names = FALSE), unlist(transition$weibull_rates, use.names = FALSE))
   params[trans] * params[trans + 3] * t^(params[trans + 3] - 1)
 }
 
@@ -164,6 +167,9 @@ haz.WeibullTransition <- function(transition, t, trans) {
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
 #' survTrans(transition, 0.4, 2)
 survTrans <- function(transition, t, trans) {
+  assert_class(transition, "TransitionParameters")
+  assert_numeric(t, lower = 0)
+  assert_subset(trans, c(1, 2, 3))
   UseMethod("survTrans")
 }
 
@@ -185,7 +191,7 @@ survTrans <- function(transition, t, trans) {
 #' survTrans(transition, 0.4, 2)
 survTrans.ExponentialTransition <- function(transition, t, trans) {
   # params (in this order): h01, h02, h12.
-  params <- unlist(transition$hazards)
+  params <- unlist(transition$hazards, use.names = FALSE)
   exp(-params[trans] * t)
 }
 
@@ -207,7 +213,7 @@ survTrans.ExponentialTransition <- function(transition, t, trans) {
 #' survTrans(transition, 0.4, 2)
 survTrans.WeibullTransition <- function(transition, t, trans) {
   # params (in this order): h01, h02, h12, p01, p02, p12.
-  params <- c(unlist(transition$hazards), unlist(transition$weibull_rates))
+  params <- c(unlist(transition$hazards, use.names = FALSE), unlist(transition$weibull_rates, use.names = FALSE))
   exp(-params[trans] * t^params[trans + 3])
 }
 
@@ -227,6 +233,7 @@ survTrans.WeibullTransition <- function(transition, t, trans) {
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
 #' getInit(transition)
 getInit <- function(transition) {
+  assert_class(transition, "TransitionParameters")
   UseMethod("getInit")
 }
 
@@ -245,7 +252,7 @@ getInit <- function(transition) {
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
 #' getInit(transition)
 getInit.ExponentialTransition <- function(transition) {
-  unlist(transition$hazards)
+  unlist(transition$hazards, use.names = FALSE)
 }
 
 #' Retrieve Initial Parameters for Weibull Transition Model
@@ -263,7 +270,7 @@ getInit.ExponentialTransition <- function(transition) {
 #' transition <- weibull_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6, p01 = 2, p02 = 2.5, p12 = 3)
 #' getInit(transition)
 getInit.WeibullTransition <- function(transition) {
-  c(unlist(transition$hazards), unlist(transition$weibull_rates))
+  c(unlist(transition$hazards, use.names = FALSE), unlist(transition$weibull_rates, use.names = FALSE))
 }
 
 #' Generate the Target Function for Optimization
@@ -294,6 +301,9 @@ getInit.WeibullTransition <- function(transition) {
 #' transition <- exponential_transition()
 #' getTarget(params, data, transition)
 getTarget <- function(params, data, transition) {
+  assert_numeric(params)
+  assert_data_frame(data)
+  assert_class(transition, "TransitionParameters")
   if ("ExponentialTransition" %in% class(transition)) {
     negLogLik(transition = exponential_transition(h01 = params[1], h02 = params[2], h12 = params[3]), data = data)
   } else {
