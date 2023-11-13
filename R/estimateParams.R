@@ -56,8 +56,8 @@ prepareData <- function(data) {
 
 #' Compute the Negative Log-Likelihood for a Given Data Set and Transition Model
 #'
-#' @param transition (`ExponentialTransition` or `WeibullTransition`)\cr.
-#'   See [exponential_transition()] or [weibull_transition()] for details.
+#' @param transition (`ExponentialTransition` or `WeibullTransition`)\cr
+#'   see [exponential_transition()] or [weibull_transition()] for details.
 #' @param data (`data.frame`)\cr
 #'   Data frame in the format created by [prepareData()].
 #'
