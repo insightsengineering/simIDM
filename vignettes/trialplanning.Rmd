@@ -111,7 +111,7 @@ hRatioOS
 ## Type I Error - Simulation Under $H_0$
 
 The type I error can be estimated empirically by simulating clinical trials under $H_0$. To achieve this, we set the transition hazards of the treatment group to match those of the control group.
-Then, we use `getClinicalTrials()` to generate a large number of simulated trials. We will use 100 iterations here. Fo applications, to achieve satisfactory precision in estimates of type I error, a higher number (e.g. 10,000) is recommended.
+Then, we use `getClinicalTrials()` to generate a large number of simulated trials. We will use 100 iterations here. For applications, to achieve satisfactory precision in estimates of type I error, a higher number (e.g. 10,000) is recommended.
 
 ```{r}
 transitionListNull <- list(transitionPl, transitionPl)
@@ -218,7 +218,7 @@ eventsPFS <- lapply(
   seq_along(timePointsPFS),
   function(t) {
     return(sum(simH1[[t]]$OSevent[(simH1[[t]]$OStime + simH1[[t]]$recruitTime)
-    <= timePointsPFS[[t]]]))
+                                  <= timePointsPFS[[t]]]))
   }
 )
 mean(unlist(eventsPFS))
@@ -228,7 +228,7 @@ eventsOS <- lapply(
   seq_along(timePointsOS),
   function(t) {
     return(sum(simH1[[t]]$PFSevent[(simH1[[t]]$PFStime + simH1[[t]]$recruitTime)
-    <= timePointsOS[[t]]]))
+                                   <= timePointsOS[[t]]]))
   }
 )
 mean(unlist(eventsOS))
