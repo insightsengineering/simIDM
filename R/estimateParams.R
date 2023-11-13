@@ -60,7 +60,7 @@ prepareData <- function(data) {
 #'   see [exponential_transition()] or [weibull_transition()] for details.
 #' @param data (`data.frame`)\cr in the format created by [prepareData()].
 #'
-#' @return Returns the value of the negative log-likelihood (`numeric`).
+#' @return The value of the negative log-likelihood.
 #' @export
 #'
 #' @details
