@@ -283,8 +283,8 @@ getTarget <- function(params, data, transition) {
 
 #' Format Results of Parameter Estimation for Different Transition Models
 #'
-#' @param transition (`ExponentialTransition` or `WeibullTransition`)\cr
-#'   See [exponential_transition()] or [weibull_transition()] for details.
+#' @param transition (`TransitionParameters`)\cr
+#'   see [exponential_transition()] or [weibull_transition()] for details.
 #' @param res (`numeric` vector)\cr vector of parameter estimates from the likelihood maximization procedure.
 #'
 #' @return Returns a `TransitionParameters` object with parameter estimates.
