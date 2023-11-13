@@ -1,8 +1,9 @@
-# simIDM 0.0.5.9017
+# simIDM 0.0.5.9016
 
 ### New Features
 
 -   `prepareData` allows formatting of trial data for log-likelihood computation.
+-   `estimateParams` estimates parameters of exponential and Weibull transition hazards for a given data set.
 
 ### Bug Fixes
 
