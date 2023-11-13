@@ -104,18 +104,8 @@ haz <- function(transition, t, trans) {
   UseMethod("haz")
 }
 
-#' Hazard Function for Exponential Transition Model
-#'
-#' @param transition (`ExponentialTransition`)\cr
-#'   See [exponential_transition()] for details.
-#' @param t (`numeric`)\cr time at which hazard is to be computed.
-#' @param trans (`integer`)\cr index specifying the transition type.
-#'
-#' @return Returns the hazard rate (`numeric`) for the exponential transition at the specified time.
+#' @describeIn haz for an exponential transition model.
 #' @export
-#'
-#' @details
-#' Computes the hazard function specifically for an exponential transition model using provided parameters.
 #'
 #' @examples
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
