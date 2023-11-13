@@ -127,7 +127,7 @@ haz.WeibullTransition <- function(transition, t, trans) {
 #' Survival Function for Different Transition Models
 #'
 #' @param transition (`ExponentialTransition` or `WeibullTransition`)\cr
-#'   See [exponential_transition()] or [weibull_transition()] for details.
+#'   see [exponential_transition()] or [weibull_transition()] for details.
 #' @param t (`numeric`)\cr time at which survival probability is to be computed.
 #' @param trans (`integer`)\cr index specifying the transition type.
 #'
