@@ -193,7 +193,7 @@ survTrans.WeibullTransition <- function(transition, t, trans) {
 #' @param transition (`ExponentialTransition` or `WeibullTransition`)\cr containing the initial parameters.
 #'   See [exponential_transition()] or [weibull_transition()] for details.
 #'
-#' @return Returns a vector (`numeric`) of initial parameters for likelihood maximization.
+#' @return The numeric vector of initial parameters for likelihood maximization.
 #' @export
 #'
 #' @details
