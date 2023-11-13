@@ -242,12 +242,12 @@ getInit.WeibullTransition <- function(transition) {
 
 #' Generate the Target Function for Optimization
 #'
-#' @param params (`numeric` vector)\cr
-#'   Vector of parameters to be optimized over.
+#' @param params (`numeric`)\cr
+#'   vector of parameters to be optimized over.
 #' @param data (`data.frame`)\cr
-#'   Data frame in the format created by [prepareData()].
-#' @param transition (`transitionParameters` object)\cr
-#'   Object specifying the distribution family. See [exponential_transition()] or [weibull_transition()] for details.
+#'   in the format created by [prepareData()].
+#' @param transition (`transitionParameters`)\cr
+#'   specifying the distribution family. See [exponential_transition()] or [weibull_transition()] for details.
 #'
 #' @return Returns a function that calculates the negative log-likelihood (`numeric`) for the given parameters.
 #' @export
