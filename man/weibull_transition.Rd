@@ -4,7 +4,7 @@
 \alias{weibull_transition}
 \title{Transition Hazards for Weibull Distributed Event Times}
 \usage{
-weibull_transition(h01, h02, h12, p01, p02, p12)
+weibull_transition(h01 = 1, h02 = 1, h12 = 1, p01 = 1, p02 = 1, p12 = 1)
 }
 \arguments{
 \item{h01}{(positive \code{number})\cr transition hazard for 0 to 1 transition}
