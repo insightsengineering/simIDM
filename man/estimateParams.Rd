@@ -7,16 +7,14 @@
 estimateParams(data, transition)
 }
 \arguments{
-\item{data}{(\code{data.frame})\cr
-Data frame in the format produced by \code{\link[=getOneClinicalTrial]{getOneClinicalTrial()}}.}
+\item{data}{(\code{data.frame})\cr in the format produced by \code{\link[=getOneClinicalTrial]{getOneClinicalTrial()}}.}
 
-\item{transition}{(\code{transitionParameters} object)\cr
-Object specifying the assumed distribution of transition hazards.
+\item{transition}{(\code{TransitionParameters} object)\cr specifying the assumed distribution of transition hazards.
 Initial parameters for optimization can be specified here.
 See \code{\link[=exponential_transition]{exponential_transition()}} or \code{\link[=weibull_transition]{weibull_transition()}} for details.}
 }
 \value{
-Returns a \code{transitionParameters} object with the estimated parameters.
+Returns a \code{TransitionParameters} object with the estimated parameters.
 }
 \description{
 Estimate Parameters of the Multistate Model Using Clinical Trial Data

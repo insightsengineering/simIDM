@@ -77,7 +77,7 @@ prepareData <- function(data) {
 #' negLogLik(transition, prepareData(simData))
 negLogLik <- function(transition, data) {
   with(data, -sum(log(haz(transition, exit, trans)^status
-    * survTrans(transition, exit, trans) / survTrans(transition, entry, trans))))
+                      * survTrans(transition, exit, trans) / survTrans(transition, entry, trans))))
 }
 
 #' Hazard Function for Different Transition Models
@@ -144,18 +144,8 @@ survTrans <- function(transition, t, trans) {
   UseMethod("survTrans")
 }
 
-#' Survival Function for Exponential Transition Model
-#'
-#' @param transition (`ExponentialTransition`)\cr
-#'   See [exponential_transition()] for details.
-#' @param t (`numeric`)\cr time at which survival probability is to be computed.
-#' @param trans (`integer`)\cr index specifying the transition type.
-#'
-#' @return Returns the survival probability (`numeric`) for the exponential transition at the specified time.
+#' @describeIn survTrans for the Exponential Transition Model
 #' @export
-#'
-#' @details
-#' Computes the survival function specifically for an exponential transition model using provided parameters.
 #'
 #' @examples
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
@@ -166,18 +156,8 @@ survTrans.ExponentialTransition <- function(transition, t, trans) {
   exp(-params[trans] * t)
 }
 
-#' Survival Function for Weibull Transition Model
-#'
-#' @param transition (`WeibullTransition`)\cr
-#'   See [weibull_transition()] for details.
-#' @param t (`numeric`)\cr time at which survival probability is to be computed.
-#' @param trans (`integer`)\cr index specifying the transition type.
-#'
-#' @return Returns the survival probability (`numeric`) for the Weibull transition at the specified time.
+#' @describeIn survTrans for the Weibull Transition Model
 #' @export
-#'
-#' @details
-#' Computes the survival function specifically for a Weibull transition model using provided parameters.
 #'
 #' @examples
 #' transition <- weibull_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6, p01 = 2, p02 = 2.5, p12 = 3)
@@ -204,16 +184,8 @@ getInit <- function(transition) {
   UseMethod("getInit")
 }
 
-#' Retrieve Initial Parameters for Exponential Transition Model
-#'
-#' @param transition (`ExponentialTransition`)\cr containing the initial parameters.
-#'   See [exponential_transition()] for details.
-#'
-#' @return Returns a vector (`numeric`) of initial parameters for the exponential transition.
+#' @describeIn getInit for the Exponential Transition Model
 #' @export
-#'
-#' @details
-#' Extracts initial parameter values specifically for an exponential transition model.
 #'
 #' @examples
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
@@ -222,16 +194,8 @@ getInit.ExponentialTransition <- function(transition) {
   unlist(transition$hazards, use.names = FALSE)
 }
 
-#' Retrieve Initial Parameters for Weibull Transition Model
-#'
-#' @param transition (`WeibullTransition`)\cr containing the initial parameters.
-#'   See [weibull_transition()] for details.
-#'
-#' @return Returns a vector (`numeric`) of initial parameters for the Weibull transition.
+#' @describeIn getInit for the Weibull Transition Model
 #' @export
-#'
-#' @details
-#' Extracts initial parameter values specifically for a Weibull transition model.
 #'
 #' @examples
 #' transition <- weibull_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6, p01 = 2, p02 = 2.5, p12 = 3)
@@ -242,18 +206,14 @@ getInit.WeibullTransition <- function(transition) {
 
 #' Generate the Target Function for Optimization
 #'
-#' @param params (`numeric`)\cr
-#'   vector of parameters to be optimized over.
-#' @param data (`data.frame`)\cr
-#'   in the format created by [prepareData()].
-#' @param transition (`transitionParameters`)\cr
+#' @param transition (`TransitionParameters`)\cr
 #'   specifying the distribution family. See [exponential_transition()] or [weibull_transition()] for details.
 #'
 #' @return Function that calculates the negative log-likelihood for the given parameters.
 #' @export
 #'
 #' @details
-#' This function creates a target function for optimization, which computes the negative log-likelihood for given
+#' This function creates a target function for optimization, computing the negative log-likelihood for given
 #' parameters, data, and transition model type.
 #'
 #' @examples
@@ -266,14 +226,51 @@ getInit.WeibullTransition <- function(transition) {
 #' params <- c(1.2, 1.5, 1.6) # For ExponentialTransition
 #' data <- prepareData(simData)
 #' transition <- exponential_transition()
-#' getTarget(params, data, transition)
-getTarget <- function(params, data, transition) {
-  assert_numeric(params)
-  assert_data_frame(data)
+#' fun <- getTarget(transition)
+#' fun(params, data)
+getTarget <- function(transition) {
   assert_class(transition, "TransitionParameters")
-  if ("ExponentialTransition" %in% class(transition)) {
+  UseMethod("getTarget", transition)
+}
+
+#' @describeIn getTarget for the Exponential Transition Model
+#' @export
+#'
+#' @examples
+#' transition <- exponential_transition(2, 1.3, 0.8)
+#' simData <- getOneClinicalTrial(
+#'   nPat = c(30), transitionByArm = list(transition),
+#'   dropout = list(rate = 0.8, time = 12),
+#'   accrual = list(param = "time", value = 1)
+#' )
+#' params <- c(1.2, 1.5, 1.6)
+#' data <- prepareData(simData)
+#' transition <- exponential_transition()
+#' target <- getTarget(transition)
+#' target(params, data)
+getTarget.ExponentialTransition <- function(transition) {
+  function(params, data) {
     negLogLik(transition = exponential_transition(h01 = params[1], h02 = params[2], h12 = params[3]), data = data)
-  } else {
+  }
+}
+
+#' @describeIn getTarget for the Weibull Transition Model
+#' @export
+#'
+#' @examples
+#' transition <- weibull_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6, p01 = 2, p02 = 2.5, p12 = 3)
+#' simData <- getOneClinicalTrial(
+#'   nPat = c(30), transitionByArm = list(transition),
+#'   dropout = list(rate = 0.8, time = 12),
+#'   accrual = list(param = "time", value = 1)
+#' )
+#' params <- c(1.2, 1.5, 1.6, 0.8, 1.3, 1.1)
+#' data <- prepareData(simData)
+#' transition <- weibull_transition()
+#' target <- getTarget(transition)
+#' target(params, data)
+getTarget.WeibullTransition <- function(transition) {
+  function(params, data) {
     negLogLik(transition = weibull_transition(
       h01 = params[1], h02 = params[2], h12 = params[3],
       p01 = params[4], p02 = params[5], p12 = params[6]
@@ -290,10 +287,6 @@ getTarget <- function(params, data, transition) {
 #' @return Returns a `TransitionParameters` object with parameter estimates.
 #' @export
 #'
-#' @details
-#' This function dispatches to either `getResults.ExponentialTransition` or `getResults.WeibullTransition`
-#' based on the `transition` object class, using the results from likelihood maximization.
-#'
 #' @examples
 #' results <- c(1.2, 1.5, 1.6)
 #' getResults(exponential_transition(), results)
@@ -301,17 +294,8 @@ getResults <- function(transition, res) {
   UseMethod("getResults")
 }
 
-#' Format Results of Parameter Estimation for Exponential Transition
-#'
-#' @param transition (`ExponentialTransition`)\cr
-#'   See [exponential_transition()] for details.
-#' @inheritParams getResults
-#'
-#' @return Returns an `ExponentialTransition` object with updated parameter estimates.
+#' @describeIn getResults for the Exponential Transition Model
 #' @export
-#'
-#' @details
-#' Constructs an `ExponentialTransition` object with parameters estimated from likelihood maximization.
 #'
 #' @examples
 #' results <- c(1.2, 1.5, 1.6)
@@ -320,17 +304,8 @@ getResults.ExponentialTransition <- function(transition, res) {
   exponential_transition(h01 = res[1], h02 = res[2], h12 = res[3])
 }
 
-#' Format Results of Parameter Estimation for Weibull Transition
-#'
-#' @param transition (`WeibullTransition`)\cr
-#'   See [weibull_transition()] for details.
-#' @inheritParams getResults
-#'
-#' @return Returns a `WeibullTransition` object with updated parameter estimates.
+#' @describeIn getResults for the Weibull Transition Model
 #' @export
-#'
-#' @details
-#' Constructs a `WeibullTransition` object with parameters estimated from likelihood maximization.
 #'
 #' @examples
 #' results <- c(1.2, 1.5, 1.6, 2, 2.5, 1)
@@ -345,11 +320,11 @@ getResults.WeibullTransition <- function(transition, res) {
 #' Estimate Parameters of the Multistate Model Using Clinical Trial Data
 #'
 #' @param data (`data.frame`)\cr in the format produced by [getOneClinicalTrial()].
-#' @param transition (`transitionParameters` object)\cr specifying the assumed distribution of transition hazards.
+#' @param transition (`TransitionParameters` object)\cr specifying the assumed distribution of transition hazards.
 #'   Initial parameters for optimization can be specified here.
 #'   See [exponential_transition()] or [weibull_transition()] for details.
 #'
-#' @return Returns a `transitionParameters` object with the estimated parameters.
+#' @return Returns a `TransitionParameters` object with the estimated parameters.
 #' @export
 #'
 #' @details
@@ -369,14 +344,15 @@ getResults.WeibullTransition <- function(transition, res) {
 #' estimate <- estimateParams(simData, transition)
 estimateParams <- function(data, transition) {
   data <- prepareData(data)
+  par <- getInit(transition)
+  target <- getTarget(transition)
 
   res <- stats::optim(
-    par = getInit(transition),
-    fn = getTarget,
+    par = par,
+    fn = target,
     method = "L-BFGS-B",
     lower = 1e-3,
-    data = data,
-    transition = transition
+    data = data
   )$par
 
   getResults(transition, res)

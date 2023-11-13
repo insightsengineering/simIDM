@@ -2,30 +2,37 @@
 % Please edit documentation in R/estimateParams.R
 \name{getTarget}
 \alias{getTarget}
+\alias{getTarget.ExponentialTransition}
+\alias{getTarget.WeibullTransition}
 \title{Generate the Target Function for Optimization}
 \usage{
-getTarget(params, data, transition)
+getTarget(transition)
+
+\method{getTarget}{ExponentialTransition}(transition)
+
+\method{getTarget}{WeibullTransition}(transition)
 }
 \arguments{
-\item{params}{(\code{numeric} vector)\cr
-Vector of parameters to be optimized over.}
-
-\item{data}{(\code{data.frame})\cr
-Data frame in the format created by \code{\link[=prepareData]{prepareData()}}.}
-
-\item{transition}{(\code{transitionParameters} object)\cr
-Object specifying the distribution family. See \code{\link[=exponential_transition]{exponential_transition()}} or \code{\link[=weibull_transition]{weibull_transition()}} for details.}
+\item{transition}{(\code{TransitionParameters})\cr
+specifying the distribution family. See \code{\link[=exponential_transition]{exponential_transition()}} or \code{\link[=weibull_transition]{weibull_transition()}} for details.}
 }
 \value{
-Returns a function that calculates the negative log-likelihood (\code{numeric}) for the given parameters.
+Function that calculates the negative log-likelihood for the given parameters.
 }
 \description{
 Generate the Target Function for Optimization
 }
 \details{
-This function creates a target function for optimization, which computes the negative log-likelihood for given
+This function creates a target function for optimization, computing the negative log-likelihood for given
 parameters, data, and transition model type.
 }
+\section{Methods (by class)}{
+\itemize{
+\item \code{getTarget(ExponentialTransition)}: for the Exponential Transition Model
+
+\item \code{getTarget(WeibullTransition)}: for the Weibull Transition Model
+
+}}
 \examples{
 transition <- exponential_transition(2, 1.3, 0.8)
 simData <- getOneClinicalTrial(
@@ -36,5 +43,28 @@ simData <- getOneClinicalTrial(
 params <- c(1.2, 1.5, 1.6) # For ExponentialTransition
 data <- prepareData(simData)
 transition <- exponential_transition()
-getTarget(params, data, transition)
+fun <- getTarget(transition)
+fun(params, data)
+transition <- exponential_transition(2, 1.3, 0.8)
+simData <- getOneClinicalTrial(
+  nPat = c(30), transitionByArm = list(transition),
+  dropout = list(rate = 0.8, time = 12),
+  accrual = list(param = "time", value = 1)
+)
+params <- c(1.2, 1.5, 1.6)
+data <- prepareData(simData)
+transition <- exponential_transition()
+target <- getTarget(transition)
+target(params, data)
+transition <- weibull_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6, p01 = 2, p02 = 2.5, p12 = 3)
+simData <- getOneClinicalTrial(
+  nPat = c(30), transitionByArm = list(transition),
+  dropout = list(rate = 0.8, time = 12),
+  accrual = list(param = "time", value = 1)
+)
+params <- c(1.2, 1.5, 1.6, 0.8, 1.3, 1.1)
+data <- prepareData(simData)
+transition <- weibull_transition()
+target <- getTarget(transition)
+target(params, data)
 }

@@ -2,29 +2,42 @@
 % Please edit documentation in R/estimateParams.R
 \name{haz}
 \alias{haz}
+\alias{haz.ExponentialTransition}
+\alias{haz.WeibullTransition}
 \title{Hazard Function for Different Transition Models}
 \usage{
 haz(transition, t, trans)
+
+\method{haz}{ExponentialTransition}(transition, t, trans)
+
+\method{haz}{WeibullTransition}(transition, t, trans)
 }
 \arguments{
-\item{transition}{(\code{ExponentialTransition} or \code{WeibullTransition})\cr.
-See \code{\link[=exponential_transition]{exponential_transition()}} or \code{\link[=weibull_transition]{weibull_transition()}} for details.}
+\item{transition}{(\code{ExponentialTransition} or \code{WeibullTransition})\cr
+see \code{\link[=exponential_transition]{exponential_transition()}} or \code{\link[=weibull_transition]{weibull_transition()}} for details.}
 
 \item{t}{(\code{numeric})\cr time at which hazard is to be computed.}
 
 \item{trans}{(\code{integer})\cr index specifying the transition type.}
 }
 \value{
-Returns the hazard rate (\code{numeric}) for the specified transition and time.
+The hazard rate for the specified transition and time.
 }
 \description{
 Hazard Function for Different Transition Models
 }
-\details{
-This function dispatches to either \code{haz.ExponentialTransition} or \code{haz.WeibullTransition}
-based on the \code{transition} object class.
-}
+\section{Methods (by class)}{
+\itemize{
+\item \code{haz(ExponentialTransition)}: for an exponential transition model.
+
+\item \code{haz(WeibullTransition)}: for the Weibull transition model.
+
+}}
 \examples{
 transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
+haz(transition, 0.4, 2)
+transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
+haz(transition, 0.4, 2)
+transition <- weibull_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6, p01 = 2, p02 = 2.5, p12 = 3)
 haz(transition, 0.4, 2)
 }

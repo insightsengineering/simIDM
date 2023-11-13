@@ -2,25 +2,38 @@
 % Please edit documentation in R/estimateParams.R
 \name{getInit}
 \alias{getInit}
+\alias{getInit.ExponentialTransition}
+\alias{getInit.WeibullTransition}
 \title{Retrieve Initial Parameter Vectors for Likelihood Maximization}
 \usage{
 getInit(transition)
+
+\method{getInit}{ExponentialTransition}(transition)
+
+\method{getInit}{WeibullTransition}(transition)
 }
 \arguments{
 \item{transition}{(\code{ExponentialTransition} or \code{WeibullTransition})\cr containing the initial parameters.
 See \code{\link[=exponential_transition]{exponential_transition()}} or \code{\link[=weibull_transition]{weibull_transition()}} for details.}
 }
 \value{
-Returns a vector (\code{numeric}) of initial parameters for likelihood maximization.
+The numeric vector of initial parameters for likelihood maximization.
 }
 \description{
 Retrieve Initial Parameter Vectors for Likelihood Maximization
 }
-\details{
-This function dispatches to either \code{getInit.ExponentialTransition} or \code{getInit.WeibullTransition}
-based on the \code{transition} object class.
-}
+\section{Methods (by class)}{
+\itemize{
+\item \code{getInit(ExponentialTransition)}: for the Exponential Transition Model
+
+\item \code{getInit(WeibullTransition)}: for the Weibull Transition Model
+
+}}
 \examples{
 transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
+getInit(transition)
+transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
+getInit(transition)
+transition <- weibull_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6, p01 = 2, p02 = 2.5, p12 = 3)
 getInit(transition)
 }

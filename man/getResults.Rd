@@ -2,13 +2,19 @@
 % Please edit documentation in R/estimateParams.R
 \name{getResults}
 \alias{getResults}
+\alias{getResults.ExponentialTransition}
+\alias{getResults.WeibullTransition}
 \title{Format Results of Parameter Estimation for Different Transition Models}
 \usage{
 getResults(transition, res)
+
+\method{getResults}{ExponentialTransition}(transition, res)
+
+\method{getResults}{WeibullTransition}(transition, res)
 }
 \arguments{
-\item{transition}{(\code{ExponentialTransition} or \code{WeibullTransition})\cr
-See \code{\link[=exponential_transition]{exponential_transition()}} or \code{\link[=weibull_transition]{weibull_transition()}} for details.}
+\item{transition}{(\code{TransitionParameters})\cr
+see \code{\link[=exponential_transition]{exponential_transition()}} or \code{\link[=weibull_transition]{weibull_transition()}} for details.}
 
 \item{res}{(\code{numeric} vector)\cr vector of parameter estimates from the likelihood maximization procedure.}
 }
@@ -18,11 +24,18 @@ Returns a \code{TransitionParameters} object with parameter estimates.
 \description{
 Format Results of Parameter Estimation for Different Transition Models
 }
-\details{
-This function dispatches to either \code{getResults.ExponentialTransition} or \code{getResults.WeibullTransition}
-based on the \code{transition} object class, using the results from likelihood maximization.
-}
+\section{Methods (by class)}{
+\itemize{
+\item \code{getResults(ExponentialTransition)}: for the Exponential Transition Model
+
+\item \code{getResults(WeibullTransition)}: for the Weibull Transition Model
+
+}}
 \examples{
 results <- c(1.2, 1.5, 1.6)
 getResults(exponential_transition(), results)
+results <- c(1.2, 1.5, 1.6)
+getResults(exponential_transition(), results)
+results <- c(1.2, 1.5, 1.6, 2, 2.5, 1)
+getResults(weibull_transition(), results)
 }

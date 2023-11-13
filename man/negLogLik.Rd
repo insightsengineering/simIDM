@@ -7,14 +7,13 @@
 negLogLik(transition, data)
 }
 \arguments{
-\item{transition}{(\code{ExponentialTransition} or \code{WeibullTransition})\cr.
-See \code{\link[=exponential_transition]{exponential_transition()}} or \code{\link[=weibull_transition]{weibull_transition()}} for details.}
+\item{transition}{(\code{ExponentialTransition} or \code{WeibullTransition})\cr
+see \code{\link[=exponential_transition]{exponential_transition()}} or \code{\link[=weibull_transition]{weibull_transition()}} for details.}
 
-\item{data}{(\code{data.frame})\cr
-Data frame in the format created by \code{\link[=prepareData]{prepareData()}}.}
+\item{data}{(\code{data.frame})\cr in the format created by \code{\link[=prepareData]{prepareData()}}.}
 }
 \value{
-Returns the value of the negative log-likelihood (\code{numeric}).
+The value of the negative log-likelihood.
 }
 \description{
 Compute the Negative Log-Likelihood for a Given Data Set and Transition Model

@@ -2,29 +2,42 @@
 % Please edit documentation in R/estimateParams.R
 \name{survTrans}
 \alias{survTrans}
+\alias{survTrans.ExponentialTransition}
+\alias{survTrans.WeibullTransition}
 \title{Survival Function for Different Transition Models}
 \usage{
 survTrans(transition, t, trans)
+
+\method{survTrans}{ExponentialTransition}(transition, t, trans)
+
+\method{survTrans}{WeibullTransition}(transition, t, trans)
 }
 \arguments{
 \item{transition}{(\code{ExponentialTransition} or \code{WeibullTransition})\cr
-See \code{\link[=exponential_transition]{exponential_transition()}} or \code{\link[=weibull_transition]{weibull_transition()}} for details.}
+see \code{\link[=exponential_transition]{exponential_transition()}} or \code{\link[=weibull_transition]{weibull_transition()}} for details.}
 
 \item{t}{(\code{numeric})\cr time at which survival probability is to be computed.}
 
 \item{trans}{(\code{integer})\cr index specifying the transition type.}
 }
 \value{
-Returns the survival probability (\code{numeric}) for the specified transition and time.
+The survival probability for the specified transition and time.
 }
 \description{
 Survival Function for Different Transition Models
 }
-\details{
-This function dispatches to either \code{survTrans.ExponentialTransition} or \code{survTrans.WeibullTransition}
-based on the \code{transition} object class
-}
+\section{Methods (by class)}{
+\itemize{
+\item \code{survTrans(ExponentialTransition)}: for the Exponential Transition Model
+
+\item \code{survTrans(WeibullTransition)}: for the Weibull Transition Model
+
+}}
 \examples{
 transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
+survTrans(transition, 0.4, 2)
+transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
+survTrans(transition, 0.4, 2)
+transition <- weibull_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6, p01 = 2, p02 = 2.5, p12 = 3)
 survTrans(transition, 0.4, 2)
 }
