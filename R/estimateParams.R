@@ -249,7 +249,7 @@ getInit.WeibullTransition <- function(transition) {
 #' @param transition (`transitionParameters`)\cr
 #'   specifying the distribution family. See [exponential_transition()] or [weibull_transition()] for details.
 #'
-#' @return Returns a function that calculates the negative log-likelihood (`numeric`) for the given parameters.
+#' @return Function that calculates the negative log-likelihood for the given parameters.
 #' @export
 #'
 #' @details
