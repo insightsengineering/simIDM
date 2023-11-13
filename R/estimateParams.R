@@ -82,8 +82,8 @@ negLogLik <- function(transition, data) {
 
 #' Hazard Function for Different Transition Models
 #'
-#' @param transition (`ExponentialTransition` or `WeibullTransition`)\cr.
-#'   See [exponential_transition()] or [weibull_transition()] for details.
+#' @param transition (`ExponentialTransition` or `WeibullTransition`)\cr
+#'   see [exponential_transition()] or [weibull_transition()] for details.
 #' @param t (`numeric`)\cr time at which hazard is to be computed.
 #' @param trans (`integer`)\cr index specifying the transition type.
 #'
