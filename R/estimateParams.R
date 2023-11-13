@@ -134,10 +134,6 @@ haz.WeibullTransition <- function(transition, t, trans) {
 #' @return The survival probability for the specified transition and time.
 #' @export
 #'
-#' @details
-#' This function dispatches to either `survTrans.ExponentialTransition` or `survTrans.WeibullTransition`
-#' based on the `transition` object class
-#'
 #' @examples
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
 #' survTrans(transition, 0.4, 2)
