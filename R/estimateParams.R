@@ -344,10 +344,8 @@ getResults.WeibullTransition <- function(transition, res) {
 
 #' Estimate Parameters of the Multistate Model Using Clinical Trial Data
 #'
-#' @param data (`data.frame`)\cr
-#'   Data frame in the format produced by [getOneClinicalTrial()].
-#' @param transition (`transitionParameters` object)\cr
-#'   Object specifying the assumed distribution of transition hazards.
+#' @param data (`data.frame`)\cr in the format produced by [getOneClinicalTrial()].
+#' @param transition (`transitionParameters` object)\cr specifying the assumed distribution of transition hazards.
 #'   Initial parameters for optimization can be specified here.
 #'   See [exponential_transition()] or [weibull_transition()] for details.
 #'
