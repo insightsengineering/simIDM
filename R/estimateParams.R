@@ -87,7 +87,7 @@ negLogLik <- function(transition, data) {
 #' @param t (`numeric`)\cr time at which hazard is to be computed.
 #' @param trans (`integer`)\cr index specifying the transition type.
 #'
-#' @return Returns the hazard rate (`numeric`) for the specified transition and time.
+#' @return The hazard rate for the specified transition and time.
 #' @export
 #'
 #' @details
