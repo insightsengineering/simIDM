@@ -131,7 +131,7 @@ haz.WeibullTransition <- function(transition, t, trans) {
 #' @param t (`numeric`)\cr time at which survival probability is to be computed.
 #' @param trans (`integer`)\cr index specifying the transition type.
 #'
-#' @return Returns the survival probability (`numeric`) for the specified transition and time.
+#' @return The survival probability for the specified transition and time.
 #' @export
 #'
 #' @details
