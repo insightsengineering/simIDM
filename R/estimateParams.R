@@ -196,10 +196,6 @@ survTrans.WeibullTransition <- function(transition, t, trans) {
 #' @return The numeric vector of initial parameters for likelihood maximization.
 #' @export
 #'
-#' @details
-#' This function dispatches to either `getInit.ExponentialTransition` or `getInit.WeibullTransition`
-#' based on the `transition` object class.
-#'
 #' @examples
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
 #' getInit(transition)
