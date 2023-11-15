@@ -89,6 +89,19 @@ test_that("PWCsurvOS works as expected", {
   expect_equal(actual3, 0, tolerance = 1e-10)
 })
 
+# PwcOSInt ----
+
+test_that("PwcOSInt works as expected", {
+  actual <- PwcOSInt(1, 1.1, c(0.3, 0.5), c(0.5, 0.8), c(0.7, 1), c(0, 4), c(0, 8), c(0, 3))
+  expect_equal(actual, 0.12568546, tolerance = 1e-6)
+
+  actual2 <- PwcOSInt(4, 4, c(0.3, 0.5), c(0.5, 0.8), c(0.7, 100), c(0, 2), c(0, 3), c(0, 3))
+  expect_equal(actual2, 0.010120956, tolerance = 1e-6)
+
+  actual3 <- PwcOSInt(700, 700, c(0.3, 0.5), c(0.5, 0.8), c(0.7, 100), c(0, 2), c(0, 3), c(0, 3))
+  expect_equal(actual3, 0, tolerance = 1e-6)
+})
+
 # integrateVector ----
 
 test_that("integrateVector works as expected", {
