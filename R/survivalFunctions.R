@@ -231,14 +231,14 @@ PWCsurvOS <- function(t, h01, h02, h12, pw01, pw02, pw12) {
   PWCsurvPFS(t, h01, h02, pw01, pw02) +
     sapply(t, function(t) {
       integrateVector(PwcOSInt,
-                      upper = t,
-                      t = t,
-                      h01 = h01,
-                      h02 = h02,
-                      h12 = h12,
-                      pw01 = pw01,
-                      pw02 = pw02,
-                      pw12 = pw12
+        upper = t,
+        t = t,
+        h01 = h01,
+        h02 = h02,
+        h12 = h12,
+        pw01 = pw01,
+        pw02 = pw02,
+        pw12 = pw12
       )
     })
 }
