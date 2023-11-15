@@ -196,11 +196,11 @@ PWCsurvPFS <- function(t, h01, h02, pw01, pw02) {
 #' @export
 #'
 #' @examples
-#' PwcOSInt(1:5, c(0.3, 0.5), c(0.5, 0.8), c(0.7, 1), c(0, 4), c(0, 8), c(0, 3))
-PwcOSInt <- function(x, h01, h02, h12, pw01, pw02, pw12) {
+#' PwcOSInt(1:5, 6, c(0.3, 0.5), c(0.5, 0.8), c(0.7, 1), c(0, 4), c(0, 8), c(0, 3))
+PwcOSInt <- function(x, t, h01, h02, h12, pw01, pw02, pw12) {
   PWCsurvPFS(x, h01, h02, pw01, pw02) *
     getPCWHazard(h01, pw01, x) *
-    exp(pwA(x, h12, pw12))
+    exp(pwA(x, h12, pw12) - pwA(t, h12, pw12))
 }
 
 #' OS Survival Function from Piecewise Constant Hazards
@@ -229,11 +229,18 @@ PWCsurvOS <- function(t, h01, h02, h12, pw01, pw02, pw12) {
   assert_intervals(pw12, length(h12))
 
   PWCsurvPFS(t, h01, h02, pw01, pw02) +
-    exp(-pwA(t, h12, pw12)) *
+    sapply(t, function(t) {
       integrateVector(PwcOSInt,
-        upper = t,
-        h01 = h01, h02 = h02, h12 = h12, pw01 = pw01, pw02 = pw02, pw12 = pw12
+                      upper = t,
+                      t = t,
+                      h01 = h01,
+                      h02 = h02,
+                      h12 = h12,
+                      pw01 = pw01,
+                      pw02 = pw02,
+                      pw12 = pw12
       )
+    })
 }
 
 #' Helper Function for Single Quantile for OS Survival Function

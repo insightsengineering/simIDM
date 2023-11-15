@@ -9,6 +9,7 @@
 
 -   `ExpSurvOS` now returns 0 instead of NaN for large values of t.
 -   `WeibSurvOS` now does not return an error for large values of t.
+-   `PWCSurvOS` now does not return an error for large values of t.
 -   `getSimulatedData` now also works when there are no transitions from progression to death, similarly for `getOneClinicalTrial` (which now warns if there are no such transitions at all).
 
 # simIDM 0.0.5

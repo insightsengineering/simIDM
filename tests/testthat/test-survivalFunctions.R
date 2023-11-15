@@ -81,6 +81,12 @@ test_that("PWCsurvPFS works as expected", {
 test_that("PWCsurvOS works as expected", {
   actual <- PWCsurvOS(c(0, 1, 2, 1.4), c(0.7, 0.9), c(0.5, 1), c(0.9, 1.2), c(0, 4), c(0, 3), c(0, 7))
   expect_equal(actual, ExpSurvOS(c(0, 1, 2, 1.4), 0.7, 0.5, 0.9))
+
+  actual2 <- PWCsurvOS(100, 0.06, 1, 8, 0, 0, 0)
+  expect_equal(actual2, 0, tolerance = 1e-10)
+
+  actual3 <- PWCsurvOS(2000, c(0.7, 0.9), c(0.5, 1), c(0.9, 14), c(0, 4), c(0, 3), c(0, 7))
+  expect_equal(actual3, 0, tolerance = 1e-10)
 })
 
 # integrateVector ----
