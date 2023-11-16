@@ -54,17 +54,6 @@
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.5">v0.0.5</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.4">v0.0.4</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.2">v0.0.2</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.1">v0.0.1</a> </div></li>
-<!-- end dropdown for versions -->
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
@@ -106,19 +95,19 @@ Erdmann</h4>
 </h2>
 <p>This vignette demonstrates how to use <code>simIDM</code> for trial
 design planning with a simple example. We will show how to estimate type
-I errors and statistical power from simulations to optimize study design
-(see <span class="citation">Erdmann, Beyersmann, and Rufibach
-(2023)</span> for more details). Jointly modeling the endpoints PFS and
-OS with the illness-death model has two major advantages: - we properly
-account for the correlation between PFS and OS - the strong assumption
-of proportional hazards is not required OS is defined as the time to
-reach the absorbing state death, and PFS is defined as the time to reach
-the absorbing state <code>death</code> or the intermediate state
-<code>progression</code>, whichever occurs first. Figure 1 shows the
-multistate model with the corresponding transition hazards. In the
-vignette, we show how to estimate type I errors and statistical power
-from simulations and give an idea on how this can be used to plan
-complex study trials.</p>
+I errors and statistical power from simulations to optimize study
+design, details can be found in <span class="citation">Erdmann,
+Beyersmann, and Rufibach (2023)</span>. Jointly modeling the endpoints
+PFS and OS with the illness-death model has two major advantages: - We
+properly account for the correlation between PFS and OS, - The
+assumption of proportional hazards is not required.</p>
+<p>OS is defined as the time to reach the absorbing state death, and PFS
+is defined as the time to reach the absorbing state <code>death</code>
+or the intermediate state <code>progression</code>, whichever occurs
+first. Figure 1 shows the multistate model with the corresponding
+transition hazards. In the vignette, we show how to estimate type I
+errors and statistical power from simulations and give an idea on how
+this can be used to plan complex study trials.</p>
 <pre><code><span><span class="co">#&gt; Warning in plot.Hist(idHist, stateLabels = stateLabels, box1.row = 2, box1.column = 1, : The dimension of the boxes may depend on the current graphical device</span></span>
 <span><span class="co">#&gt; in the sense that the layout and centering of text may change when you resize the graphical device and call the same plot.</span></span></code></pre>
 <div class="figure">
@@ -133,27 +122,29 @@ absorbing state death
 </h2>
 <p>We consider the following study design:</p>
 <ul>
-<li>PFS and OS as co-primary endpoints with one final analysis each</li>
-<li>treatment vs. control group, 1:1 randomization ratio (but note that
-in principle any randomization ratio can be implemented)</li>
-<li>global significance level of 5 %</li>
-<li>the standard log-rank test is used to detect a significant
-difference between the groups</li>
-<li>statistical power to detect a difference between the groups should
+<li>PFS and OS as co-primary endpoints with one final analysis each,
+i.e. for a successful trial all endpoints need to be significant.</li>
+<li>Treatment vs. control group, 1:1 randomization ratio</li>
+<li>Global significance level of 5 %</li>
+<li>The standard log-rank test is used to assess the null hypothesis of
+equal survival functions in both groups for PFS and OS,
+respectively.</li>
+<li>Statistical power to detect a difference between the groups should
 be 80 % for each endpoint</li>
-<li>5 % drop-out rate within 12 time units</li>
-<li>accrual of 100 patients per time unit</li>
+<li>5 % drop-out within 12 time units</li>
+<li>Accrual of 100 patients per time unit</li>
 </ul>
 <p>Using the multistate model approach implies that trial planning is
 based on assumptions on the three transition hazards in each arm,
-i.e. six hazards in total (which induces assumptions on the endpoints
-PFS and OS). In our example scenario, we assume constant transition
-hazards and a small effect of the treatment on hazards from the initial
-state to death. Median time until a PFS event is 0.99 time units in the
-control arm and 1.44 time units in the treatment arm. Median time until
-an OS event is 1.94 time units in the control group and 2.29 time units
-in the treatment group. Figure 2 shows the transition hazards, survival
-functions, hazard functions and hazard ratios for both endpoints.</p>
+i.e. six hazards in total. In our example scenario, we assume that all
+six transition hazards are constant and a small effect of the treatment
+on hazards from the initial state to death. Transition hazards are tuned
+such that median time until a PFS event is 0.87 time units in the
+control arm and 1.2 time units in the treatment arm. Median time until
+an OS event is 1.76 time units in the control group and 2.1 time units
+in the treatment group.</p>
+<p>Figure 2 shows the transition hazards, survival functions, hazard
+functions and hazard ratios for both endpoints.</p>
 <div class="float">
 <img src="scenario.png" alt="Figure 2 - Transition hazards, survival functions, hazard functions and hazard ratios for our scenario."><div class="figcaption">Figure 2 - Transition hazards, survival
 functions, hazard functions and hazard ratios for our scenario.</div>
@@ -167,33 +158,46 @@ functions, hazard functions and hazard ratios for our scenario.</div>
 <span><span class="va">transitionList</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">transitionPl</span>, <span class="va">transitionTrt</span><span class="op">)</span></span></code></pre></div>
 <p>The package provides functions that return the values of the PFS or
 OS survival functions for given transition hazards (Constant, Weibull or
-Piecewise Constant) and time points.</p>
+Piecewise Constant) and pre-specified time points.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">timepoints</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.1</span>, <span class="fl">0.3</span>, <span class="fl">0.7</span>, <span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span></span>
-<span><span class="co"># Survival function for Constant transition hazards:</span></span>
+<span><span class="co"># OS Survival function for Constant transition hazards:</span></span>
 <span><span class="fu"><a href="../reference/ExpSurvOS.html">ExpSurvOS</a></span><span class="op">(</span><span class="va">timepoints</span>, h01 <span class="op">=</span> <span class="fl">0.2</span>, h02 <span class="op">=</span> <span class="fl">0.4</span>, h12 <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1.0000000 0.9610787 0.8893403 0.7671856 0.6912219 0.2724845</span></span>
-<span><span class="co"># Survival function for Weibull transition hazards:</span></span>
+<span><span class="co"># OS Survival function for Weibull transition hazards:</span></span>
 <span><span class="fu"><a href="../reference/WeibSurvOS.html">WeibSurvOS</a></span><span class="op">(</span><span class="va">timepoints</span>, h01 <span class="op">=</span> <span class="fl">0.2</span>, h02 <span class="op">=</span> <span class="fl">0.5</span>, h12 <span class="op">=</span> <span class="fl">2.1</span>, p01 <span class="op">=</span> <span class="fl">1.2</span>, p02 <span class="op">=</span> <span class="fl">0.9</span>, p12 <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1.00000000 0.93822237 0.83706585 0.66353708 0.55296799 0.03684786</span></span>
-<span><span class="co"># Survival function for Piecewise Constant transition hazards:</span></span>
+<span><span class="co"># OS Survival function for Piecewise Constant transition hazards:</span></span>
 <span><span class="fu"><a href="../reference/PWCsurvOS.html">PWCsurvOS</a></span><span class="op">(</span><span class="va">timepoints</span>,</span>
 <span>  h01 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">0.5</span><span class="op">)</span>, h02 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.8</span><span class="op">)</span>, h12 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.7</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>  pw01 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span><span class="op">)</span>, pw02 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">8</span><span class="op">)</span>, pw12 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1.0000000 0.9509488 0.8584970 0.6954611 0.5910980 0.0394595</span></span></code></pre></div>
-<p>There are also functions for PFS survival functions available.</p>
-<p>For PFS, the hazard ratio under <span class="math inline">\(H_0\)</span> is known by specification:</p>
+<p>There are also functions for PFS survival functions available:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">timepoints</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.1</span>, <span class="fl">0.3</span>, <span class="fl">0.7</span>, <span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="co"># PFS Survival function for Constant transition hazards:</span></span>
+<span><span class="fu"><a href="../reference/ExpSurvPFS.html">ExpSurvPFS</a></span><span class="op">(</span><span class="va">timepoints</span>, h01 <span class="op">=</span> <span class="fl">0.2</span>, h02 <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1.00000000 0.94176453 0.83527021 0.65704682 0.54881164 0.04978707</span></span>
+<span><span class="co"># PFS Survival function for Weibull transition hazards:</span></span>
+<span><span class="fu"><a href="../reference/WeibSurvPFS.html">WeibSurvPFS</a></span><span class="op">(</span><span class="va">timepoints</span>, h01 <span class="op">=</span> <span class="fl">0.2</span>, h02 <span class="op">=</span> <span class="fl">0.5</span>, p01 <span class="op">=</span> <span class="fl">1.2</span>, p02 <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1.00000000 0.92721907 0.80545180 0.61074857 0.49658530 0.02995439</span></span>
+<span><span class="co"># PFS Survival function for Piecewise Constant transition hazards:</span></span>
+<span><span class="fu"><a href="../reference/PWCsurvPFS.html">PWCsurvPFS</a></span><span class="op">(</span><span class="va">timepoints</span>,</span>
+<span>  h01 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">0.5</span><span class="op">)</span>, h02 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.8</span><span class="op">)</span>,</span>
+<span>  pw01 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span><span class="op">)</span>, pw02 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">8</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1.00000000 0.92311635 0.78662786 0.57120906 0.44932896 0.01499558</span></span></code></pre></div>
+<p>For PFS, the hazard ratio under <span class="math inline">\(H_0\)</span> is known by specification:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hTrtPFS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">transitionTrt</span><span class="op">$</span><span class="va">hazards</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">hPlPFS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">transitionPl</span><span class="op">$</span><span class="va">hazards</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">hRatioPFS</span> <span class="op">&lt;-</span> <span class="va">hTrtPFS</span> <span class="op">/</span> <span class="va">hPlPFS</span></span>
 <span><span class="va">hRatioPFS</span></span>
 <span><span class="co">#&gt; [1] 0.725</span></span></code></pre></div>
-<p>For OS, this is not as straightforward, but for constant transition
-hazards an averaged HR can be calculated using
-<code>avgHRExpOS</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<p>For OS, the ratio of hazard functions is not necessarily constant. An
+averaged HR can be calculated using <code>avgHRExpOS</code>:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hRatioOS</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/avgHRExpOS.html">avgHRExpOS</a></span><span class="op">(</span>transitionByArm <span class="op">=</span> <span class="va">transitionList</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>, upper <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span>
 <span><span class="va">hRatioOS</span></span>
 <span><span class="co">#&gt; [1] 0.8072368</span></span></code></pre></div>
@@ -206,226 +210,227 @@ trials under <span class="math inline">\(H_0\)</span>. To achieve this,
 we set the transition hazards of the treatment group to match those of
 the control group. Then, we use <code><a href="../reference/getClinicalTrials.html">getClinicalTrials()</a></code> to
 generate a large number of simulated trials. We will use 100 iterations
-here, for applications however a higher number (e.g. 10,000) is
-recommended.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>transitionListNull <span class="ot">&lt;-</span> <span class="fu">list</span>(transitionPl, transitionPl)</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>nRep <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>simNull <span class="ot">&lt;-</span> <span class="fu">getClinicalTrials</span>(</span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="at">nRep =</span> nRep, <span class="at">nPat =</span> <span class="fu">c</span>(<span class="dv">800</span>, <span class="dv">800</span>), <span class="at">seed =</span> <span class="dv">1238</span>, <span class="at">datType =</span> <span class="st">"1rowPatient"</span>,</span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>  <span class="at">transitionByArm =</span> transitionListNull,</span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>  <span class="at">dropout =</span> <span class="fu">list</span>(<span class="at">rate =</span> <span class="fl">0.05</span>, <span class="at">time =</span> <span class="dv">12</span>), <span class="at">accrual =</span> <span class="fu">list</span>(<span class="at">param =</span> <span class="st">"intensity"</span>, <span class="at">value =</span> <span class="dv">100</span>)</span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>)</span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt; Simulating 100 trials:</span></span>
-<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a>  <span class="er">|</span>                                                                      <span class="er">|</span>   <span class="dv">0</span>%</span>
-<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a>  <span class="er">|=</span>                                                                     <span class="er">|</span>   <span class="dv">1</span>%</span>
-<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a>  <span class="er">|=</span>                                                                     <span class="er">|</span>   <span class="dv">2</span>%</span>
-<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a>  <span class="er">|==</span>                                                                    <span class="er">|</span>   <span class="dv">3</span>%</span>
-<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a>  <span class="er">|===</span>                                                                   <span class="er">|</span>   <span class="dv">4</span>%</span>
-<span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-21"><a href="#cb6-21" tabindex="-1"></a>  <span class="er">|====</span>                                                                  <span class="er">|</span>   <span class="dv">5</span>%</span>
-<span id="cb6-22"><a href="#cb6-22" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-23"><a href="#cb6-23" tabindex="-1"></a>  <span class="er">|====</span>                                                                  <span class="er">|</span>   <span class="dv">6</span>%</span>
-<span id="cb6-24"><a href="#cb6-24" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-25"><a href="#cb6-25" tabindex="-1"></a>  <span class="er">|=====</span>                                                                 <span class="er">|</span>   <span class="dv">7</span>%</span>
-<span id="cb6-26"><a href="#cb6-26" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-27"><a href="#cb6-27" tabindex="-1"></a>  <span class="er">|======</span>                                                                <span class="er">|</span>   <span class="dv">8</span>%</span>
-<span id="cb6-28"><a href="#cb6-28" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-29"><a href="#cb6-29" tabindex="-1"></a>  <span class="er">|======</span>                                                                <span class="er">|</span>   <span class="dv">9</span>%</span>
-<span id="cb6-30"><a href="#cb6-30" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-31"><a href="#cb6-31" tabindex="-1"></a>  <span class="er">|=======</span>                                                               <span class="er">|</span>  <span class="dv">10</span>%</span>
-<span id="cb6-32"><a href="#cb6-32" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-33"><a href="#cb6-33" tabindex="-1"></a>  <span class="er">|========</span>                                                              <span class="er">|</span>  <span class="dv">11</span>%</span>
-<span id="cb6-34"><a href="#cb6-34" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-35"><a href="#cb6-35" tabindex="-1"></a>  <span class="er">|========</span>                                                              <span class="er">|</span>  <span class="dv">12</span>%</span>
-<span id="cb6-36"><a href="#cb6-36" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-37"><a href="#cb6-37" tabindex="-1"></a>  <span class="er">|=========</span>                                                             <span class="er">|</span>  <span class="dv">13</span>%</span>
-<span id="cb6-38"><a href="#cb6-38" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-39"><a href="#cb6-39" tabindex="-1"></a>  <span class="er">|==========</span>                                                            <span class="er">|</span>  <span class="dv">14</span>%</span>
-<span id="cb6-40"><a href="#cb6-40" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-41"><a href="#cb6-41" tabindex="-1"></a>  <span class="er">|==========</span>                                                            <span class="er">|</span>  <span class="dv">15</span>%</span>
-<span id="cb6-42"><a href="#cb6-42" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-43"><a href="#cb6-43" tabindex="-1"></a>  <span class="er">|===========</span>                                                           <span class="er">|</span>  <span class="dv">16</span>%</span>
-<span id="cb6-44"><a href="#cb6-44" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-45"><a href="#cb6-45" tabindex="-1"></a>  <span class="er">|============</span>                                                          <span class="er">|</span>  <span class="dv">17</span>%</span>
-<span id="cb6-46"><a href="#cb6-46" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-47"><a href="#cb6-47" tabindex="-1"></a>  <span class="er">|=============</span>                                                         <span class="er">|</span>  <span class="dv">18</span>%</span>
-<span id="cb6-48"><a href="#cb6-48" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-49"><a href="#cb6-49" tabindex="-1"></a>  <span class="er">|=============</span>                                                         <span class="er">|</span>  <span class="dv">19</span>%</span>
-<span id="cb6-50"><a href="#cb6-50" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-51"><a href="#cb6-51" tabindex="-1"></a>  <span class="er">|==============</span>                                                        <span class="er">|</span>  <span class="dv">20</span>%</span>
-<span id="cb6-52"><a href="#cb6-52" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-53"><a href="#cb6-53" tabindex="-1"></a>  <span class="er">|===============</span>                                                       <span class="er">|</span>  <span class="dv">21</span>%</span>
-<span id="cb6-54"><a href="#cb6-54" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-55"><a href="#cb6-55" tabindex="-1"></a>  <span class="er">|===============</span>                                                       <span class="er">|</span>  <span class="dv">22</span>%</span>
-<span id="cb6-56"><a href="#cb6-56" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-57"><a href="#cb6-57" tabindex="-1"></a>  <span class="er">|================</span>                                                      <span class="er">|</span>  <span class="dv">23</span>%</span>
-<span id="cb6-58"><a href="#cb6-58" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-59"><a href="#cb6-59" tabindex="-1"></a>  <span class="er">|=================</span>                                                     <span class="er">|</span>  <span class="dv">24</span>%</span>
-<span id="cb6-60"><a href="#cb6-60" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-61"><a href="#cb6-61" tabindex="-1"></a>  <span class="er">|==================</span>                                                    <span class="er">|</span>  <span class="dv">25</span>%</span>
-<span id="cb6-62"><a href="#cb6-62" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-63"><a href="#cb6-63" tabindex="-1"></a>  <span class="er">|==================</span>                                                    <span class="er">|</span>  <span class="dv">26</span>%</span>
-<span id="cb6-64"><a href="#cb6-64" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-65"><a href="#cb6-65" tabindex="-1"></a>  <span class="er">|===================</span>                                                   <span class="er">|</span>  <span class="dv">27</span>%</span>
-<span id="cb6-66"><a href="#cb6-66" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-67"><a href="#cb6-67" tabindex="-1"></a>  <span class="er">|====================</span>                                                  <span class="er">|</span>  <span class="dv">28</span>%</span>
-<span id="cb6-68"><a href="#cb6-68" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-69"><a href="#cb6-69" tabindex="-1"></a>  <span class="er">|====================</span>                                                  <span class="er">|</span>  <span class="dv">29</span>%</span>
-<span id="cb6-70"><a href="#cb6-70" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-71"><a href="#cb6-71" tabindex="-1"></a>  <span class="er">|=====================</span>                                                 <span class="er">|</span>  <span class="dv">30</span>%</span>
-<span id="cb6-72"><a href="#cb6-72" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-73"><a href="#cb6-73" tabindex="-1"></a>  <span class="er">|======================</span>                                                <span class="er">|</span>  <span class="dv">31</span>%</span>
-<span id="cb6-74"><a href="#cb6-74" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-75"><a href="#cb6-75" tabindex="-1"></a>  <span class="er">|======================</span>                                                <span class="er">|</span>  <span class="dv">32</span>%</span>
-<span id="cb6-76"><a href="#cb6-76" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-77"><a href="#cb6-77" tabindex="-1"></a>  <span class="er">|=======================</span>                                               <span class="er">|</span>  <span class="dv">33</span>%</span>
-<span id="cb6-78"><a href="#cb6-78" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-79"><a href="#cb6-79" tabindex="-1"></a>  <span class="er">|========================</span>                                              <span class="er">|</span>  <span class="dv">34</span>%</span>
-<span id="cb6-80"><a href="#cb6-80" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-81"><a href="#cb6-81" tabindex="-1"></a>  <span class="er">|========================</span>                                              <span class="er">|</span>  <span class="dv">35</span>%</span>
-<span id="cb6-82"><a href="#cb6-82" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-83"><a href="#cb6-83" tabindex="-1"></a>  <span class="er">|=========================</span>                                             <span class="er">|</span>  <span class="dv">36</span>%</span>
-<span id="cb6-84"><a href="#cb6-84" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-85"><a href="#cb6-85" tabindex="-1"></a>  <span class="er">|==========================</span>                                            <span class="er">|</span>  <span class="dv">37</span>%</span>
-<span id="cb6-86"><a href="#cb6-86" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-87"><a href="#cb6-87" tabindex="-1"></a>  <span class="er">|===========================</span>                                           <span class="er">|</span>  <span class="dv">38</span>%</span>
-<span id="cb6-88"><a href="#cb6-88" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-89"><a href="#cb6-89" tabindex="-1"></a>  <span class="er">|===========================</span>                                           <span class="er">|</span>  <span class="dv">39</span>%</span>
-<span id="cb6-90"><a href="#cb6-90" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-91"><a href="#cb6-91" tabindex="-1"></a>  <span class="er">|============================</span>                                          <span class="er">|</span>  <span class="dv">40</span>%</span>
-<span id="cb6-92"><a href="#cb6-92" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-93"><a href="#cb6-93" tabindex="-1"></a>  <span class="er">|=============================</span>                                         <span class="er">|</span>  <span class="dv">41</span>%</span>
-<span id="cb6-94"><a href="#cb6-94" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-95"><a href="#cb6-95" tabindex="-1"></a>  <span class="er">|=============================</span>                                         <span class="er">|</span>  <span class="dv">42</span>%</span>
-<span id="cb6-96"><a href="#cb6-96" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-97"><a href="#cb6-97" tabindex="-1"></a>  <span class="er">|==============================</span>                                        <span class="er">|</span>  <span class="dv">43</span>%</span>
-<span id="cb6-98"><a href="#cb6-98" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-99"><a href="#cb6-99" tabindex="-1"></a>  <span class="er">|===============================</span>                                       <span class="er">|</span>  <span class="dv">44</span>%</span>
-<span id="cb6-100"><a href="#cb6-100" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-101"><a href="#cb6-101" tabindex="-1"></a>  <span class="er">|================================</span>                                      <span class="er">|</span>  <span class="dv">45</span>%</span>
-<span id="cb6-102"><a href="#cb6-102" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-103"><a href="#cb6-103" tabindex="-1"></a>  <span class="er">|================================</span>                                      <span class="er">|</span>  <span class="dv">46</span>%</span>
-<span id="cb6-104"><a href="#cb6-104" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-105"><a href="#cb6-105" tabindex="-1"></a>  <span class="er">|=================================</span>                                     <span class="er">|</span>  <span class="dv">47</span>%</span>
-<span id="cb6-106"><a href="#cb6-106" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-107"><a href="#cb6-107" tabindex="-1"></a>  <span class="er">|==================================</span>                                    <span class="er">|</span>  <span class="dv">48</span>%</span>
-<span id="cb6-108"><a href="#cb6-108" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-109"><a href="#cb6-109" tabindex="-1"></a>  <span class="er">|==================================</span>                                    <span class="er">|</span>  <span class="dv">49</span>%</span>
-<span id="cb6-110"><a href="#cb6-110" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-111"><a href="#cb6-111" tabindex="-1"></a>  <span class="er">|===================================</span>                                   <span class="er">|</span>  <span class="dv">50</span>%</span>
-<span id="cb6-112"><a href="#cb6-112" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-113"><a href="#cb6-113" tabindex="-1"></a>  <span class="er">|====================================</span>                                  <span class="er">|</span>  <span class="dv">51</span>%</span>
-<span id="cb6-114"><a href="#cb6-114" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-115"><a href="#cb6-115" tabindex="-1"></a>  <span class="er">|====================================</span>                                  <span class="er">|</span>  <span class="dv">52</span>%</span>
-<span id="cb6-116"><a href="#cb6-116" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-117"><a href="#cb6-117" tabindex="-1"></a>  <span class="er">|=====================================</span>                                 <span class="er">|</span>  <span class="dv">53</span>%</span>
-<span id="cb6-118"><a href="#cb6-118" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-119"><a href="#cb6-119" tabindex="-1"></a>  <span class="er">|======================================</span>                                <span class="er">|</span>  <span class="dv">54</span>%</span>
-<span id="cb6-120"><a href="#cb6-120" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-121"><a href="#cb6-121" tabindex="-1"></a>  <span class="er">|======================================</span>                                <span class="er">|</span>  <span class="dv">55</span>%</span>
-<span id="cb6-122"><a href="#cb6-122" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-123"><a href="#cb6-123" tabindex="-1"></a>  <span class="er">|=======================================</span>                               <span class="er">|</span>  <span class="dv">56</span>%</span>
-<span id="cb6-124"><a href="#cb6-124" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-125"><a href="#cb6-125" tabindex="-1"></a>  <span class="er">|========================================</span>                              <span class="er">|</span>  <span class="dv">57</span>%</span>
-<span id="cb6-126"><a href="#cb6-126" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-127"><a href="#cb6-127" tabindex="-1"></a>  <span class="er">|=========================================</span>                             <span class="er">|</span>  <span class="dv">58</span>%</span>
-<span id="cb6-128"><a href="#cb6-128" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-129"><a href="#cb6-129" tabindex="-1"></a>  <span class="er">|=========================================</span>                             <span class="er">|</span>  <span class="dv">59</span>%</span>
-<span id="cb6-130"><a href="#cb6-130" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-131"><a href="#cb6-131" tabindex="-1"></a>  <span class="er">|==========================================</span>                            <span class="er">|</span>  <span class="dv">60</span>%</span>
-<span id="cb6-132"><a href="#cb6-132" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-133"><a href="#cb6-133" tabindex="-1"></a>  <span class="er">|===========================================</span>                           <span class="er">|</span>  <span class="dv">61</span>%</span>
-<span id="cb6-134"><a href="#cb6-134" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-135"><a href="#cb6-135" tabindex="-1"></a>  <span class="er">|===========================================</span>                           <span class="er">|</span>  <span class="dv">62</span>%</span>
-<span id="cb6-136"><a href="#cb6-136" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-137"><a href="#cb6-137" tabindex="-1"></a>  <span class="er">|============================================</span>                          <span class="er">|</span>  <span class="dv">63</span>%</span>
-<span id="cb6-138"><a href="#cb6-138" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-139"><a href="#cb6-139" tabindex="-1"></a>  <span class="er">|=============================================</span>                         <span class="er">|</span>  <span class="dv">64</span>%</span>
-<span id="cb6-140"><a href="#cb6-140" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-141"><a href="#cb6-141" tabindex="-1"></a>  <span class="er">|==============================================</span>                        <span class="er">|</span>  <span class="dv">65</span>%</span>
-<span id="cb6-142"><a href="#cb6-142" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-143"><a href="#cb6-143" tabindex="-1"></a>  <span class="er">|==============================================</span>                        <span class="er">|</span>  <span class="dv">66</span>%</span>
-<span id="cb6-144"><a href="#cb6-144" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-145"><a href="#cb6-145" tabindex="-1"></a>  <span class="er">|===============================================</span>                       <span class="er">|</span>  <span class="dv">67</span>%</span>
-<span id="cb6-146"><a href="#cb6-146" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-147"><a href="#cb6-147" tabindex="-1"></a>  <span class="er">|================================================</span>                      <span class="er">|</span>  <span class="dv">68</span>%</span>
-<span id="cb6-148"><a href="#cb6-148" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-149"><a href="#cb6-149" tabindex="-1"></a>  <span class="er">|================================================</span>                      <span class="er">|</span>  <span class="dv">69</span>%</span>
-<span id="cb6-150"><a href="#cb6-150" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-151"><a href="#cb6-151" tabindex="-1"></a>  <span class="er">|=================================================</span>                     <span class="er">|</span>  <span class="dv">70</span>%</span>
-<span id="cb6-152"><a href="#cb6-152" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-153"><a href="#cb6-153" tabindex="-1"></a>  <span class="er">|==================================================</span>                    <span class="er">|</span>  <span class="dv">71</span>%</span>
-<span id="cb6-154"><a href="#cb6-154" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-155"><a href="#cb6-155" tabindex="-1"></a>  <span class="er">|==================================================</span>                    <span class="er">|</span>  <span class="dv">72</span>%</span>
-<span id="cb6-156"><a href="#cb6-156" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-157"><a href="#cb6-157" tabindex="-1"></a>  <span class="er">|===================================================</span>                   <span class="er">|</span>  <span class="dv">73</span>%</span>
-<span id="cb6-158"><a href="#cb6-158" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-159"><a href="#cb6-159" tabindex="-1"></a>  <span class="er">|====================================================</span>                  <span class="er">|</span>  <span class="dv">74</span>%</span>
-<span id="cb6-160"><a href="#cb6-160" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-161"><a href="#cb6-161" tabindex="-1"></a>  <span class="er">|====================================================</span>                  <span class="er">|</span>  <span class="dv">75</span>%</span>
-<span id="cb6-162"><a href="#cb6-162" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-163"><a href="#cb6-163" tabindex="-1"></a>  <span class="er">|=====================================================</span>                 <span class="er">|</span>  <span class="dv">76</span>%</span>
-<span id="cb6-164"><a href="#cb6-164" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-165"><a href="#cb6-165" tabindex="-1"></a>  <span class="er">|======================================================</span>                <span class="er">|</span>  <span class="dv">77</span>%</span>
-<span id="cb6-166"><a href="#cb6-166" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-167"><a href="#cb6-167" tabindex="-1"></a>  <span class="er">|=======================================================</span>               <span class="er">|</span>  <span class="dv">78</span>%</span>
-<span id="cb6-168"><a href="#cb6-168" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-169"><a href="#cb6-169" tabindex="-1"></a>  <span class="er">|=======================================================</span>               <span class="er">|</span>  <span class="dv">79</span>%</span>
-<span id="cb6-170"><a href="#cb6-170" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-171"><a href="#cb6-171" tabindex="-1"></a>  <span class="er">|========================================================</span>              <span class="er">|</span>  <span class="dv">80</span>%</span>
-<span id="cb6-172"><a href="#cb6-172" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-173"><a href="#cb6-173" tabindex="-1"></a>  <span class="er">|=========================================================</span>             <span class="er">|</span>  <span class="dv">81</span>%</span>
-<span id="cb6-174"><a href="#cb6-174" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-175"><a href="#cb6-175" tabindex="-1"></a>  <span class="er">|=========================================================</span>             <span class="er">|</span>  <span class="dv">82</span>%</span>
-<span id="cb6-176"><a href="#cb6-176" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-177"><a href="#cb6-177" tabindex="-1"></a>  <span class="er">|==========================================================</span>            <span class="er">|</span>  <span class="dv">83</span>%</span>
-<span id="cb6-178"><a href="#cb6-178" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-179"><a href="#cb6-179" tabindex="-1"></a>  <span class="er">|===========================================================</span>           <span class="er">|</span>  <span class="dv">84</span>%</span>
-<span id="cb6-180"><a href="#cb6-180" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-181"><a href="#cb6-181" tabindex="-1"></a>  <span class="er">|============================================================</span>          <span class="er">|</span>  <span class="dv">85</span>%</span>
-<span id="cb6-182"><a href="#cb6-182" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-183"><a href="#cb6-183" tabindex="-1"></a>  <span class="er">|============================================================</span>          <span class="er">|</span>  <span class="dv">86</span>%</span>
-<span id="cb6-184"><a href="#cb6-184" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-185"><a href="#cb6-185" tabindex="-1"></a>  <span class="er">|=============================================================</span>         <span class="er">|</span>  <span class="dv">87</span>%</span>
-<span id="cb6-186"><a href="#cb6-186" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-187"><a href="#cb6-187" tabindex="-1"></a>  <span class="er">|==============================================================</span>        <span class="er">|</span>  <span class="dv">88</span>%</span>
-<span id="cb6-188"><a href="#cb6-188" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-189"><a href="#cb6-189" tabindex="-1"></a>  <span class="er">|==============================================================</span>        <span class="er">|</span>  <span class="dv">89</span>%</span>
-<span id="cb6-190"><a href="#cb6-190" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-191"><a href="#cb6-191" tabindex="-1"></a>  <span class="er">|===============================================================</span>       <span class="er">|</span>  <span class="dv">90</span>%</span>
-<span id="cb6-192"><a href="#cb6-192" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-193"><a href="#cb6-193" tabindex="-1"></a>  <span class="er">|================================================================</span>      <span class="er">|</span>  <span class="dv">91</span>%</span>
-<span id="cb6-194"><a href="#cb6-194" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-195"><a href="#cb6-195" tabindex="-1"></a>  <span class="er">|================================================================</span>      <span class="er">|</span>  <span class="dv">92</span>%</span>
-<span id="cb6-196"><a href="#cb6-196" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-197"><a href="#cb6-197" tabindex="-1"></a>  <span class="er">|=================================================================</span>     <span class="er">|</span>  <span class="dv">93</span>%</span>
-<span id="cb6-198"><a href="#cb6-198" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-199"><a href="#cb6-199" tabindex="-1"></a>  <span class="er">|==================================================================</span>    <span class="er">|</span>  <span class="dv">94</span>%</span>
-<span id="cb6-200"><a href="#cb6-200" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-201"><a href="#cb6-201" tabindex="-1"></a>  <span class="er">|==================================================================</span>    <span class="er">|</span>  <span class="dv">95</span>%</span>
-<span id="cb6-202"><a href="#cb6-202" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-203"><a href="#cb6-203" tabindex="-1"></a>  <span class="er">|===================================================================</span>   <span class="er">|</span>  <span class="dv">96</span>%</span>
-<span id="cb6-204"><a href="#cb6-204" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-205"><a href="#cb6-205" tabindex="-1"></a>  <span class="er">|====================================================================</span>  <span class="er">|</span>  <span class="dv">97</span>%</span>
-<span id="cb6-206"><a href="#cb6-206" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-207"><a href="#cb6-207" tabindex="-1"></a>  <span class="er">|=====================================================================</span> <span class="er">|</span>  <span class="dv">98</span>%</span>
-<span id="cb6-208"><a href="#cb6-208" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-209"><a href="#cb6-209" tabindex="-1"></a>  <span class="er">|=====================================================================</span> <span class="er">|</span>  <span class="dv">99</span>%</span>
-<span id="cb6-210"><a href="#cb6-210" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
-<span id="cb6-211"><a href="#cb6-211" tabindex="-1"></a>  <span class="er">|======================================================================|</span> <span class="dv">100</span>%</span></code></pre></div>
+here. For applications, to achieve satisfactory precision in estimates
+of type I error, a higher number (e.g. 10,000) is recommended.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>transitionListNull <span class="ot">&lt;-</span> <span class="fu">list</span>(transitionPl, transitionPl)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>nRep <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>simNull <span class="ot">&lt;-</span> <span class="fu">getClinicalTrials</span>(</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>  <span class="at">nRep =</span> nRep, <span class="at">nPat =</span> <span class="fu">c</span>(<span class="dv">800</span>, <span class="dv">800</span>), <span class="at">seed =</span> <span class="dv">1238</span>, <span class="at">datType =</span> <span class="st">"1rowPatient"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>  <span class="at">transitionByArm =</span> transitionListNull,</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  <span class="at">dropout =</span> <span class="fu">list</span>(<span class="at">rate =</span> <span class="fl">0.05</span>, <span class="at">time =</span> <span class="dv">12</span>), <span class="at">accrual =</span> <span class="fu">list</span>(<span class="at">param =</span> <span class="st">"intensity"</span>, <span class="at">value =</span> <span class="dv">100</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>)</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="co">#&gt; Simulating 100 trials:</span></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>  <span class="er">|</span>                                                                      <span class="er">|</span>   <span class="dv">0</span>%</span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>  <span class="er">|=</span>                                                                     <span class="er">|</span>   <span class="dv">1</span>%</span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a>  <span class="er">|=</span>                                                                     <span class="er">|</span>   <span class="dv">2</span>%</span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a>  <span class="er">|==</span>                                                                    <span class="er">|</span>   <span class="dv">3</span>%</span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a>  <span class="er">|===</span>                                                                   <span class="er">|</span>   <span class="dv">4</span>%</span>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a>  <span class="er">|====</span>                                                                  <span class="er">|</span>   <span class="dv">5</span>%</span>
+<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-23"><a href="#cb7-23" tabindex="-1"></a>  <span class="er">|====</span>                                                                  <span class="er">|</span>   <span class="dv">6</span>%</span>
+<span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-25"><a href="#cb7-25" tabindex="-1"></a>  <span class="er">|=====</span>                                                                 <span class="er">|</span>   <span class="dv">7</span>%</span>
+<span id="cb7-26"><a href="#cb7-26" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-27"><a href="#cb7-27" tabindex="-1"></a>  <span class="er">|======</span>                                                                <span class="er">|</span>   <span class="dv">8</span>%</span>
+<span id="cb7-28"><a href="#cb7-28" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-29"><a href="#cb7-29" tabindex="-1"></a>  <span class="er">|======</span>                                                                <span class="er">|</span>   <span class="dv">9</span>%</span>
+<span id="cb7-30"><a href="#cb7-30" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-31"><a href="#cb7-31" tabindex="-1"></a>  <span class="er">|=======</span>                                                               <span class="er">|</span>  <span class="dv">10</span>%</span>
+<span id="cb7-32"><a href="#cb7-32" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-33"><a href="#cb7-33" tabindex="-1"></a>  <span class="er">|========</span>                                                              <span class="er">|</span>  <span class="dv">11</span>%</span>
+<span id="cb7-34"><a href="#cb7-34" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-35"><a href="#cb7-35" tabindex="-1"></a>  <span class="er">|========</span>                                                              <span class="er">|</span>  <span class="dv">12</span>%</span>
+<span id="cb7-36"><a href="#cb7-36" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-37"><a href="#cb7-37" tabindex="-1"></a>  <span class="er">|=========</span>                                                             <span class="er">|</span>  <span class="dv">13</span>%</span>
+<span id="cb7-38"><a href="#cb7-38" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-39"><a href="#cb7-39" tabindex="-1"></a>  <span class="er">|==========</span>                                                            <span class="er">|</span>  <span class="dv">14</span>%</span>
+<span id="cb7-40"><a href="#cb7-40" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-41"><a href="#cb7-41" tabindex="-1"></a>  <span class="er">|==========</span>                                                            <span class="er">|</span>  <span class="dv">15</span>%</span>
+<span id="cb7-42"><a href="#cb7-42" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-43"><a href="#cb7-43" tabindex="-1"></a>  <span class="er">|===========</span>                                                           <span class="er">|</span>  <span class="dv">16</span>%</span>
+<span id="cb7-44"><a href="#cb7-44" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-45"><a href="#cb7-45" tabindex="-1"></a>  <span class="er">|============</span>                                                          <span class="er">|</span>  <span class="dv">17</span>%</span>
+<span id="cb7-46"><a href="#cb7-46" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-47"><a href="#cb7-47" tabindex="-1"></a>  <span class="er">|=============</span>                                                         <span class="er">|</span>  <span class="dv">18</span>%</span>
+<span id="cb7-48"><a href="#cb7-48" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-49"><a href="#cb7-49" tabindex="-1"></a>  <span class="er">|=============</span>                                                         <span class="er">|</span>  <span class="dv">19</span>%</span>
+<span id="cb7-50"><a href="#cb7-50" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-51"><a href="#cb7-51" tabindex="-1"></a>  <span class="er">|==============</span>                                                        <span class="er">|</span>  <span class="dv">20</span>%</span>
+<span id="cb7-52"><a href="#cb7-52" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-53"><a href="#cb7-53" tabindex="-1"></a>  <span class="er">|===============</span>                                                       <span class="er">|</span>  <span class="dv">21</span>%</span>
+<span id="cb7-54"><a href="#cb7-54" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-55"><a href="#cb7-55" tabindex="-1"></a>  <span class="er">|===============</span>                                                       <span class="er">|</span>  <span class="dv">22</span>%</span>
+<span id="cb7-56"><a href="#cb7-56" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-57"><a href="#cb7-57" tabindex="-1"></a>  <span class="er">|================</span>                                                      <span class="er">|</span>  <span class="dv">23</span>%</span>
+<span id="cb7-58"><a href="#cb7-58" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-59"><a href="#cb7-59" tabindex="-1"></a>  <span class="er">|=================</span>                                                     <span class="er">|</span>  <span class="dv">24</span>%</span>
+<span id="cb7-60"><a href="#cb7-60" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-61"><a href="#cb7-61" tabindex="-1"></a>  <span class="er">|==================</span>                                                    <span class="er">|</span>  <span class="dv">25</span>%</span>
+<span id="cb7-62"><a href="#cb7-62" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-63"><a href="#cb7-63" tabindex="-1"></a>  <span class="er">|==================</span>                                                    <span class="er">|</span>  <span class="dv">26</span>%</span>
+<span id="cb7-64"><a href="#cb7-64" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-65"><a href="#cb7-65" tabindex="-1"></a>  <span class="er">|===================</span>                                                   <span class="er">|</span>  <span class="dv">27</span>%</span>
+<span id="cb7-66"><a href="#cb7-66" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-67"><a href="#cb7-67" tabindex="-1"></a>  <span class="er">|====================</span>                                                  <span class="er">|</span>  <span class="dv">28</span>%</span>
+<span id="cb7-68"><a href="#cb7-68" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-69"><a href="#cb7-69" tabindex="-1"></a>  <span class="er">|====================</span>                                                  <span class="er">|</span>  <span class="dv">29</span>%</span>
+<span id="cb7-70"><a href="#cb7-70" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-71"><a href="#cb7-71" tabindex="-1"></a>  <span class="er">|=====================</span>                                                 <span class="er">|</span>  <span class="dv">30</span>%</span>
+<span id="cb7-72"><a href="#cb7-72" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-73"><a href="#cb7-73" tabindex="-1"></a>  <span class="er">|======================</span>                                                <span class="er">|</span>  <span class="dv">31</span>%</span>
+<span id="cb7-74"><a href="#cb7-74" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-75"><a href="#cb7-75" tabindex="-1"></a>  <span class="er">|======================</span>                                                <span class="er">|</span>  <span class="dv">32</span>%</span>
+<span id="cb7-76"><a href="#cb7-76" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-77"><a href="#cb7-77" tabindex="-1"></a>  <span class="er">|=======================</span>                                               <span class="er">|</span>  <span class="dv">33</span>%</span>
+<span id="cb7-78"><a href="#cb7-78" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-79"><a href="#cb7-79" tabindex="-1"></a>  <span class="er">|========================</span>                                              <span class="er">|</span>  <span class="dv">34</span>%</span>
+<span id="cb7-80"><a href="#cb7-80" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-81"><a href="#cb7-81" tabindex="-1"></a>  <span class="er">|========================</span>                                              <span class="er">|</span>  <span class="dv">35</span>%</span>
+<span id="cb7-82"><a href="#cb7-82" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-83"><a href="#cb7-83" tabindex="-1"></a>  <span class="er">|=========================</span>                                             <span class="er">|</span>  <span class="dv">36</span>%</span>
+<span id="cb7-84"><a href="#cb7-84" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-85"><a href="#cb7-85" tabindex="-1"></a>  <span class="er">|==========================</span>                                            <span class="er">|</span>  <span class="dv">37</span>%</span>
+<span id="cb7-86"><a href="#cb7-86" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-87"><a href="#cb7-87" tabindex="-1"></a>  <span class="er">|===========================</span>                                           <span class="er">|</span>  <span class="dv">38</span>%</span>
+<span id="cb7-88"><a href="#cb7-88" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-89"><a href="#cb7-89" tabindex="-1"></a>  <span class="er">|===========================</span>                                           <span class="er">|</span>  <span class="dv">39</span>%</span>
+<span id="cb7-90"><a href="#cb7-90" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-91"><a href="#cb7-91" tabindex="-1"></a>  <span class="er">|============================</span>                                          <span class="er">|</span>  <span class="dv">40</span>%</span>
+<span id="cb7-92"><a href="#cb7-92" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-93"><a href="#cb7-93" tabindex="-1"></a>  <span class="er">|=============================</span>                                         <span class="er">|</span>  <span class="dv">41</span>%</span>
+<span id="cb7-94"><a href="#cb7-94" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-95"><a href="#cb7-95" tabindex="-1"></a>  <span class="er">|=============================</span>                                         <span class="er">|</span>  <span class="dv">42</span>%</span>
+<span id="cb7-96"><a href="#cb7-96" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-97"><a href="#cb7-97" tabindex="-1"></a>  <span class="er">|==============================</span>                                        <span class="er">|</span>  <span class="dv">43</span>%</span>
+<span id="cb7-98"><a href="#cb7-98" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-99"><a href="#cb7-99" tabindex="-1"></a>  <span class="er">|===============================</span>                                       <span class="er">|</span>  <span class="dv">44</span>%</span>
+<span id="cb7-100"><a href="#cb7-100" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-101"><a href="#cb7-101" tabindex="-1"></a>  <span class="er">|================================</span>                                      <span class="er">|</span>  <span class="dv">45</span>%</span>
+<span id="cb7-102"><a href="#cb7-102" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-103"><a href="#cb7-103" tabindex="-1"></a>  <span class="er">|================================</span>                                      <span class="er">|</span>  <span class="dv">46</span>%</span>
+<span id="cb7-104"><a href="#cb7-104" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-105"><a href="#cb7-105" tabindex="-1"></a>  <span class="er">|=================================</span>                                     <span class="er">|</span>  <span class="dv">47</span>%</span>
+<span id="cb7-106"><a href="#cb7-106" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-107"><a href="#cb7-107" tabindex="-1"></a>  <span class="er">|==================================</span>                                    <span class="er">|</span>  <span class="dv">48</span>%</span>
+<span id="cb7-108"><a href="#cb7-108" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-109"><a href="#cb7-109" tabindex="-1"></a>  <span class="er">|==================================</span>                                    <span class="er">|</span>  <span class="dv">49</span>%</span>
+<span id="cb7-110"><a href="#cb7-110" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-111"><a href="#cb7-111" tabindex="-1"></a>  <span class="er">|===================================</span>                                   <span class="er">|</span>  <span class="dv">50</span>%</span>
+<span id="cb7-112"><a href="#cb7-112" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-113"><a href="#cb7-113" tabindex="-1"></a>  <span class="er">|====================================</span>                                  <span class="er">|</span>  <span class="dv">51</span>%</span>
+<span id="cb7-114"><a href="#cb7-114" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-115"><a href="#cb7-115" tabindex="-1"></a>  <span class="er">|====================================</span>                                  <span class="er">|</span>  <span class="dv">52</span>%</span>
+<span id="cb7-116"><a href="#cb7-116" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-117"><a href="#cb7-117" tabindex="-1"></a>  <span class="er">|=====================================</span>                                 <span class="er">|</span>  <span class="dv">53</span>%</span>
+<span id="cb7-118"><a href="#cb7-118" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-119"><a href="#cb7-119" tabindex="-1"></a>  <span class="er">|======================================</span>                                <span class="er">|</span>  <span class="dv">54</span>%</span>
+<span id="cb7-120"><a href="#cb7-120" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-121"><a href="#cb7-121" tabindex="-1"></a>  <span class="er">|======================================</span>                                <span class="er">|</span>  <span class="dv">55</span>%</span>
+<span id="cb7-122"><a href="#cb7-122" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-123"><a href="#cb7-123" tabindex="-1"></a>  <span class="er">|=======================================</span>                               <span class="er">|</span>  <span class="dv">56</span>%</span>
+<span id="cb7-124"><a href="#cb7-124" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-125"><a href="#cb7-125" tabindex="-1"></a>  <span class="er">|========================================</span>                              <span class="er">|</span>  <span class="dv">57</span>%</span>
+<span id="cb7-126"><a href="#cb7-126" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-127"><a href="#cb7-127" tabindex="-1"></a>  <span class="er">|=========================================</span>                             <span class="er">|</span>  <span class="dv">58</span>%</span>
+<span id="cb7-128"><a href="#cb7-128" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-129"><a href="#cb7-129" tabindex="-1"></a>  <span class="er">|=========================================</span>                             <span class="er">|</span>  <span class="dv">59</span>%</span>
+<span id="cb7-130"><a href="#cb7-130" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-131"><a href="#cb7-131" tabindex="-1"></a>  <span class="er">|==========================================</span>                            <span class="er">|</span>  <span class="dv">60</span>%</span>
+<span id="cb7-132"><a href="#cb7-132" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-133"><a href="#cb7-133" tabindex="-1"></a>  <span class="er">|===========================================</span>                           <span class="er">|</span>  <span class="dv">61</span>%</span>
+<span id="cb7-134"><a href="#cb7-134" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-135"><a href="#cb7-135" tabindex="-1"></a>  <span class="er">|===========================================</span>                           <span class="er">|</span>  <span class="dv">62</span>%</span>
+<span id="cb7-136"><a href="#cb7-136" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-137"><a href="#cb7-137" tabindex="-1"></a>  <span class="er">|============================================</span>                          <span class="er">|</span>  <span class="dv">63</span>%</span>
+<span id="cb7-138"><a href="#cb7-138" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-139"><a href="#cb7-139" tabindex="-1"></a>  <span class="er">|=============================================</span>                         <span class="er">|</span>  <span class="dv">64</span>%</span>
+<span id="cb7-140"><a href="#cb7-140" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-141"><a href="#cb7-141" tabindex="-1"></a>  <span class="er">|==============================================</span>                        <span class="er">|</span>  <span class="dv">65</span>%</span>
+<span id="cb7-142"><a href="#cb7-142" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-143"><a href="#cb7-143" tabindex="-1"></a>  <span class="er">|==============================================</span>                        <span class="er">|</span>  <span class="dv">66</span>%</span>
+<span id="cb7-144"><a href="#cb7-144" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-145"><a href="#cb7-145" tabindex="-1"></a>  <span class="er">|===============================================</span>                       <span class="er">|</span>  <span class="dv">67</span>%</span>
+<span id="cb7-146"><a href="#cb7-146" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-147"><a href="#cb7-147" tabindex="-1"></a>  <span class="er">|================================================</span>                      <span class="er">|</span>  <span class="dv">68</span>%</span>
+<span id="cb7-148"><a href="#cb7-148" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-149"><a href="#cb7-149" tabindex="-1"></a>  <span class="er">|================================================</span>                      <span class="er">|</span>  <span class="dv">69</span>%</span>
+<span id="cb7-150"><a href="#cb7-150" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-151"><a href="#cb7-151" tabindex="-1"></a>  <span class="er">|=================================================</span>                     <span class="er">|</span>  <span class="dv">70</span>%</span>
+<span id="cb7-152"><a href="#cb7-152" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-153"><a href="#cb7-153" tabindex="-1"></a>  <span class="er">|==================================================</span>                    <span class="er">|</span>  <span class="dv">71</span>%</span>
+<span id="cb7-154"><a href="#cb7-154" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-155"><a href="#cb7-155" tabindex="-1"></a>  <span class="er">|==================================================</span>                    <span class="er">|</span>  <span class="dv">72</span>%</span>
+<span id="cb7-156"><a href="#cb7-156" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-157"><a href="#cb7-157" tabindex="-1"></a>  <span class="er">|===================================================</span>                   <span class="er">|</span>  <span class="dv">73</span>%</span>
+<span id="cb7-158"><a href="#cb7-158" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-159"><a href="#cb7-159" tabindex="-1"></a>  <span class="er">|====================================================</span>                  <span class="er">|</span>  <span class="dv">74</span>%</span>
+<span id="cb7-160"><a href="#cb7-160" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-161"><a href="#cb7-161" tabindex="-1"></a>  <span class="er">|====================================================</span>                  <span class="er">|</span>  <span class="dv">75</span>%</span>
+<span id="cb7-162"><a href="#cb7-162" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-163"><a href="#cb7-163" tabindex="-1"></a>  <span class="er">|=====================================================</span>                 <span class="er">|</span>  <span class="dv">76</span>%</span>
+<span id="cb7-164"><a href="#cb7-164" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-165"><a href="#cb7-165" tabindex="-1"></a>  <span class="er">|======================================================</span>                <span class="er">|</span>  <span class="dv">77</span>%</span>
+<span id="cb7-166"><a href="#cb7-166" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-167"><a href="#cb7-167" tabindex="-1"></a>  <span class="er">|=======================================================</span>               <span class="er">|</span>  <span class="dv">78</span>%</span>
+<span id="cb7-168"><a href="#cb7-168" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-169"><a href="#cb7-169" tabindex="-1"></a>  <span class="er">|=======================================================</span>               <span class="er">|</span>  <span class="dv">79</span>%</span>
+<span id="cb7-170"><a href="#cb7-170" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-171"><a href="#cb7-171" tabindex="-1"></a>  <span class="er">|========================================================</span>              <span class="er">|</span>  <span class="dv">80</span>%</span>
+<span id="cb7-172"><a href="#cb7-172" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-173"><a href="#cb7-173" tabindex="-1"></a>  <span class="er">|=========================================================</span>             <span class="er">|</span>  <span class="dv">81</span>%</span>
+<span id="cb7-174"><a href="#cb7-174" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-175"><a href="#cb7-175" tabindex="-1"></a>  <span class="er">|=========================================================</span>             <span class="er">|</span>  <span class="dv">82</span>%</span>
+<span id="cb7-176"><a href="#cb7-176" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-177"><a href="#cb7-177" tabindex="-1"></a>  <span class="er">|==========================================================</span>            <span class="er">|</span>  <span class="dv">83</span>%</span>
+<span id="cb7-178"><a href="#cb7-178" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-179"><a href="#cb7-179" tabindex="-1"></a>  <span class="er">|===========================================================</span>           <span class="er">|</span>  <span class="dv">84</span>%</span>
+<span id="cb7-180"><a href="#cb7-180" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-181"><a href="#cb7-181" tabindex="-1"></a>  <span class="er">|============================================================</span>          <span class="er">|</span>  <span class="dv">85</span>%</span>
+<span id="cb7-182"><a href="#cb7-182" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-183"><a href="#cb7-183" tabindex="-1"></a>  <span class="er">|============================================================</span>          <span class="er">|</span>  <span class="dv">86</span>%</span>
+<span id="cb7-184"><a href="#cb7-184" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-185"><a href="#cb7-185" tabindex="-1"></a>  <span class="er">|=============================================================</span>         <span class="er">|</span>  <span class="dv">87</span>%</span>
+<span id="cb7-186"><a href="#cb7-186" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-187"><a href="#cb7-187" tabindex="-1"></a>  <span class="er">|==============================================================</span>        <span class="er">|</span>  <span class="dv">88</span>%</span>
+<span id="cb7-188"><a href="#cb7-188" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-189"><a href="#cb7-189" tabindex="-1"></a>  <span class="er">|==============================================================</span>        <span class="er">|</span>  <span class="dv">89</span>%</span>
+<span id="cb7-190"><a href="#cb7-190" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-191"><a href="#cb7-191" tabindex="-1"></a>  <span class="er">|===============================================================</span>       <span class="er">|</span>  <span class="dv">90</span>%</span>
+<span id="cb7-192"><a href="#cb7-192" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-193"><a href="#cb7-193" tabindex="-1"></a>  <span class="er">|================================================================</span>      <span class="er">|</span>  <span class="dv">91</span>%</span>
+<span id="cb7-194"><a href="#cb7-194" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-195"><a href="#cb7-195" tabindex="-1"></a>  <span class="er">|================================================================</span>      <span class="er">|</span>  <span class="dv">92</span>%</span>
+<span id="cb7-196"><a href="#cb7-196" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-197"><a href="#cb7-197" tabindex="-1"></a>  <span class="er">|=================================================================</span>     <span class="er">|</span>  <span class="dv">93</span>%</span>
+<span id="cb7-198"><a href="#cb7-198" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-199"><a href="#cb7-199" tabindex="-1"></a>  <span class="er">|==================================================================</span>    <span class="er">|</span>  <span class="dv">94</span>%</span>
+<span id="cb7-200"><a href="#cb7-200" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-201"><a href="#cb7-201" tabindex="-1"></a>  <span class="er">|==================================================================</span>    <span class="er">|</span>  <span class="dv">95</span>%</span>
+<span id="cb7-202"><a href="#cb7-202" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-203"><a href="#cb7-203" tabindex="-1"></a>  <span class="er">|===================================================================</span>   <span class="er">|</span>  <span class="dv">96</span>%</span>
+<span id="cb7-204"><a href="#cb7-204" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-205"><a href="#cb7-205" tabindex="-1"></a>  <span class="er">|====================================================================</span>  <span class="er">|</span>  <span class="dv">97</span>%</span>
+<span id="cb7-206"><a href="#cb7-206" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-207"><a href="#cb7-207" tabindex="-1"></a>  <span class="er">|=====================================================================</span> <span class="er">|</span>  <span class="dv">98</span>%</span>
+<span id="cb7-208"><a href="#cb7-208" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-209"><a href="#cb7-209" tabindex="-1"></a>  <span class="er">|=====================================================================</span> <span class="er">|</span>  <span class="dv">99</span>%</span>
+<span id="cb7-210"><a href="#cb7-210" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb7-211"><a href="#cb7-211" tabindex="-1"></a>  <span class="er">|======================================================================|</span> <span class="dv">100</span>%</span></code></pre></div>
 <p>Using the simulation, we can now identify critical log-rank test
 values for both PFS and OS to maintain a 5% global significance level.
 Initially, we allocate critical values so that the two-sided log-rank
 test has a 4% significance level for the OS endpoint and 1% for the PFS
-endpoint, effectively splitting the global significance level. This
-method is widely used in trials with co-primary endpoints.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+endpoint, effectively splitting the global significance level. Such a
+Bonferroni correction is widely used in trials with co-primary
+endpoints.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">alphaOS</span> <span class="op">&lt;-</span> <span class="fl">0.04</span></span>
 <span><span class="va">alphaPFS</span> <span class="op">&lt;-</span> <span class="fl">0.01</span></span>
 <span><span class="va">criticalOS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">qnorm</a></span><span class="op">(</span><span class="va">alphaOS</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
@@ -433,9 +438,29 @@ method is widely used in trials with co-primary endpoints.</p>
 <p>With the Schoenfeld approximation, preliminary sample sizes can be
 computed to get an idea of how many events are needed to achieve 80 %
 power:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">eventNumPFS</span> <span class="op">&lt;-</span> <span class="fl">452</span></span>
-<span><span class="va">eventNumOS</span> <span class="op">&lt;-</span> <span class="fl">732</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.rpact.org" class="external-link">rpact</a></span><span class="op">)</span></span>
+<span><span class="co"># Number of PFS events required for 80 % power via Schoenfeld:</span></span>
+<span><span class="va">schoenfeldPFS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rpact-com.github.io/rpact/reference/getSampleSizeSurvival.html" class="external-link">getSampleSizeSurvival</a></span><span class="op">(</span></span>
+<span>  lambda2 <span class="op">=</span> <span class="va">hPlPFS</span>, hazardRatio <span class="op">=</span> <span class="va">hRatioPFS</span>,</span>
+<span>  accrualTime <span class="op">=</span> <span class="fl">0</span>, accrualIntensity <span class="op">=</span> <span class="fl">500</span>,</span>
+<span>  maxNumberOfSubjects <span class="op">=</span> <span class="fl">1000</span>, sided <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="va">alphaPFS</span> <span class="op">/</span> <span class="fl">2</span>, beta <span class="op">=</span> <span class="fl">0.2</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">eventNumPFS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">ceiling</a></span><span class="op">(</span><span class="va">schoenfeldPFS</span><span class="op">$</span><span class="va">eventsFixed</span><span class="op">)</span></span>
+<span><span class="va">eventNumPFS</span></span>
+<span><span class="co">#&gt; [1] 452</span></span>
+<span></span>
+<span><span class="co"># Number of OS events required for 80 % power via Schoenfeld:</span></span>
+<span><span class="va">schoenfeldOS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rpact-com.github.io/rpact/reference/getSampleSizeSurvival.html" class="external-link">getSampleSizeSurvival</a></span><span class="op">(</span></span>
+<span>  lambda2 <span class="op">=</span> <span class="va">hPlPFS</span>, hazardRatio <span class="op">=</span> <span class="va">hRatioOS</span>,</span>
+<span>  accrualTime <span class="op">=</span> <span class="fl">0</span>, accrualIntensity <span class="op">=</span> <span class="fl">500</span>,</span>
+<span>  maxNumberOfSubjects <span class="op">=</span> <span class="fl">1000</span>, sided <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="va">alphaOS</span> <span class="op">/</span> <span class="fl">2</span>, beta <span class="op">=</span> <span class="fl">0.2</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">eventNumOS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">ceiling</a></span><span class="op">(</span><span class="va">schoenfeldOS</span><span class="op">$</span><span class="va">eventsFixed</span><span class="op">)</span></span>
+<span><span class="va">eventNumOS</span></span>
+<span><span class="co">#&gt; [1] 732</span></span></code></pre></div>
 <p>Using these critical values and required number of events for PFS and
 OS, we can now determine the global type I error empirically by counting
 the number of trials simulated under <span class="math inline">\(H_0\)</span> with significant log-rank tests. The
@@ -444,7 +469,7 @@ of trials with significant log-rank tests, while the global Type I error
 is the proportion of trials where at least one of PFS or OS with a
 significant log-rank test. This can be done using
 <code>empSignificant</code>:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/empSignificant.html">empSignificant</a></span><span class="op">(</span></span>
 <span>  simTrials <span class="op">=</span> <span class="va">simNull</span>,</span>
 <span>  criticalPFS <span class="op">=</span> <span class="va">criticalPFS</span>,</span>
@@ -463,27 +488,7 @@ significant log-rank test. This can be done using
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $significantBoth</span></span>
 <span><span class="co">#&gt; [1] 0</span></span></code></pre></div>
-<p>In this example, the global type I error rate is 3%. If the global
-type-I error is lower than 5%, the critical values used for the log-rank
-test can be lowered until a significance level close to 5% is obtained.
-This could be done, for example, in the following way:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">while</span> <span class="op">(</span><span class="va">empGlobalAlpha</span> <span class="op">&lt;</span> <span class="fl">0.049</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">criticalPFS</span> <span class="op">&lt;-</span> <span class="va">criticalPFS</span> <span class="op">-</span> <span class="fl">0.01</span></span>
-<span>  <span class="va">criticalOS</span> <span class="op">&lt;-</span> <span class="va">criticalOS</span> <span class="op">-</span> <span class="fl">0.01</span></span>
-<span></span>
-<span>  <span class="co"># empirical global significance level</span></span>
-<span>  <span class="va">empGlobalAlpha</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/empSignificant.html">empSignificant</a></span><span class="op">(</span></span>
-<span>    simTrials <span class="op">=</span> <span class="va">simNull</span>,</span>
-<span>    criticalPFS <span class="op">=</span> <span class="va">criticalPFS</span>,</span>
-<span>    criticalOS <span class="op">=</span> <span class="va">criticalOS</span>,</span>
-<span>    eventNumPFS <span class="op">=</span> <span class="va">eventNumPFS</span>,</span>
-<span>    eventNumOS <span class="op">=</span> <span class="va">eventNumOS</span></span>
-<span>  <span class="op">)</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="op">}</span></span></code></pre></div>
-<p>If the global type-I error is higher than 5%, we could use a similar
-procedure to increase the critical values until we are close to the 5%
-threshold.</p>
+<p>In this example, the global type I error rate is 3%.</p>
 </div>
 <div class="section level2">
 <h2 id="sample-size-and-power-calculation---simulation-under-h_1">Sample size and power calculation - simulation under <span class="math inline">\(H_1\)</span><a class="anchor" aria-label="anchor" href="#sample-size-and-power-calculation---simulation-under-h_1"></a>
