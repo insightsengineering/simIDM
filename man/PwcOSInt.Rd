@@ -4,10 +4,12 @@
 \alias{PwcOSInt}
 \title{Helper Function of \code{PWCsurvOS()}}
 \usage{
-PwcOSInt(x, h01, h02, h12, pw01, pw02, pw12)
+PwcOSInt(x, t, h01, h02, h12, pw01, pw02, pw12)
 }
 \arguments{
 \item{x}{(\code{numeric})\cr  variable of integration.}
+
+\item{t}{(\code{numeric})\cr study time-points.}
 
 \item{h01}{(\verb{numeric vector})\cr constant transition hazards for 0 to 1 transition.}
 
@@ -29,5 +31,5 @@ the OS survival function for piecewise constant transition hazards, see  \code{P
 Helper Function of \code{PWCsurvOS()}
 }
 \examples{
-PwcOSInt(1:5, c(0.3, 0.5), c(0.5, 0.8), c(0.7, 1), c(0, 4), c(0, 8), c(0, 3))
+PwcOSInt(1:5, 6, c(0.3, 0.5), c(0.5, 0.8), c(0.7, 1), c(0, 4), c(0, 8), c(0, 3))
 }
