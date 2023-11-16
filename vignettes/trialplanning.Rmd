@@ -20,10 +20,11 @@ knitr::opts_chunk$set(
 
 ## Introduction
 
-This vignette demonstrates how to use `simIDM` for trial design planning with a simple example. We will show how to estimate type I errors and statistical power from simulations to optimize study design (see @erdmann2023 for more details).
+This vignette demonstrates how to use `simIDM` for trial design planning with a simple example. We will show how to estimate type I errors and statistical power from simulations to optimize study design, details can be found in @erdmann2023.
 Jointly modeling the endpoints PFS and OS with the illness-death model has two major advantages:
-- we properly account for the correlation between PFS and OS
-- the strong assumption of proportional hazards is not required
+- We properly account for the correlation between PFS and OS,
+- The assumption of proportional hazards is not required.
+
 OS is defined as the time to reach the absorbing state death, and PFS is defined as the time to reach the absorbing state `death` or the intermediate state `progression`, whichever occurs first.
 Figure 1 shows the multistate model with the corresponding transition hazards.
 In the vignette, we show how to estimate type I errors and statistical power from simulations and give an idea on how this can be used to plan complex study trials.
@@ -39,18 +40,19 @@ plotIllnessDeathModel(
 
 We consider the following study design:
 
-- PFS and OS as co-primary endpoints with one final analysis each
-- treatment vs. control group, 1:1 randomization ratio  (but note that in principle any randomization ratio can be implemented)
-- global significance level of 5 \%
-- the standard log-rank test is used to detect a significant difference between the groups
-- statistical power to detect a difference between the groups should be 80 \% for each endpoint
-- 5 \% drop-out rate within 12 time units
-- accrual of 100 patients per time unit
+- PFS and OS as co-primary endpoints with one final analysis each, i.e. for a successful trial all endpoints need to be significant.
+- Treatment vs. control group, 1:1 randomization ratio
+- Global significance level of 5 \%
+- The standard log-rank test is used to assess the null hypothesis of equal survival functions in both groups for PFS and OS, respectively.
+- Statistical power to detect a difference between the groups should be 80 \% for each endpoint
+- 5 \% drop-out within 12 time units
+- Accrual of 100 patients per time unit
 
-Using the multistate model approach implies that trial planning is based on assumptions on the three transition hazards in each arm, i.e. six hazards in total (which induces assumptions on the endpoints PFS and OS).
-In our example scenario, we assume constant transition hazards and a small effect of the treatment on hazards from the initial state to death.
-Median time until a PFS event is 0.99 time units in the control arm and 1.44 time units in the treatment arm.
-Median time until an OS event is 1.94 time units in the control group and 2.29 time units in the treatment group.
+Using the multistate model approach implies that trial planning is based on assumptions on the three transition hazards in each arm, i.e. six hazards in total.
+In our example scenario, we assume that all six transition hazards are constant and a small effect of the treatment on hazards from the initial state to death.
+Transition hazards are tuned such that median time until a PFS event is 0.87 time units in the control arm and 1.2 time units in the treatment arm.
+Median time until an OS event is 1.76 time units in the control group and 2.1 time units in the treatment group.
+
 Figure 2 shows the transition hazards, survival functions, hazard functions and hazard ratios for both endpoints.
 
 ![Figure 2 - Transition hazards, survival functions, hazard functions and hazard ratios for our scenario.](scenario.png)
@@ -64,20 +66,33 @@ transitionPl <- exponential_transition(h01 = 0.5, h02 = 0.3, h12 = 0.6)
 transitionList <- list(transitionPl, transitionTrt)
 ```
 
-The package provides functions that return the values of the PFS or OS survival functions for given transition hazards (Constant, Weibull or Piecewise Constant) and time points.
+The package provides functions that return the values of the PFS or OS survival functions for given transition hazards (Constant, Weibull or Piecewise Constant) and pre-specified time points.
 ```{r}
 timepoints <- c(0, 0.1, 0.3, 0.7, 1, 5)
-# Survival function for Constant transition hazards:
+# OS Survival function for Constant transition hazards:
 ExpSurvOS(timepoints, h01 = 0.2, h02 = 0.4, h12 = 0.1)
-# Survival function for Weibull transition hazards:
+# OS Survival function for Weibull transition hazards:
 WeibSurvOS(timepoints, h01 = 0.2, h02 = 0.5, h12 = 2.1, p01 = 1.2, p02 = 0.9, p12 = 1)
-# Survival function for Piecewise Constant transition hazards:
+# OS Survival function for Piecewise Constant transition hazards:
 PWCsurvOS(timepoints,
   h01 = c(0.3, 0.5), h02 = c(0.5, 0.8), h12 = c(0.7, 1),
   pw01 = c(0, 4), pw02 = c(0, 8), pw12 = c(0, 3)
 )
 ```
-There are also functions for PFS survival functions available.
+
+There are also functions for PFS survival functions available:
+```{r}
+timepoints <- c(0, 0.1, 0.3, 0.7, 1, 5)
+# PFS Survival function for Constant transition hazards:
+ExpSurvPFS(timepoints, h01 = 0.2, h02 = 0.4)
+# PFS Survival function for Weibull transition hazards:
+WeibSurvPFS(timepoints, h01 = 0.2, h02 = 0.5, p01 = 1.2, p02 = 0.9)
+# PFS Survival function for Piecewise Constant transition hazards:
+PWCsurvPFS(timepoints,
+  h01 = c(0.3, 0.5), h02 = c(0.5, 0.8),
+  pw01 = c(0, 4), pw02 = c(0, 8)
+)
+```
 
 For PFS, the hazard ratio under $H_0$ is known by specification:
 
@@ -87,7 +102,7 @@ hPlPFS <- sum(unlist(transitionPl$hazards[1:2]))
 hRatioPFS <- hTrtPFS / hPlPFS
 hRatioPFS
 ```
-For OS, this is not as straightforward, but for constant transition hazards an averaged HR can be calculated using `avgHRExpOS`:
+For OS, the ratio of hazard functions is not necessarily constant. An averaged HR can be calculated using `avgHRExpOS`:
 
 ```{r}
 hRatioOS <- avgHRExpOS(transitionByArm = transitionList, alpha = 0.5, upper = 1000)
@@ -96,7 +111,7 @@ hRatioOS
 ## Type I Error - Simulation Under $H_0$
 
 The type I error can be estimated empirically by simulating clinical trials under $H_0$. To achieve this, we set the transition hazards of the treatment group to match those of the control group.
-Then, we use `getClinicalTrials()` to generate a large number of simulated trials. We will use 100 iterations here, for applications however a higher number (e.g. 10,000) is recommended.
+Then, we use `getClinicalTrials()` to generate a large number of simulated trials. We will use 100 iterations here. For applications, to achieve satisfactory precision in estimates of type I error, a higher number (e.g. 10,000) is recommended.
 
 ```{r}
 transitionListNull <- list(transitionPl, transitionPl)
@@ -108,7 +123,7 @@ simNull <- getClinicalTrials(
 )
 ```
 
-Using the simulation, we can now identify critical log-rank test values for both PFS and OS to maintain a 5\% global significance level. Initially, we allocate critical values so that the two-sided log-rank test has a 4\% significance level for the OS endpoint and 1% for the PFS endpoint, effectively splitting the global significance level. This method is widely used in trials with co-primary endpoints.
+Using the simulation, we can now identify critical log-rank test values for both PFS and OS to maintain a 5\% global significance level. Initially, we allocate critical values so that the two-sided log-rank test has a 4\% significance level for the OS endpoint and 1% for the PFS endpoint, effectively splitting the global significance level. Such a Bonferroni correction is widely used in trials with co-primary endpoints.
 
 ```{r}
 alphaOS <- 0.04
@@ -120,8 +135,26 @@ criticalPFS <- abs(qnorm(alphaPFS / 2))
 With the Schoenfeld approximation, preliminary sample sizes can be computed to get an idea of how many events are needed to achieve 80 \% power:
 
 ```{r}
-eventNumPFS <- 452
-eventNumOS <- 732
+library(rpact)
+# Number of PFS events required for 80 % power via Schoenfeld:
+schoenfeldPFS <- getSampleSizeSurvival(
+  lambda2 = hPlPFS, hazardRatio = hRatioPFS,
+  accrualTime = 0, accrualIntensity = 500,
+  maxNumberOfSubjects = 1000, sided = 1,
+  alpha = alphaPFS / 2, beta = 0.2
+)
+eventNumPFS <- ceiling(schoenfeldPFS$eventsFixed)
+eventNumPFS
+
+# Number of OS events required for 80 % power via Schoenfeld:
+schoenfeldOS <- getSampleSizeSurvival(
+  lambda2 = hPlPFS, hazardRatio = hRatioOS,
+  accrualTime = 0, accrualIntensity = 500,
+  maxNumberOfSubjects = 1000, sided = 1,
+  alpha = alphaOS / 2, beta = 0.2
+)
+eventNumOS <- ceiling(schoenfeldOS$eventsFixed)
+eventNumOS
 ```
 
 Using these critical values and required number of events for PFS and OS, we can now determine the global type I error empirically by counting the number of trials simulated under $H_0$ with significant log-rank tests.
@@ -137,25 +170,6 @@ empSignificant(
 )
 ```
 In this example, the global type I error rate is 3\%.
-If the global type-I error is lower than 5\%, the critical values used for the log-rank test can be lowered until a significance level close to 5\% is obtained. This could be done, for example, in the following way:
-
-```{r eval = FALSE}
-while (empGlobalAlpha < 0.049) {
-  criticalPFS <- criticalPFS - 0.01
-  criticalOS <- criticalOS - 0.01
-
-  # empirical global significance level
-  empGlobalAlpha <- empSignificant(
-    simTrials = simNull,
-    criticalPFS = criticalPFS,
-    criticalOS = criticalOS,
-    eventNumPFS = eventNumPFS,
-    eventNumOS = eventNumOS
-  )[[3]]
-}
-```
-
-If the global type-I error is higher than 5\%, we could use a similar procedure to increase the critical values until we are close to the 5\% threshold.
 
 ## Sample size and power calculation - simulation under $H_1$
 
