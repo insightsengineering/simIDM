@@ -37,17 +37,13 @@
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.5">v0.0.5</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.4">v0.0.4</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.2">v0.0.2</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.1">v0.0.1</a> </div></li>
-<!-- end dropdown for versions -->
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-reports">Reports</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-reports">
+    <a class="dropdown-item" href="../coverage-report/">Coverage report</a>
+    <a class="dropdown-item" href="../unit-test-report/">Unit test report</a>
+  </div>
+</li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -112,50 +108,56 @@
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">simStudyWide</span> <span class="op">&lt;-</span> <span class="fu"><a href="getDatasetWideFormat.html">getDatasetWideFormat</a></span><span class="op">(</span><span class="va">simStudy</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">censoringByNumberEvents</span><span class="op">(</span>data <span class="op">=</span> <span class="va">simStudyWide</span>, eventNum <span class="op">=</span> <span class="fl">20</span>, typeEvent <span class="op">=</span> <span class="st">"PFS"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id trt     PFStime PFSevent      OStime CensoredOS OSevent recruitTime</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   3   1 0.148524565        1 0.148524565          0       1   1.8951151</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   5   1 0.718715834        1 0.718715834          1       0   3.0664874</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   6   1 0.310020529        1 1.190284439          0       1   2.4968288</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   7   1 0.168905870        1 0.652651711          0       1   0.7410203</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   8   1 0.008603978        1 0.008603978          0       1   0.3813582</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   9   1 0.282935640        1 0.282935640          0       1   2.6050959</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  10   1 0.237962053        1 0.237962053          0       1   3.0044813</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  11   1 0.006169368        1 0.006169368          0       1   1.7257355</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  12   1 0.055727091        1 0.055727091          0       1   0.1037476</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 14   1 0.587426494        1 0.670730376          1       0   3.1144728</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 15   1 1.533132134        1 1.533132134          0       1   0.6730945</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 16   1 0.096000658        1 0.367611168          1       0   3.4175920</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 18   1 0.044259178        0 0.044259178          1       0   3.7409440</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 19   1 0.192472719        1 0.192472719          0       1   1.7608224</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 22   2 0.589558464        1 0.926116725          0       1   1.9007982</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 27   2 0.087025470        1 0.455749630          0       1   2.1179368</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 28   2 0.402157156        1 0.402157156          0       1   3.2069750</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 32   2 1.609683544        1 1.609683544          0       1   1.4229851</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19 34   2 0.395455367        1 0.395455367          0       1   1.4661013</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20 35   2 0.240129475        1 0.327956638          0       1   1.2740260</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21 40   2 0.131996065        1 0.508282890          0       1   2.1139993</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    id trt     PFStime PFSevent     OStime CensoredOS OSevent recruitTime</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1   1 1.308316026        1 2.26826524          0       1  0.70192115</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   3   1 0.228854352        0 0.22885435          1       0  3.77055014</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   4   1 0.109233492        1 0.10923349          0       1  0.88980032</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   5   1 0.948190485        1 0.99721394          0       1  1.74926397</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   7   1 0.093177747        0 0.09317775          1       0  3.90622674</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  11   1 0.023423762        1 0.02342376          0       1  3.64841237</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  12   1 0.050151504        1 0.17991389          0       1  1.11046164</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  15   1 0.004562231        1 0.07788538          0       1  1.65182815</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  16   1 0.683813977        1 0.68381398          0       1  2.87593227</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 19   1 0.068949491        1 0.06894949          0       1  1.82158486</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 20   1 0.232353282        1 0.23235328          0       1  0.01397735</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 21   2 0.704492265        0 0.70449227          1       0  3.29491222</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 22   2 0.365596295        1 0.36559629          0       1  0.40303308</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 23   2 0.177960964        1 0.17796096          0       1  3.73193693</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 24   2 0.233870465        1 0.26065522          1       0  3.73874927</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 27   2 0.093246979        0 0.09324698          1       0  3.34323674</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 28   2 0.081538348        1 0.21631617          0       1  3.08271240</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 29   2 0.566306358        1 0.56630636          0       1  1.42514258</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 31   2 0.368004875        1 0.82643037          0       1  2.88184888</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 32   2 0.134001123        1 0.13400112          0       1  1.15078701</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 33   2 0.249077278        1 1.03349189          0       1  0.88602752</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22 36   2 0.016331791        1 1.08319469          0       1  0.54464160</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23 37   2 0.396934365        1 0.39693437          0       1  0.50132106</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24 40   2 1.213908052        1 1.21390805          0       1  2.78549644</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    OStimeCal PFStimeCal</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2.0436396  2.0436396</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  3.7852032  3.7852032</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  3.6871133  2.8068494</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  1.3936721  0.9099262</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.3899622  0.3899622</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  2.8880315  2.8880315</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  3.2424434  3.2424434</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  1.7319049  1.7319049</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  0.1594746  0.1594746</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 3.7852032  3.7018993</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 2.2062267  2.2062267</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 3.7852032  3.5135927</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 3.7852032  3.7852032</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 1.9532951  1.9532951</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 2.8269149  2.4903567</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 2.5736865  2.2049623</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 3.6091321  3.6091321</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 3.0326687  3.0326687</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19 1.8615567  1.8615567</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20 1.6019827  1.5141555</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21 2.6222822  2.2459954</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2.9701864  2.0102372</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  3.9994045  3.9994045</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  0.9990338  0.9990338</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2.7464779  2.6974545</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  3.9994045  3.9994045</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  3.6718361  3.6718361</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  1.2903755  1.1606131</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  1.7297135  1.6563904</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  3.5597462  3.5597462</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 1.8905344  1.8905344</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 0.2463306  0.2463306</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 3.9994045  3.9994045</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 0.7686294  0.7686294</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 3.9098979  3.9098979</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 3.9994045  3.9726197</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 3.4364837  3.4364837</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 3.2990286  3.1642507</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 1.9914489  1.9914489</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 3.7082793  3.2498538</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 1.2847881  1.2847881</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 1.9195194  1.1351048</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22 1.6278363  0.5609734</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23 0.8982554  0.8982554</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24 3.9994045  3.9994045</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
