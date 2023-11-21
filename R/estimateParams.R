@@ -80,6 +80,7 @@ negLogLik <- function(transition, data) {
     * survTrans(transition, exit, trans) / survTrans(transition, entry, trans))))
 }
 
+
 #' Hazard Function for Different Transition Models
 #'
 #' @param transition (`ExponentialTransition` or `WeibullTransition`)\cr
@@ -109,7 +110,7 @@ haz <- function(transition, t, trans) {
 haz.ExponentialTransition <- function(transition, t, trans) {
   # params (in this order): h01, h02, h12.
   params <- unlist(transition$hazards, use.names = FALSE)
-  rep(params[trans], length(t))
+  rep(params[trans], length(t) / length(trans))
 }
 
 #' @describeIn haz for the Weibull transition model.
