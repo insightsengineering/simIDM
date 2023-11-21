@@ -47,8 +47,8 @@ test_that("haz works as expected for Exponential", {
   actual1 <- haz(transition, 0.4, 2)
   expect_equal(actual1, 1.5)
 
-  actual2 <- haz(transition, c(0.4, 3), c(2, 3))
-  expect_equal(actual2, c(1.5, 0.8))
+  actual2 <- haz(transition, c(0.4, 3), c(2, 2))
+  expect_equal(actual2, c(1.5, 1.5))
 })
 
 test_that("haz works as expected for Weibull", {

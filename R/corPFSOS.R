@@ -74,13 +74,13 @@ p11 <- function(transition, s, t) {
 #------- Surv(PFS*OS)
 
 PFSOSInteg <- function(u, t, transition) {
-  p11(transition, u, t / u) * survPFS(transition, u) * haz(transition, u, 1)
+  log(p11(transition, u, t / u)) + log(survPFS(transition, u)) + log(haz(transition, u, 1))
 }
 
 survPFSOS <- function(t, transition) {
   sapply(t, function(x) {
     intval <- integrate(PFSOSInteg, lower = 0, upper = sqrt(x), x, transition)$value
-    survPFS(transition, sqrt(x)) + intval
+    survPFS(transition, sqrt(x)) + exp(intval)
   })
 }
 
