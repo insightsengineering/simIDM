@@ -4,6 +4,7 @@
 \alias{haz}
 \alias{haz.ExponentialTransition}
 \alias{haz.WeibullTransition}
+\alias{haz.PWCTransition}
 \title{Hazard Function for Different Transition Models}
 \usage{
 haz(transition, t, trans)
@@ -11,6 +12,8 @@ haz(transition, t, trans)
 \method{haz}{ExponentialTransition}(transition, t, trans)
 
 \method{haz}{WeibullTransition}(transition, t, trans)
+
+\method{haz}{PWCTransition}(transition, t, trans)
 }
 \arguments{
 \item{transition}{(\code{ExponentialTransition} or \code{WeibullTransition})\cr
@@ -32,6 +35,8 @@ Hazard Function for Different Transition Models
 
 \item \code{haz(WeibullTransition)}: for the Weibull transition model.
 
+\item \code{haz(PWCTransition)}: for the PWC transition model.
+
 }}
 \examples{
 transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
@@ -40,4 +45,9 @@ transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
 haz(transition, 0.4, 2)
 transition <- weibull_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6, p01 = 2, p02 = 2.5, p12 = 3)
 haz(transition, 0.4, 2)
+transition <- piecewise_exponential(
+  h01 = c(1, 1, 1), h02 = c(1.5, 0.5, 1), h12 = c(1, 1, 1),
+  pw01 = c(0, 3, 8), pw02 = c(0, 6, 7), pw12 = c(0, 8, 9)
+)
+haz(transition, 6, 2)
 }
