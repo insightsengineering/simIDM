@@ -109,7 +109,7 @@ haz <- function(transition, t, trans) {
 haz.ExponentialTransition <- function(transition, t, trans) {
   # params (in this order): h01, h02, h12.
   params <- unlist(transition$hazards, use.names = FALSE)
-  params[trans]
+  rep(params[trans], length(t))
 }
 
 #' @describeIn haz for the Weibull transition model.
@@ -122,6 +122,19 @@ haz.WeibullTransition <- function(transition, t, trans) {
   # params (in this order): h01, h02, h12, p01, p02, p12.
   params <- c(unlist(transition$hazards, use.names = FALSE), unlist(transition$weibull_rates, use.names = FALSE))
   params[trans] * params[trans + 3] * t^(params[trans + 3] - 1)
+}
+
+#' @describeIn haz for the PWC transition model.
+#' @export
+#'
+#' @examples
+#' transition <- piecewise_exponential(
+#'   h01 = c(1, 1, 1), h02 = c(1.5, 0.5, 1), h12 = c(1, 1, 1),
+#'   pw01 = c(0, 3, 8), pw02 = c(0, 6, 7), pw12 = c(0, 8, 9)
+#' )
+#' haz(transition, 6, 2)
+haz.PWCTransition <- function(transition, t, trans) {
+  getPCWHazard(unlist(transition$hazards[trans], use.names = FALSE), unlist(transition$intervals[trans], use.names = FALSE), x = t)
 }
 
 #' Survival Function for Different Transition Models
