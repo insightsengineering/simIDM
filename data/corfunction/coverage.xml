@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.908594815825375" branch-rate="0" lines-covered="666" lines-valid="733" branches-covered="0" branches-valid="0" complexity="0" version="3.6.3" timestamp="2023-11-22 16:24:39.177096">
+<coverage line-rate="0.891566265060241" branch-rate="0" lines-covered="666" lines-valid="747" branches-covered="0" branches-valid="0" complexity="0" version="3.6.3" timestamp="2023-11-22 19:16:59.009609">
   <sources>
     <source>/__w/simIDM/simIDM/simIDM</source>
   </sources>
   <packages>
-    <package name="simIDM" line-rate="0.908594815825375" branch-rate="0" complexity="0">
+    <package name="simIDM" line-rate="0.891566265060241" branch-rate="0" complexity="0">
       <classes>
         <class name="assertions.R" filename="R/assertions.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
@@ -125,7 +125,7 @@
                 <line number="161" hits="0" branch="false"/>
               </lines>
             </method>
-            <method name="p11" signature="" line-rate="0" branch-rate="0" complexity="0">
+            <method name="log_p11" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
                 <line number="179" hits="0" branch="false"/>
                 <line number="180" hits="0" branch="false"/>
@@ -169,6 +169,24 @@
                 <line number="260" hits="0" branch="false"/>
                 <line number="261" hits="0" branch="false"/>
                 <line number="264" hits="0" branch="false"/>
+              </lines>
+            </method>
+            <method name="corPFSOS" signature="" line-rate="0" branch-rate="0" complexity="0">
+              <lines>
+                <line number="289" hits="0" branch="false"/>
+                <line number="290" hits="0" branch="false"/>
+                <line number="291" hits="0" branch="false"/>
+                <line number="293" hits="0" branch="false"/>
+                <line number="294" hits="0" branch="false"/>
+                <line number="295" hits="0" branch="false"/>
+                <line number="296" hits="0" branch="false"/>
+                <line number="297" hits="0" branch="false"/>
+                <line number="298" hits="0" branch="false"/>
+                <line number="300" hits="0" branch="false"/>
+                <line number="301" hits="0" branch="false"/>
+                <line number="302" hits="0" branch="false"/>
+                <line number="304" hits="0" branch="false"/>
+                <line number="305" hits="0" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -231,6 +249,20 @@
             <line number="260" hits="0" branch="false"/>
             <line number="261" hits="0" branch="false"/>
             <line number="264" hits="0" branch="false"/>
+            <line number="289" hits="0" branch="false"/>
+            <line number="290" hits="0" branch="false"/>
+            <line number="291" hits="0" branch="false"/>
+            <line number="293" hits="0" branch="false"/>
+            <line number="294" hits="0" branch="false"/>
+            <line number="295" hits="0" branch="false"/>
+            <line number="296" hits="0" branch="false"/>
+            <line number="297" hits="0" branch="false"/>
+            <line number="298" hits="0" branch="false"/>
+            <line number="300" hits="0" branch="false"/>
+            <line number="301" hits="0" branch="false"/>
+            <line number="302" hits="0" branch="false"/>
+            <line number="304" hits="0" branch="false"/>
+            <line number="305" hits="0" branch="false"/>
           </lines>
         </class>
         <class name="empSignificant.R" filename="R/empSignificant.R" line-rate="1" branch-rate="0" complexity="0">
