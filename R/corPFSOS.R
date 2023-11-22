@@ -167,7 +167,7 @@ p11Integ <- function(x, transition) {
 #'   see [exponential_transition()], [weibull_transition()] or [piecewise_exponential()] for details.
 #' @param s (`numeric`)\cr lower time point.
 #' @param t (`numeric`)\cr higher time point.
-#' @return This returns the probability of remaining in progression (state 1) between two time points,
+#' @return This returns the natural logarithm of the probability of remaining in progression (state 1) between two time points,
 #'   conditional on being in state 1 at the lower time point.
 #'
 #' @export
