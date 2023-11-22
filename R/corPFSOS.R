@@ -115,7 +115,7 @@ survOS.PWCTransition <- function(transition, t) {
 
 #' Helper Function for Computing E(PFS^2)
 #'
-#'@param x (`numeric`)\cr variable of integration.
+#' @param x (`numeric`)\cr variable of integration.
 #' @param transition (`TransitionParameters`)\cr
 #'   see [exponential_transition()], [weibull_transition()] or [piecewise_exponential()] for details.
 #'
