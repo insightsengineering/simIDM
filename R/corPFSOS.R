@@ -145,7 +145,7 @@ expvalOSInteg <- function(x, transition) {
   x * survOS(transition = transition, t = x)
 }
 
-#' Helper Function for `p11()`
+#' Helper Function for `log_p11()`
 #'
 #' @param x (`numeric`)\cr variable of integration.
 #' @param transition (`TransitionParameters`)\cr
@@ -174,10 +174,10 @@ p11Integ <- function(x, transition) {
 #'
 #' @examples
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
-#' p11(transition, 1, 3)
-p11 <- function(transition, s, t) {
+#' log_p11(transition, 1, 3)
+log_p11 <- function(transition, s, t) {
   intval <- mapply(function(s, t) stats::integrate(p11Integ, lower = s, upper = t, transition)$value, s, t)
-  exp(-intval)
+  -intval
 }
 
 #' Helper Function for `survPFSOS()`
@@ -194,7 +194,7 @@ p11 <- function(transition, s, t) {
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
 #' PFSOSInteg(1, 2, transition)
 PFSOSInteg <- function(u, t, transition) {
-  exp(log(p11(transition, u, t / u)) + log(survPFS(transition, u)) + log(haz(transition, u, 1)))
+  exp(log_p11(transition, u, t / u) + log(survPFS(transition, u)) + log(haz(transition, u, 1)))
 }
 
 #' Survival Function of the Product PFS*OS for Different Transition Models

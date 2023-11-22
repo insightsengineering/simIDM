@@ -2,7 +2,7 @@
 % Please edit documentation in R/corPFSOS.R
 \name{p11Integ}
 \alias{p11Integ}
-\title{Helper Function for \code{p11()}}
+\title{Helper Function for \code{log_p11()}}
 \usage{
 p11Integ(x, transition)
 }
@@ -16,7 +16,7 @@ see \code{\link[=exponential_transition]{exponential_transition()}}, \code{\link
 Hazard rate at the specified time for the transition from progression to death.
 }
 \description{
-Helper Function for \code{p11()}
+Helper Function for \code{log_p11()}
 }
 \examples{
 transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
