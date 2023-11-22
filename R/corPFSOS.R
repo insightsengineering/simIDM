@@ -194,7 +194,7 @@ p11 <- function(transition, s, t) {
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
 #' PFSOSInteg(1, 2, transition)
 PFSOSInteg <- function(u, t, transition) {
-  p11(transition, u, t / u) * survPFS(transition, u) * haz(transition, u, 1)
+  exp(log(p11(transition, u, t / u)) + log(survPFS(transition, u)) + log(haz(transition, u, 1)))
 }
 
 #' Survival Function of the Product PFS*OS for Different Transition Models
@@ -226,8 +226,8 @@ survPFSOS <- function(t, transition) {
 #'
 #' @examples
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
-#' corPFSOS(transition)
-corPFSOS <- function(transition) {
+#' corTrans(transition)
+corTrans <- function(transition) {
   # E(PFS) & E(OS).
   expvalPFS <- stats::integrate(survPFS,
     lower = 0, upper = Inf,
