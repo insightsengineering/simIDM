@@ -176,7 +176,10 @@ p11Integ <- function(x, transition) {
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
 #' log_p11(transition, 1, 3)
 log_p11 <- function(transition, s, t) {
-  intval <- mapply(function(s, t) stats::integrate(p11Integ, lower = s, upper = t, transition)$value, s, t)
+  intval <- mapply(function(s, t) stats::integrate(p11Integ,
+                                                   lower = s,
+                                                   upper = t,
+                                                   transition)$value, s, t)
   -intval
 }
 
@@ -285,23 +288,15 @@ corTrans <- function(transition) {
 #'   accrual = list(param = "intensity", value = 7)
 #' )[[1]]
 #' corPFSOS(data, transition)
-corPFSOS <- function(data, transition, bootstrap = TRUE, bootstrap.n = 100, bootstrap.width = 0.95) {
+corPFSOS <- function(data, transition, bootstrap = TRUE, bootstrap.n = 100, bootstrap.level = 0.95) {
+  assert_data_frame(data)
+  assert_flag(bootstrap)
+  assert_count(bootstrap.n)
+  assert_number(bootstrap.level, lower = 0.01, upper = 0.999)
+  trans <- estimateParams(data, transition)
   if (bootstrap) {
-    if (all(c("id", "from", "to", "entry", "exit", "entryAct", "exitAct", "censAct", "trt") %in% names(data))) {
-      data <- getDatasetWideFormat(data)
-    }
-    cor_res <- NULL
-    for (i in seq_len(bootstrap.n)) {
-      b_sample <- data[sample(nrow(data), replace = TRUE), ]
-      prepared_data <- prepareData(b_sample)
-      b_transition <- estimateParams(b_sample, transition)
-      cor_res[i] <- corTrans(b_transition)
-    }
-    lower <- stats::quantile(cor_res, (1 - bootstrap.width) / 2)
-    upper <- stats::quantile(cor_res, bootstrap.width + (1 - bootstrap.width) / 2)
-    c("lower" = lower, "corPFSOS" = mean(cor_res), "upper" = upper)
+    # insert bootstrap here
   } else {
-    trans <- estimateParams(prepareData(data), transition)
     corTrans(trans)
   }
 }
