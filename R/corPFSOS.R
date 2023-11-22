@@ -263,4 +263,3 @@ corTrans <- function(transition) {
   # Cor(PFS, OS).
   (expvalPFSOS - expvalPFS * expvalOS) / (varPFS * varOS)^0.5
 }
-
