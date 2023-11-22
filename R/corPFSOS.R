@@ -176,10 +176,13 @@ p11Integ <- function(x, transition) {
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
 #' log_p11(transition, 1, 3)
 log_p11 <- function(transition, s, t) {
-  intval <- mapply(function(s, t) stats::integrate(p11Integ,
-                                                   lower = s,
-                                                   upper = t,
-                                                   transition)$value, s, t)
+  intval <- mapply(function(s, t) {
+    stats::integrate(p11Integ,
+      lower = s,
+      upper = t,
+      transition
+    )$value
+  }, s, t)
   -intval
 }
 
