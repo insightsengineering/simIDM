@@ -263,3 +263,37 @@ corTrans <- function(transition) {
   # Cor(PFS, OS).
   (expvalPFSOS - expvalPFS * expvalOS) / (varPFS * varOS)^0.5
 }
+
+#' Correlation of PFS and OS event times for data from the IDM
+#'
+#' @param data (`data.frame`)\cr in the format produced by [getOneClinicalTrial()].
+#' @param transition (`TransitionParameters` object)\cr specifying the assumed distribution of transition hazards.
+#'   Initial parameters for optimization can be specified here.
+#'   See [exponential_transition()] or [weibull_transition()] for details.
+#'
+#' @return The correlation of PFS and OS.
+#' @export
+#'
+#' @examples
+#' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
+#' corPFSOS(transition)
+corPFSOS <- function(data, transition, bootstrap = TRUE, bootstrap.n = 100, bootstrap.width = 0.95) {
+  if (bootstrap == TRUE) {
+    if (all(c("id", "from", "to", "entry", "exit", "entryAct", "exitAct", "censAct", "trt") %in% names(data))) {
+      data <- getDatasetWideFormat(data)
+    }
+    cor_res <- NULL
+    for (i in seq_len(bootstrap.n)) {
+      b_sample <- data[sample(nrow(data), replace = TRUE), ]
+      prepared_data <- prepareData(b_sample)
+      b_transition <- estimateParams(b_sample, transition)
+      cor_res[i] <- corTrans(b_transition)
+    }
+    lower <- stats::quantile(cor_res, (1 - bootstrap.width) / 2)
+    upper <- stats::quantile(cor_res, bootstrap.width + (1 - bootstrap.width) / 2)
+    c("lower" = lower, "corPFSOS" = mean(cor_res), "upper" = upper)
+  } else {
+    trans <- estimateParams(prepareData(data), transition)
+    corTrans(trans)
+  }
+}
