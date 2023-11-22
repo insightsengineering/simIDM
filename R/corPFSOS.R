@@ -270,9 +270,9 @@ corTrans <- function(transition) {
 #' @param transition (`TransitionParameters` object)\cr specifying the assumed distribution of transition hazards.
 #'   Initial parameters for optimization can be specified here.
 #'   See [exponential_transition()] or [weibull_transition()] for details.
-#' @param bootstrap (`logical`)\cr if `TRUE` computes confidence interval via bootstrap.
-#' @param bootstrap.n (`integer`)\cr number of bootstrap samples.
-#' @param bootstrap.width (`positive `number`)\cr confidence interval for the correlation estimate.
+#' @param bootstrap (`flag`)\cr if `TRUE` computes confidence interval via bootstrap.
+#' @param bootstrap.n (`count`)\cr number of bootstrap samples.
+#' @param bootstrap.level (`proportion`)\cr confidence level for the confidence interval.
 #'
 #' @return The correlation of PFS and OS.
 #' @export
