@@ -99,7 +99,20 @@ reference:
       - haz
       - haz.ExponentialTransition
       - haz.WeibullTransition
+      - haz.PWCTransition
       - survTrans
       - survTrans.ExponentialTransition
       - survTrans.WeibullTransition
       - negLogLik
+  - title: PFS-OS Correlation
+    contents:
+      - corPFSOS
+      - corTrans
+      - expvalPFSInteg
+      - expvalOSInteg
+      - log_p11
+      - p11Integ
+      - PFSOSInteg
+      - survPFS
+      - survPFSOS
+      - survOS
