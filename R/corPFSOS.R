@@ -286,7 +286,7 @@ corTrans <- function(transition) {
 #' )[[1]]
 #' corPFSOS(data, transition)
 corPFSOS <- function(data, transition, bootstrap = TRUE, bootstrap.n = 100, bootstrap.width = 0.95) {
-  if (bootstrap == TRUE) {
+  if (bootstrap) {
     if (all(c("id", "from", "to", "entry", "exit", "entryAct", "exitAct", "censAct", "trt") %in% names(data))) {
       data <- getDatasetWideFormat(data)
     }
