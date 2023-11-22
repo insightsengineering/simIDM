@@ -261,7 +261,7 @@ corTrans <- function(transition) {
   )$value
 
   # Cor(PFS, OS).
-  (expvalPFSOS - expvalPFS * expvalOS) / (varPFS * varOS)^0.5
+  (expvalPFSOS - expvalPFS * expvalOS) / sqrt(varPFS * varOS)
 }
 
 #' Correlation of PFS and OS event times for data from the IDM
