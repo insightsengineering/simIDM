@@ -37,7 +37,7 @@ survPFS.WeibullTransition <- function(transition, t) {
   )
 }
 
-#' @describeIn PFS Survival Function for a PWC transition model.
+#' @describeIn PFS Survival Function for a piecewise constant transition model.
 #' @export
 #'
 #' @examples
@@ -96,7 +96,7 @@ survOS.WeibullTransition <- function(transition, t) {
   )
 }
 
-#' @describeIn OS Survival Function for a PWC transition model.
+#' @describeIn OS Survival Function for a piecewise constant transition model.
 #' @export
 #'
 #' @examples
@@ -263,3 +263,4 @@ corTrans <- function(transition) {
   # Cor(PFS, OS).
   (expvalPFSOS - expvalPFS * expvalOS) / (varPFS * varOS)^0.5
 }
+

@@ -77,7 +77,7 @@ prepareData <- function(data) {
 #' negLogLik(transition, prepareData(simData))
 negLogLik <- function(transition, data) {
   with(data, -sum(log(haz(transition, exit, trans)^status
-    * survTrans(transition, exit, trans) / survTrans(transition, entry, trans))))
+                      * survTrans(transition, exit, trans) / survTrans(transition, entry, trans))))
 }
 
 
@@ -125,7 +125,7 @@ haz.WeibullTransition <- function(transition, t, trans) {
   params[trans] * params[trans + 3] * t^(params[trans + 3] - 1)
 }
 
-#' @describeIn haz for the PWC transition model.
+#' @describeIn haz for the piecewise constant transition model.
 #' @export
 #'
 #' @examples
@@ -135,7 +135,10 @@ haz.WeibullTransition <- function(transition, t, trans) {
 #' )
 #' haz(transition, 6, 2)
 haz.PWCTransition <- function(transition, t, trans) {
-  getPCWHazard(unlist(transition$hazards[trans], use.names = FALSE), unlist(transition$intervals[trans], use.names = FALSE), x = t)
+  getPCWHazard(unlist(transition$hazards[trans], use.names = FALSE),
+    unlist(transition$intervals[trans], use.names = FALSE),
+    x = t
+  )
 }
 
 #' Survival Function for Different Transition Models

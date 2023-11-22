@@ -35,7 +35,7 @@ Hazard Function for Different Transition Models
 
 \item \code{haz(WeibullTransition)}: for the Weibull transition model.
 
-\item \code{haz(PWCTransition)}: for the PWC transition model.
+\item \code{haz(PWCTransition)}: for the piecewise constant transition model.
 
 }}
 \examples{
