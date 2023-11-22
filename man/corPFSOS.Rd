@@ -18,6 +18,12 @@ corPFSOS(
 \item{transition}{(\code{TransitionParameters} object)\cr specifying the assumed distribution of transition hazards.
 Initial parameters for optimization can be specified here.
 See \code{\link[=exponential_transition]{exponential_transition()}} or \code{\link[=weibull_transition]{weibull_transition()}} for details.}
+
+\item{bootstrap}{(\code{logical})\cr if \code{TRUE} computes confidence interval via bootstrap.}
+
+\item{bootstrap.n}{(\code{integer})\cr number of bootstrap samples.}
+
+\item{bootstrap.width}{(\code{positive }number`)\cr confidence interval for the correlation estimate.}
 }
 \value{
 The correlation of PFS and OS.
@@ -27,5 +33,10 @@ Correlation of PFS and OS event times for data from the IDM
 }
 \examples{
 transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
-corPFSOS(transition)
+data <- getClinicalTrials(
+ nRep = 10, nPat = c(50), seed = 1234, datType = "1rowTransition",
+ transitionByArm = list(transition), dropout = list(rate = 0.5, time = 12),
+ accrual = list(param = "intensity", value = 7)
+)[[1]]
+corPFSOS(data, transition)
 }

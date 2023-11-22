@@ -270,13 +270,21 @@ corTrans <- function(transition) {
 #' @param transition (`TransitionParameters` object)\cr specifying the assumed distribution of transition hazards.
 #'   Initial parameters for optimization can be specified here.
 #'   See [exponential_transition()] or [weibull_transition()] for details.
+#' @param bootstrap (`logical`)\cr if `TRUE` computes confidence interval via bootstrap.
+#' @param bootstrap.n (`integer`)\cr number of bootstrap samples.
+#' @param bootstrap.width (`positive `number`)\cr confidence interval for the correlation estimate.
 #'
 #' @return The correlation of PFS and OS.
 #' @export
 #'
 #' @examples
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
-#' corPFSOS(transition)
+#'data <- getClinicalTrials(
+#'  nRep = 10, nPat = c(50), seed = 1234, datType = "1rowTransition",
+#'  transitionByArm = list(transition), dropout = list(rate = 0.5, time = 12),
+#'  accrual = list(param = "intensity", value = 7)
+#')[[1]]
+#' corPFSOS(data, transition)
 corPFSOS <- function(data, transition, bootstrap = TRUE, bootstrap.n = 100, bootstrap.width = 0.95) {
   if (bootstrap == TRUE) {
     if (all(c("id", "from", "to", "entry", "exit", "entryAct", "exitAct", "censAct", "trt") %in% names(data))) {
