@@ -20,5 +20,5 @@ Helper Function for Computing E(PFS^2)
 }
 \examples{
 transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
-expvalPFSInteg(transition, 0.4)
+expvalPFSInteg(0.4, transition)
 }

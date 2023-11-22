@@ -20,5 +20,5 @@ Helper Function for Computing E(OS^2)
 }
 \examples{
 transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
-expvalOSInteg(transition, 0.4)
+expvalOSInteg(0.4, transition)
 }

@@ -91,7 +91,7 @@ survOS.ExponentialTransition <- function(transition, t) {
 survOS.WeibullTransition <- function(transition, t) {
   WeibSurvOS(
     t = t, h01 = transition$hazards$h01, h02 = transition$hazards$h02,
-    h1 = transition$hazards$h1, p01 = transition$weibull_rates$p01,
+    h12 = transition$hazards$h12, p01 = transition$weibull_rates$p01,
     p02 = transition$weibull_rates$p02, p12 = transition$weibull_rates$p12
   )
 }
@@ -124,9 +124,9 @@ survOS.PWCTransition <- function(transition, t) {
 #'
 #' @examples
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
-#' expvalPFSInteg(transition, 0.4)
+#' expvalPFSInteg(0.4, transition)
 expvalPFSInteg <- function(x, transition) {
-  t * survPFS(transition, t)
+  x * survPFS(transition, x)
 }
 
 #' Helper Function for Computing E(OS^2)
@@ -140,9 +140,9 @@ expvalPFSInteg <- function(x, transition) {
 #'
 #' @examples
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
-#' expvalOSInteg(transition, 0.4)
+#' expvalOSInteg(0.4, transition)
 expvalOSInteg <- function(x, transition) {
-  t * survOS(transition, t)
+  x * survOS(transition = transition, t = x)
 }
 
 #' Helper Function for `p11()`
@@ -167,14 +167,16 @@ p11Integ <- function(x, transition) {
 #'   see [exponential_transition()], [weibull_transition()] or [piecewise_exponential()] for details.
 #' @param s (`numeric`)\cr lower time point.
 #' @param t (`numeric`)\cr higher time point.
-#' @return This returns the probability of remaining in progression (state 1) between two time points, conditional on being in state 1 at the lower time point.
+#' @return This returns the probability of remaining in progression (state 1) between two time points,
+#'   conditional on being in state 1 at the lower time point.
+#'
 #' @export
 #'
 #' @examples
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
 #' p11(transition, 1, 3)
 p11 <- function(transition, s, t) {
-  intval <- mapply(function(s, t) integrate(p11Integ, lower = s, upper = t, transition)$value, s, t)
+  intval <- mapply(function(s, t) stats::integrate(p11Integ, lower = s, upper = t, transition)$value, s, t)
   exp(-intval)
 }
 
@@ -192,7 +194,7 @@ p11 <- function(transition, s, t) {
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
 #' PFSOSInteg(1, 2, transition)
 PFSOSInteg <- function(u, t, transition) {
-  log(p11(transition, u, t / u)) + log(survPFS(transition, u)) + log(haz(transition, u, 1))
+  p11(transition, u, t / u) * survPFS(transition, u) * haz(transition, u, 1)
 }
 
 #' Survival Function of the Product PFS*OS for Different Transition Models
@@ -209,8 +211,8 @@ PFSOSInteg <- function(u, t, transition) {
 #' survPFSOS(0.4, transition)
 survPFSOS <- function(t, transition) {
   sapply(t, function(x) {
-    intval <- integrate(PFSOSInteg, lower = 0, upper = sqrt(x), x, transition)$value
-    survPFS(transition, sqrt(x)) + exp(intval)
+    intval <- stats::integrate(PFSOSInteg, lower = 0, upper = sqrt(x), x, transition)$value
+    survPFS(transition, sqrt(x)) + intval
   })
 }
 
@@ -224,26 +226,26 @@ survPFSOS <- function(t, transition) {
 #'
 #' @examples
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
-#' survPFSOS(0.4, transition)
+#' corPFSOS(transition)
 corPFSOS <- function(transition) {
-  # E(PFS) & E(OS)
-  expvalPFS <- integrate(survPFS,
+  # E(PFS) & E(OS).
+  expvalPFS <- stats::integrate(survPFS,
     lower = 0, upper = Inf,
     transition = transition
   )$value
 
-  expvalOS <- integrate(survOS,
+  expvalOS <- stats::integrate(survOS,
     lower = 0, upper = Inf,
     transition = transition
   )$value
 
-  # Var(PFS) & Var(OS)
-  expvalPFS2 <- 2 * integrate(expvalPFSInteg,
+  # Var(PFS) & Var(OS).
+  expvalPFS2 <- 2 * stats::integrate(expvalPFSInteg,
     lower = 0, upper = Inf,
     transition = transition
   )$value
 
-  expvalOS2 <- 2 * integrate(expvalOSInteg,
+  expvalOS2 <- 2 * stats::integrate(expvalOSInteg,
     lower = 0, upper = Inf,
     transition = transition
   )$value
@@ -252,12 +254,12 @@ corPFSOS <- function(transition) {
 
   varOS <- expvalOS2 - expvalOS^2
 
-  # E(PFS*OS)
-  expvalPFSOS <- integrate(survPFSOS,
+  # E(PFS*OS).
+  expvalPFSOS <- stats::integrate(survPFSOS,
     lower = 0, upper = Inf,
     transition
   )$value
 
-  # Cor(PFS, OS)
+  # Cor(PFS, OS).
   (expvalPFSOS - expvalPFS * expvalOS) / (varPFS * varOS)^0.5
 }

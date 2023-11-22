@@ -18,5 +18,5 @@ Correlation of PFS and OS event times for Different Transition Models
 }
 \examples{
 transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
-survPFSOS(0.4, transition)
+corPFSOS(transition)
 }
