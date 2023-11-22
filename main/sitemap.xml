@@ -40,6 +40,9 @@
     <loc>https://insightsengineering.github.io/simIDM/reference/PCWInversionMethod.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/simIDM/reference/PFSOSInteg.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/simIDM/reference/PWCsurvOS.html</loc>
   </url>
   <url>
@@ -76,6 +79,12 @@
     <loc>https://insightsengineering.github.io/simIDM/reference/censoringByNumberEvents.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/simIDM/reference/corPFSOS.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/simIDM/reference/corTrans.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/simIDM/reference/empSignificant.html</loc>
   </url>
   <url>
@@ -83,6 +92,12 @@
   </url>
   <url>
     <loc>https://insightsengineering.github.io/simIDM/reference/exponential_transition.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/simIDM/reference/expvalOSInteg.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/simIDM/reference/expvalPFSInteg.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/simIDM/reference/getCensoredData.html</loc>
@@ -145,7 +160,13 @@
     <loc>https://insightsengineering.github.io/simIDM/reference/logRankTest.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/simIDM/reference/log_p11.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/simIDM/reference/negLogLik.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/simIDM/reference/p11Integ.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/simIDM/reference/passedLogRank.html</loc>
@@ -167,6 +188,15 @@
   </url>
   <url>
     <loc>https://insightsengineering.github.io/simIDM/reference/singleExpQuantOS.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/simIDM/reference/survOS.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/simIDM/reference/survPFS.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/simIDM/reference/survPFSOS.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/simIDM/reference/survTrans.html</loc>
