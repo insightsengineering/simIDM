@@ -1,7 +1,7 @@
 Type: Package
 Package: simIDM
 Title: Simulating Oncology Trials using an Illness-Death Model
-Version: 0.0.5.9019
+Version: 0.0.5.9020
 Authors@R: c(
     person("Alexandra", "Erdmann", , "alexandra.erdmann@uni-ulm.de", role = c("aut", "cre")),
     person("Kaspar", "Rufibach", , "kaspar.rufibach@roche.com", role = "aut"),
