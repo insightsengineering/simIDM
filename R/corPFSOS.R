@@ -316,7 +316,8 @@ corPFSOS <- function(data, transition, bootstrap = TRUE, bootstrap.n = 100, boot
     upperQuantile <- lowerQuantile + bootstrap.level
     c(stats::quantile(corBootstrap, lowerQuantile),
       "corPFSOS" = res,
-      stats::quantile(corBootstrap, upperQuantile))
+      stats::quantile(corBootstrap, upperQuantile)
+    )
   } else {
     c("corPFSOS" = res)
   }
