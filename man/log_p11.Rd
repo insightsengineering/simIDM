@@ -15,8 +15,8 @@ see \code{\link[=exponential_transition]{exponential_transition()}}, \code{\link
 \item{t}{(\code{numeric})\cr higher time point.}
 }
 \value{
-This returns the natural logarithm of the probability of remaining in progression (state 1) between two time points,
-conditional on being in state 1 at the lower time point.
+This returns the natural logarithm of the probability of remaining in progression (state 1)
+between two time points, conditional on being in state 1 at the lower time point.
 }
 \description{
 Probability of Remaining in Progression Between Two Time Points for Different Transition Models.

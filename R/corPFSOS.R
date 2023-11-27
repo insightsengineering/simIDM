@@ -167,8 +167,8 @@ p11Integ <- function(x, transition) {
 #'   see [exponential_transition()], [weibull_transition()] or [piecewise_exponential()] for details.
 #' @param s (`numeric`)\cr lower time point.
 #' @param t (`numeric`)\cr higher time point.
-#' @return This returns the natural logarithm of the probability of remaining in progression (state 1) between two time points,
-#'   conditional on being in state 1 at the lower time point.
+#' @return This returns the natural logarithm of the probability of remaining in progression (state 1)
+#' between two time points, conditional on being in state 1 at the lower time point.
 #'
 #' @export
 #'
@@ -277,8 +277,8 @@ corTrans <- function(transition) {
 #'   Initial parameters for optimization can be specified here.
 #'   See [exponential_transition()] or [weibull_transition()] for details.
 #' @param bootstrap (`flag`)\cr if `TRUE` computes confidence interval via bootstrap.
-#' @param bootstrap.n (`count`)\cr number of bootstrap samples.
-#' @param bootstrap.level (`proportion`)\cr confidence level for the confidence interval.
+#' @param bootstrap_n (`count`)\cr number of bootstrap samples.
+#' @param bootstrap_level (`proportion`)\cr confidence level for the confidence interval.
 #'
 #' @return The correlation of PFS and OS.
 #' @export
@@ -291,15 +291,35 @@ corTrans <- function(transition) {
 #'   accrual = list(param = "intensity", value = 7)
 #' )[[1]]
 #' corPFSOS(data, transition)
-corPFSOS <- function(data, transition, bootstrap = TRUE, bootstrap.n = 100, bootstrap.level = 0.95) {
+corPFSOS <- function(data, transition, bootstrap = TRUE, bootstrap_n = 100, bootstrap_level = 0.95) {
   assert_data_frame(data)
   assert_flag(bootstrap)
-  assert_count(bootstrap.n)
-  assert_number(bootstrap.level, lower = 0.01, upper = 0.999)
+  assert_count(bootstrap_n)
+  assert_number(bootstrap_level, lower = 0.01, upper = 0.999)
+
   trans <- estimateParams(data, transition)
+  res <- list("corPFSOS" = corTrans(transition))
   if (bootstrap) {
-    # insert bootstrap here
-  } else {
-    corTrans(trans)
+    future::plan(future::multisession, workers = max(1, parallel::detectCores() - 1))
+    ids <- lapply(1:bootstrap_n, function(x) sample(seq_len(nrow(data)), nrow(data), replace = TRUE))
+    corBootstrap <- furrr::future_map_dbl(ids, ~ {
+      furrr::furrr_options(
+        globals = list(data = data, transition = transition),
+        packages = c("simIDM")
+      )
+      b_sample <- data[.x, ,drop = FALSE]
+      prepared_data <- prepareData(b_sample)
+      b_transition <- estimateParams(b_sample, transition)
+      corTrans(b_transition)
+    })
+    lowerQuantile <- (1 - bootstrap_level) / 2
+    upperQuantile <- lowerQuantile + bootstrap_level
+    c(stats::quantile(corBootstrap, lowerQuantile),
+      "corPFSOS" = res,
+      stats::quantile(corBootstrap, upperQuantile)
+    )
+    res$lower <- stats::quantile(corBootstrap, lowerQuantile)
+    res$upper <- stats::quantile(corBootstrap, upperQuantile)
   }
+  res
 }
