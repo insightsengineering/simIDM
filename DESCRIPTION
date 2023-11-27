@@ -25,7 +25,10 @@ Depends:
     R (>= 3.6)
 Imports:
     checkmate,
+    furrr,
+    future,
     mstate,
+    parallelly,
     stats,
     survival
 Suggests:
