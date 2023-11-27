@@ -307,7 +307,7 @@ corPFSOS <- function(data, transition, bootstrap = TRUE, bootstrap_n = 100, boot
         globals = list(data = data, transition = transition),
         packages = c("simIDM")
       )
-      b_sample <- data[.x, ,drop = FALSE]
+      b_sample <- data[.x, , drop = FALSE]
       prepared_data <- prepareData(b_sample)
       b_transition <- estimateParams(b_sample, transition)
       corTrans(b_transition)
