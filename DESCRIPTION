@@ -28,6 +28,7 @@ Imports:
     furrr,
     future,
     mstate,
+    parallelly,
     stats,
     survival
 Suggests:
