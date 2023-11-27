@@ -167,8 +167,8 @@ p11Integ <- function(x, transition) {
 #'   see [exponential_transition()], [weibull_transition()] or [piecewise_exponential()] for details.
 #' @param s (`numeric`)\cr lower time point.
 #' @param t (`numeric`)\cr higher time point.
-#' @return This returns the natural logarithm of the probability of remaining in progression (state 1) between two time points,
-#'   conditional on being in state 1 at the lower time point.
+#' @return This returns the natural logarithm of the probability of remaining in progression (state 1)
+#' between two time points, conditional on being in state 1 at the lower time point.
 #'
 #' @export
 #'
@@ -301,7 +301,7 @@ corPFSOS <- function(data, transition, bootstrap = TRUE, bootstrap.n = 100, boot
   res <- corTrans(transition)
   if (bootstrap) {
     future::plan(future::multisession, workers = max(1, parallel::detectCores() - 1))
-    ids <- lapply(1:bootstrap.n, function(x) sample(1:nrow(data), nrow(data), replace = TRUE))
+    ids <- lapply(1:bootstrap.n, function(x) sample(seq_len(nrow(data)), nrow(data), replace = TRUE))
     corBootstrap <- furrr::future_map_dbl(ids, ~ {
       furrr::furrr_options(
         globals = list(data = data, transition = transition),
