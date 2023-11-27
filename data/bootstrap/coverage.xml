@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.870588235294118" branch-rate="0" lines-covered="666" lines-valid="765" branches-covered="0" branches-valid="0" complexity="0" version="3.6.3" timestamp="2023-11-27 13:45:31.043674">
+<coverage line-rate="0.868318122555411" branch-rate="0" lines-covered="666" lines-valid="767" branches-covered="0" branches-valid="0" complexity="0" version="3.6.3" timestamp="2023-11-27 15:25:32.646823">
   <sources>
     <source>/__w/simIDM/simIDM/simIDM</source>
   </sources>
   <packages>
-    <package name="simIDM" line-rate="0.870588235294118" branch-rate="0" complexity="0">
+    <package name="simIDM" line-rate="0.868318122555411" branch-rate="0" complexity="0">
       <classes>
         <class name="assertions.R" filename="R/assertions.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
@@ -204,7 +204,9 @@
                 <line number="318" hits="0" branch="false"/>
                 <line number="319" hits="0" branch="false"/>
                 <line number="320" hits="0" branch="false"/>
+                <line number="321" hits="0" branch="false"/>
                 <line number="322" hits="0" branch="false"/>
+                <line number="324" hits="0" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -298,7 +300,9 @@
             <line number="318" hits="0" branch="false"/>
             <line number="319" hits="0" branch="false"/>
             <line number="320" hits="0" branch="false"/>
+            <line number="321" hits="0" branch="false"/>
             <line number="322" hits="0" branch="false"/>
+            <line number="324" hits="0" branch="false"/>
           </lines>
         </class>
         <class name="empSignificant.R" filename="R/empSignificant.R" line-rate="1" branch-rate="0" complexity="0">
