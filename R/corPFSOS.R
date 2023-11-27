@@ -296,10 +296,28 @@ corPFSOS <- function(data, transition, bootstrap = TRUE, bootstrap.n = 100, boot
   assert_flag(bootstrap)
   assert_count(bootstrap.n)
   assert_number(bootstrap.level, lower = 0.01, upper = 0.999)
+
   trans <- estimateParams(data, transition)
+  res <- corTrans(transition)
   if (bootstrap) {
-    # insert bootstrap here
+    future::plan(future::multisession, workers = max(1, parallel::detectCores() - 1))
+    ids <- lapply(1:bootstrap.n, function(x) sample(1:nrow(data), nrow(data), replace = TRUE))
+    corBootstrap <- furrr::future_map_dbl(ids, ~ {
+      furrr::furrr_options(
+        globals = list(data = data, transition = transition),
+        packages = c("simIDM")
+      )
+      b_sample <- data[.x, ]
+      prepared_data <- prepareData(b_sample)
+      b_transition <- estimateParams(b_sample, transition)
+      corTrans(b_transition)
+    })
+    lowerQuantile <- (1 - bootstrap.level) / 2
+    upperQuantile <- lowerQuantile + bootstrap.level
+    c(stats::quantile(corBootstrap, lowerQuantile),
+      "corPFSOS" = res,
+      stats::quantile(corBootstrap, upperQuantile))
   } else {
-    corTrans(trans)
+    c("corPFSOS" = res)
   }
 }
