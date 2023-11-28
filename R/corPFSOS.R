@@ -286,11 +286,11 @@ corTrans <- function(transition) {
 #' @examples
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
 #' data <- getClinicalTrials(
-#'   nRep = 10, nPat = c(50), seed = 1234, datType = "1rowTransition",
+#'   nRep = 10, nPat = c(100), seed = 1234, datType = "1rowTransition",
 #'   transitionByArm = list(transition), dropout = list(rate = 0.5, time = 12),
 #'   accrual = list(param = "intensity", value = 7)
 #' )[[1]]
-#' corPFSOS(data, transition)
+#' corPFSOS(data, transition = exponential_transition())
 corPFSOS <- function(data, transition, bootstrap = TRUE, bootstrap_n = 100, bootstrap_level = 0.95) {
   assert_data_frame(data)
   assert_flag(bootstrap)
@@ -298,7 +298,7 @@ corPFSOS <- function(data, transition, bootstrap = TRUE, bootstrap_n = 100, boot
   assert_number(bootstrap_level, lower = 0.01, upper = 0.999)
 
   trans <- estimateParams(data, transition)
-  res <- list("corPFSOS" = corTrans(transition))
+  res <- list("corPFSOS" = corTrans(trans))
   if (bootstrap) {
     future::plan(future::multisession, workers = max(1, parallelly::availableCores() - 1))
     ids <- lapply(1:bootstrap_n, function(x) sample(seq_len(nrow(data)), nrow(data), replace = TRUE))
@@ -308,7 +308,6 @@ corPFSOS <- function(data, transition, bootstrap = TRUE, bootstrap_n = 100, boot
         packages = c("simIDM")
       )
       b_sample <- data[.x, , drop = FALSE]
-      prepared_data <- prepareData(b_sample)
       b_transition <- estimateParams(b_sample, transition)
       corTrans(b_transition)
     })
