@@ -286,7 +286,7 @@ corTrans <- function(transition) {
 #' @examples
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
 #' data <- getClinicalTrials(
-#'   nRep = 10, nPat = c(100), seed = 1234, datType = "1rowTransition",
+#'   nRep = 1, nPat = c(100), seed = 1234, datType = "1rowTransition",
 #'   transitionByArm = list(transition), dropout = list(rate = 0.5, time = 12),
 #'   accrual = list(param = "intensity", value = 7)
 #' )[[1]]
