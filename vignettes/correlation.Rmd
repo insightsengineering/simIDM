@@ -68,8 +68,7 @@ We consider three alternative scenarios to model transition hazards within a tre
 * piecewise constant
 
 ```{r}
-library(devtools)
-load_all()
+library(simIDM)
 
 # constant hazards:
 transitionExp <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
