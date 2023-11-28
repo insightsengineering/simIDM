@@ -8,5 +8,5 @@ test_that("corPFSOS returns correct central estimate", {
     accrual = list(param = "intensity", value = 7)
   )[[1]]
   actual <- corPFSOS(data, transition = exponential_transition(), bootstrap = FALSE)
-  expect_equal(actual[[1]], corTrans(transition = transition), tolerance = 1e-2)
+  expect_equal(actual[[1]], 0.5764501, tolerance = 1e-3)
 })
