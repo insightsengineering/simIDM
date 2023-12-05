@@ -94,13 +94,13 @@ test_that("PWCsurvOS does not return values larger than 1", {
   expect_lte(result, 1)
 })
 
-test_that("PWCsurvOS is monotonically increasing and not larger than 1", {
+test_that("PWCsurvOS is monotonically decreasing and not larger than 1", {
   b1 <- 3
   b2 <- 6
   t_values <- seq(2.9, 6.2, length.out = 100)
   assert_true(all(diff(t_values) > 0))
   result <- PWCsurvOS(t_values, c(0, 1, 1), c(0, 0.5, 1), c(0, 1, 1), c(0, b1, 8), c(0, b2, 7), c(0, 8, 9))
-  expect_true(all(diff(result) >= 0))
+  expect_true(all(diff(result) <= 0))
   expect_true(all(result <= 1))
   expect_true(all(result >= 0))
 })
