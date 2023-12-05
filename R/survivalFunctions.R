@@ -152,7 +152,7 @@ pwA <- function(t, haz, pw) {
   # Time intervals: time-points + cut points.
   pw_new <- c(pw[pw < max(t)])
   pw_time <- sort(unique(c(pw_new, t)))
-  haz_all <- getPCWHazard(haz, pw, pw_time)
+  haz_all <- getPWCHazard(haz, pw, pw_time)
 
   # Cumulative hazard.
   i <- 1:(length(pw_time) - 1)
@@ -199,7 +199,7 @@ PWCsurvPFS <- function(t, h01, h02, pw01, pw02) {
 #' PwcOSInt(1:5, 6, c(0.3, 0.5), c(0.5, 0.8), c(0.7, 1), c(0, 4), c(0, 8), c(0, 3))
 PwcOSInt <- function(x, t, h01, h02, h12, pw01, pw02, pw12) {
   PWCsurvPFS(x, h01, h02, pw01, pw02) *
-    getPCWHazard(h01, pw01, x) *
+    getPWCHazard(h01, pw01, x) *
     exp(pwA(x, h12, pw12) - pwA(t, h12, pw12))
 }
 

@@ -10,8 +10,8 @@
 #' @export
 #'
 #' @examples
-#' getPCWHazard(c(1, 1.2, 1.4), c(0, 2, 3), c(1, 4, 6))
-getPCWHazard <- function(haz, pw, x) { # nolint
+#' getPWCHazard(c(1, 1.2, 1.4), c(0, 2, 3), c(1, 4, 6))
+getPWCHazard <- function(haz, pw, x) { # nolint
   sapply(x, function(jj) {
     y <- NULL
     # Find interval and corresponding hazard value for time x[jj].
@@ -44,8 +44,8 @@ getSumPCW <- function(haz1, haz2, pw1, pw2) {
   haz_sum <- NULL
   # Get sum of hazards for all intervals.
   for (i in seq_along(cuts_sum)) {
-    haz_sum[i] <- getPCWHazard(haz1, pw1, cuts_sum[i]) +
-      getPCWHazard(haz2, pw2, cuts_sum[i])
+    haz_sum[i] <- getPWCHazard(haz1, pw1, cuts_sum[i]) +
+      getPWCHazard(haz2, pw2, cuts_sum[i])
   }
   list(
     hazards = haz_sum,

@@ -12,6 +12,10 @@
 -   `PWCSurvOS` now does not return an error for large values of t.
 -   `getSimulatedData` now also works when there are no transitions from progression to death, similarly for `getOneClinicalTrial` (which now warns if there are no such transitions at all).
 
+### Miscellaneous
+
+-   Renamed piecewise constant hazards function to `getPWCHazard` (previously `getPCWHazard`).
+
 # simIDM 0.0.5
 
 -   First CRAN version of the package.

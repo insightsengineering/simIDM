@@ -38,7 +38,7 @@ reference:
       - weibull_transition
   - title: Helper functions for piecewise or Weibull Hazards
     contents:
-      - getPCWHazard
+      - getPWCHazard
       - getSumPCW
       - getPCWDistr
       - PCWInversionMethod
