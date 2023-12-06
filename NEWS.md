@@ -10,11 +10,13 @@
 -   `ExpSurvOS` now returns 0 instead of NaN for large values of t.
 -   `WeibSurvOS` now does not return an error for large values of t.
 -   `PWCSurvOS` now does not return an error for large values of t.
+-   `PWCSurvOS` no longer returns values larger than 1, and is significantly faster, based on a closed form calculation instead of numerical integration.
 -   `getSimulatedData` now also works when there are no transitions from progression to death, similarly for `getOneClinicalTrial` (which now warns if there are no such transitions at all).
 
 ### Miscellaneous
 
 -   Renamed piecewise constant hazards function to `getPWCHazard` (previously `getPCWHazard`).
+-   `PwcOSInt` is no longer exported, and only used for internal tests.
 
 # simIDM 0.0.5
 

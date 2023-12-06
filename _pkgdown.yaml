@@ -72,7 +72,6 @@ reference:
       - WeibSurvOS
       - pwA
       - PWCsurvPFS
-      - PwcOSInt
       - PWCsurvOS
   - title: Hazard functions
     contents:

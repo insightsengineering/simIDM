@@ -193,10 +193,8 @@ PWCsurvPFS <- function(t, h01, h02, pw01, pw02) {
 #'
 #' @return Numeric results of the integrand used to calculate
 #' the OS survival function for piecewise constant transition hazards, see  `PWCsurvOS`.
-#' @export
 #'
-#' @examples
-#' PwcOSInt(1:5, 6, c(0.3, 0.5), c(0.5, 0.8), c(0.7, 1), c(0, 4), c(0, 8), c(0, 3))
+#' @keywords internal
 PwcOSInt <- function(x, t, h01, h02, h12, pw01, pw02, pw12) {
   PWCsurvPFS(x, h01, h02, pw01, pw02) *
     getPWCHazard(h01, pw01, x) *
