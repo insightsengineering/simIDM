@@ -236,9 +236,10 @@ PWCsurvOS <- function(t, h01, h02, h12, pw01, pw02, pw12) {
   # We work for the integral parts with sorted and unique time points.
   t_sorted <- sort(unique(t))
   t_sorted_zero <- c(0, t_sorted)
-  int_parts <- numeric(length(t_sorted))
+  n_t <- length(t_sorted)
+  int_sums <- numeric(n_t)
   cum_haz_12 <- pwA(t_sorted, h12, pw12)
-  for (i in seq_along(t_sorted)) {
+  for (i in seq_len(n_t)) {
     t_start <- t_sorted_zero[i]
     t_end <- t_sorted_zero[i + 1]
     # Determine the indices of the time intervals we are working with here.
@@ -266,26 +267,25 @@ PWCsurvOS <- function(t, h01, h02, h12, pw01, pw02, pw12) {
         c(unique_pw_times[end_index], t_end)
       )
     }
-    int_js <- numeric(length(index_bounds))
     for (j in seq_along(index_bounds)) {
       time_j <- time_bounds[j, 1]
       time_jp1 <- time_bounds[j, 2]
       intercept_a <- pwA(time_j, h12, pw12) - pwA(time_j, h01, pw01) - pwA(time_j, h02, pw02)
       slope_b <- h12_at_times[index_bounds[j]] - h01_at_times[index_bounds[j]] - h02_at_times[index_bounds[j]]
       h01_j <- h01_at_times[index_bounds[j]]
-      int_js[j] <- if (slope_b != 0) {
-        h01_j / slope_b * exp(intercept_a) * (exp(slope_b * (time_jp1 - time_j)) - 1)
+      int_js <- if (slope_b != 0) {
+        h01_j / slope_b * exp(intercept_a) * (exp(slope_b * (time_jp1 - time_j) - cum_haz_12[i:n_t]) - exp(- cum_haz_12[i:n_t]))
       } else {
-        h01_j * exp(intercept_a) * (time_jp1 - time_j)
+        h01_j * exp(intercept_a - cum_haz_12[i:n_t]) * (time_jp1 - time_j)
       }
+      int_sums[i:n_t] <- int_sums[i:n_t] + int_js
     }
-    int_parts[i] <- sum(int_js)
   }
 
-  # Match back to integral sums for all time points,
+  # Match back to all time points,
   # which might not be unique or ordered.
-  int_sums <- cumsum(int_parts)[match(t, t_sorted)]
-  result <- PWCsurvPFS(t, h01, h02, pw01, pw02) + exp(- pwA(t, h12, pw12)) * int_sums
+  int_sums <- int_sums[match(t, t_sorted)]
+  result <- PWCsurvPFS(t, h01, h02, pw01, pw02) + int_sums
 
   # Cap at 1 in a safe way - i.e. first check.
   assert_numeric(result, finite = TRUE, any.missing = FALSE)
