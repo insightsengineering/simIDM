@@ -105,6 +105,32 @@ test_that("PWCsurvOS is monotonically decreasing and not larger than 1", {
   expect_true(all(result >= 0))
 })
 
+test_that("PWCsurvOS gives equal results as the numerical integration", {
+  t <- c(0.1, 1, 5.2, 3, 10.5, 2, 7.3, 1.5, 5.2, 60.5, 0.3, 20.6, 0.01)
+  h01 <- c(1, 0.2, 3.2)
+  pw01 <- c(0, 2.5, 15.3)
+  h02 <- 4
+  pw02 <- 0
+  h12 <- c(5.1, 4.2, 3.1, 7.3, 50.5)
+  pw12 <- c(0, 7.3, 20, 50.2, 70.5)
+
+  result <- PWCsurvOS(t, h01, h02, h12, pw01, pw02, pw12)
+  expected <- PWCsurvPFS(t, h01, h02, pw01, pw02) +
+    sapply(t, function(t) {
+      integrateVector(PwcOSInt,
+                      upper = t,
+                      t = t,
+                      h01 = h01,
+                      h02 = h02,
+                      h12 = h12,
+                      pw01 = pw01,
+                      pw02 = pw02,
+                      pw12 = pw12
+      )
+    })
+  expect_equal(result, expected, tolerance = 1e-6)
+})
+
 # PwcOSInt ----
 
 test_that("PwcOSInt works as expected", {

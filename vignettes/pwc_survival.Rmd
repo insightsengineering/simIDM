@@ -124,3 +124,15 @@ $$
 = \int_{t_{(j)}}^{t_{(j+1)}} \exp(a_{(j)})h_{01(j)}\,du
 = \exp(a_{(j)})h_{01(j)}(t_{(j+1)} - t_{(j)}).
 $$
+
+## Implementation
+
+The above formula is implemented in the function `PWCsurvOS()`. Note that there 
+are a few modifications compared to above exposition:
+
+1. In order to be efficient, we look at a vector of time points $t$ directly from 
+the beginning. Then, find the unique time points and order them, and perform piecewise
+integration between the sorted unique time points.
+1. In order to avoid numerical overflow with large time points, we move the term
+$\exp(- \Lambda_{12}(t))$ inside the integral, similarly as in the starting point of 
+the derivation.

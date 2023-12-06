@@ -274,9 +274,9 @@ PWCsurvOS <- function(t, h01, h02, h12, pw01, pw02, pw12) {
       slope_b <- h12_at_times[index_bounds[j]] - h01_at_times[index_bounds[j]] - h02_at_times[index_bounds[j]]
       h01_j <- h01_at_times[index_bounds[j]]
       int_js[j] <- if (slope_b != 0) {
-        h01_j / slope_b * exp(intercept_a) * (exp(slope_b * (time_jp1 - time_j) - cum_haz_12[i]) - exp(- cum_haz_12[i]))
+        h01_j / slope_b * exp(intercept_a) * (exp(slope_b * (time_jp1 - time_j)) - 1)
       } else {
-        h01_j * exp(intercept_a - cum_haz_12[i]) * (time_jp1 - time_j)
+        h01_j * exp(intercept_a) * (time_jp1 - time_j)
       }
     }
     int_parts[i] <- sum(int_js)
@@ -285,11 +285,10 @@ PWCsurvOS <- function(t, h01, h02, h12, pw01, pw02, pw12) {
   # Match back to integral sums for all time points,
   # which might not be unique or ordered.
   int_sums <- cumsum(int_parts)[match(t, t_sorted)]
+  result <- PWCsurvPFS(t, h01, h02, pw01, pw02) + exp(- pwA(t, h12, pw12)) * int_sums
 
-  # result <- PWCsurvPFS(t, h01, h02, pw01, pw02) + exp(- pwA(t, h12, pw12)) * int_sums
-  result <- PWCsurvPFS(t, h01, h02, pw01, pw02) + int_sums
-
-  # Cap at 1 in a safe way - that is first check.
+  # Cap at 1 in a safe way - i.e. first check.
+  assert_numeric(result, finite = TRUE, any.missing = FALSE)
   above_one <- result > 1
   if (any(above_one)) {
     assert_true(all((result[above_one] - 1) < sqrt(.Machine$double.eps)))
