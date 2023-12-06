@@ -117,3 +117,10 @@ b_{(j)}^{-1}\exp(b_{(j)}u)
 \exp(a_{(j)})
 (\exp(b_{(j)}(t_{(j+1)} - t_{(j)})) - 1)
 \end{align}
+
+Note that if it should happen that $b_{(j)} = 0$, the integral simplifies further to
+$$
+\cal{I}_{j} 
+= \int_{t_{(j)}}^{t_{(j+1)}} \exp(a_{(j)})h_{01(j)}\,du
+= \exp(a_{(j)})h_{01(j)}(t_{(j+1)} - t_{(j)}).
+$$
