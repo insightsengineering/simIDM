@@ -259,8 +259,8 @@ PWCsurvOS <- function(t, h01, h02, h12, pw01, pw02, pw12) {
       rbind(
         c(t_start, unique_pw_times[start_index + 1L]),
         cbind(
-          unique_pw_times[index_bounds[- c(1, n_ind_bounds)]],
-          unique_pw_times[index_bounds[- c(1, 2)]]
+          unique_pw_times[index_bounds[-c(1, n_ind_bounds)]],
+          unique_pw_times[index_bounds[-c(1, 2)]]
         ),
         c(unique_pw_times[end_index], t_end)
       )
@@ -272,7 +272,7 @@ PWCsurvOS <- function(t, h01, h02, h12, pw01, pw02, pw12) {
       slope_b <- h12_at_times[index_bounds[j]] - h01_at_times[index_bounds[j]] - h02_at_times[index_bounds[j]]
       h01_j <- h01_at_times[index_bounds[j]]
       int_js <- if (slope_b != 0) {
-        h01_j / slope_b * exp(intercept_a) * (exp(slope_b * (time_jp1 - time_j) - cum_haz_12[i:n_t]) - exp(- cum_haz_12[i:n_t]))
+        h01_j / slope_b * exp(intercept_a) * (exp(slope_b * (time_jp1 - time_j) - cum_haz_12[i:n_t]) - exp(-cum_haz_12[i:n_t]))
       } else {
         h01_j * exp(intercept_a - cum_haz_12[i:n_t]) * (time_jp1 - time_j)
       }
