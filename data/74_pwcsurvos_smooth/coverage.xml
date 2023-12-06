@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.944168734491315" branch-rate="0" lines-covered="761" lines-valid="806" branches-covered="0" branches-valid="0" complexity="0" version="3.6.3" timestamp="2023-12-06 14:23:16.328553">
+<coverage line-rate="0.944237918215613" branch-rate="0" lines-covered="762" lines-valid="807" branches-covered="0" branches-valid="0" complexity="0" version="3.6.3" timestamp="2023-12-06 15:02:28.083599">
   <sources>
     <source>/__w/simIDM/simIDM/simIDM</source>
   </sources>
   <packages>
-    <package name="simIDM" line-rate="0.944168734491315" branch-rate="0" complexity="0">
+    <package name="simIDM" line-rate="0.944237918215613" branch-rate="0" complexity="0">
       <classes>
         <class name="assertions.R" filename="R/assertions.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
@@ -1701,23 +1701,23 @@
                 <line number="273" hits="4129" branch="false"/>
                 <line number="274" hits="4129" branch="false"/>
                 <line number="275" hits="4122" branch="false"/>
-                <line number="276" hits="4129" branch="false"/>
-                <line number="277" hits="7" branch="false"/>
-                <line number="278" hits="4129" branch="false"/>
+                <line number="276" hits="4122" branch="false"/>
+                <line number="277" hits="4129" branch="false"/>
+                <line number="278" hits="7" branch="false"/>
                 <line number="279" hits="4129" branch="false"/>
-                <line number="285" hits="7" branch="false"/>
+                <line number="280" hits="4129" branch="false"/>
                 <line number="286" hits="7" branch="false"/>
-                <line number="289" hits="7" branch="false"/>
+                <line number="287" hits="7" branch="false"/>
                 <line number="290" hits="7" branch="false"/>
                 <line number="291" hits="7" branch="false"/>
-                <line number="292" hits="1" branch="false"/>
+                <line number="292" hits="7" branch="false"/>
                 <line number="293" hits="1" branch="false"/>
-                <line number="295" hits="7" branch="false"/>
+                <line number="294" hits="1" branch="false"/>
+                <line number="296" hits="7" branch="false"/>
               </lines>
             </method>
             <method name="singleExpQuantOS" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="306" hits="5" branch="false"/>
                 <line number="307" hits="5" branch="false"/>
                 <line number="308" hits="5" branch="false"/>
                 <line number="309" hits="5" branch="false"/>
@@ -1726,15 +1726,15 @@
                 <line number="312" hits="5" branch="false"/>
                 <line number="313" hits="5" branch="false"/>
                 <line number="314" hits="5" branch="false"/>
+                <line number="315" hits="5" branch="false"/>
               </lines>
             </method>
             <method name="ExpQuantOS" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="329" hits="2" branch="false"/>
                 <line number="330" hits="2" branch="false"/>
                 <line number="331" hits="2" branch="false"/>
                 <line number="332" hits="2" branch="false"/>
-                <line number="334" hits="2" branch="false"/>
+                <line number="333" hits="2" branch="false"/>
                 <line number="335" hits="2" branch="false"/>
                 <line number="336" hits="2" branch="false"/>
                 <line number="337" hits="2" branch="false"/>
@@ -1742,6 +1742,7 @@
                 <line number="339" hits="2" branch="false"/>
                 <line number="340" hits="2" branch="false"/>
                 <line number="341" hits="2" branch="false"/>
+                <line number="342" hits="2" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -1864,19 +1865,19 @@
             <line number="273" hits="4129" branch="false"/>
             <line number="274" hits="4129" branch="false"/>
             <line number="275" hits="4122" branch="false"/>
-            <line number="276" hits="4129" branch="false"/>
-            <line number="277" hits="7" branch="false"/>
-            <line number="278" hits="4129" branch="false"/>
+            <line number="276" hits="4122" branch="false"/>
+            <line number="277" hits="4129" branch="false"/>
+            <line number="278" hits="7" branch="false"/>
             <line number="279" hits="4129" branch="false"/>
-            <line number="285" hits="7" branch="false"/>
+            <line number="280" hits="4129" branch="false"/>
             <line number="286" hits="7" branch="false"/>
-            <line number="289" hits="7" branch="false"/>
+            <line number="287" hits="7" branch="false"/>
             <line number="290" hits="7" branch="false"/>
             <line number="291" hits="7" branch="false"/>
-            <line number="292" hits="1" branch="false"/>
+            <line number="292" hits="7" branch="false"/>
             <line number="293" hits="1" branch="false"/>
-            <line number="295" hits="7" branch="false"/>
-            <line number="306" hits="5" branch="false"/>
+            <line number="294" hits="1" branch="false"/>
+            <line number="296" hits="7" branch="false"/>
             <line number="307" hits="5" branch="false"/>
             <line number="308" hits="5" branch="false"/>
             <line number="309" hits="5" branch="false"/>
@@ -1885,11 +1886,11 @@
             <line number="312" hits="5" branch="false"/>
             <line number="313" hits="5" branch="false"/>
             <line number="314" hits="5" branch="false"/>
-            <line number="329" hits="2" branch="false"/>
+            <line number="315" hits="5" branch="false"/>
             <line number="330" hits="2" branch="false"/>
             <line number="331" hits="2" branch="false"/>
             <line number="332" hits="2" branch="false"/>
-            <line number="334" hits="2" branch="false"/>
+            <line number="333" hits="2" branch="false"/>
             <line number="335" hits="2" branch="false"/>
             <line number="336" hits="2" branch="false"/>
             <line number="337" hits="2" branch="false"/>
@@ -1897,6 +1898,7 @@
             <line number="339" hits="2" branch="false"/>
             <line number="340" hits="2" branch="false"/>
             <line number="341" hits="2" branch="false"/>
+            <line number="342" hits="2" branch="false"/>
           </lines>
         </class>
         <class name="transitionParameters.R" filename="R/transitionParameters.R" line-rate="1" branch-rate="0" complexity="0">
