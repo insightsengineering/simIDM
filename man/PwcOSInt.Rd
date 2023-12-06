@@ -30,6 +30,4 @@ the OS survival function for piecewise constant transition hazards, see  \code{P
 \description{
 Helper Function of \code{PWCsurvOS()}
 }
-\examples{
-PwcOSInt(1:5, 6, c(0.3, 0.5), c(0.5, 0.8), c(0.7, 1), c(0, 4), c(0, 8), c(0, 3))
-}
+\keyword{internal}

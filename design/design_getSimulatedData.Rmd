@@ -261,9 +261,9 @@ getSimulatedData <- function(N,
       unique(sort(c(pw$pw01, pw$pw02))), entry
     )
     ### binomial experiment decides on death or progression
-    numerator <- getPCWHazard(h$h01, pw$pw01, wait_time)
-    denumerator <- getPCWHazard(h$h01, pw$pw01, wait_time) +
-                   getPCWHazard(h$h02, pw$pw02, wait_time)
+    numerator <- getPWCHazard(h$h01, pw$pw01, wait_time)
+    denumerator <- getPWCHazard(h$h01, pw$pw01, wait_time) +
+                   getPWCHazard(h$h02, pw$pw02, wait_time)
   }
 
   to_prob <- rbinom(N, 1, numerator / denumerator)
@@ -300,7 +300,7 @@ getSimulatedData <- function(N,
 `getsimulateData` uses the following helper functions:
 
 - `getOneTwoTransitionRows`: generates rows with transition times for patients in the transient state progression, i.e. entry and exit times for 1-> 2 or 1-> cens transitions
-- `getPCWHazard`: for piecewise-constant hazards: function to get hazard value at time x
+- `getPWCHazard`: for piecewise-constant hazards: function to get hazard value at time x
 - `getSumPCW`: calculates the sum of two piece-wise constant hazards
 - `getPCWDistr`: generates event times with a distribution resulting
             from specified piece-wise constant hazards
@@ -378,7 +378,7 @@ addStaggeredEntry <- function(simData, N, accrualParam, accrualValue) {
 ### or Weibull distributed event times
 
 ## for piecewise-constant hazards: function to get hazard value at time x
-getPCWHazard <- function(haz, pw, x) {
+getPWCHazard <- function(haz, pw, x) {
   hazVal <- sapply(x, function(jj) {
     y <- NULL
     # find interval and correponding hazard value for time x[jj]
@@ -401,8 +401,8 @@ getSumPCW <- function(haz1, haz2, pw1, pw2) {
   haz_sum <- NULL
   ## get sum of hazards for all intervals
   for (i in 1:(length(cuts_sum))) {
-    haz_sum[i] <- getPCWHazard(haz1, pw1, cuts_sum[i]) +
-                  getPCWHazard(haz2, pw2, cuts_sum[i])
+    haz_sum[i] <- getPWCHazard(haz1, pw1, cuts_sum[i]) +
+                  getPWCHazard(haz2, pw2, cuts_sum[i])
   }
   return(haz_sum)
 }

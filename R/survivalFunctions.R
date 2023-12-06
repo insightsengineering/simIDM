@@ -152,7 +152,7 @@ pwA <- function(t, haz, pw) {
   # Time intervals: time-points + cut points.
   pw_new <- c(pw[pw < max(t)])
   pw_time <- sort(unique(c(pw_new, t)))
-  haz_all <- getPCWHazard(haz, pw, pw_time)
+  haz_all <- getPWCHazard(haz, pw, pw_time)
 
   # Cumulative hazard.
   i <- 1:(length(pw_time) - 1)
@@ -193,13 +193,11 @@ PWCsurvPFS <- function(t, h01, h02, pw01, pw02) {
 #'
 #' @return Numeric results of the integrand used to calculate
 #' the OS survival function for piecewise constant transition hazards, see  `PWCsurvOS`.
-#' @export
 #'
-#' @examples
-#' PwcOSInt(1:5, 6, c(0.3, 0.5), c(0.5, 0.8), c(0.7, 1), c(0, 4), c(0, 8), c(0, 3))
+#' @keywords internal
 PwcOSInt <- function(x, t, h01, h02, h12, pw01, pw02, pw12) {
   PWCsurvPFS(x, h01, h02, pw01, pw02) *
-    getPCWHazard(h01, pw01, x) *
+    getPWCHazard(h01, pw01, x) *
     exp(pwA(x, h12, pw12) - pwA(t, h12, pw12))
 }
 
@@ -215,7 +213,6 @@ PwcOSInt <- function(x, t, h01, h02, h12, pw01, pw02, pw12) {
 #'
 #' @return This returns the value of OS survival function at time t.
 #' @export
-
 #'
 #' @examples
 #' PWCsurvOS(1:5, c(0.3, 0.5), c(0.5, 0.8), c(0.7, 1), c(0, 4), c(0, 8), c(0, 3))
@@ -228,19 +225,74 @@ PWCsurvOS <- function(t, h01, h02, h12, pw01, pw02, pw12) {
   assert_intervals(pw02, length(h02))
   assert_intervals(pw12, length(h12))
 
-  PWCsurvPFS(t, h01, h02, pw01, pw02) +
-    sapply(t, function(t) {
-      integrateVector(PwcOSInt,
-        upper = t,
-        t = t,
-        h01 = h01,
-        h02 = h02,
-        h12 = h12,
-        pw01 = pw01,
-        pw02 = pw02,
-        pw12 = pw12
+  # Assemble unique time points and corresponding hazard values once.
+  unique_pw_times <- sort(unique(c(pw01, pw02, pw12)))
+  h01_at_times <- getPWCHazard(h01, pw01, unique_pw_times)
+  h02_at_times <- getPWCHazard(h02, pw02, unique_pw_times)
+  h12_at_times <- getPWCHazard(h12, pw12, unique_pw_times)
+
+  # We work for the integral parts with sorted and unique time points.
+  t_sorted <- sort(unique(t))
+  t_sorted_zero <- c(0, t_sorted)
+  n_t <- length(t_sorted)
+  int_sums <- numeric(n_t)
+  cum_haz_12 <- pwA(t_sorted, h12, pw12)
+  for (i in seq_len(n_t)) {
+    t_start <- t_sorted_zero[i]
+    t_end <- t_sorted_zero[i + 1]
+    # Determine the indices of the time intervals we are working with here.
+    start_index <- findInterval(t_start, unique_pw_times)
+    # We use here left.open = TRUE, so that when t_end is identical to a change point,
+    # then we don't need an additional part.
+    end_index <- max(findInterval(t_end, unique_pw_times, left.open = TRUE), 1L)
+    index_bounds <- start_index:end_index
+    # Determine corresponding time intervals.
+    time_bounds <- if (length(index_bounds) == 1L) {
+      rbind(c(t_start, t_end))
+    } else if (length(index_bounds) == 2L) {
+      rbind(
+        c(t_start, unique_pw_times[end_index]),
+        c(unique_pw_times[end_index], t_end)
       )
-    })
+    } else {
+      n_ind_bounds <- length(index_bounds)
+      rbind(
+        c(t_start, unique_pw_times[start_index + 1L]),
+        cbind(
+          unique_pw_times[index_bounds[- c(1, n_ind_bounds)]],
+          unique_pw_times[index_bounds[- c(1, 2)]]
+        ),
+        c(unique_pw_times[end_index], t_end)
+      )
+    }
+    for (j in seq_along(index_bounds)) {
+      time_j <- time_bounds[j, 1]
+      time_jp1 <- time_bounds[j, 2]
+      intercept_a <- pwA(time_j, h12, pw12) - pwA(time_j, h01, pw01) - pwA(time_j, h02, pw02)
+      slope_b <- h12_at_times[index_bounds[j]] - h01_at_times[index_bounds[j]] - h02_at_times[index_bounds[j]]
+      h01_j <- h01_at_times[index_bounds[j]]
+      int_js <- if (slope_b != 0) {
+        h01_j / slope_b * exp(intercept_a) * (exp(slope_b * (time_jp1 - time_j) - cum_haz_12[i:n_t]) - exp(- cum_haz_12[i:n_t]))
+      } else {
+        h01_j * exp(intercept_a - cum_haz_12[i:n_t]) * (time_jp1 - time_j)
+      }
+      int_sums[i:n_t] <- int_sums[i:n_t] + int_js
+    }
+  }
+
+  # Match back to all time points,
+  # which might not be unique or ordered.
+  int_sums <- int_sums[match(t, t_sorted)]
+  result <- PWCsurvPFS(t, h01, h02, pw01, pw02) + int_sums
+
+  # Cap at 1 in a safe way - i.e. first check.
+  assert_numeric(result, finite = TRUE, any.missing = FALSE)
+  above_one <- result > 1
+  if (any(above_one)) {
+    assert_true(all((result[above_one] - 1) < sqrt(.Machine$double.eps)))
+    result[above_one] <- 1
+  }
+  result
 }
 
 #' Helper Function for Single Quantile for OS Survival Function

@@ -135,7 +135,7 @@ haz.WeibullTransition <- function(transition, t, trans) {
 #' )
 #' haz(transition, 6, 2)
 haz.PWCTransition <- function(transition, t, trans) {
-  getPCWHazard(unlist(transition$hazards[trans], use.names = FALSE),
+  getPWCHazard(unlist(transition$hazards[trans], use.names = FALSE),
     unlist(transition$intervals[trans], use.names = FALSE),
     x = t
   )
