@@ -110,7 +110,7 @@ test_that("log_p11 works as expected", {
   s <- 1
   t <- 3
   result <- expect_silent(log_p11(transition, s, t))
-  expected <- - transition$hazards$h12 * (t - s)
+  expected <- -transition$hazards$h12 * (t - s)
   expect_equal(result, expected)
 })
 
@@ -119,7 +119,7 @@ test_that("log_p11 works as expected for multiple time points", {
   s <- c(1, 2.2)
   t <- c(4.2, 3.2)
   result <- expect_silent(log_p11(transition, s, t))
-  expected <- - transition$hazards$h12 * (t - s)
+  expected <- -transition$hazards$h12 * (t - s)
   expect_equal(result, expected)
 })
 
