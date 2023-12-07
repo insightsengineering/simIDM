@@ -2,7 +2,7 @@
 % Please edit documentation in R/corPFSOS.R
 \name{log_p11}
 \alias{log_p11}
-\title{Probability of Remaining in Progression Between Two Time Points for Different Transition Models.}
+\title{Probability of Remaining in Progression Between Two Time Points for Different Transition Models}
 \usage{
 log_p11(transition, s, t)
 }
@@ -10,16 +10,16 @@ log_p11(transition, s, t)
 \item{transition}{(\code{TransitionParameters})\cr
 see \code{\link[=exponential_transition]{exponential_transition()}}, \code{\link[=weibull_transition]{weibull_transition()}} or \code{\link[=piecewise_exponential]{piecewise_exponential()}} for details.}
 
-\item{s}{(\code{numeric})\cr lower time point.}
+\item{s}{(\code{numeric})\cr lower time points.}
 
-\item{t}{(\code{numeric})\cr higher time point.}
+\item{t}{(\code{numeric})\cr higher time points.}
 }
 \value{
 This returns the natural logarithm of the probability of remaining in progression (state 1)
 between two time points, conditional on being in state 1 at the lower time point.
 }
 \description{
-Probability of Remaining in Progression Between Two Time Points for Different Transition Models.
+Probability of Remaining in Progression Between Two Time Points for Different Transition Models
 }
 \examples{
 transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)

@@ -29,6 +29,14 @@ The hazard rate for the specified transition and time.
 \description{
 Hazard Function for Different Transition Models
 }
+\details{
+The transition types are:
+\itemize{
+\item \code{1}: Transition from state 0 (stable) to 1 (progression).
+\item \code{2}: Transition from state 0 (stable) to 2 (death).
+\item \code{3}: Transition from state 1 (progression) to 2 (death).
+}
+}
 \section{Methods (by class)}{
 \itemize{
 \item \code{haz(ExponentialTransition)}: for an exponential transition model.

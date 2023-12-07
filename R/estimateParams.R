@@ -11,7 +11,10 @@
 #' - id (`integer`): patient id.
 #' - from (`integer`): start event state.
 #' - to (`integer`): end event state.
-#' - trans (`integer`): transition (1, 2 or 3) identifier.
+#' - trans (`integer`): transition (1, 2 or 3) identifier
+#'   - `1`: Transition from state 0 (stable) to 1 (progression).
+#'   - `2`: Transition from state 0 (stable) to 2 (death).
+#'   - `3`: Transition from state 1 (progression) to 2 (death).
 #' - entry (`numeric`): time at which the patient begins to be at risk for the transition.
 #' - exit (`numeric`): time at which the patient ends to be at risk for the transition.
 #' - status (`logical`): event indicator for the transition.
@@ -76,10 +79,14 @@ prepareData <- function(data) {
 #' )
 #' negLogLik(transition, prepareData(simData))
 negLogLik <- function(transition, data) {
-  with(data, -sum(log(haz(transition, exit, trans)^status
-    * survTrans(transition, exit, trans) / survTrans(transition, entry, trans))))
+  with(
+    data,
+    -sum(log(
+      haz(transition, exit, trans)^status * survTrans(transition, exit, trans) /
+        survTrans(transition, entry, trans)
+    ))
+  )
 }
-
 
 #' Hazard Function for Different Transition Models
 #'
@@ -87,6 +94,12 @@ negLogLik <- function(transition, data) {
 #'   see [exponential_transition()] or [weibull_transition()] for details.
 #' @param t (`numeric`)\cr time at which hazard is to be computed.
 #' @param trans (`integer`)\cr index specifying the transition type.
+#'
+#' @details
+#' The transition types are:
+#' - `1`: Transition from state 0 (stable) to 1 (progression).
+#' - `2`: Transition from state 0 (stable) to 2 (death).
+#' - `3`: Transition from state 1 (progression) to 2 (death).
 #'
 #' @return The hazard rate for the specified transition and time.
 #' @export
