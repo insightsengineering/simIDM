@@ -19,8 +19,4 @@ This function returns for each upper limit the estimates of the integral.
 \description{
 Helper for Efficient Integration
 }
-\examples{
-integrand <- function(x) x^2
-upper <- c(0, 1, 0.4, 2, 5, 2, 0.3, 0.4, 1)
-integrateVector(integrand, upper = upper)
-}
+\keyword{internal}

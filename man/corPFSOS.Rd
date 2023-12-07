@@ -38,5 +38,8 @@ data <- getClinicalTrials(
   transitionByArm = list(transition), dropout = list(rate = 0.5, time = 12),
   accrual = list(param = "intensity", value = 7)
 )[[1]]
-corPFSOS(data, transition = exponential_transition())
+corPFSOS(data, transition = exponential_transition(), bootstrap = FALSE)
+\dontrun{
+corPFSOS(data, transition = exponential_transition(), bootstrap = TRUE)
+}
 }

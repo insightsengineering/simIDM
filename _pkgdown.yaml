@@ -67,8 +67,6 @@ reference:
       - ExpSurvOS
       - ExpQuantOS
       - WeibSurvPFS
-      - integrateVector
-      - WeibOSInteg
       - WeibSurvOS
       - pwA
       - PWCsurvPFS

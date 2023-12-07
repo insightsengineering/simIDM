@@ -16,7 +16,7 @@
 ### Miscellaneous
 
 -   Renamed piecewise constant hazards function to `getPWCHazard` (previously `getPCWHazard`).
--   `PwcOSInt` is no longer exported, and only used for internal tests.
+-   `PwcOSInt`, `integrateVector`, `WeibOSInteg` are no longer exported, and only used internally.
 
 # simIDM 0.0.5
 

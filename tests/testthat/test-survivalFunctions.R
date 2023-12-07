@@ -43,6 +43,41 @@ test_that("WeibSurvPFS works as expected", {
   expect_equal(actual2, 1)
 })
 
+# integrateVector ----
+
+test_that("integrateVector works as expected", {
+  integrand <- function(x) x^2
+  upper <- c(1, 0.4, 1)
+
+  actual <- integrateVector(integrand, upper = upper)
+  expected <- c(
+    integrate(integrand, 0, 1)$value,
+    integrate(integrand, 0, 0.4)$value,
+    integrate(integrand, 0, 1)$value
+  )
+  expect_equal(actual, expected)
+})
+
+# WeibOSInteg ----
+
+test_that("WeibOSInteg works as expected with scalar x", {
+  result <- expect_silent(WeibOSInteg(4, 2:6, 0.2, 0.5, 2.1, 1.2, 0.9, 1))
+  expected <- c(5.368515, 0.657409, 0.080504, 0.009858, 0.001207)
+  expect_equal(result, expected, tolerance = 1e-4)
+})
+
+test_that("WeibOSInteg works as expected with vector x", {
+  result <- expect_silent(WeibOSInteg(1:5, 2:6, 0.2, 0.5, 2.1, 1.2, 0.9, 1))
+  expected <- c(0.06081, 0.034948, 0.018842, 0.009858, 0.005061)
+  expect_equal(result, expected, tolerance = 1e-4)
+})
+
+test_that("WeibOSInteg works as expected with scalar t", {
+  result <- expect_silent(WeibOSInteg(2:6, 4, 0.2, 0.5, 2.1, 1.2, 0.9, 1))
+  expected <- c(0.00428, 0.018842, 0.080504, 0.337499, 1.395583)
+  expect_equal(result, expected, tolerance = 1e-4)
+})
+
 # WeibSurvOS ----
 
 test_that("WeibSurvOS works as expected", {
@@ -142,21 +177,6 @@ test_that("PwcOSInt works as expected", {
 
   actual3 <- PwcOSInt(700, 700, c(0.3, 0.5), c(0.5, 0.8), c(0.7, 100), c(0, 2), c(0, 3), c(0, 3))
   expect_equal(actual3, 0, tolerance = 1e-6)
-})
-
-# integrateVector ----
-
-test_that("integrateVector works as expected", {
-  integrand <- function(x) x^2
-  upper <- c(1, 0.4, 1)
-
-  actual <- integrateVector(integrand, upper = upper)
-  expected <- c(
-    integrate(integrand, 0, 1)$value,
-    integrate(integrand, 0, 0.4)$value,
-    integrate(integrand, 0, 1)$value
-  )
-  expect_equal(actual, expected)
 })
 
 # singleExpQuantOS ----
