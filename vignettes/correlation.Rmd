@@ -21,7 +21,7 @@ Here we describe how the correlation between progression-free survival (PFS) and
 
 ## Introduction
 
-The multistate model used in `simIDM` is designed to jointly model PFS and OS as endpoints in an oncology clinical trial. Within each treatment arm, the model is specified through the transition hazards $\lambda_{01}(t)$, $\lambda_{02}(t)$ and $\lambda_{12}(t)$. This approach allows us to consider the joint distribution of the two endpoints and to derive the correlation between PFS and OS directly from the assumed transition hazards.
+The illness-death model used in `simIDM` is designed to jointly model PFS and OS as endpoints in an oncology clinical trial. Within each treatment arm, the model is specified through the transition hazards $\lambda_{01}(t)$, $\lambda_{02}(t)$ and $\lambda_{12}(t)$. This approach allows us to consider the joint distribution of the two endpoints and to derive the correlation between PFS and OS directly from the assumed transition hazards.
 
 ## Cor(PFS, OS): Statistical Background
 
@@ -29,15 +29,15 @@ The multistate model used in `simIDM` is designed to jointly model PFS and OS as
 \[
  Cor(PFS, OS) = \frac{Cov(PFS, OS)}{\sqrt{Var(PFS) \, Var(OS)}}.
 \]
-Expectation and variance of PFS and OS can be derived via the survival functions for PFS and OS, respectively:
+The expected values of PFS and OS can be derived via the survival functions for PFS and OS, respectively:
 \[
  \mathbb{E}(PFS) =  \int_{0}^{\infty} S_{PFS}(u) \,du
 \]
 and
 \[
- \mathbb{E}(OS) =  \int_{0}^{\infty} S_{OS}(u) \,du
+ \mathbb{E}(OS) =  \int_{0}^{\infty} S_{OS}(u) \,du.
 \]
-and
+The variance of PFS and OS are computed as follows:
 \[
  Var(PFS) =  \mathbb{E}(PFS^2) - \mathbb{E}(PFS)^2
 \]
@@ -45,7 +45,7 @@ where
 \[
  \mathbb{E}(PFS^2) = 2 \cdot\int_{0}^{\infty} u \cdot S_{PFS}(u) \,du
 \]
-and in a similar way for Var(OS).
+and in a similar way for $Var(OS)$.
 $Cov(PFS,OS)$ is derived using
 \[
  Cov(PFS,OS) = \mathbb{E}(PFS \cdot OS) - \mathbb{E}(PFS) \cdot \mathbb{E}(OS)
@@ -58,6 +58,8 @@ This requires the transition probability $P_{11}(s,t;t_{1})$, which has the form
 \[
  P_{11}(s,t;t_{1}) = exp \left( -\int_{s}^{t} \lambda_{12}(u;t_{1}) \, du\right).
 \]
+
+We can compute the correlation based on assumptions or estimate it from data. Both work by simply plugging in assumed or estimated survival functions.
 
 ## Example: Computing Cor(PFS, OS) directly 
 
@@ -100,15 +102,15 @@ corTrans(transitionPwc)
 
 In case we are given trial data and want to estimate the PFS-OS correlation from the data, the following approach can be adopted:
 
-1. Specify the assumed distribution family
-2. Estimate the transition hazards under this assumption from the data
-3. Compute the correlation of PFS and OS
+1. Specify the assumed distribution family.
+2. Estimate the transition hazards under this assumption from the data.
+3. Compute the correlation of PFS and OS.
 
-We can estimate the parameters via maximum likelihood (ML), using the log-likelihood based on the counting process notation of @andersen1993:
+We can estimate the parameters via maximum likelihood (ML), using the log-likelihood based on the counting process notation of @andersen1993, see also @meller2019joint:
 \[
  L(\theta) = \sum_{i=1}^{n} \sum_{k=1}^{3} \left( \log \left[ \lambda_{k}(t_{ik})^{d_{ik}} \frac{S_{k}(t_{ik})}{S_{k}(t_{0ik})} \right] \times \mathbb{I}(i \in Y_{ik}) \right),
 \]
-where the sum is over all n individuals. $k \in \{ 1, 2, 3 \}$ is a simplified notation for the transitions 0 $\rightarrow$ 1, 0 $\rightarrow$ 2 and 1 $\rightarrow$ 2, $\lambda_{k}$ is the corresponding transition hazard and $S_{k}$ the survival function. $d_{ik}$ is an indicator function, taking the value 1 if the i-th individual made the k-th transition and $t_{0ik}$ and $t_{ik}$ are the time the i-th individual enters and exits, respectively, the root state of the k-th transition. The indicator function at the end of the formula is equal to 1 if the i-th individual is at risk for the transition k and 0 otherwise.
+where the sum is over all $n$ individuals. $k \in \{ 1, 2, 3 \}$ is a simplified notation for the transitions 0 $\rightarrow$ 1, 0 $\rightarrow$ 2 and 1 $\rightarrow$ 2, $\lambda_{k}$ is the corresponding transition hazard and $S_{k}$ the survival function. $d_{ik}$ is an indicator function, taking the value 1 if the $i$-th individual made the $k$-th transition and $t_{0ik}$ and $t_{ik}$ are the time the $i$-th individual enters and exits, respectively, the root state of the $k$-th transition. The indicator function at the end of the formula is equal to 1 if the $i$-th individual is at risk for the transition $k$ and 0 otherwise.
 
 ## Example: Estimating Cor(PFS, OS) from data 
 
@@ -125,7 +127,7 @@ simData <- getOneClinicalTrial(
 )
 ```
 
-We can estimate the parameters like this:
+We can estimate the parameters as follows:
 
 ```{r}
 # Create TransitionParameters object with starting values for ML estimation:
@@ -136,13 +138,13 @@ est <- estimateParams(data = simData, transition = transition)
 est$hazards
 ```
 
-Then, in a final step, we could pass `est` to [`corTrans()`](https://insightsengineering.github.io/simIDM/main/reference/corTrans.html) to compute the PFS-OS correlation.
+Then, in a final step, we pass `est` to [`corTrans()`](https://insightsengineering.github.io/simIDM/main/reference/corTrans.html) to compute the PFS-OS correlation.
 
 Alternatively, one can combine these steps efficiently via [`corPFSOS()`](https://insightsengineering.github.io/simIDM/main/reference/corTrans.html), which has an additional `bootstrap` argument to quantify the uncertainty
 of the correlation estimate:
 
 ```{r}
-corPFSOS(data = simData, transition = transition, bootstrap = TRUE)
+corPFSOS(data = simData, transition = transition, bootstrap = TRUE, conf_level = 0.95)
 ```
 
 ## References
