@@ -9,7 +9,7 @@ corPFSOS(
   transition,
   bootstrap = TRUE,
   bootstrap_n = 100,
-  bootstrap_level = 0.95
+  conf_level = 0.95
 )
 }
 \arguments{
@@ -23,7 +23,7 @@ See \code{\link[=exponential_transition]{exponential_transition()}} or \code{\li
 
 \item{bootstrap_n}{(\code{count})\cr number of bootstrap samples.}
 
-\item{bootstrap_level}{(\code{proportion})\cr confidence level for the confidence interval.}
+\item{conf_level}{(\code{proportion})\cr confidence level for the confidence interval.}
 }
 \value{
 The correlation of PFS and OS.

@@ -278,7 +278,7 @@ corTrans <- function(transition) {
 #'   See [exponential_transition()] or [weibull_transition()] for details.
 #' @param bootstrap (`flag`)\cr if `TRUE` computes confidence interval via bootstrap.
 #' @param bootstrap_n (`count`)\cr number of bootstrap samples.
-#' @param bootstrap_level (`proportion`)\cr confidence level for the confidence interval.
+#' @param conf_level (`proportion`)\cr confidence level for the confidence interval.
 #'
 #' @return The correlation of PFS and OS.
 #' @export
@@ -291,11 +291,11 @@ corTrans <- function(transition) {
 #'   accrual = list(param = "intensity", value = 7)
 #' )[[1]]
 #' corPFSOS(data, transition = exponential_transition())
-corPFSOS <- function(data, transition, bootstrap = TRUE, bootstrap_n = 100, bootstrap_level = 0.95) {
+corPFSOS <- function(data, transition, bootstrap = TRUE, bootstrap_n = 100, conf_level = 0.95) {
   assert_data_frame(data)
   assert_flag(bootstrap)
   assert_count(bootstrap_n)
-  assert_number(bootstrap_level, lower = 0.01, upper = 0.999)
+  assert_number(conf_level, lower = 0.01, upper = 0.999)
 
   trans <- estimateParams(data, transition)
   res <- list("corPFSOS" = corTrans(trans))
@@ -311,8 +311,8 @@ corPFSOS <- function(data, transition, bootstrap = TRUE, bootstrap_n = 100, boot
       b_transition <- estimateParams(b_sample, transition)
       corTrans(b_transition)
     })
-    lowerQuantile <- (1 - bootstrap_level) / 2
-    upperQuantile <- lowerQuantile + bootstrap_level
+    lowerQuantile <- (1 - conf_level) / 2
+    upperQuantile <- lowerQuantile + conf_level
     c(stats::quantile(corBootstrap, lowerQuantile),
       "corPFSOS" = res,
       stats::quantile(corBootstrap, upperQuantile)
