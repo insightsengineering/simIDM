@@ -204,9 +204,9 @@ getSimulatedData <- function(N,
     Sum_PCW <- getSumPCW(h$h01, h$h02, pw$pw01, pw$pw02)
     wait_time <- getPCWDistr(U, Sum_PCW$hazards, Sum_PCW$intervals, entry)
     # A binomial experiment decides on death or progression.
-    numerator <- getPCWHazard(h$h01, pw$pw01, wait_time)
-    denumerator <- getPCWHazard(h$h01, pw$pw01, wait_time) +
-      getPCWHazard(h$h02, pw$pw02, wait_time)
+    numerator <- getPWCHazard(h$h01, pw$pw01, wait_time)
+    denumerator <- getPWCHazard(h$h01, pw$pw01, wait_time) +
+      getPWCHazard(h$h02, pw$pw02, wait_time)
   }
 
   to_prob <- stats::rbinom(N, 1, numerator / denumerator)

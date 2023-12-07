@@ -16,7 +16,7 @@ survPFS <- function(transition, t) {
   UseMethod("survPFS")
 }
 
-#' @describeIn PFS Survival Function for an exponential transition model.
+#' @describeIn survPFS Survival Function for an exponential transition model.
 #' @export
 #'
 #' @examples
@@ -26,7 +26,7 @@ survPFS.ExponentialTransition <- function(transition, t) {
   ExpSurvPFS(t = t, h01 = transition$hazards$h01, h02 = transition$hazards$h02)
 }
 
-#' @describeIn PFS Survival Function for a Weibull transition model.
+#' @describeIn survPFS Survival Function for a Weibull transition model.
 #' @export
 #'
 #' @examples
@@ -39,7 +39,7 @@ survPFS.WeibullTransition <- function(transition, t) {
   )
 }
 
-#' @describeIn PFS Survival Function for a piecewise constant transition model.
+#' @describeIn survPFS Survival Function for a piecewise constant transition model.
 #' @export
 #'
 #' @examples
@@ -73,7 +73,7 @@ survOS <- function(transition, t) {
   UseMethod("survOS")
 }
 
-#' @describeIn OS Survival Function for an exponential transition model.
+#' @describeIn survOS Survival Function for an exponential transition model.
 #' @export
 #'
 #' @examples
@@ -86,7 +86,7 @@ survOS.ExponentialTransition <- function(transition, t) {
   )
 }
 
-#' @describeIn OS Survival Function for a Weibull transition model.
+#' @describeIn survOS Survival Function for a Weibull transition model.
 #' @export
 #'
 #' @examples
@@ -100,7 +100,7 @@ survOS.WeibullTransition <- function(transition, t) {
   )
 }
 
-#' @describeIn OS Survival Function for a piecewise constant transition model.
+#' @describeIn survOS Survival Function for a piecewise constant transition model.
 #' @export
 #'
 #' @examples
