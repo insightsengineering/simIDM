@@ -111,8 +111,6 @@ reference:
       - expvalPFSInteg
       - expvalOSInteg
       - log_p11
-      - p11Integ
-      - PFSOSInteg
       - survPFS
       - survPFSOS
       - survOS

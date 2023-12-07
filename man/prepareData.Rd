@@ -22,7 +22,12 @@ The output data set contains the following columns:
 \item id (\code{integer}): patient id.
 \item from (\code{integer}): start event state.
 \item to (\code{integer}): end event state.
-\item trans (\code{integer}): transition (1, 2 or 3) identifier.
+\item trans (\code{integer}): transition (1, 2 or 3) identifier
+\itemize{
+\item \code{1}: Transition from state 0 (stable) to 1 (progression).
+\item \code{2}: Transition from state 0 (stable) to 2 (death).
+\item \code{3}: Transition from state 1 (progression) to 2 (death).
+}
 \item entry (\code{numeric}): time at which the patient begins to be at risk for the transition.
 \item exit (\code{numeric}): time at which the patient ends to be at risk for the transition.
 \item status (\code{logical}): event indicator for the transition.
