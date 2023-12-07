@@ -217,8 +217,7 @@ median(unlist(timePointsOS))
 eventsPFS <- lapply(
   seq_along(timePointsPFS),
   function(t) {
-    return(sum(simH1[[t]]$OSevent[(simH1[[t]]$OStime + simH1[[t]]$recruitTime)
-    <= timePointsPFS[[t]]]))
+    sum(simH1[[t]]$OSevent[(simH1[[t]]$OStime + simH1[[t]]$recruitTime) <= timePointsPFS[[t]]])
   }
 )
 mean(unlist(eventsPFS))
@@ -227,8 +226,7 @@ mean(unlist(eventsPFS))
 eventsOS <- lapply(
   seq_along(timePointsOS),
   function(t) {
-    return(sum(simH1[[t]]$PFSevent[(simH1[[t]]$PFStime + simH1[[t]]$recruitTime)
-    <= timePointsOS[[t]]]))
+    sum(simH1[[t]]$PFSevent[(simH1[[t]]$PFStime + simH1[[t]]$recruitTime) <= timePointsOS[[t]]])
   }
 )
 mean(unlist(eventsOS))
