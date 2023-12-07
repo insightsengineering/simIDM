@@ -20,7 +20,7 @@ Numeric result of the integrand used to calculate the PFS*OS survival function.
 \description{
 Helper Function for \code{survPFSOS()}
 }
-\examples{
-transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
-PFSOSInteg(1, 2, transition)
+\note{
+Not all vectors \code{u} and \code{t} work here due to assertions in \code{\link[=log_p11]{log_p11()}}.
 }
+\keyword{internal}

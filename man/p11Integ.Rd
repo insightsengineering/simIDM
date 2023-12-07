@@ -18,7 +18,4 @@ Hazard rate at the specified time for the transition from progression to death.
 \description{
 Helper Function for \code{log_p11()}
 }
-\examples{
-transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
-p11Integ(2, transition)
-}
+\keyword{internal}
