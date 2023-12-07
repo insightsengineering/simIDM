@@ -1,3 +1,5 @@
+# survPFS ----
+
 #' PFS Survival Function for Different Transition Models
 #'
 #' @param transition (`TransitionParameters`)\cr
@@ -52,6 +54,8 @@ survPFS.PWCTransition <- function(transition, t) {
     pw01 = transition$intervals$pw01, pw02 = transition$intervals$pw02
   )
 }
+
+# survOS ----
 
 #' OS Survival Function for Different Transition Models
 #'
@@ -113,6 +117,8 @@ survOS.PWCTransition <- function(transition, t) {
   )
 }
 
+# expval ----
+
 #' Helper Function for Computing E(PFS^2)
 #'
 #' @param x (`numeric`)\cr variable of integration.
@@ -145,6 +151,8 @@ expvalOSInteg <- function(x, transition) {
   x * survOS(transition = transition, t = x)
 }
 
+# p11 ----
+
 #' Helper Function for `log_p11()`
 #'
 #' @param x (`numeric`)\cr variable of integration.
@@ -152,21 +160,17 @@ expvalOSInteg <- function(x, transition) {
 #'   see [exponential_transition()], [weibull_transition()] or [piecewise_exponential()] for details.
 #'
 #' @return Hazard rate at the specified time for the transition from progression to death.
-#' @export
-#'
-#' @examples
-#' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
-#' p11Integ(2, transition)
+#' @keywords internal
 p11Integ <- function(x, transition) {
   haz(transition = transition, t = x, trans = 3)
 }
 
-#' Probability of Remaining in Progression Between Two Time Points for Different Transition Models.
+#' Probability of Remaining in Progression Between Two Time Points for Different Transition Models
 #'
 #' @param transition (`TransitionParameters`)\cr
 #'   see [exponential_transition()], [weibull_transition()] or [piecewise_exponential()] for details.
-#' @param s (`numeric`)\cr lower time point.
-#' @param t (`numeric`)\cr higher time point.
+#' @param s (`numeric`)\cr lower time points.
+#' @param t (`numeric`)\cr higher time points.
 #' @return This returns the natural logarithm of the probability of remaining in progression (state 1)
 #' between two time points, conditional on being in state 1 at the lower time point.
 #'
@@ -176,6 +180,11 @@ p11Integ <- function(x, transition) {
 #' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
 #' log_p11(transition, 1, 3)
 log_p11 <- function(transition, s, t) {
+  assert_numeric(s, finite = TRUE, any.missing = FALSE, lower = 0)
+  assert_numeric(t, finite = TRUE, any.missing = FALSE, lower = 0)
+  assert_true(identical(length(s), length(t)))
+  assert_true(all(t > s))
+
   intval <- mapply(function(s, t) {
     stats::integrate(p11Integ,
       lower = s,
@@ -186,6 +195,8 @@ log_p11 <- function(transition, s, t) {
   -intval
 }
 
+# PFSOS ----
+
 #' Helper Function for `survPFSOS()`
 #'
 #' @param u (`numeric`)\cr variable of integration.
@@ -193,12 +204,10 @@ log_p11 <- function(transition, s, t) {
 #' @param transition (`TransitionParameters`)\cr
 #'   see [exponential_transition()], [weibull_transition()] or [piecewise_exponential()] for details.
 #'
-#' @return Numeric result of the integrand used to calculate the PFS*OS survival function.
-#' @export
+#' @note Not all vectors `u` and `t` work here due to assertions in [log_p11()].
 #'
-#' @examples
-#' transition <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
-#' PFSOSInteg(1, 2, transition)
+#' @return Numeric result of the integrand used to calculate the PFS*OS survival function.
+#' @keywords internal
 PFSOSInteg <- function(u, t, transition) {
   exp(log_p11(transition, u, t / u) + log(survPFS(transition, u)) + log(haz(transition, u, 1)))
 }
@@ -221,6 +230,8 @@ survPFSOS <- function(t, transition) {
     survPFS(transition, sqrt(x)) + intval
   })
 }
+
+# correlation ----
 
 #' Correlation of PFS and OS event times for Different Transition Models
 #'
