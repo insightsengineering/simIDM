@@ -59,12 +59,7 @@ WeibSurvPFS <- function(t, h01, h02, p01, p02) {
 #' @param ...  additional arguments to be passed to `integrand`.
 #'
 #' @return This function returns for each upper limit the estimates of the integral.
-#' @export
-#'
-#' @examples
-#' integrand <- function(x) x^2
-#' upper <- c(0, 1, 0.4, 2, 5, 2, 0.3, 0.4, 1)
-#' integrateVector(integrand, upper = upper)
+#' @keywords internal
 integrateVector <- function(integrand, upper, ...) {
   assert_true(all(upper >= 0))
   boundaries <- sort(unique(upper))
@@ -86,11 +81,19 @@ integrateVector <- function(integrand, upper, ...) {
 #'
 #' @return Numeric results of the integrand used to calculate
 #' the OS survival function for Weibull transition hazards, see  `WeibSurvOS()`.
-#' @export
 #'
-#' @examples
-#' WeibOSInteg(1:5, 2:6, 0.2, 0.5, 2.1, 1.2, 0.9, 1)
+#' @keywords internal
 WeibOSInteg <- function(x, t, h01, h02, h12, p01, p02, p12) {
+  assert_numeric(x, finite = TRUE, any.missing = FALSE)
+  assert_numeric(t, finite = TRUE, any.missing = FALSE)
+  assert_true(test_scalar(x) || identical(length(x), length(t)) || test_scalar(t))
+  assert_positive_number(h01, zero_ok = TRUE)
+  assert_positive_number(h02, zero_ok = TRUE)
+  assert_positive_number(h12, zero_ok = TRUE)
+  assert_positive_number(p01)
+  assert_positive_number(p02)
+  assert_positive_number(p12)
+
   x^(p01 - 1) * exp(-h01 * x^p01 - h02 * x^p02 - h12 * (t^p12 - x^p12))
 }
 
@@ -111,11 +114,7 @@ WeibOSInteg <- function(x, t, h01, h02, h12, p01, p02, p12) {
 WeibSurvOS <- function(t, h01, h02, h12, p01, p02, p12) {
   assert_numeric(t, lower = 0, any.missing = FALSE)
   assert_positive_number(h01, zero_ok = TRUE)
-  assert_positive_number(h02, zero_ok = TRUE)
-  assert_positive_number(h12, zero_ok = TRUE)
   assert_positive_number(p01)
-  assert_positive_number(p02)
-  assert_positive_number(p12)
 
   WeibSurvPFS(t, h01, h02, p01, p02) +
     h01 * p01 *

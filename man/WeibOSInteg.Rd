@@ -30,6 +30,4 @@ the OS survival function for Weibull transition hazards, see  \code{WeibSurvOS()
 \description{
 Helper Function for \code{WeibSurvOS()}
 }
-\examples{
-WeibOSInteg(1:5, 2:6, 0.2, 0.5, 2.1, 1.2, 0.9, 1)
-}
+\keyword{internal}
