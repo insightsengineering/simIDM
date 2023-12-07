@@ -37,7 +37,7 @@ piecewise constant hazards. This is implemented in the function `PWCsurvOS()`.
 So we are in the situation where the hazards for the transitions are piecewise constant,
 i.e. all three hazard functions $\lambda_{01}(t)$ (stable to progression), $\lambda_{02}(t)$ 
 (stable to death) and $\lambda_{12}(t)$ (progression to death) are step functions.
-Say the start points of the constant hazard pieces are $0 \equiv t_{01}^{(1)} < \dotsb < t_{01}^{(k_{01})}$, $k_{01} \geq 1$, for $\lambda_{01}(t)$, with corresponding constant positive hazards $h_{01}^{(1)}, \dotsc, h_{01}^{(k_{01})}$. Obviously we use here the smallest set of pieces, i.e. neighboring hazards are required
+Say the start points of the constant hazard pieces for $\lambda_{01}(t)$ are $0 \equiv t_{01}^{(1)} < \dotsb < t_{01}^{(k_{01})}$, $k_{01} \geq 1$, with corresponding constant positive hazards $h_{01}^{(1)}, \dotsc, h_{01}^{(k_{01})}$. Obviously we use here the smallest set of pieces, i.e. neighboring hazards are required
 to be different, $h_{01}^{(j)} \neq h_{01}^{(j+1)}$.
 This holds analogously for the hazard functions of the other two state transitions.
 
