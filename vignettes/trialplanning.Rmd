@@ -1,7 +1,6 @@
 ---
 title: 'simIDM: Power and Type I Error Calculations'
-author: "Alexandra Erdmann"
-date: "11/14/2022"
+author: "Alexandra Erdmann, Holger Löwe"
 output: rmarkdown::html_vignette
 bibliography: references.bib
 vignette: |
@@ -108,12 +107,13 @@ For OS, the ratio of hazard functions is not necessarily constant. An averaged H
 hRatioOS <- avgHRExpOS(transitionByArm = transitionList, alpha = 0.5, upper = 1000)
 hRatioOS
 ```
+
 ## Type I Error - Simulation Under $H_0$
 
 The type I error can be estimated empirically by simulating clinical trials under $H_0$. To achieve this, we set the transition hazards of the treatment group to match those of the control group.
 Then, we use `getClinicalTrials()` to generate a large number of simulated trials. We will use 100 iterations here. For applications, to achieve satisfactory precision in estimates of type I error, a higher number (e.g. 10,000) is recommended.
 
-```{r}
+```{r, results = 'hide'}
 transitionListNull <- list(transitionPl, transitionPl)
 nRep <- 100
 simNull <- getClinicalTrials(
@@ -175,7 +175,7 @@ In this example, the global type I error rate is 3\%.
 
 Next, we simulate a large number of trials under $H_1$ to compute the empirical power:
 
-```{r}
+```{r, results = 'hide'}
 simH1 <- getClinicalTrials(
   nRep = nRep, nPat = c(800, 800), seed = 1238, datType = "1rowPatient",
   transitionByArm = transitionList,
@@ -217,8 +217,7 @@ median(unlist(timePointsOS))
 eventsPFS <- lapply(
   seq_along(timePointsPFS),
   function(t) {
-    return(sum(simH1[[t]]$OSevent[(simH1[[t]]$OStime + simH1[[t]]$recruitTime)
-    <= timePointsPFS[[t]]]))
+    sum(simH1[[t]]$OSevent[(simH1[[t]]$OStime + simH1[[t]]$recruitTime) <= timePointsPFS[[t]]])
   }
 )
 mean(unlist(eventsPFS))
@@ -227,8 +226,7 @@ mean(unlist(eventsPFS))
 eventsOS <- lapply(
   seq_along(timePointsOS),
   function(t) {
-    return(sum(simH1[[t]]$PFSevent[(simH1[[t]]$PFStime + simH1[[t]]$recruitTime)
-    <= timePointsOS[[t]]]))
+    sum(simH1[[t]]$PFSevent[(simH1[[t]]$PFStime + simH1[[t]]$recruitTime) <= timePointsOS[[t]]])
   }
 )
 mean(unlist(eventsOS))
