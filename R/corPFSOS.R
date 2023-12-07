@@ -301,7 +301,10 @@ corTrans <- function(transition) {
 #'   transitionByArm = list(transition), dropout = list(rate = 0.5, time = 12),
 #'   accrual = list(param = "intensity", value = 7)
 #' )[[1]]
-#' corPFSOS(data, transition = exponential_transition())
+#' corPFSOS(data, transition = exponential_transition(), bootstrap = FALSE)
+#' \dontrun{
+#' corPFSOS(data, transition = exponential_transition(), bootstrap = TRUE)
+#' }
 corPFSOS <- function(data, transition, bootstrap = TRUE, bootstrap_n = 100, conf_level = 0.95) {
   assert_data_frame(data)
   assert_flag(bootstrap)
