@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">simIDM</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5.9022</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5.9023</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,6 +31,7 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/correlation.html">simIDM: PFS-OS Correlation</a>
+    <a class="dropdown-item" href="../articles/pwc_survival.html">Piecewise constant hazards overall survival calculation</a>
     <a class="dropdown-item" href="../articles/quickstart.html">simIDM: Getting Started</a>
     <a class="dropdown-item" href="../articles/trialplanning.html">simIDM: Power and Type I Error Calculations</a>
   </div>
@@ -115,11 +116,11 @@ This is a helper function of <code><a href="getSimulatedData.html">getSimulatedD
 <span class="r-in"><span>  exit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">5.3</span>, <span class="fl">5.6</span>, <span class="fl">7.2</span><span class="op">)</span>, censTime <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6.8</span>, <span class="fl">6.8</span>, <span class="fl">5.6</span>, <span class="fl">9.4</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">addStaggeredEntry</span><span class="op">(</span><span class="va">simData</span>, <span class="fl">3</span>, accrualParam <span class="op">=</span> <span class="st">"time"</span>, accrualValue <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   id from   to entry exit entryAct   exitAct   censAct</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1    0    1     0  3.0 3.174518  6.174518  9.974518</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1    1    2     3  5.3 6.174518  8.474518  9.974518</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  2    0 cens     0  5.6 4.965067 10.565067 10.565067</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  3    0    2     0  7.2 1.878412  9.078412 11.278412</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   id from   to entry exit entryAct  exitAct   censAct</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1    0    1     0  3.0 3.281101 6.281101 10.081101</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1    1    2     3  5.3 6.281101 8.581101 10.081101</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  2    0 cens     0  5.6 4.363348 9.963348  9.963348</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  3    0    2     0  7.2 2.515683 9.715683 11.915683</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

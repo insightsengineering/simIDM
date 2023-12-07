@@ -10,6 +10,9 @@
     <loc>https://insightsengineering.github.io/simIDM/articles/index.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/simIDM/articles/pwc_survival.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/simIDM/articles/quickstart.html</loc>
   </url>
   <url>
@@ -130,7 +133,7 @@
     <loc>https://insightsengineering.github.io/simIDM/reference/getPCWDistr.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/simIDM/reference/getPCWHazard.html</loc>
+    <loc>https://insightsengineering.github.io/simIDM/reference/getPWCHazard.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/simIDM/reference/getResults.html</loc>
