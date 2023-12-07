@@ -1,7 +1,6 @@
 ---
 title: "simIDM: Getting Started"
 author: "Alexandra Erdmann"
-date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 bibliography: references.bib
 vignette: >

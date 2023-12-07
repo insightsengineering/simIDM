@@ -1,7 +1,6 @@
 ---
 title: 'simIDM: PFS-OS Correlation'
 author: "Holger Löwe"
-date: "11/28/2023"
 output: rmarkdown::html_vignette
 bibliography: references.bib
 vignette: |

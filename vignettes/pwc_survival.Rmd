@@ -1,7 +1,6 @@
 ---
 title: "Piecewise constant hazards overall survival calculation"
 author: "Daniel Sabanés Bové"
-date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 format:
   html:
