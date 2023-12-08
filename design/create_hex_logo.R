@@ -1,6 +1,6 @@
 pkg_color <- "red"
 fill_color <- "lightgrey"
-out_path <- file.path(getwd(), "man/figures/logo.png")
+out_path <- file.path(getwd(), "man/figures/logo-large.png")
 
 idm_plot <- function() {
   prodlim::plotIllnessDeathModel(
