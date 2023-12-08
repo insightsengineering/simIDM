@@ -23,6 +23,17 @@ navbar:
       icon: fa-github
       href: https://github.com/insightsengineering/simIDM
 
+articles:
+  - title: Introduction
+    navbar: Introduction
+    contents:
+      - quickstart
+      - trialplanning
+      - correlation
+  - title: Details
+    navbar: Details
+    contents:
+      - pwc_survival
 reference:
   - title: Package
     contents:
