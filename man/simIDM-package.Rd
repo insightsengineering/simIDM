@@ -22,8 +22,8 @@ Useful links:
 Authors:
 \itemize{
   \item Kaspar Rufibach \email{kaspar.rufibach@roche.com}
-  \item Holger Loewe \email{holger.loewe@roche.com}
-  \item Daniel Sabanes Bove \email{daniel.sabanes_bove@roche.com}
+  \item Holger Löwe \email{holger.loewe@roche.com}
+  \item Daniel Sabanés Bové \email{daniel.sabanes_bove@roche.com}
 }
 
 Other contributors:

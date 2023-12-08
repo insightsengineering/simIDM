@@ -1,22 +1,21 @@
-# simIDM 0.0.5.9026
+# simIDM 0.1.0
 
 ### New Features
 
--   `prepareData` allows formatting of trial data for log-likelihood computation.
--   `estimateParams` estimates parameters of exponential and Weibull transition hazards for a given data set.
+-   `estimateParams` estimates parameters of exponential and Weibull transition hazards using maximum likelihood for a given data set after using `prepareData`.
+-   `corTrans` calculates the correlation between PFS and OS for a given set of transition hazards, and `corPFSOS` estimates this correlation for a given data set, optionally with a bootstrap based confidence interval.
 
 ### Bug Fixes
 
 -   `ExpSurvOS` now returns 0 instead of NaN for large values of t.
 -   `WeibSurvOS` now does not return an error for large values of t.
--   `PWCSurvOS` now does not return an error for large values of t.
--   `PWCSurvOS` no longer returns values larger than 1, and is significantly faster, based on a closed form calculation instead of numerical integration.
+-   `PWCSurvOS` now does not return an error for large values of t. It also no longer returns values larger than 1. It is significantly faster, based on a closed form calculation instead of numerical integration.
 -   `getSimulatedData` now also works when there are no transitions from progression to death, similarly for `getOneClinicalTrial` (which now warns if there are no such transitions at all).
 
 ### Miscellaneous
 
--   Renamed piecewise constant hazards function to `getPWCHazard` (previously `getPCWHazard`).
 -   `PwcOSInt`, `integrateVector`, `WeibOSInteg` are no longer exported, and only used internally.
+-   Renamed piecewise constant hazards function to `getPWCHazard` (previously `getPCWHazard`).
 
 # simIDM 0.0.5
 
