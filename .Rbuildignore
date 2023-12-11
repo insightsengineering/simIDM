@@ -12,3 +12,4 @@ coverage.*
 ^codemeta\.json$
 _pkgdown.yaml
 ^design$
+^pkgdown$
