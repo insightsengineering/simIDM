@@ -1,10 +1,10 @@
 ---
-title: "simIDM: Getting Started"
+title: "Getting Started"
 author: "Alexandra Erdmann"
 output: rmarkdown::html_vignette
 bibliography: references.bib
 vignette: >
-  %\VignetteIndexEntry{simIDM: Getting Started}
+  %\VignetteIndexEntry{Getting Started}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

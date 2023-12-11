@@ -2,7 +2,7 @@
 <!-- markdownlint-disable-file -->
 <!-- README.md needs to be generated from README.Rmd. Please edit that file -->
 
-# simIDM
+# simIDM <img src="man/figures/logo.png" align="right" height="139" />
 
 <!-- badges: start -->
 
@@ -32,13 +32,16 @@ illness-death model, which can be used for trail planning, for example.
 The simulation set-up allows random and event-driven censoring, an
 arbitrary number of treatment arms, staggered study entry and drop-out.
 Exponentially, Weibull and piecewise exponentially distributed survival
-times can be generated.
+times can be generated. In addition, the correlation between PFS and OS
+can be calculated based on the simulation scenario, or estimated from a
+given data set.
 
 **Scope:**
 
 - Simulation of the illness-death model with constant, Weibull or
   piecewise constant transition hazards.
 - Conversion of the transition times to PFS and OS survival times.
+- Correlation between PFS and OS survival times can be calculated.
 
 **Main Features:**
 
@@ -49,18 +52,21 @@ times can be generated.
 - Arbitrary number of treatment arms and flexible randomization ratio.
 - Staggered study entry.
 - Derivation of PFS and OS survival functions from transition hazards.
+- Correlation between PFS and OS can be estimated from a given data set.
 
 ## Installation
 
-<!-- **CRAN** -->
-<!-- You can install the current stable version from CRAN with: -->
-<!-- ```{r cran-installation, eval = FALSE} -->
-<!-- install.packages("mmrm") -->
-<!-- ``` -->
+### Release
 
-**GitHub**
+You can install the current release version from *CRAN* with:
 
-You can install the current development version from GitHub with:
+``` r
+install.packages("simIDM")
+```
+
+### Development
+
+You can install the current development version from *GitHub* with:
 
 ``` r
 if (!require("remotes")) {
@@ -71,8 +77,9 @@ remotes::install_github("insightsengineering/simIDM")
 
 ## Getting Started
 
-See also the `quickstart` vignette or get started by trying out the
-example:
+See also the [quick
+start](https://insightsengineering.github.io/simIDM/latest-tag/articles/quickstart.html)
+vignette or get started by trying out this example:
 
 ``` r
 library(simIDM)

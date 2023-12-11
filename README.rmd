@@ -5,7 +5,7 @@ output: github_document
 <!-- markdownlint-disable-file -->
 <!-- README.md needs to be generated from README.Rmd. Please edit that file -->
 
-# simIDM
+# simIDM <img src="man/figures/logo.png" align="right" height="139" />
 
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
@@ -33,11 +33,13 @@ assumption of proportional hazards. This package provides the tools to simulate 
 endpoints OS and PFS based on the illness-death model, which can be used for trail planning, for example. The simulation 
 set-up allows random and event-driven censoring, an arbitrary number of treatment arms, staggered study entry and drop-out.
 Exponentially, Weibull and piecewise exponentially distributed survival times can be generated.
+In addition, the correlation between PFS and OS can be calculated based on the simulation scenario, or estimated from a given data set.
 
 **Scope:**
 
 * Simulation of the illness-death model with constant, Weibull or piecewise constant transition hazards.
 * Conversion of the transition times to PFS and OS survival times.
+* Correlation between PFS and OS survival times can be calculated.
 
 **Main Features:**
 
@@ -46,20 +48,21 @@ Exponentially, Weibull and piecewise exponentially distributed survival times ca
 * Arbitrary number of treatment arms and flexible randomization ratio.
 * Staggered study entry.
 * Derivation of PFS and OS survival functions from transition hazards.
+* Correlation between PFS and OS can be estimated from a given data set.
 
 ## Installation
 
-<!-- **CRAN** -->
+### Release
 
-<!-- You can install the current stable version from CRAN with: -->
+You can install the current release version from *CRAN* with:
 
-<!-- ```{r cran-installation, eval = FALSE} -->
-<!-- install.packages("mmrm") -->
-<!-- ``` -->
+```{r cran-installation, eval = FALSE}
+install.packages("simIDM")
+```
 
-**GitHub**
+### Development
 
-You can install the current development version from GitHub with:
+You can install the current development version from *GitHub* with:
 
 ```{r gh-installation, eval = FALSE}
 if (!require("remotes")) {
@@ -70,9 +73,9 @@ remotes::install_github("insightsengineering/simIDM")
 
 ## Getting Started
 
-See also the `quickstart` vignette or get started by trying out the example:
+See also the [quick start](https://insightsengineering.github.io/simIDM/latest-tag/articles/quickstart.html) vignette or get started by trying out this example:
 
-```{r getting-started}
+```{r getting-started, results = 'hide'}
 library(simIDM)
 transitionGroup1 <- exponential_transition(h01 = 1.2, h02 = 1.5, h12 = 1.6)
 transitionGroup2 <- exponential_transition(h01 = 1, h02 = 1.3, h12 = 1.7)

@@ -1,12 +1,12 @@
 Type: Package
 Package: simIDM
 Title: Simulating Oncology Trials using an Illness-Death Model
-Version: 0.0.5.9026
+Version: 0.1.0
 Authors@R: c(
     person("Alexandra", "Erdmann", , "alexandra.erdmann@uni-ulm.de", role = c("aut", "cre")),
     person("Kaspar", "Rufibach", , "kaspar.rufibach@roche.com", role = "aut"),
-    person("Holger", "Loewe", , "holger.loewe@roche.com", role = "aut"),
-    person("Daniel", "Sabanes Bove", , "daniel.sabanes_bove@roche.com", role = "aut"),
+    person("Holger", "Löwe", , "hbj.loewe@gmail.com", role = "aut"),
+    person("Daniel", "Sabanés Bové", , "daniel.sabanes_bove@roche.com", role = "aut"),
     person("F. Hoffmann-La Roche AG", role = c("cph", "fnd")),
     person("University of Ulm", role = c("cph", "fnd"))
   )
@@ -17,7 +17,7 @@ Description: Based on the illness-death model a large number of clinical
     for random and event-driven censoring, an arbitrary number of
     treatment arms, staggered study entry and drop-out.  Exponentially,
     Weibull and piecewise exponentially distributed survival times can be
-    generated.
+    generated. The correlation between PFS and OS can be calculated.
 License: Apache License 2.0
 URL: https://github.com/insightsengineering/simIDM/
 BugReports: https://github.com/insightsengineering/simIDM/issues
