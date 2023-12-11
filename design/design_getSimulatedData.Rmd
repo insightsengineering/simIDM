@@ -1,6 +1,6 @@
 ---
 title: "getSimulatedData"
-author: "Alexandra Niessl"
+author: "Alexandra Erdmann"
 date: "12/16/2021"
 output: html_document
 editor_options:
