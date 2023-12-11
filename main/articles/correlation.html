@@ -39,7 +39,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">simIDM</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,18 +66,6 @@
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.1.0">v0.1.0</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.5">v0.0.5</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.4">v0.0.4</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.2">v0.0.2</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.1">v0.0.1</a> </div></li>
-<!-- end dropdown for versions -->
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-reports">Reports</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-reports">
@@ -255,13 +243,13 @@ simulate data using constant transition hazards:</p>
 <span><span class="co"># Get estimated transition hazards:</span></span>
 <span><span class="va">est</span><span class="op">$</span><span class="va">hazards</span></span>
 <span><span class="co">#&gt; $h01</span></span>
-<span><span class="co">#&gt; [1] 1.094143</span></span>
+<span><span class="co">#&gt; [1] 1.268876</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $h02</span></span>
-<span><span class="co">#&gt; [1] 1.477094</span></span>
+<span><span class="co">#&gt; [1] 1.317458</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $h12</span></span>
-<span><span class="co">#&gt; [1] 1.828901</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 1.535299</span></span></code></pre></div>
 <p>Then, in a final step, we pass <code>est</code> to <a href="https://insightsengineering.github.io/simIDM/main/reference/corTrans.html"><code>corTrans()</code></a>
 to compute the PFS-OS correlation.</p>
 <p>Alternatively, one can combine these steps efficiently via <a href="https://insightsengineering.github.io/simIDM/main/reference/corTrans.html"><code>corPFSOS()</code></a>,
@@ -270,15 +258,15 @@ uncertainty of the correlation estimate:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/corPFSOS.html">corPFSOS</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">simData</span>, transition <span class="op">=</span> <span class="va">transition</span>, bootstrap <span class="op">=</span> <span class="cn">TRUE</span>, conf_level <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $corPFSOS</span></span>
-<span><span class="co">#&gt; [1] 0.6559318</span></span>
+<span><span class="co">#&gt; [1] 0.5678287</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $lower</span></span>
 <span><span class="co">#&gt;      2.5% </span></span>
-<span><span class="co">#&gt; 0.6047225 </span></span>
+<span><span class="co">#&gt; 0.5190675 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $upper</span></span>
 <span><span class="co">#&gt;     97.5% </span></span>
-<span><span class="co">#&gt; 0.8693329</span></span></code></pre></div>
+<span><span class="co">#&gt; 0.8010183</span></span></code></pre></div>
 </div>
 <div class="section level2 unnumbered">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
