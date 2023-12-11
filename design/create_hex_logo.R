@@ -8,9 +8,9 @@ idm_plot <- function() {
     box1.label = "0",
     box2.label = "1",
     box3.label = "2",
-    box1.col="green",
-    box2.col="yellow",
-    box3.col="red",
+    box1.col = "green",
+    box2.col = "yellow",
+    box3.col = "red",
     cex = 2
   )
 }
