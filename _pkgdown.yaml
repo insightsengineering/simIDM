@@ -4,7 +4,6 @@ url: https://insightsengineering.github.io/simIDM
 template:
   bootstrap: 5
   params:
-    bootswatch: cerulean
     ganalytics: UA-125641273-1
 
 navbar:
@@ -23,6 +22,17 @@ navbar:
       icon: fa-github
       href: https://github.com/insightsengineering/simIDM
 
+articles:
+  - title: Introduction
+    navbar: Introduction
+    contents:
+      - quickstart
+      - trialplanning
+      - correlation
+  - title: Details
+    navbar: Details
+    contents:
+      - pwc_survival
 reference:
   - title: Package
     contents:
@@ -84,22 +94,13 @@ reference:
     contents:
       - estimateParams
       - getInit
-      - getInit.ExponentialTransition
-      - getInit.WeibullTransition
       - getResults
-      - getResults.ExponentialTransition
-      - getResults.WeibullTransition
       - getTarget
       - prepareData
   - title: Likelihood
     contents:
       - haz
-      - haz.ExponentialTransition
-      - haz.WeibullTransition
-      - haz.PWCTransition
       - survTrans
-      - survTrans.ExponentialTransition
-      - survTrans.WeibullTransition
       - negLogLik
   - title: PFS-OS Correlation
     contents:

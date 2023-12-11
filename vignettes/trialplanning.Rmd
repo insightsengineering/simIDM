@@ -1,10 +1,10 @@
 ---
-title: 'simIDM: Power and Type I Error Calculations'
+title: 'Power and Type I Error Calculations'
 author: "Alexandra Erdmann, Holger Löwe"
 output: rmarkdown::html_vignette
 bibliography: references.bib
 vignette: |
-  %\VignetteIndexEntry{simIDM: Power and Type I Error Calculations}
+  %\VignetteIndexEntry{Power and Type I Error Calculations}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

@@ -1,5 +1,5 @@
 ---
-title: "Piecewise constant hazards overall survival calculation"
+title: "Piecewise Constant Hazards Calculations"
 author: "Daniel Sabanés Bové"
 output: rmarkdown::html_vignette
 format:
@@ -16,7 +16,7 @@ format:
           </script>
 bibliography: references.bib
 vignette: >
-  %\VignetteIndexEntry{Piecewise constant hazards overall survival calculation}
+  %\VignetteIndexEntry{Piecewise Constant Hazards Calculations}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
