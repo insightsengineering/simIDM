@@ -3,10 +3,12 @@ name: Check 🛠
 
 on:
   pull_request:
-    branches:
+    types:
       - opened
       - synchronize
       - ready_for_review
+    branches:
+      - main
   push:
     branches:
       - main
