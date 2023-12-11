@@ -1,10 +1,10 @@
 ---
-title: 'simIDM: PFS-OS Correlation'
+title: 'Correlation between PFS and OS'
 author: "Holger Löwe"
 output: rmarkdown::html_vignette
 bibliography: references.bib
 vignette: |
-  %\VignetteIndexEntry{simIDM: PFS-OS Correlation}
+  %\VignetteIndexEntry{Correlation between PFS and OS}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

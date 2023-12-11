@@ -1,6 +1,6 @@
 ---
 title: "getClinicalTrials"
-author: "Alexandra Niessl"
+author: "Alexandra Erdmann"
 date: "1/26/2022"
 output: html_document
 ---
