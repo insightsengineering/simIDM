@@ -55,11 +55,7 @@ make_hexplot <- function() {
   # But therefore we now need to postprocess the image by transforming white
   # to transparent background.
   out_img <- magick::image_read(out_file)
-  out_img <- magick::image_background(
-    out_img,
-    color = "white",
-    flatten = TRUE
-  )
+  out_img <- magick::image_transparent(out_img, color = "white")
   magick::image_write(out_img, path = out_file)
 }
 
