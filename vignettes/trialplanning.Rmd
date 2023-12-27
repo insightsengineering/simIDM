@@ -28,7 +28,7 @@ OS is defined as the time to reach the absorbing state death, and PFS is defined
 Figure 1 shows the multistate model with the corresponding transition hazards.
 In the vignette, we show how to estimate type I errors and statistical power from simulations and give an idea on how this can be used to plan complex study trials.
 
-```{r, echo=FALSE,  fig.cap = " Figure 1 - Multistate model with indermediate state progession and absorbing state death", fig.height = 5, fig.width = 8, out.width = "60%"}
+```{r, echo = FALSE, warning = FALSE, fig.cap = " Figure 1 - Multistate model with indermediate state progession and absorbing state death", fig.height = 5, fig.width = 8, out.width = "60%"}
 library(prodlim)
 plotIllnessDeathModel(
   style = 1, box1.label = "0: initial state", box2.label = "1: progression",
