@@ -314,7 +314,8 @@ corPFSOS <- function(data, transition, bootstrap = TRUE, bootstrap_n = 100, conf
   trans <- estimateParams(data, transition)
   res <- list("corPFSOS" = corTrans(trans))
   if (bootstrap) {
-    future::plan(future::multisession, workers = max(1, parallelly::availableCores() - 1))
+    oplan <- future::plan(future::multisession, workers = parallelly::availableCores(omit = 1))
+    on.exit(future::plan(oplan), add = TRUE)
     ids <- lapply(1:bootstrap_n, function(x) sample(seq_len(nrow(data)), nrow(data), replace = TRUE))
     corBootstrap <- furrr::future_map_dbl(ids, ~ {
       furrr::furrr_options(
