@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Power and Type I Error Calculations">
 <meta property="og:description" content="simIDM">
@@ -39,7 +39,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">simIDM</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9001</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,18 +66,6 @@
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.1.0">v0.1.0</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.5">v0.0.5</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.4">v0.0.4</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.2">v0.0.2</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/simIDM/v0.0.1">v0.0.1</a> </div></li>
-<!-- end dropdown for versions -->
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-reports">Reports</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-reports">
@@ -138,8 +126,6 @@ first. Figure 1 shows the multistate model with the corresponding
 transition hazards. In the vignette, we show how to estimate type I
 errors and statistical power from simulations and give an idea on how
 this can be used to plan complex study trials.</p>
-<pre><code><span><span class="co">#&gt; Warning in plot.Hist(idHist, stateLabels = stateLabels, box1.row = 2, box1.column = 1, : The dimension of the boxes may depend on the current graphical device</span></span>
-<span><span class="co">#&gt; in the sense that the layout and centering of text may change when you resize the graphical device and call the same plot.</span></span></code></pre>
 <div class="figure">
 <img src="trialplanning_files/figure-html/unnamed-chunk-1-1.png" alt=" Figure 1 - Multistate model with indermediate state progession and absorbing state death" width="60%"><p class="caption">
 Figure 1 - Multistate model with indermediate state progession and
@@ -180,7 +166,7 @@ functions and hazard ratios for both endpoints.</p>
 functions, hazard functions and hazard ratios for our scenario.</div>
 </div>
 <p>The transition hazards are specified as follows:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/insightsengineering/simIDM/" class="external-link">simIDM</a></span><span class="op">)</span></span>
 <span><span class="va">transitionTrt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/exponential_transition.html">exponential_transition</a></span><span class="op">(</span>h01 <span class="op">=</span> <span class="fl">0.3</span>, h02 <span class="op">=</span> <span class="fl">0.28</span>, h12 <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
 <span><span class="va">transitionPl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/exponential_transition.html">exponential_transition</a></span><span class="op">(</span>h01 <span class="op">=</span> <span class="fl">0.5</span>, h02 <span class="op">=</span> <span class="fl">0.3</span>, h12 <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></span>
@@ -189,7 +175,7 @@ functions, hazard functions and hazard ratios for our scenario.</div>
 <p>The package provides functions that return the values of the PFS or
 OS survival functions for given transition hazards (Constant, Weibull or
 Piecewise Constant) and pre-specified time points.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">timepoints</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.1</span>, <span class="fl">0.3</span>, <span class="fl">0.7</span>, <span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span></span>
 <span><span class="co"># OS Survival function for Constant transition hazards:</span></span>
 <span><span class="fu"><a href="../reference/ExpSurvOS.html">ExpSurvOS</a></span><span class="op">(</span><span class="va">timepoints</span>, h01 <span class="op">=</span> <span class="fl">0.2</span>, h02 <span class="op">=</span> <span class="fl">0.4</span>, h12 <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
@@ -204,7 +190,7 @@ Piecewise Constant) and pre-specified time points.</p>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1.00000000 0.95094877 0.85849702 0.69546105 0.59109798 0.03945673</span></span></code></pre></div>
 <p>There are also functions for PFS survival functions available:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">timepoints</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.1</span>, <span class="fl">0.3</span>, <span class="fl">0.7</span>, <span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span></span>
 <span><span class="co"># PFS Survival function for Constant transition hazards:</span></span>
 <span><span class="fu"><a href="../reference/ExpSurvPFS.html">ExpSurvPFS</a></span><span class="op">(</span><span class="va">timepoints</span>, h01 <span class="op">=</span> <span class="fl">0.2</span>, h02 <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span></span>
@@ -219,7 +205,7 @@ Piecewise Constant) and pre-specified time points.</p>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1.00000000 0.92311635 0.78662786 0.57120906 0.44932896 0.01499558</span></span></code></pre></div>
 <p>For PFS, the hazard ratio under <span class="math inline">\(H_0\)</span> is known by specification:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hTrtPFS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">transitionTrt</span><span class="op">$</span><span class="va">hazards</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">hPlPFS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">transitionPl</span><span class="op">$</span><span class="va">hazards</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">hRatioPFS</span> <span class="op">&lt;-</span> <span class="va">hTrtPFS</span> <span class="op">/</span> <span class="va">hPlPFS</span></span>
@@ -227,7 +213,7 @@ Piecewise Constant) and pre-specified time points.</p>
 <span><span class="co">#&gt; [1] 0.725</span></span></code></pre></div>
 <p>For OS, the ratio of hazard functions is not necessarily constant. An
 averaged HR can be calculated using <code>avgHRExpOS</code>:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hRatioOS</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/avgHRExpOS.html">avgHRExpOS</a></span><span class="op">(</span>transitionByArm <span class="op">=</span> <span class="va">transitionList</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>, upper <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span>
 <span><span class="va">hRatioOS</span></span>
 <span><span class="co">#&gt; [1] 0.8072368</span></span></code></pre></div>
@@ -242,7 +228,7 @@ the control group. Then, we use <code><a href="../reference/getClinicalTrials.ht
 generate a large number of simulated trials. We will use 100 iterations
 here. For applications, to achieve satisfactory precision in estimates
 of type I error, a higher number (e.g. 10,000) is recommended.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">transitionListNull</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">transitionPl</span>, <span class="va">transitionPl</span><span class="op">)</span></span>
 <span><span class="va">nRep</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
 <span><span class="va">simNull</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getClinicalTrials.html">getClinicalTrials</a></span><span class="op">(</span></span>
@@ -257,7 +243,7 @@ test has a 4% significance level for the OS endpoint and 1% for the PFS
 endpoint, effectively splitting the global significance level. Such a
 Bonferroni correction is widely used in trials with co-primary
 endpoints.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">alphaOS</span> <span class="op">&lt;-</span> <span class="fl">0.04</span></span>
 <span><span class="va">alphaPFS</span> <span class="op">&lt;-</span> <span class="fl">0.01</span></span>
 <span><span class="va">criticalOS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">qnorm</a></span><span class="op">(</span><span class="va">alphaOS</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
@@ -265,7 +251,7 @@ endpoints.</p>
 <p>With the Schoenfeld approximation, preliminary sample sizes can be
 computed to get an idea of how many events are needed to achieve 80 %
 power:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.rpact.org" class="external-link">rpact</a></span><span class="op">)</span></span>
 <span><span class="co"># Number of PFS events required for 80 % power via Schoenfeld:</span></span>
 <span><span class="va">schoenfeldPFS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rpact-com.github.io/rpact/reference/getSampleSizeSurvival.html" class="external-link">getSampleSizeSurvival</a></span><span class="op">(</span></span>
@@ -296,7 +282,7 @@ of trials with significant log-rank tests, while the global Type I error
 is the proportion of trials where at least one of PFS or OS with a
 significant log-rank test. This can be done using
 <code>empSignificant</code>:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/empSignificant.html">empSignificant</a></span><span class="op">(</span></span>
 <span>  simTrials <span class="op">=</span> <span class="va">simNull</span>,</span>
 <span>  criticalPFS <span class="op">=</span> <span class="va">criticalPFS</span>,</span>
@@ -321,7 +307,7 @@ significant log-rank test. This can be done using
 <h2 id="sample-size-and-power-calculation---simulation-under-h_1">Sample size and power calculation - simulation under <span class="math inline">\(H_1\)</span><a class="anchor" aria-label="anchor" href="#sample-size-and-power-calculation---simulation-under-h_1"></a>
 </h2>
 <p>Next, we simulate a large number of trials under <span class="math inline">\(H_1\)</span> to compute the empirical power:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">simH1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getClinicalTrials.html">getClinicalTrials</a></span><span class="op">(</span></span>
 <span>  nRep <span class="op">=</span> <span class="va">nRep</span>, nPat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">800</span>, <span class="fl">800</span><span class="op">)</span>, seed <span class="op">=</span> <span class="fl">1238</span>, datType <span class="op">=</span> <span class="st">"1rowPatient"</span>,</span>
 <span>  transitionByArm <span class="op">=</span> <span class="va">transitionList</span>,</span>
@@ -332,7 +318,7 @@ trials with significant log-rank tests under <span class="math inline">\(H_1\)</
 us to easily estimate further interesting metrics, such as joint power,
 i.e. the probability that both endpoints in a trial are significant, if
 each endpoint is analyzed at its planned time-point.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/empSignificant.html">empSignificant</a></span><span class="op">(</span></span>
 <span>  simTrials <span class="op">=</span> <span class="va">simH1</span>,</span>
 <span>  criticalPFS <span class="op">=</span> <span class="va">criticalPFS</span>,</span>
@@ -358,7 +344,7 @@ overpowered.</p>
 <p>It is also possible to derive the median time at which a certain
 number of events are expected to occur and how many events of the second
 endpoint have occurred at that time on average.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># median time point for 329 PFS events to have occurred:</span></span>
 <span><span class="va">timePointsPFS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">simH1</span>, <span class="va">getTimePoint</span>,</span>
 <span>  eventNum <span class="op">=</span> <span class="fl">329</span>, typeEvent <span class="op">=</span> <span class="st">"PFS"</span>,</span>
