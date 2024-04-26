@@ -13,3 +13,5 @@ coverage.*
 _pkgdown.yaml
 ^design$
 ^pkgdown$
+^revdeprefs\.yaml$
+^revdep$
