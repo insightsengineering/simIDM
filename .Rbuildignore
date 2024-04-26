@@ -13,6 +13,6 @@ coverage.*
 _pkgdown.yaml
 ^design$
 ^pkgdown$
-^revdeprefs\.yaml$
+^.revdeprefs\.yaml$
 ^revdep$
 ^\.covrignore$
