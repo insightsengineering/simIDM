@@ -1,9 +1,13 @@
-pandoc: 2.17.1.1
-pkgdown: 2.0.3
+pandoc: 3.1.1
+pkgdown: 2.0.7
 pkgdown_sha: ~
-articles: {}
-last_built: 2022-05-04T12:22Z
+articles:
+  correlation: correlation.html
+  pwc_survival: pwc_survival.html
+  quickstart: quickstart.html
+  trialplanning: trialplanning.html
+last_built: 2023-12-11T13:18Z
 urls:
-  reference: https://insightsengineering.github.io/SimulationEngineMSM/reference
-  article: https://insightsengineering.github.io/SimulationEngineMSM/articles
+  reference: https://insightsengineering.github.io/simIDM/latest-tag/reference
+  article: https://insightsengineering.github.io/simIDM/latest-tag/articles
 
