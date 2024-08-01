@@ -7,6 +7,11 @@ on:
   workflow_dispatch:
 
 jobs:
+  branch-cleanup:
+    name: Branch Cleanup 🧹
+    uses: insightsengineering/r.pkg.template/.github/workflows/branch-cleanup.yaml@main
+    secrets:
+      REPO_GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
   cran-status:
     name: CRAN Status Monitor 📺
     uses: insightsengineering/r.pkg.template/.github/workflows/cran-status.yaml@main
