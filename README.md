@@ -79,7 +79,7 @@ remotes::install_github("insightsengineering/simIDM")
 ## Getting Started
 
 See also the [quick
-start](https://insightsengineering.github.io/simIDM/latest-tag/articles/quickstart.html)
+start](https://insightsengineering.github.io/simIDM/main/articles/quickstart.html)
 vignette or get started by trying out this example:
 
 ``` r
