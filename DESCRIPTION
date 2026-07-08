@@ -3,8 +3,8 @@ Package: simIDM
 Title: Simulating Oncology Trials using an Illness-Death Model
 Version: 0.1.1
 Authors@R: c(
-    person("Daniel", "Sabanés Bové", , "daniel.sabanes_bove@rconis.com", role = "aut"),
-    person("Alexandra", "Erdmann", , "alexandra.erdmann@boehringer-ingelheim.com", role = c("aut", "cre")),
+    person("Alexandra", "Erdmann", , "alexandra.erdmann@boehringer-ingelheim.com", role = "aut"),
+    person("Daniel", "Sabanés Bové", , "daniel.sabanes_bove@rconis.com", role = c("aut", "cre")),
     person("Kaspar", "Rufibach", , "kaspar.rufibach@merckgroup.com", role = "aut"),
     person("Holger", "Löwe", , "hbj.loewe@gmail.com", role = "aut"),
     person("F. Hoffmann-La Roche AG", role = c("cph", "fnd")),
