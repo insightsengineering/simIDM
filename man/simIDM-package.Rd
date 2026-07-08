@@ -17,13 +17,14 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Alexandra Erdmann \email{alexandra.erdmann@uni-ulm.de}
+\strong{Maintainer}: Daniel Sabanés Bové \email{daniel.sabanes_bove@rconis.com}
 
 Authors:
 \itemize{
-  \item Kaspar Rufibach \email{kaspar.rufibach@roche.com}
+  \item Daniel Sabanés Bové \email{daniel.sabanes_bove@rconis.com}
+  \item Alexandra Erdmann \email{alexandra.erdmann@boehringer-ingelheim.com}
+  \item Kaspar Rufibach \email{kaspar.rufibach@merckgroup.com}
   \item Holger Löwe \email{hbj.loewe@gmail.com}
-  \item Daniel Sabanés Bové \email{daniel.sabanes_bove@roche.com}
 }
 
 Other contributors:
